@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qbox-planer.local/schema/plugin.schema.json",
+  "title": "Qbox-Server-Planer — Katalogdatei",
+  "description": "Verbindliches Schema für eine Katalogdatei (data/catalog/*.json) und die darin enthaltenen Plugin-Einträge. Geprüft von 'npm run validate'. Zusätzlich zu diesem Schema gelten die Sonderregeln unter _regeln, die der Validator mit Klartext-Meldungen durchsetzt.",
+
+  "_regeln": [
+    "R1 — kompat_warnung ohne 'sicherheit' ist ein Fehler. Eine Vermutung darf nie wie eine bestätigte Aussage aussehen (docs/RECHERCHE.md §3).",
+    "R2 — qualitaet 'verifiziert' verlangt ein gesetztes geprueft_am. Ohne Prüfdatum gibt es keine Verifikation.",
+    "R3 — qualitaet 'verifiziert' oder 'teilgeprueft' verlangt eine quelle.",
+    "R4 — link_status 'ok' oder '404' verlangt ein link_geprueft_am. Ein Status ohne Datum altert unbemerkt.",
+    "R5 — update_grund gehört ausschließlich in updates[], nie in einen plugins[]-Eintrag.",
+    "R6 — kategorie muss in data/kategorien.json stehen.",
+    "R7 — abhaengigkeiten, konflikte, ersetzt, synergie und ergaenzt[].id müssen auf existierende Katalog-IDs zeigen (Fehler).",
+    "R8 — archiviert.nachfolger sollte auf eine existierende ID zeigen (nur Warnung: der Nachfolger kann noch unkatalogisiert sein).",
+    "R9 — eine gruppe mit nur einem Mitglied ist sinnlos (nur Warnung).",
+    "R10 — IDs sind über ALLE Katalogdateien hinweg eindeutig."
+  ],
+
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["catalogVersion", "plugins"],
+  "properties": {
+    "_hinweis": { "type": "string" },
+    "catalogVersion": { "type": "string", "minLength": 1, "description": "Version des Katalogstands, z.B. '3.0-r4'." },
+    "runde": { "type": ["integer", "null"], "minimum": 0, "description": "Nummer der Recherche-Runde. null für Sonderdateien wie demo.json oder altbestand.json." },
+    "thema": { "type": "string", "description": "Themenblock der Runde im Klartext." },
+    "erstellt": { "$ref": "#/$defs/datum" },
+    "plugins": { "type": "array", "items": { "$ref": "#/$defs/plugin" } },
+    "updates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/update" },
+      "description": "Änderungen an bereits vorhandenen IDs (docs/RECHERCHE.md §6). Nur die geänderten Felder plus id, geprueft_am und update_grund."
+    }
+  },
+
+  "$defs": {
+    "datum": {
+      "type": "string",
+      "pattern": "^$|^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "description": "ISO-Datum JJJJ-MM-TT oder leer. Leer heißt: nicht geprüft."
+    },
+    "id": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "description": "Stabiler Katalogschlüssel, kleingeschrieben. Wird für Querverweise benutzt und darf sich nie ändern."
+    },
+    "textliste": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "idliste": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/id" }
+    },
+
+    "felder": {
+      "$comment": "Alle erlaubten Felder ohne Pflichtangaben. plugin und update setzen darauf auf.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1, "description": "Anzeigename so, wie ihn der Autor schreibt." },
+        "ressource": {
+          "type": "string",
+          "pattern": "^$|^[A-Za-z0-9][A-Za-z0-9_.-]*$",
+          "description": "Ordnername der Ressource für den ensure-Export. Leer lassen, wenn es keine eigene Ressource gibt (z.B. Kleidungspaket). Fehlt das Feld, gilt die id."
+        },
+        "autor": { "type": "string" },
+        "kategorie": { "type": "string", "minLength": 1, "description": "id aus data/kategorien.json." },
+        "gruppe": {
+          "type": ["string", "null"],
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "description": "Funktionsgruppe. Alle Plugins derselben Gruppe erfüllen denselben Zweck — nur eines davon installieren. Grundlage für Ersetzt-Logik und Vergleichsmodus."
+        },
+        "essenziell": { "type": "boolean", "description": "true = unabdingbar, false = nützlich." },
+        "beschreibung": { "type": "string", "minLength": 20, "description": "2–3 Sätze auf Deutsch: was es tut und wofür man es braucht." },
+        "features": { "$ref": "#/$defs/textliste", "description": "Konkrete Funktionen, Grundlage des Funktionsvergleichs innerhalb einer Gruppe." },
+
+        "link": { "type": "string", "pattern": "^https?://", "description": "Hauptquelle: Repo oder Shop-Seite." },
+        "link_status": { "enum": ["ok", "umgezogen", "404", "gesperrt", "ungeprueft"], "description": "gesperrt = Bot-Schutz/403, technisch nicht prüfbar." },
+        "link_geprueft_am": { "$ref": "#/$defs/datum" },
+        "geprueft_am": { "$ref": "#/$defs/datum", "description": "Wann der INHALT nach docs/RECHERCHE.md geprüft wurde. Nicht mit link_geprueft_am verwechseln." },
+
+        "version": { "type": "string" },
+        "letztes_update": { "type": "string", "description": "Letzter Commit oder Release im Klartext, inkl. Einschätzung ob aktiv gepflegt." },
+
+        "lizenz": { "enum": ["open_source", "escrow"] },
+        "preis": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["betrag", "waehrung", "typ"],
+          "properties": {
+            "betrag": { "type": "number", "minimum": 0 },
+            "waehrung": { "enum": ["EUR", "USD", "GBP"] },
+            "typ": { "enum": ["einmalig", "abo"] }
+          },
+          "description": "null = kostenlos. Gibt es beide Modelle, kommt das übliche hierher und das andere nach 'neutral'."
+        },
+
+        "framework": { "enum": ["qbox_nativ", "qbcore_bridge", "standalone", "qbcore_only"], "description": "qbcore_only = läuft nur unter QBCore, unter Qbox nicht bzw. nur mit Eingriffen." },
+
+        "abhaengigkeiten": { "$ref": "#/$defs/idliste", "description": "Muss laufen, sonst startet das Plugin nicht. Bestimmt die Reihenfolge im ensure-Export." },
+        "konflikte": { "$ref": "#/$defs/idliste", "description": "Darf nicht parallel installiert sein." },
+        "bundle": { "type": ["string", "null"], "description": "Fremdfunktionen, die das Plugin mitbringt (z.B. 'enthält ein eigenes Garagensystem') — Grundlage der Bundle-Warnung." },
+        "ersetzt": { "$ref": "#/$defs/idliste", "description": "Ersetzt diese Plugins direkt. Die Gruppen-Logik deckt den Normalfall ab; dieses Feld ist für gruppenübergreifende Fälle." },
+        "synergie": { "$ref": "#/$defs/idliste", "description": "Gehört zusammen, funktioniert aber auch allein." },
+        "ergaenzt": {
+          "type": "array",
+          "description": "Liefert Zusatzfunktionen zu einem anderen Plugin, mit ausdrücklichem Plus und Minus.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id"],
+            "properties": {
+              "id": { "$ref": "#/$defs/id" },
+              "plus": { "$ref": "#/$defs/textliste", "description": "Was es zusätzlich bringt." },
+              "minus": { "$ref": "#/$defs/textliste", "description": "Was es kostet: Preis, Performance, Pflegeaufwand, Doppelfunktionen." }
+            }
+          }
+        },
+
+        "kompat_warnung": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["text", "sicherheit"],
+          "properties": {
+            "text": { "type": "string", "minLength": 10, "description": "Woran genau es unter Qbox scheitern könnte." },
+            "sicherheit": { "enum": ["bestaetigt", "vermutung"], "description": "bestaetigt = im Code, fxmanifest, in der Doku oder durch den Autor nachlesbar; die Fundstelle gehört nach 'quelle'." }
+          }
+        },
+        "archiviert": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["text"],
+          "properties": {
+            "text": { "type": "string", "minLength": 1 },
+            "nachfolger": { "type": "string", "pattern": "^$|^[a-z0-9][a-z0-9_-]*$", "description": "id des Nachfolgers, leer wenn keiner benannt ist." }
+          }
+        },
+        "stack_hinweis": { "type": ["string", "null"], "description": "Setzt auf dem alten qb-Stack auf. Bleibt im Katalog, wird markiert statt entfernt (Entscheidung D9)." },
+
+        "pro": { "$ref": "#/$defs/textliste" },
+        "contra": { "$ref": "#/$defs/textliste" },
+        "neutral": { "$ref": "#/$defs/textliste", "description": "Weder Vor- noch Nachteil, aber zu beachten." },
+        "tipp": { "type": "string", "description": "Praxis-Tipp: Balancing, Performance, Doppelsysteme vermeiden." },
+        "quelle": { "type": "string", "description": "Fundstelle der Aussagen, vor allem bei kompat_warnung.sicherheit = bestaetigt." },
+
+        "qualitaet": { "enum": ["verifiziert", "teilgeprueft", "ungeprueft"], "description": "Prüftiefe nach docs/RECHERCHE.md §4." },
+
+        "update_grund": { "type": "string", "description": "NUR in updates[]: warum sich der Eintrag ändert, im Klartext." }
+      }
+    },
+
+    "plugin": {
+      "allOf": [
+        { "$ref": "#/$defs/felder" },
+        {
+          "type": "object",
+          "required": ["id", "name", "kategorie", "beschreibung", "link", "link_status", "framework", "lizenz", "qualitaet"]
+        }
+      ]
+    },
+
+    "update": {
+      "allOf": [
+        { "$ref": "#/$defs/felder" },
+        {
+          "type": "object",
+          "required": ["id", "geprueft_am", "update_grund"]
+        }
+      ]
+    }
+  }
+}

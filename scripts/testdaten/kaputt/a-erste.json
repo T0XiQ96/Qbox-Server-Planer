@@ -1,0 +1,46 @@
+{
+  "_hinweis": "Testdaten für npm run selftest. Diese Datei ist absichtlich fehlerhaft — hier wird geprüft, ob validate die Fehler findet UND benennt.",
+  "catalogVersion": "test-kaputt",
+  "erstellt": "2026-08-11",
+  "plugins": [
+    {
+      "id": "dublette",
+      "name": "Erste Dublette",
+      "kategorie": "basis",
+      "beschreibung": "Diese ID kommt in b-zweite.json noch einmal vor — das muss validate über Dateigrenzen hinweg finden.",
+      "link": "https://github.com/test/dublette",
+      "link_status": "ungeprueft",
+      "framework": "standalone",
+      "lizenz": "open_source",
+      "qualitaet": "ungeprueft"
+    },
+    {
+      "id": "toter_verweis",
+      "name": "Toter Verweis",
+      "kategorie": "erfundene_kategorie",
+      "beschreibung": "Verweist auf eine ID, die es nicht gibt, und liegt in einer Kategorie, die nicht existiert.",
+      "link": "https://github.com/test/toter-verweis",
+      "link_status": "ok",
+      "framework": "standalone",
+      "lizenz": "open_source",
+      "abhaengigkeiten": ["gibtesnicht"],
+      "ergaenzt": [{ "id": "auchnicht" }],
+      "archiviert": { "text": "eingestellt", "nachfolger": "unbekannter_nachfolger" },
+      "qualitaet": "verifiziert",
+      "update_grund": "gehört hier nicht hin"
+    },
+    {
+      "id": "falsche_typen",
+      "name": "Falsche Typen",
+      "kategorie": "basis",
+      "beschreibung": "Enum-Werte und Feldnamen stimmen nicht — das muss das Schema abfangen.",
+      "link": "https://github.com/test/falsche-typen",
+      "link_status": "unbekannt",
+      "framework": "qbox",
+      "lizenz": "open_source",
+      "qualitaet": "ungeprueft",
+      "beschreibnug": "Tippfehler im Feldnamen",
+      "preis": { "betrag": -5, "waehrung": "Taler", "typ": "monatlich" }
+    }
+  ]
+}

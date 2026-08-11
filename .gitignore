@@ -1,0 +1,17 @@
+# Gebautes Ergebnis - wird aus src/ und data/ jederzeit neu erzeugt
+dist/
+
+# Cache des Link-Checks (30 Tage gueltig, jederzeit neu aufbaubar)
+data/.linkcache.json
+
+# Wird von "npm run validate" erzeugt, reine Ableitung aus data/catalog/
+data/_ids.txt
+
+# Falls doch einmal ein Werkzeug Pakete zieht - gehoert nicht ins Repo
+node_modules/
+npm-debug.log*
+
+# Betriebssystem
+Thumbs.db
+desktop.ini
+.DS_Store

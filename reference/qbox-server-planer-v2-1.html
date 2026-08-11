@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qbox Server-Planer v2.1</title>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--card2:#1c2330;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#58a6ff;--green:#3fb950;--orange:#d29922;--red:#f85149;--purple:#bc8cff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,sans-serif;line-height:1.55}
+header{background:linear-gradient(135deg,#1a2332,#0d1117);padding:28px 20px;border-bottom:1px solid var(--border);position:relative}
+header .hin{max-width:1150px;margin:0 auto;text-align:center}
+header h1{margin:0 0 6px;font-size:1.7rem}
+header p{color:var(--muted);margin:3px auto;font-size:.9rem}
+.gearbtn{position:absolute;top:16px;right:18px;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:1.15rem;padding:7px 11px;cursor:pointer;z-index:95}
+.gearbtn:hover{border-color:var(--accent)}
+.gearmenu{position:absolute;top:56px;right:18px;background:var(--card);border:1px solid var(--border);border-radius:10px;min-width:270px;z-index:90;display:none;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.gearmenu.show{display:block}
+.gearmenu button{display:block;width:100%;text-align:left;background:none;border:none;color:var(--text);padding:10px 16px;font-size:.88rem;cursor:pointer;border-bottom:1px solid var(--border)}
+.gearmenu button:last-child{border-bottom:none}
+.gearmenu button:hover{background:var(--card2)}
+.gearmenu button.danger{color:var(--red)}
+.gearmenu .ghead{padding:8px 16px;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border);background:var(--card2)}
+.container{max-width:1150px;margin:0 auto;padding:20px 16px 80px}
+a{color:var(--accent);text-decoration:none;cursor:pointer}
+a:hover{text-decoration:underline}
+.toolbar{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.96);backdrop-filter:blur(6px);padding:12px 14px;border:1px solid var(--border);border-radius:10px;margin:18px 0}
+.toolbar .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.toolbar .row:last-child{margin-bottom:0}
+#search{flex:1;min-width:200px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.95rem}
+#search:focus{outline:2px solid var(--accent)}
+select{padding:8px 10px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.85rem}
+.fchip{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:var(--card);border:1px solid var(--border);border-radius:20px;font-size:.78rem;cursor:pointer;user-select:none}
+.fchip.on{border-color:var(--accent);background:rgba(88,166,255,.12)}
+.fchip input{accent-color:var(--accent);margin:0}
+.btn{padding:7px 14px;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.82rem;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn.danger{border-color:var(--red);color:var(--red)}
+.btn.gold{border-color:var(--orange);color:#ffd477}
+.stats{font-size:.85rem;color:var(--muted)}
+.stats b{color:var(--green)}
+.catver{font-size:.75rem;color:var(--muted);border:1px solid var(--border);padding:4px 10px;border-radius:14px;background:var(--card)}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.72rem;font-weight:600;margin:0 4px 4px 0;border:1px solid transparent;white-space:nowrap}
+.b-qbox{background:rgba(63,185,80,.15);color:var(--green);border-color:rgba(63,185,80,.4)}
+.b-bridge{background:rgba(210,153,34,.15);color:var(--orange);border-color:rgba(210,153,34,.4)}
+.b-stand{background:rgba(88,166,255,.15);color:var(--accent);border-color:rgba(88,166,255,.4)}
+.b-open{background:rgba(188,140,255,.15);color:var(--purple);border-color:rgba(188,140,255,.4)}
+.b-escrow{background:rgba(248,81,73,.15);color:var(--red);border-color:rgba(248,81,73,.4)}
+.b-premium{background:rgba(210,153,34,.25);color:#ffd477;border-color:var(--orange)}
+.b-free{background:rgba(63,185,80,.1);color:#7ee787;border-color:rgba(63,185,80,.25)}
+.b-warn{background:rgba(248,81,73,.2);color:#ffa198;border-color:var(--red);cursor:help}
+.b-arch{background:#2d333b;color:#adbac7;border-color:#444c56;cursor:help}
+.b-check{font-weight:400;border-color:var(--border);background:var(--card2);color:var(--muted)}
+details.legend{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 18px;margin:16px 0}
+details.legend summary{cursor:pointer;font-weight:600;color:var(--accent)}
+details.legend table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.87rem}
+details.legend td{padding:6px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+details.legend td:first-child{white-space:nowrap;width:190px}
+.warnbox{background:rgba(210,153,34,.08);border:1px solid rgba(210,153,34,.4);border-radius:10px;padding:14px 18px;margin:18px 0;font-size:.9rem}
+.warnbox h3{margin:0 0 8px;color:var(--orange);font-size:1rem}
+.warnbox ul{margin:6px 0;padding-left:20px}
+h2.cat{margin-top:42px;padding-bottom:8px;border-bottom:2px solid var(--accent);font-size:1.3rem}
+h2.cat .count{color:var(--muted);font-size:.85rem;font-weight:400}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin:14px 0;transition:border-color .15s}
+.card:hover{border-color:var(--accent)}
+.card.flash{border-color:var(--green);box-shadow:0 0 0 2px rgba(63,185,80,.4)}
+.card.cmpA{border-color:var(--accent);box-shadow:0 0 0 2px rgba(88,166,255,.45)}
+.card h3{margin:0 0 2px;font-size:1.08rem;display:inline-block}
+.replaced-tag{display:inline-block;margin-left:10px;padding:2px 10px;border-radius:6px;font-size:.75rem;font-weight:600;background:rgba(248,81,73,.12);border:1px solid rgba(248,81,73,.4);color:#ffa198}
+.replaced-tag.main{border-color:rgba(63,185,80,.45);background:rgba(63,185,80,.1);color:#7ee787}
+.card p.desc{margin:6px 0;color:#c9d1d9;font-size:.93rem}
+.meta{font-size:.8rem;color:var(--muted);margin:6px 0}
+.meta b{color:#c9d1d9}
+.tip{margin-top:8px;padding:8px 12px;background:rgba(88,166,255,.07);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:.85rem;color:#c9d1d9}
+.price-tag{display:inline-block;padding:3px 10px;border-radius:6px;font-size:.78rem;font-weight:700;background:rgba(210,153,34,.15);border:1px solid var(--orange);color:#ffd477;margin-left:8px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px;padding-top:10px;border-top:1px dashed var(--border)}
+.srv-wrap{display:inline-flex;flex-direction:column;gap:2px}
+.srv-check{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;border:1px solid var(--border);font-size:.82rem;cursor:pointer;user-select:none;background:var(--card2)}
+.srv-check.dev.on{border-color:var(--orange);background:rgba(210,153,34,.15);color:#ffd477}
+.srv-check.main.on{border-color:var(--green);background:rgba(63,185,80,.15);color:#7ee787}
+.srv-check.cov{opacity:.55;border-style:dashed}
+.srv-ts{font-size:.68rem;color:var(--muted);padding-left:4px}
+.note-area{width:100%;margin-top:10px;padding:8px 10px;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.85rem;font-family:inherit;resize:vertical;min-height:52px}
+.prio-sel{font-size:.75rem;padding:4px 6px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto}
+.overlay.show{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:12px;max-width:920px;width:100%;padding:24px 28px}
+.modal h2{margin-top:0}
+.modal .close{float:right;background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer}
+.rep-item{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;margin:8px 0;cursor:pointer;transition:border-color .15s}
+.rep-item:hover{border-color:var(--accent)}
+.rep-item .rname{font-weight:700;color:var(--accent);min-width:170px}
+.rep-item .rdesc{font-size:.82rem;color:var(--muted);flex:1;min-width:230px}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.cmp-grid{grid-template-columns:1fr}}
+.cmp-col{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.cmp-col h3{margin-top:0;color:var(--accent)}
+.plist{list-style:none;margin:8px 0;padding:0;font-size:.87rem}
+.plist li{padding:5px 10px;margin:4px 0;border-radius:6px}
+.plist.pro li{background:rgba(63,185,80,.1);border-left:3px solid var(--green)}
+.plist.con li{background:rgba(248,81,73,.1);border-left:3px solid var(--red)}
+.plist.neu li{background:rgba(210,153,34,.1);border-left:3px solid var(--orange)}
+.plist .lbl{font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;background:none!important;border:none!important}
+footer{text-align:center;color:var(--muted);padding:28px;font-size:.85rem;border-top:1px solid var(--border)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card2);border:1px solid var(--green);color:#7ee787;padding:10px 22px;border-radius:24px;font-size:.88rem;z-index:200;display:none;max-width:90vw}
+.toast.err{border-color:var(--red);color:#ffa198}
+.ensure-box{background:#0d1117;border:1px solid var(--border);border-radius:8px;padding:14px;font-family:Consolas,monospace;font-size:.82rem;white-space:pre-wrap;max-height:340px;overflow-y:auto;color:#7ee787}
+.bk-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;margin:6px 0;font-size:.85rem;flex-wrap:wrap}
+.bk-item .bkname{flex:1;font-weight:600}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.form-grid label{font-size:.8rem;color:var(--muted);display:block;margin-bottom:3px}
+.form-grid input,.form-grid select,.form-grid textarea{width:100%;padding:8px 10px;background:var(--card2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.85rem;font-family:inherit}
+.form-grid .full{grid-column:1/-1}
+</style>
+</head>
+<body>
+
+<header>
+  <button class="gearbtn" onclick="toggleGear()" title="Einstellungen & Backups">⚙️</button>
+  <div class="gearmenu" id="gearmenu">
+    <div class="ghead">Katalog</div>
+    <button onclick="document.getElementById('fileCatalog').click()">📦 Katalog-Update importieren (JSON)</button>
+    <div class="ghead">Dein Zustand</div>
+    <button onclick="openBackups()">🗂️ Backup-Manager</button>
+    <button onclick="exportState()">💾 Zustand exportieren (JSON)</button>
+    <button onclick="document.getElementById('fileImport').click()">📂 Zustand importieren</button>
+    <div class="ghead">Export für den Server</div>
+    <button onclick="exportEnsure('main')">📋 ensure-Liste: MAIN</button>
+    <button onclick="exportEnsure('dev')">📋 ensure-Liste: DEV</button>
+    <div class="ghead">Zurücksetzen</div>
+    <button class="danger" onclick="resetSrv('dev')">↩️ DEV-Haken zurücksetzen</button>
+    <button class="danger" onclick="resetSrv('main')">↩️ MAIN-Haken zurücksetzen</button>
+    <button class="danger" onclick="resetNotes()">↩️ Notizen zurücksetzen</button>
+    <button class="danger" onclick="resetAll()">🗑️ ALLES zurücksetzen</button>
+  </div>
+  <div class="hin">
+    <h1>🛠️ Qbox Server-Planer <span style="font-size:.6em;color:var(--muted)">v2.1</span></h1>
+    <p>Autospeicherung (localStorage) · Katalog-Updates per JSON-Import · Backups über ⚙️</p>
+    <div class="stats" id="stats"></div>
+  </div>
+</header>
+
+<input type="file" id="fileImport" accept=".json" style="display:none">
+<input type="file" id="fileCatalog" accept=".json" style="display:none">
+
+<div class="container">
+
+<div class="toolbar">
+  <div class="row">
+    <input type="text" id="search" placeholder="🔍 Suchen... (Name, Funktion)">
+    <select id="fCat"><option value="">📁 Alle Kategorien</option></select>
+    <select id="fStatus">
+      <option value="">📊 Status: alle</option>
+      <option value="main">✅ Auf MAIN</option>
+      <option value="dev">🧪 Auf DEV</option>
+      <option value="diff">🔀 Diff: DEV ≠ MAIN</option>
+      <option value="none">⬜ Nirgends</option>
+      <option value="covered">⚠️ Ersetzt/abgedeckt</option>
+    </select>
+    <select id="fPrio">
+      <option value="">🚩 Prio: alle</option>
+      <option value="hoch">🔥 Hoch</option>
+      <option value="mittel">🟡 Mittel</option>
+      <option value="niedrig">⚪ Niedrig</option>
+    </select>
+    <select id="fSort">
+      <option value="def">↕️ Sortierung: Standard</option>
+      <option value="name">Name A–Z</option>
+      <option value="prio">Priorität</option>
+    </select>
+    <button class="btn" id="btnResetFilters">↺ Filter zurücksetzen</button>
+  </div>
+  <div class="row" id="badgeFilters"></div>
+  <div class="row">
+    <button class="btn" onclick="openAddForm()">➕ Eigenes Plugin hinzufügen</button>
+    <span class="catver" id="catVer"></span>
+    <span class="stats" id="costStats"></span>
+    <span class="stats" id="cmpHint"></span>
+  </div>
+</div>
+
+<details class="legend">
+  <summary>❓ Badge-Legende (aufklappen)</summary>
+  <table>
+    <tr><td><span class="badge b-qbox">✅ Qbox nativ</span></td><td>Speziell für Qbox geschrieben. Hochladen, ensure, fertig.</td></tr>
+    <tr><td><span class="badge b-bridge">🔁 QBCore-Bridge</span></td><td>Für QBCore geschrieben, läuft über die Qbox-Bridge. Immer erst auf DEV testen!</td></tr>
+    <tr><td><span class="badge b-stand">🌐 Standalone</span></td><td>Framework-unabhängig, läuft überall.</td></tr>
+    <tr><td><span class="badge b-open">🔓 Open Source</span></td><td>Code komplett offen, frei anpassbar.</td></tr>
+    <tr><td><span class="badge b-escrow">🔒 Escrow</span></td><td>Code verschlüsselt, nur Config änderbar.</td></tr>
+    <tr><td><span class="badge b-premium">💰 Premium</span></td><td>Kostenpflichtig (Preis am Eintrag, sofern verifiziert).</td></tr>
+    <tr><td><span class="badge b-warn">⚠️ Kompatibilität</span></td><td><b>Mouseover</b>: was scheitern könnte + ob <b>bestätigt</b> oder <b>Vermutung</b>.</td></tr>
+    <tr><td><span class="badge b-arch">🪦 Archiviert</span></td><td>Repo eingestellt/veraltet – Nachfolger beachten.</td></tr>
+  </table>
+  <p style="font-size:.85rem;color:var(--muted);margin-bottom:0"><b>Kritisch:</b> 🔁+🔒 (Bridge+Escrow) = nicht selbst reparierbar. Premium nur mit explizitem Qbox-Support kaufen.</p>
+</details>
+
+<div class="warnbox">
+  <h3>⚠️ Qbox ↔ QBCore Kompatibilität – Grundregeln</h3>
+  <ul>
+    <li>Qbox-Bridge übersetzt Standard-Exports – die meisten QBCore-Scripts laufen.</li>
+    <li><b>Nicht ohne Umbau:</b> harte <code>qb-inventory</code>/<code>qb-target</code>-Abhängigkeiten → Qbox nutzt ox_inventory/ox_target.</li>
+    <li>Scripts, die interne qb-core Player-Funktionen patchen, umgehen die Bridge → Crashes.</li>
+    <li>ox_lib-/community_bridge-Support = Gütesiegel.</li>
+  </ul>
+</div>
+
+<div id="content"></div>
+</div>
+
+<footer>Qbox Server-Planer v2.1 · Katalog geprüft: 11.08.2026 · Workflow: erst 🧪 DEV (resmon!), dann ✅ MAIN.</footer>
+
+<div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= BADGES & KATEGORIEN ================= */
+const BADGES={qbox:{t:"✅ Qbox nativ",cls:"b-qbox"},bridge:{t:"🔁 QBCore-Bridge",cls:"b-bridge"},stand:{t:"🌐 Standalone",cls:"b-stand"},open:{t:"🔓 Open Source",cls:"b-open"},escrow:{t:"🔒 Escrow",cls:"b-escrow"},premium:{t:"💰 Premium",cls:"b-premium"},free:{t:"🆓 Kostenlos",cls:"b-free"}};
+const CATS=[
+{id:"basis",name:"1. Basis & Abhängigkeiten"},{id:"ui",name:"2. Charakter, Inventar & UI"},
+{id:"fahrzeuge",name:"3. Fahrzeuge & Mechanik"},{id:"wohnen",name:"4. Immobilien & Wohnen"},
+{id:"staat",name:"5. Staatliche Jobs & Fraktionen"},{id:"zivil",name:"6. Zivil-Jobs & Aktivitäten"},
+{id:"crime",name:"7. Crime & Unterwelt"},{id:"kommunikation",name:"8. Kommunikation & Telefon"},
+{id:"realismus",name:"9. Realismus & Welt"},{id:"waffen",name:"10. Waffen & Kampf"},
+{id:"wirtschaft",name:"11. Wirtschaft & Banking"},{id:"admin",name:"12. Admin & Sicherheit"},
+{id:"assets",name:"13. MLOs, Kleidung & Assets"},{id:"custom",name:"14. Eigene Plugins"}];
+const CATALOG_VER="2.1";
+
+/* ================= KATALOG (Defaults werden automatisch ergänzt) ================= */
+const RAW=[
+/* ---- 1. BASIS ---- */
+{id:"oxmysql",name:"oxmysql",cat:"basis",group:"db",badges:["stand","open","free"],ver:"2.x",updated:"Aktiv · 2026",
+ link:"https://github.com/overextended/oxmysql",
+ desc:"Standard-Datenbank-Wrapper: asynchron, Prepared Statements, viel schneller als mysql-async. Pflicht für Qbox und fast alle modernen Scripts.",
+ pros:["Sehr performant","Standard-API","SQL-Injection-Schutz"],cons:["Keine"],neutral:["Connection-String in server.cfg"],
+ tip:"Unraid: MariaDB-Container, eigenes Schema pro Server (dev/main trennen!)."},
+{id:"ghmattimysql",name:"ghmattimysql (Legacy)",cat:"basis",group:"db",badges:["stand","open","free"],ver:"Legacy",updated:"⚠️ Ungepflegt",
+ link:"https://github.com/GHMatti/ghmattimysql",archived:"Wird nicht mehr weiterentwickelt. Nur für Alt-Scripts relevant.",
+ desc:"Älterer MySQL-Wrapper. Nur installieren, wenn ein Must-have-Altscript es zwingend verlangt – sonst Script ersetzen.",
+ pros:["Läuft mit Alt-Scripts"],cons:["Veraltet","Langsamer","Sicherheitsbedenken"],neutral:["Von modernen Scripts nicht mehr unterstützt"],tip:null},
+{id:"ox_lib",name:"ox_lib",cat:"basis",group:null,ess:true,badges:["stand","open","free"],ver:"3.x",updated:"Aktiv · 2026",
+ link:"https://github.com/overextended/ox_lib",synergy:["ox_inventory","ox_target"],
+ desc:"Universelle Bibliothek: Menüs, Dialoge, Notifications, Progressbars, Keybinds, Cache, Discord-Logging. Fundament von Qbox.",
+ pros:["Ersetzt viele Einzel-Scripts","Top-Doku","Logger integriert"],cons:["Lernkurve"],neutral:["Themes anpassbar"],
+ tip:"Wer ox_lib beherrscht, baut 80% seiner Custom-UIs damit."},
+{id:"qbx_core",name:"qbx_core",cat:"basis",group:null,ess:true,badges:["qbox","open","free"],ver:"main-Branch",updated:"Aktiv · 2026",deps:["oxmysql","ox_lib"],
+ link:"https://github.com/Qbox-project/qbx_core",synergy:["ox_inventory","ox_target","mm_radio"],
+ desc:"Framework-Kern: Spieler, Jobs, Geld, Charaktere, Permissions. Enthält die QBCore-Bridge für ältere qb-Scripts.",
+ pros:["Offiziell","Bridge eingebaut","Große Community"],cons:["Nie direkt editieren – Updates überschreiben"],neutral:["API: exports.qbx_core"],
+ tip:"Eigene Erweiterungen als separate Ressource bauen."},
+{id:"pma-voice",name:"pma-voice",cat:"basis",group:"voice",ess:true,badges:["stand","open","free"],ver:"4.x",updated:"Aktiv",
+ link:"https://github.com/AvarianKnight/pma-voice",synergy:["mm_radio","npwd"],
+ desc:"De-facto-Standard für Ingame-Voice: Distanz-Audio, Funk, Telefon-Anbindung. Kein TeamSpeak nötig. Basis für mm_radio & npwd.",
+ pros:["Kein TS-Server nötig","Radio/Phone-Integration","Riesige Verbreitung"],cons:["Audio-Ranges brauchen Feintuning"],neutral:["Voice-Port in Firewall freigeben"],
+ tip:"Docker: Voice-Ports (UDP) durchreichen."},
+{id:"saltychat",name:"SaltyChat",cat:"basis",group:"voice",badges:["stand","open","free"],ver:"3.x",updated:"Gepflegt, TS-basiert",
+ link:"https://github.com/v10networkscom/saltychat-fivem",
+ desc:"Voice über TeamSpeak mit 3D-Audio. Top Qualität, aber Spieler brauchen TS + Plugin – Hürde für öffentliche Server.",
+ pros:["Exzellentes 3D-Audio","Ausgereift"],cons:["TS-Pflicht schreckt Casuals ab","Extra TS-Server","Client-Plugin nötig"],neutral:["Früher Standard auf deutschen RP-Servern"],
+ tip:"Nur für feste private Runden sinnvoll."},
+{id:"mumble-voip",name:"mumble-voip",cat:"basis",group:"voice",badges:["stand","open","free"],ver:"1.x",updated:"⚠️ Von pma-voice abgelöst",
+ link:"https://github.com/FrazzIe/mumble-voip-fivem",archived:"Größtenteils von pma-voice abgelöst; einige Alt-Radio-Scripts verlangen danach.",
+ desc:"Vorgänger von pma-voice (gleiches Mumble-Prinzip). Heute meist ersetzbar.",
+ pros:["Bewährt"],cons:["Weniger Features","Kaum aktive Entwicklung"],neutral:["pma-voice ist der Nachfolger"],tip:null},
+{id:"txadmin",name:"txAdmin",cat:"basis",group:null,ess:true,badges:["stand","open","free"],ver:"In FXServer integriert",updated:"Aktiv",
+ link:"https://github.com/tabarra/txAdmin",
+ desc:"Server-Verwaltung: Recipe-Setup, Live-Konsole, Restarts, Bans, Backups. Mods lädst du per Pelican/FTP hoch – txAdmin steuert danach.",
+ pros:["Bereits eingebaut","Live-Konsole","Geplante Restarts"],cons:["Keine"],neutral:["Standard-Port 40120"],
+ tip:"Nächtliche Auto-Restarts einrichten."},
+{id:"community_bridge",name:"community_bridge (Renewed)",cat:"basis",group:null,ess:true,badges:["stand","open","free"],ver:"Aktuell",updated:"Sehr aktiv",
+ link:"https://github.com/Renewed-Scripts/community_bridge",
+ desc:"Abstraktions-Schicht, die Framework-Unterschiede (Qbox/QBCore/ESX) für Scripts glattbügelt. Scripts damit laufen OHNE Bridge-Gebastel.",
+ pros:["Macht Scripts framework-agnostisch","Sehr aktiv","Wachsende Adoption"],cons:["Zusätzliche Dependency"],neutral:["Auch für eigene Scripts nutzbar"],
+ tip:"Script nutzt community_bridge? = Gütesiegel für Qbox."},
+/* ---- 2. UI ---- */
+{id:"ox_inventory",name:"ox_inventory",cat:"ui",group:"inventory",ess:true,badges:["stand","open","free"],ver:"2.x",updated:"Aktiv · 2026",deps:["oxmysql","ox_lib"],
+ link:"https://github.com/overextended/ox_inventory",conflicts:["qs_inventory","codem_inventory","lj_inventory"],synergy:["qbx_core"],
+ desc:"Slot-Inventar mit Item-Metadaten, Stashes, Shops, Truhen. Qbox-Standard – ersetzt qb-inventory komplett.",
+ pros:["Qbox-Standard","Metadaten perfekt für Waffen","Riesige Community"],cons:["UI-Umbau braucht Web-Kenntnisse"],neutral:["Items in Lua, Bilder als PNG"],
+ tip:"Item-Bilder konsequent benennen (itemname.png)."},
+{id:"qs_inventory",name:"qs-inventory (Quasar)",cat:"ui",group:"inventory",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",deps:["oxmysql"],
+ link:"https://www.quasar-store.com",conflicts:["ox_inventory","lj_inventory"],
+ compat:{level:"vermutung",text:"Ersetzt ox_inventory komplett → qbx-Module mit fester ox_inventory-Anbindung (z.B. Beweissystem qbx_policejob) könnten Anpassung brauchen. Qbox-Support laut Store vorhanden, Tiefe unklar. VOR KAUF im Quasar-Discord verifizieren."},
+ desc:"Premium-Inventar mit modernem UI. Ersetzt ox_inventory vollständig – du verlierst die native Qbox-Integration und hängst an Bridges.",
+ pros:["Poliertes UI","QoL-Extras"],cons:["💰 Preis im Store prüfen (~$65, ungeprüft)","🔒 Escrow","Kompatibilität pro Script prüfen"],neutral:["Qbox-Support laut Store"],
+ tip:"Ohne konkreten Grund bei ox_inventory bleiben."},
+{id:"codem_inventory",name:"CodeM Inventory",cat:"ui",group:"inventory",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",deps:["oxmysql"],
+ link:"https://codem-store.com",linkcheck:null,conflicts:["ox_inventory","lj_inventory"],
+ compat:{level:"vermutung",text:"Gleiche Problematik wie qs-inventory: ersetzt ox_inventory, Escrow. Link konnte bot-seitig nicht geprüft werden – manuell checken."},
+ desc:"Premium-Inventar mit ansprechendem Design. Store-Link bitte manuell prüfen (Bot-Schutz).",
+ pros:["Modernes UI","Aktive Entwicklung"],cons:["💰 Kostenpflichtig","🔒 Escrow","Ersetzt Qbox-Standard"],neutral:["Qbox-Support laut Anbieter"],tip:null},
+{id:"lj_inventory",name:"lj/ps-inventory (Legacy-Fork)",cat:"ui",group:"inventory",badges:["bridge","open","free"],ver:"Fork",updated:"⚠️ lj inaktiv · ps-Fork gepflegt",
+ link:"https://github.com/Project-Sloth/ps-inventory",conflicts:["ox_inventory","qs_inventory"],
+ compat:{level:"bestaetigt",text:"Setzt qb-inventory-API voraus (harte Abhängigkeit). Qbox ersetzt qb-inventory durch ox_inventory → direkte Nutzung NICHT möglich. Bestätigt durch Qbox-Architektur."},
+ desc:"Beliebter qb-inventory-Fork (lj, weitergeführt als ps-inventory). Auf Qbox nicht einsetzbar – gelistet, damit du Alt-Scripts erkennst.",
+ pros:["Hübsches UI (QBCore-Welt)"],cons:["Nicht Qbox-tauglich","Harte qb-inventory-Abhängigkeit"],neutral:["War 2022–2023 QBCore-Standard"],
+ tip:"Script verlangt lj/ps-inventory? → ox_inventory-Variante suchen."},
+{id:"ox_target",name:"ox_target",cat:"ui",group:"target",ess:true,badges:["stand","open","free"],ver:"1.x",updated:"Aktiv · 2026",deps:["ox_lib"],
+ link:"https://github.com/overextended/ox_target",conflicts:["qb_target"],
+ desc:"Third-Eye-Interaktion (ALT → zielen). Qbox-Standard mit qb-target-Kompatibilitäts-Wrapper.",
+ pros:["Qbox-Standard","Performant","Wrapper eingebaut"],cons:["Wrapper deckt nicht 100% ab"],neutral:["Interaktionen per Export"],
+ tip:"Neue Scripts direkt gegen ox_target schreiben."},
+{id:"qb_target",name:"qb-target (via Bridge)",cat:"ui",group:"target",badges:["bridge","open","free"],ver:"QBCore",updated:"QBCore-Repo",
+ link:"https://github.com/qbcore-framework/qb-target",conflicts:["ox_target"],
+ desc:"QBCore-Klassiker fürs Third-Eye. Auf Qbox nicht parallel installieren – der eingebaute Wrapper übernimmt das.",
+ pros:["Alt-Scripts nutzen seine API"],cons:["Konflikt bei Parallelinstallation","Redundant"],neutral:["Wrapper übersetzt die meisten Aufrufe"],tip:null},
+{id:"qbx_multicharacter",name:"qbx_multicharacter",cat:"ui",group:"multichar",ess:true,badges:["qbox","open","free"],ver:"Aktuell",updated:"Aktiv",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_multicharacter",synergy:["qbx_spawn","qbx_apartments"],
+ desc:"Mehrere Charaktere pro Account mit Auswahl-Screen und Erstellung inkl. Appearance.",
+ pros:["Offiziell","Appearance-Editor dabei","Slots konfigurierbar"],cons:["UI schlicht"],neutral:["Apartment-Verknüpfung"],
+ tip:"Slot-Anzahl bewusst wählen – mehr Slots = mehr Twinks."},
+{id:"qb_multicharacter",name:"qb-multicharacter (via Bridge)",cat:"ui",group:"multichar",badges:["bridge","open","free"],ver:"QBCore",updated:"QBCore-Repo",
+ link:"https://github.com/qbcore-framework/qb-multicharacter",
+ desc:"QBCore-Original – auf Qbox durch qbx_multicharacter ersetzt.",
+ pros:["Vertrautes Layout"],cons:["Redundant","Bridge-Overhead"],neutral:["–"],tip:null},
+{id:"wasabi_multichar",name:"Wasabi Multicharacter",cat:"ui",group:"multichar",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://wasabiscripts.com",price:{one:39.99,mon:null,c:"$"},
+ desc:"Premium-Multicharacter mit aufwendigem UI/Cutscenes. Qbox-Bridge vom Anbieter eingebaut.",
+ pros:["Sehr schönes UI","Qbox offiziell supported"],cons:["💰 $39.99 (verifiziert)","🔒 Escrow","Funktional wie die Gratis-Variante"],neutral:["Bundle in Wasabi-Serien-Abos ab $15/Monat enthalten"],
+ tip:"Reine Optik-Frage – qbx_multicharacter reicht funktional."},
+{id:"qbx_spawn",name:"qbx_spawn",cat:"ui",group:"spawn",badges:["qbox","open","free"],ver:"Aktuell",updated:"Aktiv",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_spawn",synergy:["qbx_multicharacter","qbx_houses"],
+ desc:"Spawn-Auswahl: letzte Position, Wohnung, definierte Punkte, Kameraflug.",
+ pros:["Housing-Integration","Konfigurierbar"],cons:["–"],neutral:["Kameraflüge anpassbar"],
+ tip:"Spawnpunkte an deine Custom-MLOs setzen."},
+{id:"qb_spawn",name:"qb-spawn (via Bridge)",cat:"ui",group:"spawn",badges:["bridge","open","free"],ver:"QBCore",updated:"QBCore-Repo",
+ link:"https://github.com/qbcore-framework/qb-spawn",
+ desc:"QBCore-Original, auf Qbox durch qbx_spawn ersetzt.",
+ pros:["–"],cons:["Redundant"],neutral:["–"],tip:null},
+{id:"qbx_loading",name:"qbx_loading",cat:"ui",group:"loading",badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",
+ link:"https://github.com/Qbox-project/qbx_loading",
+ desc:"Ladebildschirm mit Logo, Musik, News – komplett per HTML/CSS anpassbar.",
+ pros:["Voll anpassbar","Leichtgewichtig"],cons:["–"],neutral:["Musik im web-Verzeichnis"],
+ tip:"Serverregeln direkt im Loadingscreen zeigen."},
+{id:"wasabi_loading",name:"Wasabi Loading Screen",cat:"ui",group:"loading",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://wasabiscripts.com",price:{one:19.99,mon:null,c:"$"},
+ desc:"Premium-Loadingscreen mit Animationen und Staff-Online-Anzeige.",
+ pros:["Schicke Animationen","Staff-Anzeige"],cons:["💰 $19.99 (verifiziert)","🔒 Escrow"],neutral:["qbx_loading ist per HTML genauso anpassbar"],
+ tip:"Mit deinen HTML/CSS-Skills kostenlos selbst bauen."},
+{id:"qbx_hud",name:"qbx_hud",cat:"ui",group:"hud",badges:["qbox","open","free"],ver:"Aktuell",updated:"Aktiv",deps:["qbx_core","ox_lib"],
+ link:"https://github.com/Qbox-project/qbx_hud",synergy:["qbx_smallresources"],
+ desc:"Spieler-HUD: Gesundheit, Rüstung, Hunger/Durst, Voice-Range, Minimap, Gurt.",
+ pros:["Nativ & performant","Status-Integration"],cons:["Design schlicht"],neutral:["Status aus qbx_smallresources"],
+ tip:"Erst damit starten; bei Optik-Wunsch → ps-hud."},
+{id:"ps_hud",name:"ps-hud (Project Sloth)",cat:"ui",group:"hud",badges:["bridge","open","free"],ver:"2.x",updated:"Gepflegt",
+ link:"https://github.com/Project-Sloth/ps-hud",
+ compat:{level:"vermutung",text:"QBCore-Script (Bridge). Stress-System kann mit qbx_smallresources-Status kollidieren – doppelt vermeiden. Auf DEV testen."},
+ desc:"Community-HUD mit modernem Design, Fahrzeug-HUD, Stress-System, Gang-Optionen.",
+ pros:["Aufwendigeres Design","Fahrzeug-HUD","Viele Optionen"],cons:["🔁 Bridge","Mehr Resmon-Last","Stress-Feature ggf. doppelt"],neutral:["Stress deaktivierbar"],
+ tip:"Stress aus, wenn qbx_smallresources das abdeckt."},
+{id:"qs_hud",name:"qs-hud (Quasar)",cat:"ui",group:"hud",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://www.quasar-store.com",
+ desc:"Premium-HUD, sehr modern. Escrow – nur Config. Qbox-Support laut Store, vor Kauf verifizieren.",
+ pros:["Top-Design","Viele Widgets"],cons:["💰 Kostenpflichtig","🔒 Escrow","Optik-Overkill für kleine Server"],neutral:["–"],
+ tip:"Geld für HUD erst ausgeben, wenn der Rest steht."},
+{id:"qbx_scoreboard",name:"qbx_scoreboard",cat:"ui",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_scoreboard",
+ desc:"Spielerliste mit Online-Spielern und Dienst-Anzahlen (Cops/Medics für Raub-Checks).",
+ pros:["Nativ","Fraktions-Besetzung sichtbar"],cons:["–"],neutral:["–"],tip:null},
+/* ---- 3. FAHRZEUGE ---- */
+{id:"qbx_garages",name:"qbx_garages",cat:"fahrzeuge",group:"garage",ess:true,badges:["qbox","open","free"],ver:"Aktuell",updated:"Aktiv",deps:["qbx_core","ox_lib"],
+ link:"https://github.com/Qbox-project/qbx_garages",synergy:["qbx_vehiclekeys"],
+ desc:"Garagen: Ein-/Ausparken mit gespeichertem Zustand, Impound, Job- und öffentliche Garagen als frei platzierbare Zonen.",
+ pros:["Nativ","Schaden wird gespeichert","Job-Garagen"],cons:["UI schlicht","Keine geteilten Garagen ootb"],neutral:["Zonen in Config"],
+ tip:"Garagen an Custom-MLOs setzen."},
+{id:"cd_garage",name:"cd_garage (Codesign)",cat:"fahrzeuge",group:"garage",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://codesign.pro",linkcheck:null,bundle:"Codesign (Bundle-Rabatte im Store)",
+ desc:"Premium-Garage: UI mit Vorschau, geteilte/Gang-Garagen, Valet. Qbox offiziell unterstützt. Link manuell prüfen (Bot-Schutz).",
+ pros:["Fahrzeug-Vorschau im UI","Geteilte Garagen","Valet"],cons:["💰 Kostenpflichtig","🔒 Escrow"],neutral:["Qbox-Support offiziell"],
+ tip:"Einer der wenigen sinnvollen Premium-Käufe bei Garagen-Anspruch."},
+{id:"okokGarage",name:"okokGarage",cat:"fahrzeuge",group:"garage",badges:["escrow","premium"],ver:"Aktuell",updated:"Gepflegt",
+ link:"https://okok.tebex.io",linkcheck:null,bundle:"okok (Bundle-Rabatte im Store)",
+ desc:"Premium-Garage mit cleanem Design und Impound. Gleiche Klasse wie cd_garage.",
+ pros:["Schönes UI","Impound-System"],cons:["💰 Kostenpflichtig","🔒 Escrow"],neutral:["Qbox laut Anbieter"],
+ tip:"cd_garage vs. okokGarage → Vergleichs-Funktion nutzen."},
+{id:"qbx_vehiclekeys",name:"qbx_vehiclekeys",cat:"fahrzeuge",group:"vehkeys",badges:["qbox","open","free"],ver:"Aktuell",updated:"Aktiv",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_vehiclekeys",synergy:["qbx_garages","qbx_lockpick"],
+ desc:"Schlüssel-System: abgeschlossene Fahrzeuge, Schlüsselübergabe, Hotwire/Lockpick für Crime.",
+ pros:["Nativ","Hotwire integriert","Schlüsselübergabe"],cons:["Keine Keychain-Optik"],neutral:["Alarm-Chancen konfigurierbar"],
+ tip:"Hohe Alarm-Chance = mehr RP bei Autodiebstahl."},
+{id:"wasabi_carlock",name:"wasabi_carlock",cat:"fahrzeuge",group:"vehkeys",badges:["stand","open","free"],ver:"2.x",updated:"Gepflegt",
+ link:"https://github.com/WasabiRobby/Wasabi-carlock",linkcheck:null,conflicts:["qbx_vehiclekeys"],
+ desc:"Schlankes Open-Source-Carlock von Wasabi mit Framework-Erkennung (Qbox-tauglich).",
+ pros:["Open Source","Framework-Erkennung","Hübsche Animationen"],cons:["Weniger tief in qbx-Crime verzahnt"],neutral:["Repo-Link manuell prüfen (WasabiRobby-Profil bot-geschützt)"],
+ tip:"Nicht parallel zu qbx_vehiclekeys!"},
+{id:"ox_fuel",name:"ox_fuel",cat:"fahrzeuge",group:"fuel",ess:true,badges:["stand","open","free"],ver:"1.x",updated:"Aktiv",deps:["ox_lib"],
+ link:"https://github.com/overextended/ox_fuel",conflicts:["ps_fuel","LegacyFuel","cdn_fuel"],synergy:["ox_target"],
+ desc:"Tanken via Target, Kanister, Tankstellen-Besitz. Moderner als LegacyFuel.",
+ pros:["Performant","Tankstellen-Eigentum","Kanister"],cons:["UI minimalistisch"],neutral:["Verbrauch in Config"],
+ tip:"Verbrauch erhöhen → mehr Tankstellen-RP."},
+{id:"LegacyFuel",name:"LegacyFuel",cat:"fahrzeuge",group:"fuel",badges:["stand","open","free"],ver:"1.x",updated:"⚠️ Inaktiv",
+ link:"https://github.com/InZidiuZ/legacy_fuel",archived:"Technisch überholt; ox_fuel ist der Nachfolger.",conflicts:["ox_fuel","ps_fuel","cdn_fuel"],
+ desc:"Alter Tankstellen-Standard. Nur noch für Alt-Scripts relevant.",
+ pros:["Überall bekannt"],cons:["Veraltet","Schlechtere Performance"],neutral:["Alte Tutorials referenzieren es"],
+ tip:"Nicht mehr neu installieren."},
+{id:"ps_fuel",name:"ps-fuel (Project Sloth)",cat:"fahrzeuge",group:"fuel",badges:["bridge","open","free"],ver:"1.x",updated:"Gepflegt",
+ link:"https://github.com/Project-Sloth/ps-fuel",conflicts:["ox_fuel","LegacyFuel","cdn_fuel"],
+ compat:{level:"vermutung",text:"QBCore-Script mit qb-target/qb-core-Events. Dürfte über Bridge + Wrapper laufen, nicht offiziell Qbox-getestet. DEV-Test Pflicht."},
+ desc:"ps-Variante mit hübscherem Tank-NUI (Liter-Anzeige, Bezahl-Flow). Funktional gleichwertig mit ox_fuel.",
+ pros:["Schöneres Tank-UI","Open Source"],cons:["🔁 Bridge","Kein funktionaler Mehrwert"],neutral:["Design-Frage"],
+ tip:"Nur EIN Fuel-System!"},
+{id:"cdn_fuel",name:"cdn-fuel",cat:"fahrzeuge",group:"fuel",badges:["bridge","open","free"],ver:"2.x",updated:"Gepflegt",
+ link:"https://github.com/CodineDev/cdn-fuel",conflicts:["ox_fuel","ps_fuel","LegacyFuel"],
+ compat:{level:"vermutung",text:"QBCore-Script mit Wirtschafts-Features. Bridge sollte greifen, aber komplexe Server-Events → gründlich auf DEV testen."},
+ desc:"Feature-reiches Fuel: Tankstellen-Besitz mit echter Wirtschaft (Preise pro Station, Reserven, Lieferungen).",
+ pros:["Tankstellen-Ökonomie","E-Ladestationen"],cons:["🔁 Bridge","Komplexes Setup","Balancing-Aufwand"],neutral:["–"],
+ tip:"Für spielergeführte Tankstellen-Firmen die richtige Wahl."},
+{id:"qbx_mechanicjob",name:"qbx_mechanicjob",cat:"fahrzeuge",group:"mechanic",badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_mechanicjob",
+ desc:"Mechaniker: Reparaturen, Basis-Tuning, Rechnungen, Stash. Bewusst schlicht.",
+ pros:["Nativ & stabil","Rechnungen dabei"],cons:["Geringe Tuning-Tiefe","Keine Cosmetics-Vorschau"],neutral:["Mehrere Standorte"],
+ tip:"Für Tuning-Fans zu dünn → jim-mechanic testen."},
+{id:"jim_mechanic",name:"jim-mechanic (Jimathy)",cat:"fahrzeuge",group:"mechanic",badges:["bridge","open","free"],ver:"4.x",updated:"Aktiv",
+ link:"https://github.com/jimathy/jim-mechanic",
+ compat:{level:"bestaetigt",text:"Jimathy supported Qbox offiziell über jim-bridge (steht in seiner Doku). Trotzdem: komplexe Config, auf DEV einrichten."},
+ desc:"Tiefstes kostenloses Mechaniker-System: Cosmetics-Live-Vorschau, NOS, Stance, Tuning-Teile als Items. Offizieller Qbox-Support.",
+ pros:["Enorme Tuning-Tiefe","Open Source","Offizieller Qbox-Support","Live-Vorschau"],cons:["Komplexe Config","Einarbeitung nötig"],neutral:["Nutzt jim-bridge"],
+ tip:"Passt zu deinem Tuning-Hintergrund – Zeit in die Config lohnt."},
+{id:"jg_mechanic",name:"JG Mechanic",cat:"fahrzeuge",group:"mechanic",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://jgscripts.com",price:{one:81,mon:null,c:"$"},bundle:"JG-Abo $34/Monat (alle JG-Scripts)",
+ desc:"Premium-Mechaniker mit bestem UI am Markt: Tuning-Menü, Mitarbeiter-System, Prüfungen. Offizieller Qbox-Support.",
+ pros:["Top-UI/UX","Werkstatt-Management","Offizieller Qbox-Support"],cons:["💰 $81 einmalig (verifiziert) oder Abo","🔒 Escrow"],neutral:["Enthält optional Garagen-Features"],
+ tip:"Erst jim-mechanic testen – reicht oft. JG = der sinnvollste Tuning-Premium-Kauf."},
+{id:"qbx_vehicleshop",name:"qbx_vehicleshop",cat:"fahrzeuge",group:"dealership",badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_vehicleshop",synergy:["qbx_vehiclesales"],
+ desc:"Autohändler (PDM): Showroom, Probefahrt, Finanzierung. Custom-Cars aus [vehicles] in die Fahrzeug-DB eintragen.",
+ pros:["Nativ","Finanzierung","Custom-Cars einfach"],cons:["Ein Händler-Typ"],neutral:["Preise in vehicles-Tabelle"],
+ tip:"Spawn-Name = Ordnername im stream. Preise realistisch staffeln!"},
+{id:"renewed_vehicleshops",name:"Renewed-Vehicleshops",cat:"fahrzeuge",group:"dealership",badges:["qbox","open","free"],ver:"2.x",updated:"Aktiv",deps:["ox_lib","ox_inventory"],
+ link:"https://github.com/Renewed-Scripts/Renewed-Vehicleshops",
+ desc:"Mehrere Händler-Typen (Luxus, Boote, Flugzeuge), Finanzierung, Showrooms. Nativer Qbox-Support, oft aktueller als das Original.",
+ pros:["✅ Nativer Qbox-Support","Mehrere Händler-Typen","Open Source"],cons:["Setup etwas aufwendiger"],neutral:["–"],
+ tip:"Für mehrere Händler (Luxus/Gebraucht/Boote) die bessere Wahl."},
+{id:"jg_dealerships",name:"JG Dealerships v2",cat:"fahrzeuge",group:"dealership",badges:["escrow","premium"],ver:"v2",updated:"Aktiv",
+ link:"https://jgscripts.com",price:{one:54,mon:null,c:"$"},bundle:"JG-Abo $34/Monat (alle JG-Scripts)",synergy:["jg_mechanic"],
+ desc:"Premium-Autohaus: spielergeführte Dealerships, Gebrauchtwagen-Ankauf, Showroom-Platzierung. Qbox offiziell.",
+ pros:["Spielergeführte Händler","Gebrauchtwagen-Markt","Top-UI"],cons:["💰 $54 (verifiziert) oder Abo","🔒 Escrow"],neutral:["Synergie mit JG Mechanic"],
+ tip:"Nonplusultra für spielergeführte Auto-Wirtschaft."},
+{id:"qbx_vehiclesales",name:"qbx_vehiclesales",cat:"fahrzeuge",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_vehiclesales",synergy:["qbx_vehicleshop"],
+ desc:"Gebrauchtwagen-Verkauf zwischen Spielern (Inserat-/Ankauf-Plattform). Ergänzt den Händler um einen P2P-Markt.",
+ pros:["P2P-Markt","Nativ"],cons:["–"],neutral:["–"],
+ tip:"Belebt die Gebrauchtwagen-Wirtschaft enorm."},
+{id:"qbx_carwash",name:"qbx_carwash",cat:"fahrzeuge",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_carwash",
+ desc:"Waschanlage: Fahrzeuge bekommen Schmutz-System, Waschen kostet Geld. Kleines, feines Realismus-Feature.",
+ pros:["Nativ","Schmutz-System"],cons:["–"],neutral:["–"],
+ tip:"Kleinigkeit, die Reallife-Feeling stark erhöht."},
+{id:"custom_cars",name:"Add-on Fahrzeug-Packs (Streams)",cat:"fahrzeuge",group:null,badges:["stand","open","free"],ver:"–",updated:"GTA5-Mods/Cfx",
+ link:"https://www.gta5-mods.com/vehicles",
+ desc:"Eigene Autos: Ordner + fxmanifest.lua + stream/*.yft/.ytd. Ein Auto = ein Ordner. Handling gebündelt in einer Ressource.",
+ pros:["Unbegrenzte Auswahl","Framework-unabhängig"],cons:["Große Texturen killen FPS/Download"],neutral:["Nach jedem Pack: resmon + FPS testen"],
+ tip:"30 gute Autos > 300 mittelmäßige."},
+/* ---- 4. WOHNEN ---- */
+{id:"qbx_apartments",name:"qbx_apartments",cat:"wohnen",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_apartments",synergy:["qbx_multicharacter","qbx_spawn"],
+ desc:"Starter-Apartments mit Stash/Kleiderschrank. Einstiegspunkt für neue Spieler.",
+ pros:["Nativ","New-Player-Flow"],cons:["Keine Möbel"],neutral:["Typen/Preise in Config"],
+ tip:"Starter günstig halten – senkt Einstiegshürde."},
+{id:"qbx_houses",name:"qbx_houses",cat:"wohnen",group:"housing",badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_houses",synergy:["qbx_spawn"],
+ desc:"Häuser kaufen/mieten, Schlüssel, Stash, Basis-Einrichtung.",
+ pros:["Nativ & stabil","Schlüssel-Management"],cons:["Möbel rudimentär","Kein Ingame-Dekorieren"],neutral:["Shell/MLO-Referenzen"],
+ tip:"Reicht für den Start; Deko-RP → ps-housing."},
+{id:"qbx_properties",name:"qbx_properties",cat:"wohnen",group:"housing",badges:["qbox","open","free"],ver:"Aktuell",updated:"Neu · 2025/26",deps:["qbx_core","ox_lib"],
+ link:"https://github.com/Qbox-project/qbx_properties",
+ desc:"Neueres offizielles Immobilien-Modul des Qbox-Projekts (Nachfolger/Erweiterung von qbx_houses). Noch jung – Feature-Umfang im Repo prüfen.",
+ pros:["Offiziell & modern","Aktive Entwicklung"],cons:["Junges Projekt – Doku dünn"],neutral:["Kann qbx_houses ablösen"],
+ tip:"Repo-Changelog prüfen, ob es für dich schon Feature-parität mit qbx_houses hat."},
+{id:"ps_housing",name:"ps-housing (Project Sloth)",cat:"wohnen",group:"housing",badges:["bridge","open","free"],ver:"2.x",updated:"Gepflegt",
+ link:"https://github.com/Project-Sloth/ps-housing",synergy:["ps_realtor"],
+ compat:{level:"vermutung",text:"QBCore-Script, läuft erfahrungsgemäß gut über Bridge. Nach Qbox-Updates testen. Große Qbox-Community dahinter."},
+ desc:"Community-Liebling: Ingame-Möbel-Platzierung, Shells + echte MLOs, Makler-fähig (mit ps-realtor). Bestes kostenloses Housing.",
+ pros:["Volles Möbel-System","Shells + MLOs","Open Source, aktive Community"],cons:["🔁 Bridge","Häuserliste einrichten kostet Zeit"],neutral:["Makler via ps-realtor"],
+ tip:"Standard-Tipp für Reallife-Server. Möbel-Katalog erweiterbar."},
+{id:"ps_realtor",name:"ps-realtor (Project Sloth)",cat:"wohnen",group:null,badges:["bridge","open","free"],ver:"1.x",updated:"Gepflegt",
+ link:"https://github.com/Project-Sloth/ps-realtor",synergy:["ps_housing"],
+ extends:[{id:"ps_housing",adds:["Echten Makler-Job (Häuser anlegen/verkaufen im Spiel)","Provisionen & Kundentermine"],costs:["🔁 Bridge","Nur sinnvoll mit aktivem Makler-RP"]}],
+ desc:"Makler-Job für ps-housing: Immobilien ingame anlegen, besichtigen, verkaufen – mit Provisionen.",
+ pros:["Macht Housing zur Spieler-Firma","Open Source"],cons:["🔁 Bridge","Braucht aktive Makler"],neutral:["–"],
+ tip:"Erst installieren, wenn jemand den Makler-Job wirklich spielen will."},
+{id:"qs_housing",name:"qs-housing (Quasar)",cat:"wohnen",group:"housing",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://www.quasar-store.com",
+ desc:"Premium-Housing mit poliertem UI und Smart-Home-Features.",
+ pros:["Sehr poliert","Smart-Home"],cons:["💰 Teuer","🔒 Escrow","ps-housing gratis fast ebenbürtig"],neutral:["Oft im Quasar-Bundle"],
+ tip:"Erst ps-housing ausreizen."},
+{id:"loaf_housing",name:"loaf_housing",cat:"wohnen",group:"housing",badges:["escrow","premium"],ver:"Aktuell",updated:"Gepflegt",
+ link:"https://loaf.tebex.io",linkcheck:null,
+ desc:"Premium-Housing mit großem Shell-Katalog und schöner Einrichtung.",
+ pros:["Viele Shells","Gutes Einrichten"],cons:["💰 Kostenpflichtig","🔒 Kern Escrow","Qbox-Support verifizieren"],neutral:["Beliebt auf QBCore"],
+ tip:"Im Anbieter-Discord nach aktiven Qbox-Nutzern fragen."},
+{id:"nolag_properties",name:"nolag_properties",cat:"wohnen",group:"housing",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://nolag.tebex.io",linkcheck:null,
+ desc:"Modernes Premium-Properties (Häuser + Apartments + Makler). Aktiver Entwickler, Qbox wird beworben.",
+ pros:["Modern, aktiv","Makler ausgeprägt"],cons:["💰","🔒 Escrow"],neutral:["Wachsender Feature-Umfang"],
+ tip:"Vergleich mit ps-housing ziehen."},
+/* ---- 5. STAAT ---- */
+{id:"qbx_policejob",name:"qbx_policejob",cat:"staat",group:"police",ess:true,badges:["qbox","open","free"],ver:"Aktuell",updated:"Aktiv",deps:["qbx_core","ox_inventory"],
+ link:"https://github.com/Qbox-project/qbx_policejob",synergy:["ps_mdt","ps_dispatch","qbx_prison","qbx_management"],
+ desc:"Polizei: Dienst, Handschellen, Impound, Beweissystem, Blitzer, Rechnungen, Waffenkammer. Kein MDT inklusive.",
+ pros:["Nativ & tief integriert","Beweissystem","Open Source"],cons:["Ohne MDT halber Workflow"],neutral:["Ränge via qbx_management"],
+ tip:"Mit ps-mdt + ps-dispatch kombinieren."},
+{id:"wasabi_police",name:"wasabi_police",cat:"staat",group:"police",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://wasabiscripts.com",price:{one:49.99,mon:null,c:"$"},bundle:"Wasabi-Serien-Abos ab $15/Monat",synergy:["wasabi_mdt"],
+ desc:"Premium-Polizeipaket mit eigenem Workflow, modernem UI. Qbox-Bridges vom Anbieter eingebaut.",
+ pros:["Modernes UI","Qbox offiziell supported"],cons:["💰 $49.99 (verifiziert)","🔒 Escrow","Überschneidung mit qbx_policejob sauber trennen"],neutral:["MDT separat (wasabi MDT V2)"],
+ tip:"Nur bei kompletter Umstellung des Polizei-Stacks."},
+{id:"qbx_ambulancejob",name:"qbx_ambulancejob",cat:"staat",group:"ambulance",ess:true,badges:["qbox","open","free"],ver:"Aktuell",updated:"Aktiv",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_ambulancejob",synergy:["qbx_medical"],
+ desc:"Rettungsdienst + Verwundungssystem: Verletzungstypen, Blutung, Revive, Krankenhaus, Stretcher, Rechnungen.",
+ pros:["Detailliertes Wundensystem","Nativ","Konfigurierbar"],cons:["UI schlicht"],neutral:["Schadenswerte einstellbar"],
+ tip:"Revive-Timer feintunen – zu hart frustriert, zu weich killt Spannung."},
+{id:"qbx_medical",name:"qbx_medical",cat:"staat",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Neu · 2025/26",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_medical",synergy:["qbx_ambulancejob"],
+ desc:"Neueres offizielles Medical-Modul (Schadens-/Verletzungslogik, aus dem ambulancejob ausgelagert/modernisiert). Repo-Doku für Details prüfen.",
+ pros:["Offiziell","Modernisierte Schadenslogik"],cons:["Jung – Doku dünn"],neutral:["Verhältnis zu qbx_ambulancejob im Repo klären"],
+ tip:"Bei Neuinstallation direkt das Duo ambulancejob+medical nach Doku aufsetzen."},
+{id:"wasabi_ambulance",name:"wasabi_ambulance",cat:"staat",group:"ambulance",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://wasabiscripts.com",price:{one:49.99,mon:null,c:"$"},bundle:"Wasabi-Serien-Abos ab $15/Monat",
+ desc:"Premium-Medic: tieferes Verletzungssystem, OP/Diagnose-RP, schönes UI. Qbox-Support vorhanden.",
+ pros:["Tieferes Medical-RP","Modernes UI"],cons:["💰 $49.99 (verifiziert)","🔒 Escrow"],neutral:["–"],
+ tip:"Beste Premium-Wahl, wenn Medic-RP Schwerpunkt wird."},
+{id:"qbx_management",name:"qbx_management",cat:"staat",group:null,ess:true,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_lib"],
+ link:"https://github.com/Qbox-project/qbx_management",
+ desc:"Boss-Menü für Jobs & Gangs: einstellen/befördern, Firmenkonto.",
+ pros:["Nativ","Jobs + Gangs"],cons:["–"],neutral:["Konto fließt ins Banking"],tip:null},
+{id:"qbx_prison",name:"qbx_prison",cat:"staat",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_prison",synergy:["qbx_policejob"],
+ desc:"Gefängnis: Haftzeiten, Knast-Jobs zur Verkürzung, Ausbruch-Mechanik.",
+ pros:["Nativ","Ausbruch dabei"],cons:["Vanilla-Interior (MLO-Upgrade möglich)"],neutral:["Zeit-Caps konfigurierbar"],
+ tip:"Haftzeit deckeln (z.B. 60 Min)."},
+{id:"qbx_cityhall",name:"qbx_cityhall",cat:"staat",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_cityhall",
+ desc:"Rathaus: Ausweise, Lizenzen, Jobcenter. Verwaltungs-RP-Anlaufstelle für neue Spieler.",
+ pros:["Nativ","Jobcenter dabei"],cons:["–"],neutral:["–"],
+ tip:"Erste Anlaufstelle für Neulinge → gut sichtbar markieren."},
+{id:"ps_mdt",name:"ps-mdt (Project Sloth)",cat:"staat",group:"mdt",badges:["bridge","open","free"],ver:"2.x",updated:"Gepflegt · Qbox-Forks aktiv",deps:["ox_lib"],
+ link:"https://github.com/Project-Sloth/ps-mdt",synergy:["qbx_policejob","ps_dispatch"],
+ extends:[{id:"qbx_policejob",adds:["Fahndungen/Akten/BOLOs","Führerschein- & Fahrzeugabfragen","Berichtswesen"],costs:["🔁 Bridge – nach Updates testen","Teils Item-Anpassung an ox_inventory"]}],
+ compat:{level:"vermutung",text:"qb-core-Events (Bridge ok), erwartet teils qb-inventory-Items für Beweismittel. Qbox-Community-Forks beheben das. Original-Fork auf DEV testen."},
+ desc:"Das Standard-Polizei-MDT: Fahndungen, Akten, Abfragen, Berichte, BOLOs. Ergänzt qbx_policejob um den Ermittlungs-Workflow.",
+ pros:["Feature-komplett & gratis","Große Community","Open Source"],cons:["🔁 Bridge","Setup-Doku QBCore-zentriert"],neutral:["DOJ-Forks verfügbar"],
+ tip:"Aktiv gepflegten Qbox-Fork nehmen."},
+{id:"wasabi_mdt",name:"Wasabi MDT & Dispatch V2",cat:"staat",group:"mdt",badges:["escrow","premium"],ver:"V2",updated:"Aktiv",
+ link:"https://wasabiscripts.com",price:{one:49.99,mon:null,c:"$"},bundle:"Wasabi-Serien-Abos ab $15/Monat",synergy:["wasabi_police"],
+ desc:"Premium-MDT mit integriertem Dispatch (Live-Operations, durchsuchbare Akten). Ersetzt ps-mdt + ps-dispatch in einem.",
+ pros:["MDT + Dispatch kombiniert","Sehr modernes UI","Qbox supported"],cons:["💰 $49.99 (verifiziert)","🔒 Escrow"],neutral:["–"],
+ tip:"Rechnerisch gut: ersetzt ZWEI Systeme zum Preis von einem."},
+{id:"redutzu_mdt",name:"redutzu-mdt",cat:"staat",group:"mdt",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://redutzu.tebex.io",linkcheck:null,
+ desc:"Premium-MDT mit sehr modernem UI, Dispatch integriert, Multi-Department. Qbox wird unterstützt.",
+ pros:["Top MDT-UI","Dispatch inklusive","Multi-Department"],cons:["💰","🔒 Escrow"],neutral:["Link manuell prüfen"],
+ tip:"Bei Polizei-Fokus einer der wertvollsten Premium-Käufe."},
+{id:"sonoran_cad",name:"Sonoran CAD",cat:"staat",group:"mdt",badges:["stand","escrow","premium"],ver:"Cloud (SaaS)",updated:"Aktiv",
+ link:"https://sonoransoftware.com",price:{one:null,mon:20,c:"$"},
+ compat:{level:"bestaetigt",text:"Externes System – läuft unabhängig vom Framework, Integration über API-Resource. Kein Bridge-Problem."},
+ desc:"Externes CAD (Browser) mit echter Datenbank + CMS für Bewerbungen/Whitelist. Qbox-Integration vorhanden.",
+ pros:["Professionelles CAD außerhalb des Spiels","CMS/Whitelist","Community-Verwaltung"],cons:["💰 Abo (~$20/Monat, Stufe prüfen)","Externe Abhängigkeit","Overkill für kleine Server"],neutral:["Gratis-Stufe testbar"],
+ tip:"Erst bei Whitelist + großen Fraktionen relevant."},
+{id:"ps_dispatch",name:"ps-dispatch (Project Sloth)",cat:"staat",group:"dispatch",badges:["bridge","open","free"],ver:"1.x",updated:"Gepflegt",
+ link:"https://github.com/Project-Sloth/ps-dispatch",synergy:["ps_mdt","qbx_policejob"],
+ desc:"Echtzeit-Einsatzmeldungen: Schüsse, Raub, Speeding, Reaktions-Buttons. qbx-Crime-Module senden kompatible Alerts.",
+ pros:["Kostenlos","Alert-API quasi Standard","Open Source"],cons:["🔁 Bridge","UI etwas alt"],neutral:["–"],
+ tip:"Alerts der qbx-Crime-Module in der Config mappen."},
+{id:"cd_dispatch",name:"cd_dispatch (Codesign)",cat:"staat",group:"dispatch",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://codesign.pro",linkcheck:null,bundle:"Codesign (Bundle-Rabatte im Store)",
+ desc:"Premium-Dispatch: Kartenansicht, Einheiten-Management, Panic-Buttons. Qbox-Support vorhanden.",
+ pros:["Kartenbasiert","Einheiten-Verwaltung","Panic-Buttons"],cons:["💰","🔒 Escrow"],neutral:["Oft im Codesign-Bundle"],
+ tip:"ps-dispatch reicht meist; cd_dispatch bei großem Polizei-Betrieb."},
+/* ---- 6. ZIVIL ---- */
+{id:"qbx_taxijob",name:"qbx_taxijob",cat:"zivil",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_taxijob",
+ desc:"Taxi: NPC-Fahrten + Spieler-Fahrten mit Taxameter.",
+ pros:["Nativ","NPC + Spieler"],cons:["Monoton auf Dauer"],neutral:["Löhne in Config"],
+ tip:"NPC-Lohn niedrig → Spieler-Taxis lohnen sich."},
+{id:"qbx_busjob",name:"qbx_busjob",cat:"zivil",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_busjob",
+ desc:"Buslinien mit festen Routen. Entspanntes Einstiegs-Grinden.",
+ pros:["Nativ","Mehrere Routen"],cons:["Repetitiv"],neutral:["Routen erweiterbar"],tip:null},
+{id:"qbx_towjob",name:"qbx_towjob",cat:"zivil",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_towjob",synergy:["qbx_mechanicjob"],
+ desc:"Abschleppdienst: Fahrzeuge aufladen, zum Hof. Synergie mit Mechaniker/Polizei.",
+ pros:["Physik-Aufladen macht Spaß","Nativ"],cons:["–"],neutral:["–"],tip:null},
+{id:"qbx_truckerjob",name:"qbx_truckerjob",cat:"zivil",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_truckerjob",
+ desc:"LKW-Lieferfahrten mit Distanz-Vergütung.",
+ pros:["Nativ","Distanz-basiert"],cons:["–"],neutral:["Eigener/Firmen-LKW"],tip:null},
+{id:"qbx_garbagejob",name:"qbx_garbagejob",cat:"zivil",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_garbagejob",
+ desc:"Müllabfuhr als Team-Job: einer fährt, andere sammeln. Erzwingt Gruppen-RP.",
+ pros:["Team-Mechanik","Nativ"],cons:["–"],neutral:["–"],
+ tip:"Team-Jobs stärken Community-Gefühl."},
+{id:"qbx_newsjob",name:"qbx_newsjob",cat:"zivil",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_newsjob",
+ desc:"Reporter: Kamera, Mikro, News-Heli. Reines RP-Werkzeug.",
+ pros:["Einzigartiges RP-Tool","Nativ"],cons:["Geringer Verdienst"],neutral:["–"],
+ tip:"Events von News-Crews begleiten lassen."},
+{id:"qbx_hotdogjob",name:"qbx_hotdogjob",cat:"zivil",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_hotdogjob",
+ desc:"Hotdog-Stand mit P2P-Verkauf. Kleine Vorlage für eigene Verkaufs-Jobs.",
+ pros:["P2P-Verkauf","Nativ"],cons:["Nische"],neutral:["Gute Code-Vorlage"],
+ tip:"Code studieren – Vorlage für eigene Stand-Jobs."},
+{id:"qbx_vineyard",name:"qbx_vineyard",cat:"zivil",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_vineyard",
+ desc:"Weinberg: sammeln → verarbeiten → verkaufen. Crafting-Ketten-Vorbild.",
+ pros:["Crafting-Kette","Nativ"],cons:["–"],neutral:["–"],
+ tip:"Muster für eigene Farm-Jobs kopieren."},
+{id:"qbx_recyclejob",name:"qbx_recyclejob",cat:"zivil",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_recyclejob",synergy:["jim_mechanic"],
+ desc:"Recyclinghof: Material gegen Rohstoffe. Kombinierbar mit Crafting (z.B. jim-mechanic-Teile).",
+ pros:["Material-Quelle","Nativ"],cons:["–"],neutral:["–"],
+ tip:"Output mit deinem Crafting verknüpfen."},
+{id:"qbx_diving",name:"qbx_diving",cat:"zivil",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_diving",
+ desc:"Tauchen: Wracks/Schatzsuche mit Sauerstoff-Management.",
+ pros:["Einzigartige Aktivität","Nativ"],cons:["–"],neutral:["Ausrüstung als Items"],tip:null},
+{id:"qbx_lapraces",name:"qbx_lapraces",cat:"zivil",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Neu · 2025/26",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_lapraces",
+ desc:"Offizielles Renn-Modul: Rundenstrecken, Bestzeiten. Für Racing-Community-Abende.",
+ pros:["Nativ","Bestenlisten"],cons:["Junges Modul"],neutral:["–"],
+ tip:"Illegal-Streetracing-RP lässt sich damit aufbauen."},
+{id:"wasabi_fishing",name:"Angeln (Wasabi/Community)",cat:"zivil",group:"fishing",badges:["stand","open","free"],ver:"Diverse",updated:"Community",deps:["ox_lib","ox_target"],
+ link:"https://github.com/WasabiRobby",linkcheck:null,
+ desc:"Angeln mit Minispiel, Fisch-Items, Verkauf. Wasabi-Version ist framework-erkennend (Qbox-tauglich). Items in ox_inventory eintragen.",
+ pros:["Entspannte Aktivität","Open Source","Qbox-tauglich"],cons:["Qualität je Fork"],neutral:["Items selbst anlegen"],
+ tip:"Fischpreise moderat – RP statt Goldgrinder."},
+/* ---- 7. CRIME ---- */
+{id:"qbx_storerobbery",name:"qbx_storerobbery",cat:"crime",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_storerobbery",synergy:["ps_dispatch"],
+ desc:"Ladenraub: Kassen, Tresore, Alarm via Dispatch, Mindest-Cops-Check.",
+ pros:["Nativ","Mindest-Cops-Logik"],cons:["–"],neutral:["Cooldowns/Beute konfigurierbar"],
+ tip:"Cooldown strikt – sonst Rob-Hopping."},
+{id:"qbx_bankrobbery",name:"qbx_bankrobbery",cat:"crime",group:"heist",badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_bankrobbery",synergy:["qbx_pawnshop","ps_dispatch"],
+ desc:"Bankraub (Fleeca/Pacific): Thermit/Hacking-Minispiele, Stufen-System, Hack-Items vom Schwarzmarkt.",
+ pros:["Stufen-Progression","Minigames","Item-Anforderungen treiben Schwarzmarkt"],cons:["Vanilla-Banken"],neutral:["–"],
+ tip:"Hack-Items knapp halten → Banken bleiben Events."},
+{id:"rainmad_heists",name:"Rainmad Heist Pack",cat:"crime",group:"heist",badges:["bridge","escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://rainmad.tebex.io",linkcheck:null,
+ compat:{level:"vermutung",text:"QBCore-fokussiertes Escrow-Bundle. Bridge dürfte greifen, aber komplexe Heist-Logik (Minigames, Szenen) ist fehleranfällig. Anbieter bieten oft Testserver – VOR Kauf verifizieren."},
+ desc:"Großes Heist-Bundle: Yacht, Casino, Humane Labs u.v.m. mit eigenen Minigames.",
+ pros:["Riesige Auswahl","Aufwendige Minigames","Aktive Entwicklung"],cons:["💰 Bundle-Preis","🔒 Escrow","🔁 Bridge-Risiko"],neutral:["Einzel-Heists separat kaufbar"],
+ tip:"Der Standard für große Heists – aber Escrow+Bridge erst auf DEV verifizieren."},
+{id:"qbx_jewelery",name:"qbx_jewelery",cat:"crime",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_jewelery",synergy:["qbx_pawnshop"],
+ desc:"Juwelier-Raub (Vangelico): Vitrinen einschlagen, Beute beim Hehler. Mittelstufen-Crime.",
+ pros:["Nativ","Gute Progressionsstufe"],cons:["–"],neutral:["Hehler-Verbindung"],tip:null},
+{id:"qbx_houserobbery",name:"qbx_houserobbery",cat:"crime",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_houserobbery",synergy:["qbx_lockpick","qbx_pawnshop"],
+ desc:"Häuser-Einbrüche mit Möbel-Interaktion und Alarm-Risiko. Mit Lockpick + Pfandhaus eine runde Crime-Schleife.",
+ pros:["Immersive Durchsuchung","Nativ"],cons:["–"],neutral:["Tageszeit-Abhängigkeit möglich"],
+ tip:"Cooldowns pro Spieler UND pro Haus."},
+{id:"qbx_truckrobbery",name:"qbx_truckrobbery",cat:"crime",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Neu · 2025/26",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_truckrobbery",
+ desc:"Geldtransporter-Überfälle: eskortierte Trucks abfangen, Ladung knacken. Action-Crime für Gruppen.",
+ pros:["Gruppen-Crime","Nativ"],cons:["–"],neutral:["–"],
+ tip:"Gute Polizei-Einsatz-Situation – mit Dispatch-Alerts koppeln."},
+{id:"qbx_pawnshop",name:"qbx_pawnshop",cat:"crime",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_pawnshop",synergy:["qbx_houserobbery","qbx_jewelery"],
+ desc:"Pfandhaus: geklaute Gegenstände versilbern. Wichtiges Wirtschafts-Ventil für Crime-Loot.",
+ pros:["Nativ","Preisliste flexibel"],cons:["–"],neutral:["–"],
+ tip:"Ankaufspreise UNTER Marktwert → Hehler-Risiko spiegelt sich im Preis."},
+{id:"qbx_drugs",name:"qbx_drugs",cat:"crime",group:"drugs",badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_inventory","ox_target"],
+ link:"https://github.com/Qbox-project/qbx_drugs",conflicts:["ps_drugprocessing"],
+ desc:"Drogen: Sammeln → Verarbeiten → Corner-Dealing an NPCs mit Polizei-Risiko. Metadaten (Qualität) möglich.",
+ pros:["Komplette Kette","Nativ","Qualitäts-Metadaten"],cons:["NPC-Dealing inflatorisch"],neutral:["Orte konfigurierbar"],
+ tip:"NPC-Preise NIEDRIG → P2P-Handel wird attraktiver."},
+{id:"qbx_weed",name:"qbx_weed",cat:"crime",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_inventory"],
+ link:"https://github.com/Qbox-project/qbx_weed",synergy:["qbx_drugs"],
+ desc:"Weed-Anbau-Modul: Pflanzen pflegen, ernten, verarbeiten. Fokussiertes Grow-RP.",
+ pros:["Pflanzen-System","Nativ"],cons:["Überschneidung mit qbx_drugs-Cannabis abgrenzen"],neutral:["–"],
+ tip:"Entweder weed-Teil in qbx_drugs ODER qbx_weed – nicht beides."},
+{id:"ps_weedplanting",name:"ps-weedplanting",cat:"crime",group:null,badges:["bridge","open","free"],ver:"1.x",updated:"Gepflegt",
+ link:"https://github.com/Project-Sloth/ps-weedplanting",synergy:["ps_drugprocessing"],
+ compat:{level:"vermutung",text:"QBCore-Script, Bridge sollte greifen. Items an ox_inventory anpassen. DEV-Test."},
+ desc:"Detailliertes Weed-Grow-System: Pflanzen-Stadien, Pflege, männlich/weiblich, Samen.",
+ pros:["Sehr detailliertes Grow-RP","Open Source"],cons:["🔁 Bridge"],neutral:["Kombinierbar mit ps-drugprocessing"],
+ tip:"Tieferes Grow-RP als qbx_weed – aber Bridge."},
+{id:"ps_drugprocessing",name:"ps-drugprocessing",cat:"crime",group:"drugs",badges:["bridge","open","free"],ver:"1.x",updated:"Gepflegt",
+ link:"https://github.com/Project-Sloth/ps-drugprocessing",conflicts:["qbx_drugs"],synergy:["ps_weedplanting"],
+ compat:{level:"vermutung",text:"QBCore-Script (Bridge). Verarbeitungs-Kette ersetzt den qbx_drugs-Teil – nur EIN Drogen-System als Kern wählen."},
+ desc:"Ausgefeilte Drogen-Verarbeitung mit Laboren und Stufen. Ergänzt ps-weedplanting zur kompletten Kette.",
+ pros:["Tiefe Verarbeitungs-Kette","Open Source"],cons:["🔁 Bridge","Konflikt mit qbx_drugs"],neutral:["–"],
+ tip:"Ein Drogen-Kern-System wählen und durchziehen."},
+{id:"qbx_lockpick",name:"qbx_lockpick / Safecracker",cat:"crime",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["ox_lib"],
+ link:"https://github.com/Qbox-project/qbx_lockpick",synergy:["qbx_houserobbery","qbx_vehiclekeys"],
+ desc:"Minispiele für Schlösser/Tresore – Dependency vieler qbx-Crime-Module.",
+ pros:["Nativ","Wiederverwendbar"],cons:["–"],neutral:["Schwierigkeit einstellbar"],tip:null},
+{id:"qbx_fireworks",name:"qbx_fireworks",cat:"crime",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Neu · 2025/26",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_fireworks",
+ desc:"Feuerwerk-Items: Events, Ablenkung, Feiern. Fun-Modul für Server-Events.",
+ pros:["Event-tauglich","Nativ"],cons:["–"],neutral:["–"],
+ tip:"Silvester/Event-Abende aufwerten."},
+/* ---- 8. KOMMUNIKATION ---- */
+{id:"mm_radio",name:"mm_radio",cat:"kommunikation",group:"radio",ess:true,badges:["qbox","open","free"],ver:"Aktuell (Svelte)",updated:"Aktiv · offiziell im Qbox-Projekt",deps:["qbx_core","pma-voice"],
+ link:"https://github.com/Qbox-project/mm_radio",conflicts:["qbx_radio_legacy"],
+ desc:"Offizielles Funkgerät des Qbox-Projekts (Nachfolger von qbx_radio): Frequenzen, verschlüsselte Kanäle, Item-gebunden, modernes Svelte-UI.",
+ pros:["Offiziell & aktiv","Modernes UI","Restricted Channels"],cons:["–"],neutral:["Braucht pma-voice"],
+ tip:"Ersetzt das archivierte qbx_radio."},
+{id:"qbx_radio_legacy",name:"qbx_radio (ALT)",cat:"kommunikation",group:"radio",badges:["qbox","open","free"],ver:"Alt",updated:"🪦 Archiviert",
+ link:"https://github.com/Qbox-project/qbx_radio",archived:"Vom Qbox-Projekt archiviert. Nachfolger: mm_radio.",conflicts:["mm_radio"],
+ desc:"Das alte Qbox-Funkgerät – eingestellt. Nur der Vollständigkeit halte gelistet.",
+ pros:["–"],cons:["Archiviert","Keine Updates"],neutral:["–"],
+ tip:"mm_radio verwenden."},
+{id:"npwd",name:"npwd (New Phone Who Dis)",cat:"kommunikation",group:"phone",ess:true,badges:["stand","open","free"],ver:"1.x aktiv",updated:"Aktiv",deps:["pma-voice","oxmysql"],
+ link:"https://github.com/project-error/npwd",synergy:["pma-voice"],
+ desc:"Bestes Gratis-Handy: Anrufe, SMS, Twitter, Kamera, Marktplatz, Darknet, Notruf. React-UI, Qbox-Anbindung.",
+ pros:["Kostenlos & offen","Professionelles UI","Marktplatz/Darknet"],cons:["Setup komplexer (config.json)","Weniger Apps als lb-phone"],neutral:["Eigene Apps entwickelbar (React/TS)"],
+ tip:"Twitter-App treibt Server-RP enorm."},
+{id:"lb_phone",name:"lb-phone",cat:"kommunikation",group:"phone",badges:["escrow","premium"],ver:"Aktuell",updated:"Sehr aktiv",
+ link:"https://lbphone.com",
+ desc:"Poliertestes FiveM-Phone: iOS-Look, App-Store, Custom-Apps per API, Video-Calls. Qbox offiziell.",
+ pros:["Bestes Phone-UI","Custom-App-API (trotz Escrow erweiterbar)","Sehr aktiv","Qbox offiziell"],cons:["💰 Preis im Store prüfen","🔒 Kern Escrow"],neutral:["Custom Apps als offene Ressourcen"],
+ tip:"Wenn EIN Premium-Kauf für Spieler-Experience: das Phone."},
+{id:"qs_smartphone",name:"qs-smartphone-pro (Quasar)",cat:"kommunikation",group:"phone",badges:["escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://www.quasar-store.com",
+ desc:"Quasars Premium-Phone mit vielen Apps. Konkurriert mit lb-phone, Qbox-Support vorhanden.",
+ pros:["Viele Apps","Häufige Updates"],cons:["💰","🔒 Escrow","Schwerer (Resmon)"],neutral:["Oft in Bundles"],
+ tip:"Community tendiert aktuell zu lb-phone."},
+{id:"okokPhone",name:"okokPhone",cat:"kommunikation",group:"phone",badges:["escrow","premium"],ver:"Aktuell",updated:"Gepflegt",
+ link:"https://okok.tebex.io",linkcheck:null,bundle:"okok (Bundle-Rabatte im Store)",
+ desc:"Günstigere Premium-Phone-Alternative mit sauberem UI.",
+ pros:["Günstiger als lb/qs","Solide Basis"],cons:["💰","🔒 Escrow","Weniger Apps"],neutral:["–"],
+ tip:"Bei Budget-Druck: erst npwd (gratis) testen."},
+{id:"gcphone",name:"gcphone (Legacy)",cat:"kommunikation",group:"phone",badges:["stand","open","free"],ver:"Legacy",updated:"⚠️ Veraltet",
+ link:"https://github.com/search?q=gcphone+fivem",archived:"Veraltet, unsicher, nicht mehr nutzen.",
+ desc:"Urahn der FiveM-Phones. Veraltet und unsicher.",
+ pros:["Historisch"],cons:["Veraltet","Sicherheitslücken"],neutral:["–"],
+ tip:"Nicht installieren."},
+{id:"qbot",name:"Qbot (Discord-Bot)",cat:"kommunikation",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/Qbot",
+ desc:"Offizieller Discord-Bot des Qbox-Projekts: Server-Status, Verknüpfung Discord↔Ingame, Admin-Befehle aus Discord.",
+ pros:["Offiziell","Discord-Integration"],cons:["Node.js-Hosting nötig (dein Unraid kann das)"],neutral:["–"],
+ tip:"Als Docker-Container auf Unraid – passt in dein Setup."},
+/* ---- 9. REALISMUS ---- */
+{id:"qbx_weathersync",name:"qbx_weathersync",cat:"realismus",group:"weather",ess:true,badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_weathersync",conflicts:["vSync","renewed_weathersync"],
+ desc:"Synchronisiert Wetter & Uhrzeit serverweit. Zyklen und Zeit-Skalierung konfigurierbar.",
+ pros:["Nativ","Blackout-Events"],cons:["Keine Wetter-Zonen"],neutral:["Zeit-Skalierung"],
+ tip:"Längere Nächte = Noir-RP-Stimmung."},
+{id:"renewed_weathersync",name:"Renewed-Weathersync",cat:"realismus",group:"weather",badges:["qbox","open","free"],ver:"2.x",updated:"Aktiv",deps:["ox_lib"],
+ link:"https://github.com/Renewed-Scripts/Renewed-Weathersync",conflicts:["qbx_weathersync","vSync"],
+ desc:"Wetter-Zonen (regional unterschiedliches Wetter) und sanfte Übergänge. Nativer Qbox-Support.",
+ pros:["Regionen-Wetter","Sanfte Übergänge","Nativer Qbox-Support"],cons:["Mehr Konfiguration"],neutral:["–"],
+ tip:"Upgrade bei Wetter-Immersion (Schnee nur am Berg)."},
+{id:"vSync",name:"vSync (Legacy)",cat:"realismus",group:"weather",badges:["stand","open","free"],ver:"Legacy",updated:"⚠️ Inaktiv",
+ link:"https://github.com/search?q=vsync+fivem",archived:"Inaktiv; qbx_weathersync ist der Nachfolger.",conflicts:["qbx_weathersync","renewed_weathersync"],
+ desc:"Alter Weather/Time-Standard. Funktioniert noch, aber überholt.",
+ pros:["–"],cons:["Inaktiv","Redundant"],neutral:["–"],
+ tip:"Nicht parallel zu qbx_weathersync."},
+{id:"qbx_smallresources",name:"qbx_smallresources",cat:"realismus",group:null,ess:true,badges:["qbox","open","free"],ver:"Aktuell",updated:"Aktiv",deps:["qbx_core"],
+ link:"https://github.com/Qbox-project/qbx_smallresources",synergy:["qbx_hud"],
+ desc:"QoL-Sammelmodul: Hunger/Durst, Konsum, Gurt, Holster, Recoil-Basics, NPC-Dichte. Stellt den Realismus-Grad ein.",
+ pros:["Viele Systeme in einem","Modular abschaltbar","Nativ"],cons:["Doppel-Systeme bei Dritt-Scripts vermeiden"],neutral:["Config komplett durchgehen"],
+ tip:"VOR Dritt-Scripts (Gurt/Recoil/Hunger) prüfen, ob es hier schon drin ist!"},
+{id:"npc_density",name:"NPC-/Traffic-Dichte (Community)",cat:"realismus",group:null,badges:["stand","open","free"],ver:"Diverse",updated:"Cfx-Forum",
+ link:"https://forum.cfx.re/c/releases/7",
+ desc:"NPC-Dichte & Verkehr steuern. Empfehlung: Peds 0.3–0.5, Traffic ~0.4.",
+ pros:["Sofort spürbare Immersion"],cons:["Zu hoch = FPS-Verlust"],neutral:["Teils in smallresources"],
+ tip:"Erst smallresources-Config prüfen, dann ergänzen."},
+{id:"renewed_sirensync",name:"Renewed-Sirensync",cat:"realismus",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://github.com/Renewed-Scripts/Renewed-Sirensync",
+ desc:"Synchronisiert Einsatz-Sirenen/Lichter sauber zwischen allen Spielern (Vanilla bugt hier gern).",
+ pros:["Fixt Sirenen-Sync-Bugs","Nativer Qbox-Support"],cons:["–"],neutral:["–"],
+ tip:"Muss für Polizei-Server fast sein."},
+{id:"renewed_dutyblips",name:"Renewed-Dutyblips",cat:"realismus",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://github.com/Renewed-Scripts/Renewed-Dutyblips",
+ desc:"Fraktions-Mitglieder im Dienst auf der Karte sehen (Polizei sieht Kollegen-Blips etc.).",
+ pros:["Duty-Blips pro Job","Nativer Qbox-Support"],cons:["–"],neutral:["–"],tip:null},
+{id:"renewed_chargers",name:"Renewed-Chargers",cat:"realismus",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://github.com/Renewed-Scripts/Renewed-Chargers",synergy:["ox_fuel"],
+ desc:"E-Ladesäulen für Elektro-Fahrzeuge – Ergänzung zum Fuel-System (Strom statt Benzin).",
+ pros:["E-Auto-Support","Nativer Qbox-Support"],cons:["Nur relevant bei E-Autos im Fuhrpark"],neutral:["–"],
+ tip:"Passt, wenn du E-Custom-Cars einbaust."},
+{id:"renewed_audiotool",name:"Renewed Audiotool",cat:"realismus",group:null,badges:["stand","open","free"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://github.com/Renewed-Scripts/Renewed-Audiotool",
+ desc:"Entwickler-Tool: automatisiert Native-Audio (Sound-Namen, Lautstärken, Ranges) für FiveM-Ressourcen.",
+ pros:["Automatisiert Audio-Config","Open Source"],cons:["Reines Dev-Tool"],neutral:["–"],
+ tip:"Für dich als Audio-Mensch interessant – Custom-Sounds für Funk/Umgebung."},
+/* ---- 10. WAFFEN ---- */
+{id:"ox_custom_weapons",name:"Custom Weapons via ox_inventory (Guide)",cat:"waffen",group:null,ess:true,badges:["qbox","open","free"],ver:"Guide aktuell",updated:"2025+",deps:["ox_inventory"],
+ link:"https://docs.qbox.re/blog/install-custom-weapons",
+ desc:"Qbox behandelt Waffen als ox_inventory-Items mit Seriennummer, Haltbarkeit, Aufsätzen. Offizieller Guide für eigene Waffen – kein Extra-Script nötig.",
+ pros:["Kein Extra-Script","Seriennummern = Ermittlungs-RP","Offizielle Doku"],cons:["Einarbeitung nötig"],neutral:["Modelle als Stream dazu"],
+ tip:"Seriennummern nutzen – ballistische Ermittlung ist top Polizei-RP."},
+{id:"renewed_weaponscarry",name:"Renewed-Weaponscarry",cat:"waffen",group:null,badges:["qbox","open","free"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://github.com/Renewed-Scripts/Renewed-Weaponscarry",
+ desc:"Waffen sichtbar auf dem Rücken tragen + bestimmte Items als Props in der Hand. Großer Immersions-Gewinn.",
+ pros:["Sichtbare Waffen am Körper","Item-Props (Kisten etc.)","Nativer Qbox-Support"],cons:["–"],neutral:["–"],
+ tip:"Reallife-Pflicht: Kein gezogenes Gewehr aus dem Nichts mehr."},
+{id:"weapon_balancing",name:"Waffen-Balancing (Recoil/Damage)",cat:"waffen",group:"recoil",badges:["stand","open","free"],ver:"Diverse",updated:"Cfx-Forum",
+ link:"https://forum.cfx.re/c/releases/7",
+ desc:"Realistischer Rückstoß, reduzierter Schaden, Headshot-Regeln. Teils in qbx_smallresources konfigurierbar.",
+ pros:["Taktisches RP statt COD"],cons:["Nur EIN System gleichzeitig!"],neutral:["–"],
+ tip:"Schaden runter + Recoil rauf = Standard-Formel."},
+/* ---- 11. WIRTSCHAFT ---- */
+{id:"renewed_banking",name:"Renewed-Banking",cat:"wirtschaft",group:"banking",ess:true,badges:["qbox","open","free"],ver:"2.x",updated:"Aktiv",deps:["ox_lib","ox_inventory"],
+ link:"https://github.com/Renewed-Scripts/Renewed-Banking",conflicts:["qb_banking","okokBanking"],synergy:["qbx_management"],
+ desc:"Modernes Banking mit nativem Qbox-Support: Konten, Transaktions-Historie, Firmenkonten, IBANs. De-facto-Standard auf Qbox.",
+ pros:["✅ Nativer Qbox-Support","Transaktions-Historie","Firmenkonten"],cons:["–"],neutral:["ATMs konfigurierbar"],
+ tip:"Historie = Gold für Admin-Ermittlungen bei Exploits."},
+{id:"qb_banking",name:"qb-banking (via Bridge)",cat:"wirtschaft",group:"banking",badges:["bridge","open","free"],ver:"QBCore",updated:"QBCore-Repo",
+ link:"https://github.com/qbcore-framework/qb-banking",conflicts:["renewed_banking","okokBanking"],
+ desc:"QBCore-Original. Läuft via Bridge, aber Renewed-Banking ist auf Qbox besser.",
+ pros:["Bekannt"],cons:["🔁 Bridge","Weniger Features"],neutral:["–"],
+ tip:"Nur wenn Alt-Scripts es erwarten."},
+{id:"okokBanking",name:"okokBanking",cat:"wirtschaft",group:"banking",badges:["escrow","premium"],ver:"Aktuell",updated:"Gepflegt",
+ link:"https://okok.tebex.io",linkcheck:null,bundle:"okok (Bundle-Rabatte im Store)",conflicts:["renewed_banking","qb_banking"],
+ desc:"Premium-Banking mit Kredit-System, Sparbüchern, hübschem UI.",
+ pros:["Schönes UI","Kredite/Sparbuch"],cons:["💰","🔒 Escrow","Renewed gratis fast ebenbürtig"],neutral:["–"],
+ tip:"Kredit-Limits setzen – sonst Wirtschaft kaputt."},
+/* ---- 12. ADMIN ---- */
+{id:"qbx_adminmenu",name:"qbx_adminmenu",cat:"admin",group:"adminmenu",badges:["qbox","open","free"],ver:"Aktuell",updated:"Gepflegt",deps:["qbx_core","ox_lib"],
+ link:"https://github.com/Qbox-project/qbx_adminmenu",conflicts:["ps_adminmenu"],
+ desc:"Admin-Menü: Teleport, Noclip, Fahrzeug-Spawn, Spieler-Management. ACE-Permissions.",
+ pros:["Nativ, gratis","Deckt 90% ab"],cons:["Weniger Komfort als Premium"],neutral:["ACE-basiert"],
+ tip:"Rechte strikt staffeln (mod/admin/god)."},
+{id:"ps_adminmenu",name:"ps-adminmenu (Project Sloth)",cat:"admin",group:"adminmenu",badges:["bridge","open","free"],ver:"1.x",updated:"Gepflegt",
+ link:"https://github.com/Project-Sloth/ps-adminmenu",conflicts:["qbx_adminmenu"],
+ compat:{level:"vermutung",text:"QBCore-Script (Bridge). Admin-Aktionen greifen tief ins Framework → gründlich auf DEV testen."},
+ desc:"Komfortableres Admin-Menü mit mehr Aktionen und schönerem UI.",
+ pros:["Mehr Aktionen","Schöneres UI"],cons:["🔁 Bridge","Tiefe Framework-Zugriffe"],neutral:["–"],
+ tip:"Nur EIN Admin-Menü – Doppel-Systeme konfliktieren bei Spectate/Noclip."},
+{id:"fiveguard",name:"fiveguard (Anticheat)",cat:"admin",group:"anticheat",badges:["stand","escrow","premium"],ver:"Aktuell",updated:"Sehr aktiv",
+ link:"https://fiveguard.net",price:{one:null,mon:25,c:"$"},
+ desc:"Kommerzielles Anticheat gegen Mod-Menüs, Injectoren, Event-Spam. Ab öffentlichen Spielern Pflicht.",
+ pros:["Hohe Erkennung","Aktive Updates","Guter Support"],cons:["💰 Abo (~$25/Monat, Stufe prüfen)","🔒 Escrow","False-Positives pflegen"],neutral:["Umfangreiche Config"],
+ tip:"Zusätzlich IMMER serverseitige Event-Checks."},
+{id:"eagleac",name:"EagleAC (Anticheat)",cat:"admin",group:"anticheat",badges:["stand","escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://eagleac.com",linkcheck:null,
+ desc:"Anticheat-Konkurrent mit ähnlicher Erkennung, deutscher Support-Hintergrund, teils günstiger.",
+ pros:["Solide Erkennung","Teils günstiger"],cons:["💰","🔒 Escrow"],neutral:["Community geteilt"],
+ tip:"Testphasen beider ACs vergleichen."},
+{id:"waveshield",name:"WaveShield (Anticheat)",cat:"admin",group:"anticheat",badges:["stand","escrow","premium"],ver:"Aktuell",updated:"Aktiv",
+ link:"https://waveshield.com",linkcheck:null,
+ desc:"Anticheat mit Fokus auf Event-/Trigger-Analyse und Web-Dashboard.",
+ pros:["Event-Analyse","Dashboard"],cons:["💰","🔒 Escrow"],neutral:["–"],
+ tip:"Dashboard-Qualität vergleichen – du wirst viel Zeit darin verbringen."},
+{id:"ps_donator",name:"ps-donator (Tebex-Spenden)",cat:"admin",group:null,badges:["bridge","open","free"],ver:"1.x",updated:"Gepflegt",
+ link:"https://github.com/Project-Sloth/ps-donator",
+ desc:"Verknüpft Tebex-Spenden/Shop-Pakete mit Ingame-Belohnungen (Coins, Fahrzeuge). Relevant, falls du den Server später finanzierst.",
+ pros:["Tebex-Anbindung","Open Source"],cons:["🔁 Bridge"],neutral:["–"],
+ tip:"Spenden-Belohnungen nie Pay2Win machen – Ärger vorprogrammiert."},
+{id:"discord_logging",name:"Discord-Logging (ox_lib/Webhooks)",cat:"admin",group:null,ess:true,badges:["stand","open","free"],ver:"–",updated:"–",deps:["ox_lib"],
+ link:"https://overextended.dev/ox_lib/Modules/Logger/Server",
+ desc:"ox_lib-Logger: Kills, Geld-Transfers, Items, Admin-Aktionen → Discord. Gold gegen RDM und Exploits.",
+ pros:["Kostenlos & eingebaut"],cons:["Spam-Gefahr"],neutral:["Kanäle trennen"],
+ tip:"Getrennte Kanäle: Admin/Economy/Kills."},
+/* ---- 13. ASSETS ---- */
+{id:"kingmaps",name:"Kingmaps (MLOs)",cat:"assets",group:"mlos",badges:["stand","escrow","premium"],ver:"–",updated:"Laufend neue Releases",
+ link:"https://kingmaps.net",
+ desc:"Premium-MLO-Shop. MLOs = reine Streams = immer kompatibel. Nach resources/[maps]/, ensure, fertig.",
+ pros:["Hohe Qualität","Framework-unabhängig"],cons:["💰 Pro Map","🔒 Dateien verschlüsselt (normal)","FPS-Kosten prüfen"],neutral:["Auch K4MB1, Patoche & Co."],
+ tip:"Nach jeder Map resmon + FPS testen; keine überlappenden MLOs!"},
+{id:"cfx_free_mlos",name:"Kostenlose MLOs (Cfx-Forum)",cat:"assets",group:"mlos",badges:["stand","open","free"],ver:"–",updated:"Laufend",
+ link:"https://forum.cfx.re/c/releases/7",
+ desc:"Hunderte Gratis-MLOs/YMAPs im Releases-Forum. Qualitäts-Lotterie – Kommentare und Datum prüfen.",
+ pros:["Kostenlos","Riesige Auswahl"],cons:["Qualitäts-Lotterie","Schlechte LODs → FPS"],neutral:["–"],
+ tip:"Nach Aktivität sortieren; aktive Kommentare = gepflegt."},
+{id:"eup",name:"EUP / Custom-Kleidung",cat:"assets",group:null,badges:["stand","open","free"],ver:"–",updated:"Community",
+ link:"https://forum.lcpdfr.com",
+ desc:"Kleidungs-Packs (Uniformen, Fraktions-Merch) als Streams. Integration über Appearance/Kleiderläden.",
+ pros:["Framework-unabhängig","Server-Branding"],cons:["Slot-Verwaltung"],neutral:["Eigene Kleidung per 3D-Modelling"],
+ tip:"Eigener Fraktions-Merch hebt die Identität – passt zu deinen CAD-Plänen."}
+];
+const P=RAW.map(p=>Object.assign({group:null,ess:false,ver:"–",updated:"ungeprüft",deps:[],linkcheck:"11.08.2026",price:null,conflicts:[],synergy:[],extends:[],compat:null,archived:null,bundle:null,tip:null,pros:["–"],cons:["–"],neutral:["–"]},p));
+
+/* ================= STATE ================= */
+const LS="qbox_planer_v2";
+let state={servers:{},notes:{},prio:{},backups:[],custom:[],catalogExtra:[],catalogVer:CATALOG_VER,sort:"def"};
+try{const s=localStorage.getItem(LS);if(s)state=Object.assign(state,JSON.parse(s));}catch(e){}
+/* Auto-Migration aus v1.x/v2.0 (gleicher Key) – Hinweis einmalig zeigen */
+if(localStorage.getItem("qbox_planer_v1")&&!localStorage.getItem(LS+"_migrated")){
+  try{const old=JSON.parse(localStorage.getItem("qbox_planer_v1"));
+    state.servers=old.servers||state.servers;state.notes=old.notes||state.notes;
+    localStorage.setItem(LS+"_migrated","1");
+    setTimeout(()=>toast("🔄 Stand aus alter Version übernommen!"),800);
+  }catch(e){}
+}
+const ALL=()=>{const m={};P.forEach(p=>m[p.id]=p);(state.catalogExtra||[]).forEach(p=>m[p.id]=p);(state.custom||[]).forEach(p=>m[p.id]=p);return Object.values(m);};
+const byId=id=>ALL().find(p=>p.id===id);
+function save(){localStorage.setItem(LS,JSON.stringify(state));updateStats();}
+function toast(m,err){const t=document.getElementById("toast");t.textContent=m;t.className="toast"+(err?" err":"");t.style.display="block";setTimeout(()=>t.style.display="none",2800);}
+
+/* ================= HELPERS ================= */
+const groupMembers=g=>g?ALL().filter(p=>p.group===g):[];
+const adopted=(id,s)=>!!(state.servers[id]&&state.servers[id][s]);
+function coveredBy(p,srv){if(!p.group)return null;return groupMembers(p.group).filter(o=>o.id!==p.id&&adopted(o.id,srv)&&!adopted(p.id,srv));}
+function badgeHTML(b){const m=BADGES[b];return m?`<span class="badge ${m.cls}">${m.t}</span>`:"";}
+function priceHTML(p){if(!p.price)return "";const parts=[];if(p.price.one)parts.push(`${p.price.c}${p.price.one} einmalig`);if(p.price.mon)parts.push(`${p.price.c}${p.price.mon}/Monat`);return parts.length?`<span class="price-tag">💰 ${parts.join(" + ")}</span>`:"";}
+function checkHTML(p){return p.linkcheck?`<span class="badge b-check">🔗 geprüft ${p.linkcheck}</span>`:`<span class="badge b-check">🔗 ungeprüft</span>`;}
+function compatHTML(p){if(!p.compat)return "";const lvl=p.compat.level==="bestaetigt"?"BESTÄTIGT (Doku/Repo)":"VERMUTUNG (ungetestet)";return `<span class="badge b-warn" title="⚠️ ${lvl}:\n\n${p.compat.text}">⚠️ ${p.compat.level==="bestaetigt"?"Bestätigt":"Vermutung"}</span>`;}
+function archHTML(p){return p.archived?`<span class="badge b-arch" title="${p.archived}">🪦 Archiviert</span>`:"";}
+function ts(id,s){return state.servers[id]&&state.servers[id][s+"TS"]?state.servers[id][s+"TS"]:"";}
+
+/* ================= RENDER ================= */
+const PRIO_ORDER={hoch:0,mittel:1,niedrig:2};
+function prioOf(id){return state.prio[id]||"";}
+function cardHTML(p){
+  const g=p.group?groupMembers(p.group).filter(o=>o.id!==p.id):[];
+  const syn=(p.synergy||[]).map(byId).filter(Boolean);
+  const ext=(p.extends||[]);
+  const covM=coveredBy(p,"main"),covD=coveredBy(p,"dev");
+  let tags="";
+  if(covM&&covM.length)tags+=`<span class="replaced-tag main">⚠️ ersetzt durch ${covM.map(o=>`<a onclick="jumpTo('${o.id}')">${o.name}</a>`).join(", ")} [MAIN]</span>`;
+  if(covD&&covD.length)tags+=`<span class="replaced-tag">⚠️ ersetzt durch ${covD.map(o=>`<a onclick="jumpTo('${o.id}')">${o.name}</a>`).join(", ")} [DEV]</span>`;
+  const note=state.notes[p.id]||"";const prio=prioOf(p.id);
+  return `<div class="card" id="card-${p.id}" data-search="${(p.name+" "+p.desc+" "+p.cat+" "+(p.group||"")).toLowerCase()}">
+  ${p.ess?`<span style="float:right;color:var(--green);font-size:.75rem;font-weight:700">★ EMPFOHLEN</span>`:""}
+  <h3><a href="${p.link}" target="_blank">${p.name}</a></h3>${priceHTML(p)}${tags}
+  <div>${p.badges.map(badgeHTML).join("")}${compatHTML(p)}${archHTML(p)}${checkHTML(p)}</div>
+  <p class="desc">${p.desc}</p>
+  <div class="meta"><b>Version:</b> ${p.ver} · <b>Update:</b> ${p.updated} · <b>Deps:</b> ${(p.deps||[]).map(d=>{const dp=byId(d);return dp?`<a onclick="jumpTo('${d}')">${dp.name}</a>`:d;}).join(", ")||"–"}${p.bundle?` · <b>Bundle:</b> ${p.bundle}`:""}</div>
+  ${p.tip?`<div class="tip">💡 ${p.tip}</div>`:""}
+  <div class="actions">
+    ${g.length?`<button class="btn" onclick="openReplaces('${p.id}')">🔁 Ersetzt (${g.length})</button>`:""}
+    ${g.length?`<button class="btn" onclick="startCompare('${p.id}')">⚖️ Vergleichen</button>`:""}
+    ${syn.length?`<button class="btn gold" onclick="openSynergy('${p.id}')">🔗 Synergie (${syn.length})</button>`:""}
+    ${ext.length?`<button class="btn gold" onclick="openExtends('${p.id}')">➕ Ergänzt (${ext.length})</button>`:""}
+    <select class="prio-sel" onchange="setPrio('${p.id}',this.value)" title="Priorität">
+      <option value="" ${!prio?"selected":""}>🚩 Prio</option>
+      <option value="hoch" ${prio==="hoch"?"selected":""}>🔥 Hoch</option>
+      <option value="mittel" ${prio==="mittel"?"selected":""}>🟡 Mittel</option>
+      <option value="niedrig" ${prio==="niedrig"?"selected":""}>⚪ Niedrig</option>
+    </select>
+    <span class="srv-wrap"><label class="srv-check dev ${adopted(p.id,"dev")?"on":""} ${covD&&covD.length&&!adopted(p.id,"dev")?"cov":""}"><input type="checkbox" ${adopted(p.id,"dev")?"checked":""} onchange="toggleSrv('${p.id}','dev',this.checked)"> 🧪 DEV</label>${ts(p.id,"dev")?`<span class="srv-ts">seit ${ts(p.id,"dev")}</span>`:""}</span>
+    <span class="srv-wrap"><label class="srv-check main ${adopted(p.id,"main")?"on":""} ${covM&&covM.length&&!adopted(p.id,"main")?"cov":""}"><input type="checkbox" ${adopted(p.id,"main")?"checked":""} onchange="toggleSrv('${p.id}','main',this.checked)"> ✅ MAIN</label>${ts(p.id,"main")?`<span class="srv-ts">seit ${ts(p.id,"main")}</span>`:""}</span>
+    <button class="btn" onclick="toggleNote('${p.id}')">📝${note?" ●":""}</button>
+  </div>
+  <textarea class="note-area" id="note-${p.id}" style="display:${note?"block":"none"}" placeholder="Notizen (Config, resmon-Werte, Tests...) – wird gespeichert." onchange="saveNote('${p.id}',this.value)">${note}</textarea>
+</div>`;
+}
+function sortedItems(items){const s=state.sort||"def";
+  if(s==="name")return[...items].sort((a,b)=>a.name.localeCompare(b.name));
+  if(s==="prio")return[...items].sort((a,b)=>(PRIO_ORDER[prioOf(a.id)]??9)-(PRIO_ORDER[prioOf(b.id)]??9));
+  return items;}
+function render(){
+  const c=document.getElementById("content");let html="";
+  CATS.forEach(cat=>{
+    let items=(cat.id==="custom"?(state.custom||[]):ALL().filter(p=>p.cat===cat.id&&!state.custom.some(cp=>cp.id===p.id)));
+    items=sortedItems(items);
+    if(!items.length&&cat.id!=="custom")return;
+    const mc=items.filter(p=>adopted(p.id,"main")).length;
+    html+=`<h2 class="cat" id="cat-${cat.id}">${cat.name} <span class="count">(${mc}/${items.length} auf MAIN)</span></h2>`;
+    html+=items.map(cardHTML).join("")||"";
+  });
+  c.innerHTML=html;applyFilters();updateStats();
+}
+function updateStats(){
+  const dev=ALL().filter(p=>adopted(p.id,"dev")).length,main=ALL().filter(p=>adopted(p.id,"main")).length;
+  document.getElementById("stats").innerHTML=`🧪 DEV: <b>${dev}</b> · ✅ MAIN: <b>${main}</b>`;
+  let one=0,mon=0,cur="$";
+  ALL().forEach(p=>{if(adopted(p.id,"main")&&p.price){cur=p.price.c||"$";if(p.price.one)one+=p.price.one;if(p.price.mon)mon+=p.price.mon;}});
+  document.getElementById("costStats").innerHTML=`💰 MAIN: <b style="color:#ffd477">${cur}${one.toFixed(2).replace(/\.00$/,"")}</b> einmalig${mon?` + <b style="color:#ffd477">${cur}${mon}</b>/Monat`:""}`;
+  document.getElementById("catVer").textContent=`📚 Katalog v${state.catalogVer||CATALOG_VER} · ${ALL().length} Plugins`;
+}
+
+/* ================= ACTIONS ================= */
+function setPrio(id,v){state.prio[id]=v;save();render();}
+function toggleSrv(id,srv,val){
+  const p=byId(id);
+  if(val){
+    const conf=(p.conflicts||[]).map(byId).filter(o=>o&&adopted(o.id,srv));
+    if(conf.length&&!confirm(`⚠️ KONFLIKT auf ${srv.toUpperCase()}:\n${p.name} kollidiert mit:\n${conf.map(o=>"• "+o.name).join("\n")}\n\nTrotzdem aktivieren?`)){event.target.checked=false;return;}
+    const bund=ALL().filter(o=>o.bundle&&o.bundle===p.bundle&&o.id!==id&&adopted(o.id,srv));
+    if(bund.length)toast(`📦 Bundle: ${bund.map(o=>o.name).join(", ")} teilt „${p.bundle}"`);
+    const miss=(p.deps||[]).map(byId).filter(d=>d&&!adopted(d.id,srv));
+    if(miss.length)toast(`⚠️ Fehlende Deps auf ${srv.toUpperCase()}: ${miss.map(d=>d.name).join(", ")}`,true);
+  }
+  if(!state.servers[id])state.servers[id]={};
+  state.servers[id][srv]=val;
+  if(val)state.servers[id][srv+"TS"]=new Date().toLocaleDateString("de-DE");else delete state.servers[id][srv+"TS"];
+  save();render();
+  toast(val?`${p.name} → ${srv.toUpperCase()} ✔`:`${p.name} von ${srv.toUpperCase()} entfernt`);
+}
+function toggleNote(id){const n=document.getElementById("note-"+id);n.style.display=n.style.display==="none"?"block":"none";if(n.style.display==="block")n.focus();}
+function saveNote(id,v){state.notes[id]=v;save();toast("Notiz gespeichert 💾");}
+
+/* ================= MODALS ================= */
+function openModal(h){document.getElementById("modal").innerHTML=`<button class="close" onclick="closeModal()">✖</button>`+h;document.getElementById("overlay").classList.add("show");}
+function closeModal(){document.getElementById("overlay").classList.remove("show");}
+document.getElementById("overlay").addEventListener("click",e=>{if(e.target.id==="overlay")closeModal();});
+function repItem(o){const st=[adopted(o.id,"dev")?"🧪":"",adopted(o.id,"main")?"✅":""].filter(Boolean).join("");
+  return `<div class="rep-item" onclick="closeModal();jumpTo('${o.id}')"><span class="rname">${o.name} ${st}</span><span>${o.badges.map(badgeHTML).join("")}</span><span class="rdesc">${o.desc.substring(0,120)}…</span></div>`;}
+function openReplaces(id){const p=byId(id),others=groupMembers(p.group).filter(o=>o.id!==id);
+  openModal(`<h2>🔁 Alternativen zu „${p.name}"</h2><p style="color:var(--muted);font-size:.88rem">Gleiche Funktion – nur EINES installieren. Klick → springt zum Eintrag.</p>${others.map(repItem).join("")||"<p>Keine bekannt.</p>"}`);}
+function openSynergy(id){const p=byId(id),syn=(p.synergy||[]).map(byId).filter(Boolean);
+  openModal(`<h2>🔗 Synergie: „${p.name}"</h2><p style="color:var(--muted);font-size:.88rem">Gehören zusammen – keine Pflicht, aber Empfehlung für den vollen Workflow.</p>${syn.map(repItem).join("")}`);}
+function openExtends(id){const p=byId(id);
+  const blocks=(p.extends||[]).map(e=>{const t=byId(e.id);if(!t)return"";
+    return `<h3 style="margin-top:18px">➕ „${p.name}" ergänzt „${t.name}" um:</h3><div class="cmp-grid"><div class="cmp-col">
+    <ul class="plist pro"><li class="lbl" style="color:var(--green)">+ Bringt zusätzlich</li>${e.adds.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+    <div class="cmp-col"><ul class="plist con"><li class="lbl" style="color:var(--red)">− Kostet / Risiko</li>${e.costs.map(x=>`<li>${x}</li>`).join("")}</ul></div></div>
+    <button class="btn" onclick="closeModal();jumpTo('${t.id}')">→ Zu „${t.name}"</button>`;}).join("");
+  openModal(`<h2>➕ Ergänzungen von „${p.name}"</h2><p style="color:var(--muted);font-size:.88rem">Zusatzfunktionen, die das Ziel NICHT abdeckt – mit +/−-Vergleich.</p>${blocks}`);}
+
+/* ================= VERGLEICH ================= */
+let cmpA=null;
+function startCompare(id){
+  if(!cmpA){cmpA=id;document.getElementById("card-"+id).classList.add("cmpA");
+    document.getElementById("cmpHint").textContent=`⚖️ „${byId(id).name}" gewählt – zweites Plugin anklicken`;return;}
+  if(cmpA===id){cmpA=null;render();document.getElementById("cmpHint").textContent="";return;}
+  const a=byId(cmpA),b=byId(id);
+  document.getElementById("card-"+cmpA).classList.remove("cmpA");cmpA=null;
+  document.getElementById("cmpHint").textContent="";
+  const col=p=>`<div class="cmp-col"><h3>${p.name}</h3><div>${p.badges.map(badgeHTML).join("")}</div>${priceHTML(p)}
+    <ul class="plist pro"><li class="lbl" style="color:var(--green)">+ Vorteile</li>${p.pros.map(x=>`<li>${x}</li>`).join("")}</ul>
+    <ul class="plist con"><li class="lbl" style="color:var(--red)">− Nachteile</li>${p.cons.map(x=>`<li>${x}</li>`).join("")}</ul>
+    <ul class="plist neu"><li class="lbl" style="color:var(--orange)">● Neutral</li>${p.neutral.map(x=>`<li>${x}</li>`).join("")}</ul></div>`;
+  openModal(`<h2>⚖️ Vergleich</h2><div class="cmp-grid">${col(a)}${col(b)}</div>`);
+}
+function jumpTo(id){const el=document.getElementById("card-"+id);if(!el)return;
+  el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),2200);}
+
+/* ================= FILTER ================= */
+const activeBadges=new Set();
+function buildBadgeFilters(){
+  const row=document.getElementById("badgeFilters");
+  row.innerHTML=Object.entries(BADGES).map(([k,v])=>`<label class="fchip" data-b="${k}"><input type="checkbox"> ${v.t}</label>`).join("")
+    +`<label class="fchip" data-b="__warn"><input type="checkbox"> ⚠️ Kompat-Warnung</label>`;
+  row.querySelectorAll(".fchip").forEach(ch=>{ch.addEventListener("change",()=>{
+    const b=ch.dataset.b;ch.querySelector("input").checked?activeBadges.add(b):activeBadges.delete(b);
+    ch.classList.toggle("on");applyFilters();});});
+  const sel=document.getElementById("fCat");
+  CATS.forEach(c=>sel.insertAdjacentHTML("beforeend",`<option value="${c.id}">${c.name}</option>`));
+}
+function applyFilters(){
+  const q=document.getElementById("search").value.toLowerCase();
+  const cat=document.getElementById("fCat").value,status=document.getElementById("fStatus").value,prio=document.getElementById("fPrio").value;
+  document.querySelectorAll(".card").forEach(card=>{
+    const id=card.id.replace("card-",""),p=byId(id);if(!p)return;let show=true;
+    if(q&&!(card.dataset.search||"").includes(q))show=false;
+    if(cat&&p.cat!==cat)show=false;
+    if(activeBadges.size)for(const b of activeBadges){
+      if(b==="__warn"){if(!p.compat)show=false;}else if(!p.badges.includes(b))show=false;}
+    if(prio&&prioOf(id)!==prio)show=false;
+    if(status==="main"&&!adopted(id,"main"))show=false;
+    if(status==="dev"&&!adopted(id,"dev"))show=false;
+    if(status==="none"&&(adopted(id,"dev")||adopted(id,"main")))show=false;
+    if(status==="diff"&&!(adopted(id,"dev")!==adopted(id,"main")))show=false;
+    if(status==="covered"&&!(coveredBy(p,"dev")?.length||coveredBy(p,"main")?.length))show=false;
+    card.style.display=show?"":"none";
+  });
+  document.querySelectorAll("h2.cat").forEach(h=>{
+    let el=h.nextElementSibling,vis=false;
+    while(el&&el.tagName!=="H2"){if(el.classList.contains("card")&&el.style.display!=="none")vis=true;el=el.nextElementSibling;}
+    h.style.display=vis?"":"none";});
+}
+["search","fCat","fStatus","fPrio"].forEach(id=>document.getElementById(id).addEventListener("input",applyFilters));
+document.getElementById("fSort").addEventListener("change",function(){state.sort=this.value;save();render();});
+document.getElementById("btnResetFilters").addEventListener("click",()=>{
+  document.getElementById("search").value="";document.getElementById("fCat").value="";
+  document.getElementById("fStatus").value="";document.getElementById("fPrio").value="";
+  activeBadges.clear();document.querySelectorAll(".fchip").forEach(c=>{c.classList.remove("on");c.querySelector("input").checked=false;});
+  applyFilters();toast("Filter zurückgesetzt ↺");});
+
+/* ================= GEAR / BACKUPS / EXPORT ================= */
+function toggleGear(){document.getElementById("gearmenu").classList.toggle("show");}
+document.addEventListener("click",e=>{if(!e.target.closest(".gearbtn")&&!e.target.closest(".gearmenu"))document.getElementById("gearmenu").classList.remove("show");});
+function snapData(){return{servers:state.servers,notes:state.notes,prio:state.prio,custom:state.custom,catalogExtra:state.catalogExtra,catalogVer:state.catalogVer};}
+function openBackups(){toggleGear();
+  const list=(state.backups||[]).map((b,i)=>`<div class="bk-item"><span class="bkname">${b.name} <small style="color:var(--muted)">(${b.ts})</small></span>
+    <button class="btn" onclick="loadBackup(${i})">📥 Laden</button><button class="btn" onclick="dupBackup(${i})">📑 Kopieren</button>
+    <button class="btn danger" onclick="delBackup(${i})">🗑️</button></div>`).join("")||"<p style='color:var(--muted)'>Noch keine Backups.</p>";
+  openModal(`<h2>🗂️ Backup-Manager</h2><p style="color:var(--muted);font-size:.88rem">Snapshots deines Zustands (Haken, Notizen, Prios, eigene Plugins, Katalog-Extras). Vor dem Laden eines Backups aktuellen Stand sichern!</p>
+  <button class="btn" onclick="createBackup()">➕ Neues Backup</button><div style="margin-top:14px">${list}</div>`);}
+function createBackup(){const name=prompt("Backup-Name:","Backup "+new Date().toLocaleString("de-DE"));if(!name)return;
+  state.backups.push({name,ts:new Date().toLocaleString("de-DE"),data:snapData()});save();openBackups();toast("Backup erstellt 🗂️");}
+function loadBackup(i){if(!confirm(`Backup „${state.backups[i].name}" laden? Aktueller Stand wird überschrieben!`))return;
+  const d=state.backups[i].data;Object.assign(state,{servers:d.servers||{},notes:d.notes||{},prio:d.prio||{},custom:d.custom||[],catalogExtra:d.catalogExtra||[],catalogVer:d.catalogVer||state.catalogVer});
+  save();render();closeModal();toast("Backup geladen 📥");}
+function dupBackup(i){const b=state.backups[i];state.backups.push({name:b.name+" (Kopie)",ts:new Date().toLocaleString("de-DE"),data:JSON.parse(JSON.stringify(b.data))});save();openBackups();}
+function delBackup(i){if(!confirm("Backup löschen?"))return;state.backups.splice(i,1);save();openBackups();}
+function exportState(){toggleGear();
+  const blob=new Blob([JSON.stringify(snapData(),null,2)],{type:"application/json"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="qbox-planer-stand.json";a.click();toast("Export heruntergeladen 💾");}
+document.getElementById("fileImport").addEventListener("change",function(){const f=this.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const d=JSON.parse(r.result);Object.assign(state,{servers:d.servers||{},notes:d.notes||{},prio:d.prio||{},custom:d.custom||[],catalogExtra:d.catalogExtra||state.catalogExtra,catalogVer:d.catalogVer||state.catalogVer});
+    save();render();toast("Zustand importiert 📂");}catch(e){toast("⚠️ Ungültige Datei",true);}};r.readAsText(f);});
+/* Katalog-Update-Import: merged Plugins, rührt Haken/Notizen NICHT an */
+document.getElementById("fileCatalog").addEventListener("change",function(){const f=this.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const d=JSON.parse(r.result);
+    if(!d.plugins||!Array.isArray(d.plugins)){toast("⚠️ Kein Katalog-Format (erwartet: {catalogVersion, plugins:[...]})",true);return;}
+    const extra=state.catalogExtra||[];let added=0,updatedN=0;
+    d.plugins.forEach(np=>{const i=extra.findIndex(e=>e.id===np.id);
+      if(i>=0){extra[i]=np;updatedN++;}else extra.push(np);
+      P.some(bp=>bp.id===np.id)?updatedN++:added++;});
+    state.catalogExtra=extra;if(d.catalogVersion)state.catalogVer=d.catalogVersion;
+    save();render();toast(`📦 Katalog-Update: ${added} neu, ${updatedN} aktualisiert – deine Haken bleiben!`);
+  }catch(e){toast("⚠️ Ungültige Katalog-Datei",true);}};r.readAsText(f);});
+
+function exportEnsure(srv){toggleGear();
+  const sel=ALL().filter(p=>adopted(p.id,srv));
+  if(!sel.length){toast("Keine Plugins auf "+srv.toUpperCase(),true);return;}
+  const ids=new Set(sel.map(p=>p.id)),done=new Set(),order=[],miss=[];
+  function visit(p,stack){if(done.has(p.id)||stack.includes(p.id))return;
+    (p.deps||[]).forEach(d=>{const dp=byId(d);
+      if(dp&&ids.has(d))visit(dp,stack.concat(p.id));
+      else if(dp&&!ids.has(d))miss.push(`${p.name} ← fehlt: ${dp.name}`);});
+    done.add(p.id);order.push(p.id);}
+  sel.forEach(p=>visit(p,[]));
+  const lines=["# ensure-Liste "+srv.toUpperCase()+" – generiert "+new Date().toLocaleString("de-DE"),"# Reihenfolge: Abhängigkeiten zuerst (automatisch)",""];
+  order.forEach(id=>lines.push("ensure "+id));
+  if(miss.length)lines.unshift(...[...new Set(miss)].map(m=>"# ⚠️ FEHLENDE ABHÄNGIGKEIT: "+m));
+  openModal(`<h2>📋 ensure-Liste (${srv.toUpperCase()})</h2>
+  ${miss.length?`<p style="color:var(--red);font-size:.85rem">⚠️ Fehlende Abhängigkeiten oben als Kommentar – erst nachholen!</p>`:""}
+  <div class="ensure-box">${lines.join("\n")}</div>
+  <div style="margin-top:12px;display:flex;gap:8px">
+  <button class="btn" onclick="navigator.clipboard.writeText(document.querySelector('.ensure-box').textContent);toast('Kopiert 📋')">📋 Kopieren</button>
+  <button class="btn" onclick="(function(){const b=new Blob([document.querySelector('.ensure-box').textContent],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='ensure-${srv}.cfg';a.click();})()">💾 Download</button></div>`);
+}
+function resetSrv(srv){toggleGear();if(!confirm(`Alle ${srv.toUpperCase()}-Haken zurücksetzen?`))return;
+  Object.keys(state.servers).forEach(id=>{delete state.servers[id][srv];delete state.servers[id][srv+"TS"];});
+  save();render();toast(srv.toUpperCase()+" zurückgesetzt ↩️");}
+function resetNotes(){toggleGear();if(!confirm("Alle Notizen löschen?"))return;state.notes={};save();render();toast("Notizen gelöscht ↩️");}
+function resetAll(){toggleGear();if(!confirm("WIRKLICH ALLES löschen? Vorher exportieren!"))return;
+  localStorage.removeItem(LS);location.reload();}
+
+/* ================= EIGENES PLUGIN ================= */
+function openAddForm(){
+  openModal(`<h2>➕ Eigenes Plugin hinzufügen</h2><div class="form-grid">
+    <div><label>Name*</label><input id="np-name"></div>
+    <div><label>Link</label><input id="np-link" placeholder="https://..."></div>
+    <div><label>Kategorie</label><select id="np-cat">${CATS.filter(c=>c.id!=="custom").map(c=>`<option value="${c.id}">${c.name}</option>`).join("")}</select></div>
+    <div><label>Ersetzt-Gruppe (optional)</label><input id="np-group" placeholder="z.B. inventory"></div>
+    <div class="full"><label>Beschreibung</label><textarea id="np-desc" rows="2"></textarea></div>
+    <div><label>Badges (Strg = Mehrfach)</label><select id="np-badge" multiple size="4">${Object.entries(BADGES).map(([k,v])=>`<option value="${k}">${v.t}</option>`).join("")}</select></div>
+    <div><label>Preis einmalig ($, optional)</label><input id="np-price" type="number" min="0"></div>
+  </div><button class="btn" onclick="saveCustom()">💾 Speichern</button>`);
+}
+function saveCustom(){
+  const name=document.getElementById("np-name").value.trim();if(!name){toast("Name fehlt",true);return;}
+  const badges=[...document.getElementById("np-badge").selectedOptions].map(o=>o.value);
+  const price=parseFloat(document.getElementById("np-price").value);
+  state.custom.push(Object.assign({group:null,ess:false,ver:"eigener Eintrag",updated:"eigener Eintrag",deps:[],linkcheck:null,price:null,conflicts:[],synergy:[],extends:[],compat:null,archived:null,bundle:null,tip:null,pros:["–"],cons:["–"],neutral:["–"]},
+   {id:"custom_"+Date.now(),name,cat:document.getElementById("np-cat").value,
+    group:document.getElementById("np-group").value.trim()||null,badges:badges.length?badges:["free"],
+    link:document.getElementById("np-link").value||"#",
+    price:price?{one:price,mon:null,c:"$"}:null,
+    desc:document.getElementById("np-desc").value||"Eigener Eintrag."}));
+  save();render();closeModal();toast(name+" hinzugefügt ➕");
+}
+
+/* ================= INIT ================= */
+buildBadgeFilters();
+document.getElementById("fSort").value=state.sort||"def";
+render();
+</script>
+</body>
+</html>

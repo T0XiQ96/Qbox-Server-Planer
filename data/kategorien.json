@@ -1,0 +1,20 @@
+{
+  "_hinweis": "Kategorien der Katalogeinträge. Reihenfolge = Anzeigereihenfolge im Tool. Eine neue Kategorie wird HIER ergänzt, niemals in src/. Der Validator prüft jedes Plugin gegen diese Liste.",
+  "version": "1.0",
+  "kategorien": [
+    { "id": "basis",         "name": "1. Basis & Abhängigkeiten" },
+    { "id": "ui",            "name": "2. Charakter, Inventar & UI" },
+    { "id": "fahrzeuge",     "name": "3. Fahrzeuge & Mechanik" },
+    { "id": "wohnen",        "name": "4. Immobilien & Wohnen" },
+    { "id": "staat",         "name": "5. Staatliche Jobs & Fraktionen" },
+    { "id": "zivil",         "name": "6. Zivil-Jobs & Aktivitäten" },
+    { "id": "crime",         "name": "7. Crime & Unterwelt" },
+    { "id": "kommunikation", "name": "8. Kommunikation & Telefon" },
+    { "id": "realismus",     "name": "9. Realismus & Welt" },
+    { "id": "waffen",        "name": "10. Waffen & Kampf" },
+    { "id": "wirtschaft",    "name": "11. Wirtschaft & Banking" },
+    { "id": "admin",         "name": "12. Admin & Sicherheit" },
+    { "id": "assets",        "name": "13. MLOs, Kleidung & Assets" },
+    { "id": "custom",        "name": "14. Eigene Plugins" }
+  ]
+}

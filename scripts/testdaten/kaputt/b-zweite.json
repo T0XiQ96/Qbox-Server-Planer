@@ -1,0 +1,25 @@
+{
+  "_hinweis": "Testdaten für npm run selftest. Enthält dieselbe ID wie a-erste.json und ein Update ohne Original.",
+  "catalogVersion": "test-kaputt-2",
+  "erstellt": "2026-08-11",
+  "plugins": [
+    {
+      "id": "dublette",
+      "name": "Zweite Dublette",
+      "kategorie": "basis",
+      "beschreibung": "Dieselbe ID wie in a-erste.json. Genau das darf über alle Runden hinweg nie passieren.",
+      "link": "https://github.com/test/dublette-2",
+      "link_status": "ungeprueft",
+      "framework": "standalone",
+      "lizenz": "open_source",
+      "qualitaet": "ungeprueft"
+    }
+  ],
+  "updates": [
+    {
+      "id": "gibt_es_nicht",
+      "geprueft_am": "2026-08-11",
+      "update_grund": "Update auf einen Eintrag, den es im Katalog nicht gibt."
+    }
+  ]
+}
