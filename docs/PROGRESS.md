@@ -4,18 +4,21 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `58dbbab` (Runde 12). Runde 13 ist fertig, aber noch **nicht** committet —
+**Letzter Commit:** `912ef51` (Runde 13). Runde 14 ist fertig, aber noch **nicht** committet —
 das ist der nächste Schritt.
-**Validate-Status:** grün (16 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
+**Validate-Status:** grün (17 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
 22 Updates, `runde-2.json` 12, `runde-3.json` 14, `runde-4.json` 12, `runde-5.json` 11,
 `runde-6.json` 6, `runde-7.json` 8, `runde-8.json` 8, `runde-9.json` 7, `runde-10.json` 9,
-`runde-11.json` 8, `runde-12.json` 8, `runde-13.json` 7 · 262 Plugins gesamt · 13 harmlose
-„nur ein Mitglied"-Warnungen)
-**Katalogstand:** 262 gesamt · 68 verifiziert · 59 teilgeprüft · ~135 ungeprüft
-**Aktuelle Runde:** Runde 13 — Kategorie „Staatliche Jobs & Fraktionen" abgeschlossen, letzte 7
-Einträge nachgeprüft (Teil 3/3). **Kategorie „Staat" (23 Einträge) damit komplett durchgeprüft.**
-Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen).
-Sonnet-5/low-Test läuft bis einschließlich Runde 15 (Nutzerwunsch, letzte angekündigte Runde).
+`runde-11.json` 8, `runde-12.json` 8, `runde-13.json` 7, `runde-14.json` 10 · 262 Plugins
+gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
+**Katalogstand:** 262 gesamt · 68 verifiziert · 60 teilgeprüft · ~134 ungeprüft (9 `jim_*`-Einträge
+in dieser Runde von „nie geprüft" auf „ungeprueft mit korrigierter lizenz/link" gesetzt — Anzahl
+ungeprüft bleibt ähnlich, aber die Daten sind jetzt korrekt statt falsch als open_source geführt)
+**Aktuelle Runde:** Runde 14 — Start der Kategorie „Zivil-Jobs & Aktivitäten" (30 Einträge,
+größte verbleibende Kategorie), erste 10 nachgeprüft (Teil 1/3). Weiterhin kein Neufund
+(Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen). Sonnet-5/low-Test läuft
+bis einschließlich Runde 15 (Nutzerwunsch, letzte angekündigte Runde — danach Zwischenfazit vor
+Weiterarbeit).
 
 **Sonnet-5/low-Test abgeschlossen (Runden 7–9, Nutzerwunsch statt der in CLAUDE.md §1
 vorgegebenen medium-Einstellung für Datenrunden):** Ergebnisqualität bei erfolgreichem
@@ -82,12 +85,24 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Committen.** Runde 13 ist fertig, aber `data/catalog/runde-13.json` und diese Doku-Updates
-liegen noch uncommittet im Working Tree. Danach: Runden 14–15 — Start der Kategorie „6. Zivil-Jobs
-& Aktivitäten" (30 Einträge, größte Kategorie, wird in Runden 14–15 nicht fertig — geplant je 10
-Einträge, Rest folgt in Runde 16). Das ist die **letzte vom Nutzer angekündigte Runde des
-Sonnet-5/low-Tests** — nach Runde 15 Zwischenfazit ziehen und Modell/Effort mit dem Nutzer neu
-abstimmen, bevor unaufgefordert weitergemacht wird. `npm run newround 14` legt das Gerüst an.
+**Committen.** Runde 14 ist fertig, aber `data/catalog/runde-14.json` und diese Doku-Updates
+liegen noch uncommittet im Working Tree. Danach: Runde 15 (**letzte vom Nutzer angekündigte
+Runde des Sonnet-5/low-Tests**) — nächste 10 von 30 Einträgen der Kategorie „Zivil-Jobs &
+Aktivitäten" (`jim_recycle`, `jim_tequilala`, `jim_upnatom`, `jim_vanillaunicorn`, `qbx_busjob`,
+`qbx_diving`, `qbx_garbagejob`, `qbx_hotdogjob`, `qbx_lapraces`, `qbx_newsjob`). Bei den
+restlichen `jim_*`-Einträgen in Runde 15 (`jim_tequilala`, `jim_upnatom`, `jim_vanillaunicorn`)
+direkt prüfen, ob dasselbe Closed-Source/Tebex-Muster wie in Runde 14 vorliegt — hohe
+Wahrscheinlichkeit laut Runde-14-Befund. Nach Runde 15: Zwischenfazit ziehen und Modell/Effort
+mit dem Nutzer neu abstimmen, bevor unaufgefordert weitergemacht wird — Kategorie „Zivil" bleibt
+dann mit 10 von 30 Einträgen offen (Rest für eine spätere Runde 16). `npm run newround 15` legt
+das Gerüst an.
+
+**Runde 14 — wichtigster Fund:** 8 von 9 geprüften `jim_*`-Jobs waren im Katalog fälschlich als
+kostenlose Open-Source-Repos geführt — die verlinkten GitHub-Repos existieren nicht (404), es
+sind tatsächlich kostenpflichtige Closed-Source-Produkte über Tebex. `lizenz` bei allen acht auf
+`escrow` korrigiert. Nur `jim_mining` hat ein echtes öffentliches Repo. Dieses Muster sollte bei
+allen künftigen `jim_*`-Einträgen aktiv geprüft werden (Verdacht: systematischer Fehler aus der
+Altbestand-Konvertierung, nicht nur Einzelfälle).
 
 **Runde 13 — wichtigster Fund:** `randolio_grandma` und `wk_wars2x` hatten beide Tippfehler in
 den Katalog-Links (falscher Repo-Slug bzw. falsche Owner-Schreibweise), vermutlich nie tatsächlich
@@ -184,4 +199,5 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 | 10 | Nachprüfung Kategorie „Wohnen" komplett, 9 von 9 (kein Neufund) | 0 | 9 | 0 | 0 (3 verifiziert, 6 teilgeprüft) | `data/catalog/runde-10.json` | `f027817` |
 | 11 | Nachprüfung Kategorie „Staat" Teil 1/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 0 (3 verifiziert, 5 teilgeprüft) | `data/catalog/runde-11.json` | `771f330` |
 | 12 | Nachprüfung Kategorie „Staat" Teil 2/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 1 (5 verifiziert, 2 teilgeprüft, 1 herabgestuft) | `data/catalog/runde-12.json` | `58dbbab` |
-| 13 | Nachprüfung Kategorie „Staat" Teil 3/3, letzte 7 — Kategorie komplett (kein Neufund) | 0 | 7 | 0 | 0 (3 verifiziert, 4 teilgeprüft) | `data/catalog/runde-13.json` | folgt |
+| 13 | Nachprüfung Kategorie „Staat" Teil 3/3, letzte 7 — Kategorie komplett (kein Neufund) | 0 | 7 | 0 | 0 (3 verifiziert, 4 teilgeprüft) | `data/catalog/runde-13.json` | `912ef51` |
+| 14 | Nachprüfung Kategorie „Zivil" Teil 1/3, 10 von 30 (kein Neufund, 8 lizenz-Korrekturen) | 0 | 10 | 0 | 9 (0 verifiziert, 1 teilgeprüft, 9 ungeprueft) | `data/catalog/runde-14.json` | folgt |

@@ -17,6 +17,31 @@ Format je Eintrag:
 
 ---
 
+## [Runde 14] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-14.json` — erste 10 von 30 Einträgen der Kategorie „Zivil-Jobs &
+  Aktivitäten" nachgeprüft (Teil 1/3, größte verbleibende Kategorie), recherchiert über 1 Subagent.
+
+**Korrigiert:**
+- **Wichtigster Fund dieser Runde:** 8 von 9 geprüften `jim_*`-Jobs (`jim_bahamas`,
+  `jim_bakery`, `jim_beanmachine`, `jim_burgershot`, `jim_catcafe`, `jim_henhouse`,
+  `jim_pizzathis`, `jim_popsdiner`) waren im Katalog fälschlich als kostenlose Open-Source-Repos
+  geführt — die verlinkten GitHub-Repos existieren nicht (404, GitHub-API bestätigt). Es sind
+  tatsächlich kostenpflichtige Closed-Source-Produkte über den Tebex-Store des Autors
+  (jimathy666.tebex.io). `lizenz` bei allen acht von `open_source` auf `escrow` korrigiert,
+  Beschreibungen angepasst, Qualität auf `ungeprueft` gesetzt (kein Code einsehbar). Nur
+  `jim_mining` hat tatsächlich ein öffentliches, funktionierendes Repo und bleibt korrekt
+  eingestuft.
+- `flatbed`: Katalog-Link war nur eine GitHub-Suchergebnisseite, kein echtes Repo. Kein
+  eindeutiger Ersatz gefunden — bewusst kein Link geraten, `qbx_towjob` bleibt empfohlener Ersatz.
+
+**Katalog:** 0 neu, 10 aktualisiert, 0 Duplikate übersprungen, 0 auf `verifiziert`, 1 auf
+`teilgeprueft`, 9 auf `ungeprueft`
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 13] – 12.08.2026
 
 **Neu:**
