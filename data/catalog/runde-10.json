@@ -1,0 +1,148 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r10",
+  "runde": 10,
+  "thema": "Nachprüfung Kategorie 'Immobilien & Wohnen' (komplett — 9 von 9 Einträgen)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "loaf_housing",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Store-URL veraltet, korrekte Domain gefunden (loaf.tebex.io → store.loaf-scripts.com). Qbox-Support trotz gezielter Suche nicht bestätigt — nur ESX/QBCore auf Hersteller-Seite genannt, der offene Punkt aus dem Katalog bleibt bestehen.",
+      "link": "https://store.loaf-scripts.com/package/4310850",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "preis": { "betrag": 34.99, "waehrung": "EUR", "typ": "einmalig" },
+      "kompat_warnung": {
+        "text": "Qbox-Support nicht auf Hersteller-Seite beworben, nur ESX/QBCore genannt — trotz gezielter Suche kein bestätigender Fund.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://store.loaf-scripts.com/package/4310850; CFX-Forum-Thread"
+    },
+    {
+      "id": "nolag_properties",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Store-URL veraltet, korrekte Domain gefunden (nolag.tebex.io → store.nolag.dev). Preis und explizite Qbox-Nennung bestätigt.",
+      "link": "https://store.nolag.dev/package/5116555",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "preis": { "betrag": 60, "waehrung": "EUR", "typ": "einmalig" },
+      "framework": "qbox_nativ",
+      "kompat_warnung": {
+        "text": "Produktseite/Doku nennt explizit 'Compatible with ESX, Qbox, QBCore, and custom frameworks'.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://store.nolag.dev/package/5116555; https://docs.nolag.dev/paid-scripts/properties"
+    },
+    {
+      "id": "ps_housing",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo seit 06.02.2026 archiviert (read-only) — dritte/vierte Archivierungswelle bei Project-Sloth nach ps-inventory/ps-hud/ps-fuel, Autor fokussiert sich künftig auf ps-mdt v3. Kein Nachfolger für Housing benannt.",
+      "letztes_update": "⚠️ Archiviert seit 06.02.2026, kein Nachfolger benannt",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": {
+        "text": "Vom Owner am 06.02.2026 archiviert (read-only). Autor: 'Our main focus moving forward will be ps-mdt v3 and its dependencies' — Housing wird nicht mehr weiterentwickelt. Kein Nachfolger benannt.",
+        "nachfolger": ""
+      },
+      "contra": ["🪦 Archiviert seit 06.02.2026", "🔁 Bridge", "Häuserliste einrichten kostet Zeit"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Project-Sloth/ps-housing (Archived-Banner, README)"
+    },
+    {
+      "id": "ps_realtor",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo ebenfalls seit 06.02.2026 archiviert (zeitgleich mit ps_housing, reines Zubehör dazu) — bestätigt die Vermutung, dass die Archivierungswelle bei Project-Sloth auch Housing/Realtor erreicht hat.",
+      "letztes_update": "⚠️ Archiviert seit 06.02.2026, kein Nachfolger benannt",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": {
+        "text": "Vom Owner am 06.02.2026 archiviert (read-only), zeitgleich mit dem abhängigen ps_housing. Kein Nachfolger benannt.",
+        "nachfolger": ""
+      },
+      "contra": ["🪦 Archiviert seit 06.02.2026", "🔁 Bridge", "Braucht aktive Makler"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Project-Sloth/ps-realtor (Archived-Banner, README)"
+    },
+    {
+      "id": "qbx_apartments",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Wichtiger Fund: Repo am 09.07.2026 archiviert, Titel trägt jetzt 'Unmaintained'. Laut Installationsanleitung von qbx_properties ist dieses Modul der faktische Nachfolger — qbx_apartments soll beim Umstieg entfernt werden.",
+      "letztes_update": "⚠️ Archiviert seit 09.07.2026, offiziell unmaintained",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": {
+        "text": "Vom Owner am 09.07.2026 archiviert, offiziell als unmaintained markiert. qbx_properties ist laut dessen eigener Installationsanleitung der Ersatz.",
+        "nachfolger": "qbx_properties"
+      },
+      "contra": ["🪦 Archiviert seit 09.07.2026", "Keine Möbel"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_apartments (Archived-Banner); https://github.com/Qbox-project/qbx_properties (Migrationsanleitung)"
+    },
+    {
+      "id": "qbx_houses",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Wichtiger Fund: Repo am 09.07.2026 archiviert (gleicher Tag wie qbx_apartments), offiziell unmaintained. qbx_properties fordert in seiner Anleitung ausdrücklich das Entfernen von qbx_houses beim Umstieg — Ablösung bestätigt.",
+      "letztes_update": "⚠️ Archiviert seit 09.07.2026, offiziell unmaintained, ersetzt durch qbx_properties",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": {
+        "text": "Vom Owner am 09.07.2026 archiviert, offiziell als unmaintained markiert. Durch qbx_properties abgelöst (Migrationsanleitung fordert Entfernen von qbx_houses).",
+        "nachfolger": "qbx_properties"
+      },
+      "contra": ["🪦 Archiviert seit 09.07.2026", "Möbel rudimentär", "Kein Ingame-Dekorieren"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_houses (Archived-Banner); https://github.com/Qbox-project/qbx_properties (Migrationsanleitung)"
+    },
+    {
+      "id": "qbx_properties",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Klärung des Entwicklungsstands: qbx_properties ist inzwischen der bestätigte ALLEINIGE Nachfolger von qbx_houses UND qbx_apartments, nicht nur ein junges Parallelprojekt. Beide Vorgänger sind seit 09.07.2026 offiziell archiviert, die Installationsanleitung fordert deren Entfernung bei einem Umstieg. Aktiv entwickelt (114 Commits, 4 offene Issues, 3 offene PRs, kein Release-Tag).",
+      "beschreibung": "Offizielles, aktives Immobilien-Modul des Qbox-Projekts — bestätigter alleiniger Nachfolger von qbx_houses und qbx_apartments, beide seit 09.07.2026 archiviert.",
+      "letztes_update": "Aktiv · letzte Aktivität 19.05.2026, 114 Commits",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "pro": ["Offiziell & modern", "Aktive Entwicklung", "Bestätigter alleiniger Nachfolger von qbx_houses/qbx_apartments"],
+      "contra": ["Kein offizielles GitHub-Release, Doku vergleichsweise dünn"],
+      "neutral": [],
+      "tipp": "Für Neuinstallationen: qbx_properties statt qbx_houses/qbx_apartments verwenden, beide Vorgänger sind archiviert.",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_properties (README, Migrationsanleitung, Commit-/Issue-Historie)"
+    },
+    {
+      "id": "qs_housing",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Store-Startseite durch konkrete Produktseite ersetzt, Qbox-Nennung bestätigt ('esx', 'qb', 'qbox', 'standalone' explizit gelistet). Preis nicht auslesbar (JS-gerendert).",
+      "link": "https://www.quasar-store.com/product/housing-creator",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "qbox_nativ",
+      "kompat_warnung": {
+        "text": "Produktseite listet ausdrücklich 'esx', 'qb', 'qbox', 'standalone' als unterstützte Frameworks.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://www.quasar-store.com/product/housing-creator; docs.quasar-store.com/housing-and-property"
+    },
+    {
+      "id": "vms_housing",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Domain war falsch/veraltet (vms.tebex.io existiert nicht als korrekte Store-Domain) — korrekt ist vames-store.com. Qbox-Support jetzt bestätigt (Produktbeschreibung nennt explizit 'QBX-Core'), der offene Punkt 'Qbox-Support verifizieren' entfällt.",
+      "link": "https://www.vames-store.com/package/6923949",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.0.3",
+      "letztes_update": "Aktiv · Update vom 20.07.2025",
+      "framework": "qbox_nativ",
+      "kompat_warnung": {
+        "text": "Produktbeschreibung nennt explizit 'Compatible with ESX Legacy, QB-Core, QBX-Core' — Qbox-Support damit bestätigt statt nur vermutet.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://www.vames-store.com/package/6923949; forum.cfx.re/t/esx-qb-vms-housing-the-most-powerful-properties-system/5339442"
+    }
+  ]
+}

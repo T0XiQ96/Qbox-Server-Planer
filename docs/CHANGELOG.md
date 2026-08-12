@@ -17,6 +17,32 @@ Format je Eintrag:
 
 ---
 
+## [Runde 10] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-10.json` — komplette Kategorie „Immobilien & Wohnen" nachgeprüft (9/9
+  Einträge, passte in eine Runde), recherchiert über 1 Subagent.
+
+**Korrigiert:**
+- `qbx_houses`, `qbx_apartments`: **wichtigster Fund** — beide offiziellen Qbox-Repos wurden am
+  09.07.2026 archiviert und offiziell als unmaintained markiert. `qbx_properties` ist der
+  bestätigte alleinige Nachfolger (Migrationsanleitung fordert das Entfernen der alten Module).
+  Katalogtext bei `qbx_properties` von „junger Nachfolger, evtl. parallel" auf „bestätigter
+  alleiniger Nachfolger" korrigiert.
+- `ps_housing`, `ps_realtor`: beide seit 06.02.2026 archiviert — vierte Project-Sloth-Archivierung
+  nach `ps-inventory`, `ps-hud`, `ps-fuel`, kein Nachfolger benannt.
+- `loaf_housing`, `nolag_properties`, `qs_housing`: Store-Startseiten durch konkrete Produktseiten
+  ersetzt (teils veraltete Domains).
+- `vms_housing`: Katalog-Domain war schlicht falsch (`vms.tebex.io` existiert nicht als
+  Store-Domain, korrekt ist `vames-store.com`) — Qbox-Support jetzt bestätigt statt offen.
+
+**Katalog:** 0 neu, 9 aktualisiert, 0 Duplikate übersprungen, 3 auf `verifiziert`, 6 auf
+`teilgeprueft`
+**Kategorie „Immobilien & Wohnen" (9 Einträge) ist damit komplett nachgeprüft.**
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 9] – 12.08.2026
 
 **Neu:**

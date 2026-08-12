@@ -4,15 +4,17 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `b688c5a` (Runde 9).
-**Validate-Status:** grün (12 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
+**Letzter Commit:** `b688c5a` (Runde 9). Runde 10 ist fertig, aber noch **nicht** committet —
+das ist der nächste Schritt.
+**Validate-Status:** grün (13 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
 22 Updates, `runde-2.json` 12, `runde-3.json` 14, `runde-4.json` 12, `runde-5.json` 11,
-`runde-6.json` 6, `runde-7.json` 8, `runde-8.json` 8, `runde-9.json` 7 · 262 Plugins gesamt ·
-13 harmlose „nur ein Mitglied"-Warnungen)
-**Katalogstand:** 262 gesamt · 54 verifiziert · 42 teilgeprüft · ~166 ungeprüft
-**Aktuelle Runde:** Runde 9 — Kategorie „Fahrzeuge & Mechanik" abgeschlossen, letzte 7 Einträge
-nachgeprüft (Teil 3/3). **Kategorie „Fahrzeuge" (23 Einträge) damit komplett durchgeprüft.**
-Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen).
+`runde-6.json` 6, `runde-7.json` 8, `runde-8.json` 8, `runde-9.json` 7, `runde-10.json` 9 ·
+262 Plugins gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
+**Katalogstand:** 262 gesamt · 57 verifiziert · 48 teilgeprüft · ~157 ungeprüft
+**Aktuelle Runde:** Runde 10 — komplette Kategorie „Immobilien & Wohnen" nachgeprüft (9/9,
+passte in eine Runde). **Kategorie „Wohnen" damit komplett durchgeprüft.** Weiterhin kein
+Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen). Nutzer hat den
+Sonnet-5/low-Test bis einschließlich Runde 15 verlängert.
 
 **Sonnet-5/low-Test abgeschlossen (Runden 7–9, Nutzerwunsch statt der in CLAUDE.md §1
 vorgegebenen medium-Einstellung für Datenrunden):** Ergebnisqualität bei erfolgreichem
@@ -79,12 +81,19 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-Runde 10 — Start der nächsten Kategorie
-„4. Immobilien & Wohnen" (9 Einträge laut `data/kategorien.json`-Reihenfolge, kleinste
-verbleibende Kategorie, passt vermutlich in eine Runde). `npm run newround 10` legt das Gerüst
-an. Vorgehen (Batchgröße 8–12, nach Kategorie, reine Nachprüfung vor Neusuche) gilt unverändert
-bis der Nutzer etwas anderes sagt. Modell/Effort für Runde 10 mit dem Nutzer klären — Sonnet
-5/low-Test war explizit auf Runden 7–9 begrenzt.
+**Committen.** Runde 10 ist fertig, aber `data/catalog/runde-10.json` und diese Doku-Updates
+liegen noch uncommittet im Working Tree. Danach: Runde 11 — Start der nächsten Kategorie
+„5. Staatliche Jobs & Fraktionen" (23 Einträge, größte noch nicht angefasste Kategorie),
+geplant in 3 Runden à ~8 (Runden 11–13). Runden 14–15 dann Start der Kategorie „6. Zivil-Jobs &
+Aktivitäten" (30 Einträge, wird nicht in den Runden 11–15 fertig). Nutzer hat den Sonnet-5/low-Test
+bis einschließlich Runde 15 verlängert — danach Zwischenfazit ziehen und Modell/Effort neu
+abstimmen. `npm run newround 11` legt das Gerüst an.
+
+**Runde 10 — wichtigster Fund:** `qbx_houses` und `qbx_apartments` (beide offizielle Qbox-Repos)
+wurden am 09.07.2026 archiviert und offiziell als unmaintained markiert — `qbx_properties` ist
+der bestätigte alleinige Nachfolger (Migrationsanleitung fordert das Entfernen der alten Module).
+`ps_housing`/`ps_realtor` sind ebenfalls archiviert (vierte Project-Sloth-Welle nach
+ps-inventory/ps-hud/ps-fuel).
 
 **Runde 9 — wichtigster Fund:** `renewed_vehicleshops` ist komplett verschwunden — Katalog-Link
 404, die Org hat kein passendes Repo mehr, kein Ersatz auffindbar, bewusst auf `ungeprueft`
@@ -155,3 +164,4 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 | 7 | Nachprüfung Kategorie „Fahrzeuge" Teil 1/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 0 (3 verifiziert, 5 teilgeprüft) | `data/catalog/runde-7.json` | `c92f18f` |
 | 8 | Nachprüfung Kategorie „Fahrzeuge" Teil 2/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 1 (4 verifiziert, 3 teilgeprüft, 1 ungeprueft) | `data/catalog/runde-8.json` | `5851328` |
 | 9 | Nachprüfung Kategorie „Fahrzeuge" Teil 3/3, letzte 7 — Kategorie komplett (kein Neufund) | 0 | 7 | 0 | 1 (3 verifiziert, 3 teilgeprüft, 1 auf ungeprueft herabgestuft) | `data/catalog/runde-9.json` | `b688c5a` |
+| 10 | Nachprüfung Kategorie „Wohnen" komplett, 9 von 9 (kein Neufund) | 0 | 9 | 0 | 0 (3 verifiziert, 6 teilgeprüft) | `data/catalog/runde-10.json` | folgt |
