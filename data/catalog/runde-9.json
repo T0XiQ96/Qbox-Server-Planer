@@ -1,0 +1,106 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r9",
+  "runde": 9,
+  "thema": "Nachprüfung Kategorie 'Fahrzeuge & Mechanik' (Teil 3/3 — letzte 7 Einträge, Kategorie damit komplett)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "qbx_vehiclekeys",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Version/Datum aktualisiert (fxmanifest 1.0.3, letzter Commit 11.08.2026), Repo weiterhin aktiv und offiziell. qb-vehiclekeys-Kompatibilitätslayer im Code bestätigt.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.0.3",
+      "letztes_update": "Aktiv · letzter Commit 11.08.2026",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_vehiclekeys (fxmanifest.lua, Commit-Historie)"
+    },
+    {
+      "id": "qbx_vehiclesales",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Versionsstand bestätigt (fxmanifest 1.0.0, letzter Commit 09.07.2026), kein inhaltlicher Änderungsbedarf.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Commit 09.07.2026",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_vehiclesales (fxmanifest.lua)"
+    },
+    {
+      "id": "qbx_vehicleshop",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Link/Version bestätigt (fxmanifest 1.0.0). Hinweis ergänzt: laufende interne Refaktorierung geplant (offenes Issue #76 'Use qbx_vehicles to replace qbx_vehicleshop code'), aktuell aber noch eigenständig funktionsfähig.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.0.0",
+      "kompat_warnung": {
+        "text": "Perspektivisch soll die interne Logik auf qbx_vehicles umgestellt werden (offenes Issue #76) — aktuell aber noch eigenständig funktionsfähig, keine akute Handlungspflicht.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_vehicleshop (fxmanifest.lua, Issue #76)"
+    },
+    {
+      "id": "qs_garages",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Konkrete Produktseite gefunden (statt Store-Startseite), Qbox-Support laut Produktseite bestätigt ('full compatibility with ESX, QBCore, and Qbox').",
+      "link": "https://www.quasar-store.com/product/advanced-garages",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "Produktseite bewirbt explizit 'full compatibility with ESX, QBCore, and Qbox'.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://www.quasar-store.com/product/advanced-garages"
+    },
+    {
+      "id": "qs_vehiclekeys",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Konkrete Produktseite gefunden (statt Store-Startseite), Qbox-Support laut Produktseite bestätigt ('seamless compatibility for ESX, QBCore, QB, and QBox servers').",
+      "link": "https://www.quasar-store.com/product/vehicle-keys",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "Produktseite bewirbt explizit 'seamless compatibility for ESX, QBCore, QB, and QBox servers'.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://www.quasar-store.com/product/vehicle-keys"
+    },
+    {
+      "id": "renewed_vehicleshops",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Auffälligster Fund dieser Runde: Katalog-Link ist 404, die Org 'Renewed-Scripts' hat aktuell keinerlei Repo mit 'vehicle'/'shop' im Namen mehr (18 öffentliche Repos durchsucht). Kein Ersatz-Link auffindbar — vermutlich eingestellt, umbenannt oder in Escrow-Vertrieb über eine eigene Plattform übergegangen. Qualität bewusst auf ungeprueft herabgestuft statt eines geratenen Links.",
+      "link_status": "404",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "Repo-Link führt ins Leere, kein Ersatz-Link auffindbar. Wahrscheinlich eingestellt, umbenannt oder in Escrow-Vertrieb übergegangen — vor Verwendung aktiv nachrecherchieren.",
+        "sicherheit": "vermutung"
+      },
+      "contra": ["Katalog-Link tot (404), kein Ersatz-Repo gefunden"],
+      "qualitaet": "ungeprueft",
+      "quelle": "https://github.com/Renewed-Scripts (Org-Repo-Liste, 404 auf altem Pfad)"
+    },
+    {
+      "id": "wasabi_carlock",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Gleicher Fehlertyp wie bei wasabi_backpack in Runde 6 (falsche Schreibweise im Katalog-Link), plus zusätzlich ist das Repo von WasabiRobby zur Org wasabi-versions umgezogen. Link auf den aktuellen Ort korrigiert (bestätigt über offizielle Doku docs.wasabiscripts.com und Release-Historie).",
+      "link": "https://github.com/wasabi-versions/wasabi_carlock",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "version": "2.8.0",
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "Offizielle Doku beschreibt ein 'advanced synced ESX/QBCore/Qbox car lock script' inkl. Kompatibilitäts-Events zu qb-vehiclekeys.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/wasabi-versions/wasabi_carlock; docs.wasabiscripts.com"
+    }
+  ]
+}

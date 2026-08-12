@@ -4,23 +4,31 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `c92f18f` (Runde 7). Runde 8 ist fertig, aber noch **nicht** committet — das
+**Letzter Commit:** `5851328` (Runde 8). Runde 9 ist fertig, aber noch **nicht** committet — das
 ist der nächste Schritt.
-**Validate-Status:** grün (11 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
+**Validate-Status:** grün (12 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
 22 Updates, `runde-2.json` 12, `runde-3.json` 14, `runde-4.json` 12, `runde-5.json` 11,
-`runde-6.json` 6, `runde-7.json` 8, `runde-8.json` 8 · 262 Plugins gesamt · 13 harmlose
-„nur ein Mitglied"-Warnungen)
-**Katalogstand:** 262 gesamt · 51 verifiziert · 39 teilgeprüft · ~172 ungeprüft
-**Aktuelle Runde:** Runde 8 — Kategorie „Fahrzeuge & Mechanik", nächste 8 nachgeprüft
-(Teil 2/3). Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise
-durchprüfen). Läuft auf Sonnet 5 / Effort low (Nutzerwunsch, Test über Runden 7–9) statt der in
-CLAUDE.md §1 vorgegebenen medium-Einstellung. **Beobachteter Unterschied in Runde 8:** der erste
-Recherche-Subagent brach nach 2 Tool-Aufrufen mit einer ungültigen „ich melde mich später"-Antwort
-ab (Kategoriefehler — Subagents laufen synchron, können sich nicht selbst nachträglich melden).
-Mit expliziter Klarstellung im Prompt neu gestartet, danach fehlerfrei. In Runde 6, 7 und 8
-wurden je konkrete Sach-/Link-Fehler gefunden und korrigiert — die inhaltliche Qualität bei
-erfolgreichem Abschluss wirkt unverändert zu medium, aber das Abbruch-Verhalten in Runde 8 ist ein
-neuer Beobachtungspunkt, der bei medium bisher nicht auftrat.
+`runde-6.json` 6, `runde-7.json` 8, `runde-8.json` 8, `runde-9.json` 7 · 262 Plugins gesamt ·
+13 harmlose „nur ein Mitglied"-Warnungen)
+**Katalogstand:** 262 gesamt · 54 verifiziert · 42 teilgeprüft · ~166 ungeprüft
+**Aktuelle Runde:** Runde 9 — Kategorie „Fahrzeuge & Mechanik" abgeschlossen, letzte 7 Einträge
+nachgeprüft (Teil 3/3). **Kategorie „Fahrzeuge" (23 Einträge) damit komplett durchgeprüft.**
+Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen).
+
+**Sonnet-5/low-Test abgeschlossen (Runden 7–9, Nutzerwunsch statt der in CLAUDE.md §1
+vorgegebenen medium-Einstellung für Datenrunden):** Ergebnisqualität bei erfolgreichem
+Rundenabschluss wirkte über alle drei Runden unverändert zu medium — jede Runde lieferte
+mindestens einen konkreten, gut belegten Sach-/Link-Fehlerfund (Runde 7: `jim_mechanic`
+kostenpflichtig geworden; Runde 8: `ox_fuel`-Fork tot + Original fälschlich als archiviert
+geführt, `ps_fuel` tatsächlich archiviert, `qb_customs` komplett verschwunden; Runde 9:
+`renewed_vehicleshops` verschwunden, `wasabi_carlock` Link-Schreibfehler + Org-Umzug). Der einzige
+klare Unterschied zu medium: in Runde 8 brach der erste Recherche-Subagent nach nur 2
+Tool-Aufrufen mit einer ungültigen „ich melde mich später"-Antwort ab (Kategoriefehler — Subagents
+laufen synchron). Mit einer expliziten Klarstellung im Prompt neu gestartet, danach fehlerfrei;
+das Muster trat in Runde 7 und 9 nicht auf. Einschätzung: low ist für reine Nachprüfungs-Recherche
+offenbar brauchbar, aber weniger robust gegen dieses eine Abbruch-Verhalten — bei neuen,
+komplexeren Aufgaben (Neusuche, viele Kompatibilitätsurteile) würde ich vorsichtshalber wieder auf
+medium wechseln, wie in CLAUDE.md §1 vorgesehen.
 
 ---
 
@@ -72,11 +80,18 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Committen.** Runde 8 ist fertig, aber `data/catalog/runde-8.json` und diese Doku-Updates
-liegen noch uncommittet im Working Tree. Danach: Runde 9 — restliche 7 von 23 Einträgen der
-Kategorie „Fahrzeuge & Mechanik" (`qbx_vehiclekeys`, `qbx_vehiclesales`, `qbx_vehicleshop`,
-`qs_garages`, `qs_vehiclekeys`, `renewed_vehicleshops`, `wasabi_carlock`) — letzte Runde des vom
-Nutzer angekündigten Sonnet-5/low-Tests (Runden 7–9), danach ist Kategorie „Fahrzeuge" komplett.
+**Committen.** Runde 9 ist fertig, aber `data/catalog/runde-9.json` und diese Doku-Updates
+liegen noch uncommittet im Working Tree. Danach: Runde 10 — Start der nächsten Kategorie
+„4. Immobilien & Wohnen" (9 Einträge laut `data/kategorien.json`-Reihenfolge, kleinste
+verbleibende Kategorie, passt vermutlich in eine Runde). `npm run newround 10` legt das Gerüst
+an. Vorgehen (Batchgröße 8–12, nach Kategorie, reine Nachprüfung vor Neusuche) gilt unverändert
+bis der Nutzer etwas anderes sagt. Modell/Effort für Runde 10 mit dem Nutzer klären — Sonnet
+5/low-Test war explizit auf Runden 7–9 begrenzt.
+
+**Runde 9 — wichtigster Fund:** `renewed_vehicleshops` ist komplett verschwunden — Katalog-Link
+404, die Org hat kein passendes Repo mehr, kein Ersatz auffindbar, bewusst auf `ungeprueft`
+herabgestuft statt eines geratenen Links. `wasabi_carlock` hatte denselben Fehlertyp wie
+`wasabi_backpack` in Runde 6 (falsche Schreibweise) plus einen Org-Umzug zu `wasabi-versions`.
 
 **Runde 8 — wichtigster Fund:** `ox_fuel` (essenziell!) verlinkte auf einen toten Fork
 (`TheOrderFivem/ox_fuel`, 404) — das Original `overextended/ox_fuel` ist entgegen der bisherigen
@@ -140,4 +155,5 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 | 5 | Nachprüfung Kategorie „UI" Teil 2/3, 11 von 17 verbleibenden (kein Neufund) | 0 | 11 | 0 | 0 (3 verifiziert, 8 teilgeprüft) | `data/catalog/runde-5.json` | `266eeec` |
 | 6 | Nachprüfung Kategorie „UI" Teil 3/3, letzte 6 — Kategorie komplett (kein Neufund) | 0 | 6 | 0 | 0 (2 verifiziert, 4 teilgeprüft) | `data/catalog/runde-6.json` | `7745445` |
 | 7 | Nachprüfung Kategorie „Fahrzeuge" Teil 1/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 0 (3 verifiziert, 5 teilgeprüft) | `data/catalog/runde-7.json` | `c92f18f` |
-| 8 | Nachprüfung Kategorie „Fahrzeuge" Teil 2/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 1 (4 verifiziert, 3 teilgeprüft, 1 ungeprueft) | `data/catalog/runde-8.json` | folgt |
+| 8 | Nachprüfung Kategorie „Fahrzeuge" Teil 2/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 1 (4 verifiziert, 3 teilgeprüft, 1 ungeprueft) | `data/catalog/runde-8.json` | `5851328` |
+| 9 | Nachprüfung Kategorie „Fahrzeuge" Teil 3/3, letzte 7 — Kategorie komplett (kein Neufund) | 0 | 7 | 0 | 1 (3 verifiziert, 3 teilgeprüft, 1 auf ungeprueft herabgestuft) | `data/catalog/runde-9.json` | folgt |

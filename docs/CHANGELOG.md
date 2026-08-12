@@ -17,6 +17,35 @@ Format je Eintrag:
 
 ---
 
+## [Runde 9] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-9.json` — letzte 7 Einträge der Kategorie „Fahrzeuge & Mechanik"
+  nachgeprüft (Teil 3/3) — Kategorie damit komplett durchgeprüft (23/23). Letzte Runde des
+  Sonnet-5/low-Tests (Runden 7–9).
+
+**Korrigiert:**
+- `renewed_vehicleshops`: **wichtigster Fund** — Katalog-Link ist tot (404), die Org
+  `Renewed-Scripts` hat aktuell keinerlei Repo mit „vehicle"/„shop" im Namen mehr. Kein
+  Ersatz-Link auffindbar, vermutlich eingestellt/umbenannt/in Escrow-Vertrieb übergegangen —
+  bewusst auf `ungeprueft` herabgestuft statt eines geratenen Links.
+- `wasabi_carlock`: gleicher Fehlertyp wie `wasabi_backpack` in Runde 6 (Katalog-Link falsch
+  geschrieben), zusätzlich ist das Repo von WasabiRobby zur Org `wasabi-versions` umgezogen —
+  Link korrigiert.
+- `qs_garages`, `qs_vehiclekeys`: konkrete Quasar-Produktseiten statt Startseite gefunden,
+  Qbox-Support jeweils bestätigt.
+- `qbx_vehiclekeys`, `qbx_vehiclesales`, `qbx_vehicleshop`: weiterhin aktiv, Versionen/Daten
+  bestätigt. Bei `qbx_vehicleshop` Hinweis auf laufende interne Refaktorierung
+  (Richtung `qbx_vehicles`) ergänzt.
+
+**Katalog:** 0 neu, 7 aktualisiert, 0 Duplikate übersprungen, 3 auf `verifiziert`, 3 auf
+`teilgeprueft`, 1 auf `ungeprueft` herabgestuft
+**Kategorie „Fahrzeuge & Mechanik" (23 Einträge) ist damit komplett nachgeprüft.**
+**Sonnet-5/low-Test (Runden 7–9) abgeschlossen** — Zusammenfassung siehe PROGRESS.md.
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 8] – 12.08.2026
 
 **Neu:**
