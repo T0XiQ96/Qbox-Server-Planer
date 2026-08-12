@@ -4,21 +4,34 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `912ef51` (Runde 13). Runde 14 ist fertig, aber noch **nicht** committet —
+**Letzter Commit:** `8be5710` (Runde 14). Runde 15 ist fertig, aber noch **nicht** committet —
 das ist der nächste Schritt.
-**Validate-Status:** grün (17 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
+**Validate-Status:** grün (18 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
 22 Updates, `runde-2.json` 12, `runde-3.json` 14, `runde-4.json` 12, `runde-5.json` 11,
 `runde-6.json` 6, `runde-7.json` 8, `runde-8.json` 8, `runde-9.json` 7, `runde-10.json` 9,
-`runde-11.json` 8, `runde-12.json` 8, `runde-13.json` 7, `runde-14.json` 10 · 262 Plugins
-gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
-**Katalogstand:** 262 gesamt · 68 verifiziert · 60 teilgeprüft · ~134 ungeprüft (9 `jim_*`-Einträge
-in dieser Runde von „nie geprüft" auf „ungeprueft mit korrigierter lizenz/link" gesetzt — Anzahl
-ungeprüft bleibt ähnlich, aber die Daten sind jetzt korrekt statt falsch als open_source geführt)
-**Aktuelle Runde:** Runde 14 — Start der Kategorie „Zivil-Jobs & Aktivitäten" (30 Einträge,
-größte verbleibende Kategorie), erste 10 nachgeprüft (Teil 1/3). Weiterhin kein Neufund
-(Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen). Sonnet-5/low-Test läuft
-bis einschließlich Runde 15 (Nutzerwunsch, letzte angekündigte Runde — danach Zwischenfazit vor
-Weiterarbeit).
+`runde-11.json` 8, `runde-12.json` 8, `runde-13.json` 7, `runde-14.json` 10, `runde-15.json` 10
+· 262 Plugins gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
+**Katalogstand (laut `npm run stats`):** 262 gesamt · 69 verifiziert (26 %) · 115 ohne
+`geprueft_am` (Kandidaten für künftige Runden) · 27 archiviert · 14 mit `link_status: 404`
+**Aktuelle Runde:** Runde 15 — Kategorie „Zivil-Jobs & Aktivitäten", nächste 10 nachgeprüft
+(Teil 2/3, 10 von 30 bleiben offen für eine spätere Runde 16). Weiterhin kein Neufund
+(Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen).
+
+**Sonnet-5/low-Test abgeschlossen (Runden 7–15, Nutzerwunsch statt der in CLAUDE.md §1
+vorgegebenen medium-Einstellung für Datenrunden).** Zwischenfazit: Über 9 Runden hinweg keine vom
+Effort-Level ausgelöste Qualitätsverschlechterung bei erfolgreichem Rundenabschluss — im
+Gegenteil, die Runden lieferten durchgehend belastbare, gut belegte Funde (u. a. `ox_fuel`-Fork
+tot, `qbx_houses`/`qbx_apartments` archiviert, `qbx_policejob`→`qbx_police` umbenannt, und in
+Runde 14/15 ein systematischer Datenfehler bei 11 `jim_*`-Einträgen, die fälschlich als
+Open-Source geführt waren obwohl sie kostenpflichtige Tebex-Produkte sind — ein Fund, der eher für
+gründliche Recherche als gegen sie spricht). Einziger echter Abbruch-Zwischenfall war das
+„ich melde mich später"-Verhalten eines Subagents in Runde 8 (Subagents laufen synchron; mit einer
+expliziten Klarstellung im Prompt reproduzierbar behoben, seither nicht wieder aufgetreten).
+Einschätzung: Für reine Nachprüfungs-Recherche (Link-/Status-Checks, Repo-Metadaten lesen,
+Beleggrad einordnen) ist low eine brauchbare, günstigere Alternative zu medium. Für Aufgaben mit
+vielen gleichzeitigen Kompatibilitätsurteilen oder Neufund-Suche würde ich vorsichtshalber wieder
+auf medium wechseln, wie in CLAUDE.md §1 vorgesehen — das wurde in diesen 9 Runden aber nicht
+getestet, da es sich durchgehend um reine Nachprüfung handelte.
 
 **Sonnet-5/low-Test abgeschlossen (Runden 7–9, Nutzerwunsch statt der in CLAUDE.md §1
 vorgegebenen medium-Einstellung für Datenrunden):** Ergebnisqualität bei erfolgreichem
@@ -85,24 +98,26 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Committen.** Runde 14 ist fertig, aber `data/catalog/runde-14.json` und diese Doku-Updates
-liegen noch uncommittet im Working Tree. Danach: Runde 15 (**letzte vom Nutzer angekündigte
-Runde des Sonnet-5/low-Tests**) — nächste 10 von 30 Einträgen der Kategorie „Zivil-Jobs &
-Aktivitäten" (`jim_recycle`, `jim_tequilala`, `jim_upnatom`, `jim_vanillaunicorn`, `qbx_busjob`,
-`qbx_diving`, `qbx_garbagejob`, `qbx_hotdogjob`, `qbx_lapraces`, `qbx_newsjob`). Bei den
-restlichen `jim_*`-Einträgen in Runde 15 (`jim_tequilala`, `jim_upnatom`, `jim_vanillaunicorn`)
-direkt prüfen, ob dasselbe Closed-Source/Tebex-Muster wie in Runde 14 vorliegt — hohe
-Wahrscheinlichkeit laut Runde-14-Befund. Nach Runde 15: Zwischenfazit ziehen und Modell/Effort
-mit dem Nutzer neu abstimmen, bevor unaufgefordert weitergemacht wird — Kategorie „Zivil" bleibt
-dann mit 10 von 30 Einträgen offen (Rest für eine spätere Runde 16). `npm run newround 15` legt
-das Gerüst an.
+**Committen, dann pausieren.** Runde 15 ist fertig, aber `data/catalog/runde-15.json` und diese
+Doku-Updates liegen noch uncommittet im Working Tree. Das war die letzte vom Nutzer angekündigte
+Runde des Sonnet-5/low-Tests (Runden 7–15) — **nach dem Commit nicht eigenständig mit Runde 16
+weitermachen**, sondern das Zwischenfazit (siehe oben) vorlegen und Modell/Effort für die
+Fortsetzung mit dem Nutzer klären. Falls es weitergeht: Runde 16 wäre die restlichen 10 von 30
+Einträgen der Kategorie „Zivil-Jobs & Aktivitäten" (`jim_djbooth`, `jim_recyclecenter` o.ä. —
+genaue Liste vor Runde 16 neu aus `data/catalog/altbestand.json` gegen die bereits geprüften IDs
+abgleichen, da mehrere `jim_*`-IDs zwischen den Runden abweichen können). `npm run newround 16`
+legt dann das Gerüst an.
+
+**Runde 15 — wichtigster Fund:** `qbx_hotdogjob` hatte einen falschen Katalog-Pfad (Unterstrich
+statt Bindestrich, korrekt `qbx-hotdogjob`) und ist zudem als „Unmaintained" markiert — bisher
+nicht erfasst. Drei weitere `jim_*`-Einträge (`jim_tequilala`, `jim_upnatom`,
+`jim_vanillaunicorn`) bestätigen das Runde-14-Muster (fälschlich als Open-Source geführt,
+tatsächlich Tebex-Paid), `jim_recycle` ist dagegen eine echte Ausnahme mit funktionierendem Repo.
 
 **Runde 14 — wichtigster Fund:** 8 von 9 geprüften `jim_*`-Jobs waren im Katalog fälschlich als
 kostenlose Open-Source-Repos geführt — die verlinkten GitHub-Repos existieren nicht (404), es
 sind tatsächlich kostenpflichtige Closed-Source-Produkte über Tebex. `lizenz` bei allen acht auf
-`escrow` korrigiert. Nur `jim_mining` hat ein echtes öffentliches Repo. Dieses Muster sollte bei
-allen künftigen `jim_*`-Einträgen aktiv geprüft werden (Verdacht: systematischer Fehler aus der
-Altbestand-Konvertierung, nicht nur Einzelfälle).
+`escrow` korrigiert. Nur `jim_mining` hat ein echtes öffentliches Repo.
 
 **Runde 13 — wichtigster Fund:** `randolio_grandma` und `wk_wars2x` hatten beide Tippfehler in
 den Katalog-Links (falscher Repo-Slug bzw. falsche Owner-Schreibweise), vermutlich nie tatsächlich
@@ -200,4 +215,5 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 | 11 | Nachprüfung Kategorie „Staat" Teil 1/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 0 (3 verifiziert, 5 teilgeprüft) | `data/catalog/runde-11.json` | `771f330` |
 | 12 | Nachprüfung Kategorie „Staat" Teil 2/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 1 (5 verifiziert, 2 teilgeprüft, 1 herabgestuft) | `data/catalog/runde-12.json` | `58dbbab` |
 | 13 | Nachprüfung Kategorie „Staat" Teil 3/3, letzte 7 — Kategorie komplett (kein Neufund) | 0 | 7 | 0 | 0 (3 verifiziert, 4 teilgeprüft) | `data/catalog/runde-13.json` | `912ef51` |
-| 14 | Nachprüfung Kategorie „Zivil" Teil 1/3, 10 von 30 (kein Neufund, 8 lizenz-Korrekturen) | 0 | 10 | 0 | 9 (0 verifiziert, 1 teilgeprüft, 9 ungeprueft) | `data/catalog/runde-14.json` | folgt |
+| 14 | Nachprüfung Kategorie „Zivil" Teil 1/3, 10 von 30 (kein Neufund, 8 lizenz-Korrekturen) | 0 | 10 | 0 | 9 (0 verifiziert, 1 teilgeprüft, 9 ungeprueft) | `data/catalog/runde-14.json` | `8be5710` |
+| 15 | Nachprüfung Kategorie „Zivil" Teil 2/3, 10 von 30 (kein Neufund) | 0 | 10 | 0 | 0 (5 verifiziert, 5 teilgeprüft) | `data/catalog/runde-15.json` | folgt |

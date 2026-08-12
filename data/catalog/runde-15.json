@@ -1,0 +1,146 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r15",
+  "runde": 15,
+  "thema": "Nachprüfung Kategorie 'Zivil-Jobs & Aktivitäten' (Teil 2/3 — 10 von 30 Einträgen)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "jim_recycle",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Anders als 8 der 9 in Runde 14 geprüften jim_*-Einträge existiert dieses Repo wirklich (bestätigt, kein 404). Läuft über jim_bridge (Jimathys eigenes, separat vertriebenes Bridge-Modul). Konflikt mit qbx_recyclejob bleibt als Vermutung bestehen (funktional plausibel, kein Code-Zeilenvergleich durchgeführt).",
+      "version": "3.1.0",
+      "letztes_update": "Aktiv · letzter Push 02.11.2025",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "Konflikt mit qbx_recyclejob (identische Job-Funktion, doppelte Ressource) bleibt plausibel, aber nicht am Code selbst gegengeprüft.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/jimathy/jim-recycle"
+    },
+    {
+      "id": "jim_tequilala",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Bestätigt dasselbe Muster wie 8 der 9 jim_*-Einträge aus Runde 14: Katalog-Link existiert nicht (404), tatsächlich kostenpflichtiges Closed-Source-Tebex-Produkt (v1.6.3 laut CFX-Forum). lizenz von open_source auf escrow korrigiert.",
+      "beschreibung": "Bar-Job Tequi-la-la: Zapfanlage, Cocktails, Events. Kostenpflichtiges Closed-Source-Produkt über Tebex (v1.6.3), kein öffentlicher Quellcode.",
+      "link": "https://jimathy666.tebex.io/package/4912104",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "lizenz": "escrow",
+      "kompat_warnung": {
+        "text": "Kein Quellcode öffentlich einsehbar, kostenpflichtiges Tebex-Produkt. Store bewirbt Multi-Framework (QB/Qbox/ESX) via jim_bridge, 'fully open source'-Marketingaussage bezieht sich vermutlich nur auf Editierbarkeit nach Kauf, nicht auf freien Sourcecode-Zugriff.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["🔒 Kostenpflichtiges Closed-Source-Produkt, kein öffentliches Repo — Katalog-Link war falsch/tot"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/jimathy/jim-tequilala (404); https://jimathy666.tebex.io/package/4912104"
+    },
+    {
+      "id": "jim_upnatom",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Bestätigt dasselbe Muster: Katalog-Link existiert nicht (404), tatsächlich kostenpflichtiges Closed-Source-Tebex-Produkt. lizenz von open_source auf escrow korrigiert.",
+      "beschreibung": "Up-n-Atom Burger-Stand an der Route 68: kleiner Food-Job außerhalb der Stadt. Kostenpflichtiges Closed-Source-Produkt über Tebex, kein öffentlicher Quellcode.",
+      "link": "https://jimathy666.tebex.io/package/5582016",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "lizenz": "escrow",
+      "kompat_warnung": {
+        "text": "Kein Quellcode öffentlich einsehbar, kostenpflichtiges Tebex-Produkt. Store bewirbt Multi-Framework (QB/Qbox/ESX) via jim_bridge.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["🔒 Kostenpflichtiges Closed-Source-Produkt, kein öffentliches Repo — Katalog-Link war falsch/tot"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/jimathy/jim-upnatom (404); https://jimathy666.tebex.io/package/5582016"
+    },
+    {
+      "id": "jim_vanillaunicorn",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Bestätigt dasselbe Muster: Katalog-Link existiert nicht (404), tatsächlich kostenpflichtiges Closed-Source-Tebex-Produkt (v1.6.7 laut CFX-Forum, über 1900 Verkäufe). lizenz von open_source auf escrow korrigiert.",
+      "beschreibung": "Strip-Club-Job: Bar, Drinks, Tanz-System. Kostenpflichtiges Closed-Source-Produkt über Tebex (v1.6.7), kein öffentlicher Quellcode.",
+      "link": "https://jimathy666.tebex.io/package/4877652",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "lizenz": "escrow",
+      "kompat_warnung": {
+        "text": "Kein Quellcode öffentlich einsehbar, kostenpflichtiges Tebex-Produkt. Store bewirbt Multi-Framework (QB/Qbox/ESX/OX) via jim_bridge.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["🔒 Kostenpflichtiges Closed-Source-Produkt, kein öffentliches Repo — Katalog-Link war falsch/tot"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/jimathy/jim-vanillaunicorn (404); https://jimathy666.tebex.io/package/4877652"
+    },
+    {
+      "id": "qbx_busjob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Alle Angaben bestätigt (letzter Push 16.07.2026, GPL-3.0, qbox_nativ), keine Änderung nötig.",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_busjob"
+    },
+    {
+      "id": "qbx_diving",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Alle Angaben bestätigt (letzter Push 16.07.2026, GPL-3.0, qbox_nativ), keine Änderung nötig.",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_diving"
+    },
+    {
+      "id": "qbx_garbagejob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Alle Angaben bestätigt (letzter Push 16.07.2026, GPL-3.0, qbox_nativ), keine Änderung nötig.",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_garbagejob"
+    },
+    {
+      "id": "qbx_hotdogjob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Wichtigster Fund: Katalog-Pfad war falsch (Unterstrich statt Bindestrich, korrekt ist qbx-hotdogjob) — korrigiert. Repo ist zudem als 'Unmaintained' markiert, bisher nicht im Katalog erfasst. Kein Nachfolger genannt.",
+      "link": "https://github.com/Qbox-project/qbx-hotdogjob",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "letztes_update": "⚠️ Als 'Unmaintained' markiert",
+      "archiviert": {
+        "text": "Repo-Titel führt explizit 'Unmaintained'. Funktionalität ggf. veraltet, vor Einsatz offene Issues/PRs prüfen. Kein Nachfolger benannt.",
+        "nachfolger": ""
+      },
+      "kompat_warnung": {
+        "text": "Repo als unmaintained markiert — Funktionalität ggf. veraltet, vor Einsatz Issues/PRs auf offene Bugs prüfen.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["Nische", "⚠️ Als unmaintained markiert"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx-hotdogjob"
+    },
+    {
+      "id": "qbx_lapraces",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Alle Angaben bestätigt (letzter Push 16.07.2026, GPL-3.0, qbox_nativ), 'junges Modul'-Einordnung weiterhin plausibel, keine Änderung nötig.",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_lapraces"
+    },
+    {
+      "id": "qbx_newsjob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Alle Angaben bestätigt (letzter Push 16.07.2026, GPL-3.0, qbox_nativ), keine Änderung nötig.",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_newsjob"
+    }
+  ]
+}

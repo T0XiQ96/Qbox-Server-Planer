@@ -17,6 +17,31 @@ Format je Eintrag:
 
 ---
 
+## [Runde 15] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-15.json` — nächste 10 von 30 Einträgen der Kategorie „Zivil-Jobs &
+  Aktivitäten" nachgeprüft (Teil 2/3), recherchiert über 1 Subagent. Letzte Runde des vom
+  Nutzer angekündigten Sonnet-5/low-Tests (Runden 7–15).
+
+**Korrigiert:**
+- `jim_tequilala`, `jim_upnatom`, `jim_vanillaunicorn`: bestätigen dasselbe Muster wie 8 der 9
+  jim_*-Einträge aus Runde 14 — Katalog-Links existierten nicht (404), tatsächlich
+  kostenpflichtige Closed-Source-Tebex-Produkte. `lizenz` auf `escrow` korrigiert.
+- `jim_recycle`: Ausnahme vom Muster — echtes öffentliches Repo existiert tatsächlich, bleibt
+  `open_source`, hängt aber von Jimathys separatem `jim_bridge`-Modul ab.
+- `qbx_hotdogjob`: **wichtigster Fund** — Katalog-Pfad war falsch (Unterstrich statt Bindestrich,
+  korrekt `qbx-hotdogjob`), zudem ist das Repo als „Unmaintained" markiert, bisher nicht im
+  Katalog erfasst.
+- `qbx_busjob`, `qbx_diving`, `qbx_garbagejob`, `qbx_lapraces`, `qbx_newsjob`: alle Angaben
+  bestätigt, keine Änderung nötig.
+
+**Katalog:** 0 neu, 10 aktualisiert, 0 Duplikate übersprungen, 5 auf `verifiziert`, 5 auf
+`teilgeprueft`
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 14] – 12.08.2026
 
 **Neu:**
