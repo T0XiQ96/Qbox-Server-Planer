@@ -1,0 +1,194 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r20",
+  "runde": 20,
+  "thema": "Nachprüfung Kategorie 'Kommunikation & Telefon' (komplett — 14 von 16, ganze Kategorie in einer Runde auf Nutzerwunsch)",
+  "erstellt": "2026-08-13",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "interact_sound",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, MIT-Lizenz. fxmanifest bestätigt reines Client/Server-Skript ohne jede Framework-Anbindung (unterstützt sogar GTA5 und RDR3). Code-Stichprobe über alle 3 .lua-Dateien fand weder rote noch grüne Flagge — bestätigt echtes Standalone.",
+      "letztes_update": "Aktiv · letzter Push 22.09.2022",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "kompat_warnung": {
+        "text": "Code-Stichprobe über alle Dateien bestätigt: keine Framework-Anbindung, läuft standalone unter jedem Framework inkl. Qbox.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/plunkettscott/interact-sound, https://raw.githubusercontent.com/plunkettscott/interact-sound/master/fxmanifest.lua"
+    },
+    {
+      "id": "jim_djbooth",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 29.10.2025. fxmanifest bestätigt version 1.4.02, dependency xsound + jim_bridge. Code-Stichprobe bestätigt Nutzung von jim_bridge (grüne Flagge, Multi-Framework-Abstraktion wie bei anderen jim_*-Scripts). Keine Lizenzangabe im Repo gefunden (kein LICENSE-File, kein Hinweis im README).",
+      "version": "1.4.02",
+      "letztes_update": "Aktiv · letzter Push 29.10.2025",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["xsound", "jim_bridge"],
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "Läuft über jim_bridge (Jimathys Framework-Abstraktion), Code-Stichprobe bestätigt Einbindung in fxmanifest.lua.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["Keine Lizenzangabe im Repo gefunden"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/jimathy/jim-djbooth, https://raw.githubusercontent.com/jimathy/jim-djbooth/main/fxmanifest.lua, https://raw.githubusercontent.com/jimathy/jim-djbooth/main/README.md"
+    },
+    {
+      "id": "qbot",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Kein fxmanifest.lua im ganzen Repo (vollständiger Dateibaum geprüft) — Qbot ist entgegen der bisherigen Katalog-Annahme KEIN FXServer-Resource, sondern ein eigenständiger Discord-Bot in TypeScript/Node.js (package.json, Dockerfile, docker-compose.yaml). Läuft als separater Dienst neben dem FiveM-Server, nicht als installierte Ressource. Framework-Feld auf standalone korrigiert, da die Frage 'Qbox-kompatibel' hier nicht zutrifft.",
+      "letztes_update": "Aktiv · letzter Push 21.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "contra": ["⚠️ Kein FXServer-Resource — eigenständiger Discord-Bot (Node.js/Docker), läuft als separater Dienst, nicht im Ressourcen-Ordner"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/Qbot, https://api.github.com/repos/Qbox-project/Qbot/git/trees/main?recursive=1"
+    },
+    {
+      "id": "xsound",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 28.05.2026, MIT-Lizenz. fxmanifest bestätigt version 1.5.1, unterstützt GTA5 und RDR3. Code-Stichprobe über alle 16 .lua-Dateien fand weder rote noch grüne Flagge — bestätigt vollständiges Standalone ohne jede Framework-Bindung. Keine README.md im Repo, Zweck aus Repo-Beschreibung 'Improved audio library for FiveM' und fxmanifest abgeleitet.",
+      "version": "1.5.1",
+      "letztes_update": "Aktiv · letzter Push 28.05.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "kompat_warnung": {
+        "text": "Code-Stichprobe über alle 16 Dateien bestätigt: keine Framework-Anbindung, läuft standalone unter jedem Framework inkl. Qbox.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Xogy/xSound, https://raw.githubusercontent.com/Xogy/xSound/master/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_radio",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Archivierung bestätigt: Repo seit 09.07.2026 archiviert (Push-Datum), GPL-3.0. fxmanifest bestätigt version 1.0.0, dependency pma-voice (Sprach-System), Abhängigkeiten qbx_core + ox_lib im Code bestätigt. Nachfolger mm_radio war bereits im Katalog korrekt vermerkt und ist selbst bereits verifiziert im Katalog vorhanden.",
+      "version": "1.0.0",
+      "letztes_update": "🪦 Archiviert seit 09.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "pma-voice"],
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt exports.qbx_core und @ox_lib/init.lua — ausschließlich grüne Flaggen, aber Repo archiviert.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_radio, https://raw.githubusercontent.com/Qbox-project/qbx_radio/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_radio_legacy",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Derselbe Repo-Fund wie beim Haupteintrag qbx_radio: archiviert seit 09.07.2026, dependency pma-voice bestätigt. Dieser Eintrag ist bewusst als Altbestand-Duplikat mit dem Zusatz '(ALT)' geführt — Nachfolger mm_radio, bereits als konflikte vermerkt und im Katalog verifiziert vorhanden.",
+      "version": "1.0.0",
+      "letztes_update": "🪦 Archiviert seit 09.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["pma-voice"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_radio, https://raw.githubusercontent.com/Qbox-project/qbx_radio/main/fxmanifest.lua"
+    },
+    {
+      "id": "gcphone",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Katalog-Link war ein Altbestand-Platzhalter (GitHub-Suchseite). Recherche fand nur zahlreiche private Forks/Kopien (u.a. manueljlz/gcphone, N3MTV/gcphone, DRIFTKINGEVO/gcphone sowie das Nachfolgeprojekt Re-Ignited-Development/Re-Ignited-Phone), aber kein eindeutig kanonisches Original-Repo. Ein Websuche-Ergebnis vermutete einen bestimmten Autor als Original-Urheber, das war aber selbst nur Spekulation der Suchmaschine, nicht belegt — nicht übernommen. Kein Ersatzlink geraten.",
+      "link_status": "ungeprueft",
+      "link_geprueft_am": "2026-08-13",
+      "qualitaet": "ungeprueft",
+      "contra": ["⚠️ Kein eindeutiges Original-Repo auffindbar, nur mehrere private Forks — Katalogeintrag für Release-Kandidatur gesondert prüfen"],
+      "quelle": "Websuche 'gcphone fivem github repository' ohne eindeutigen Treffer"
+    },
+    {
+      "id": "pma_radio_ui",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Katalog-Link war ein Altbestand-Platzhalter (github.com/topics/qbox). Der Subagent fand als Kandidat Qbox-project/mm_radio — das wird hier bewusst NICHT übernommen: mm_radio ist im Katalog bereits als eigener, verifizierter Eintrag mit framework qbox_nativ geführt, während pma_radio_ui laut Katalogbeschreibung explizit 'framework-frei, Alternative zu mm_radio ohne Framework-Bindung' sein soll. Beides gleichzusetzen wäre ein Widerspruch zur bestehenden Beschreibung. Kein passendes eigenständiges Repo gefunden, kein Ersatzlink geraten — bleibt bewusst offen für eine gezieltere Suche in einer späteren Runde.",
+      "link_status": "ungeprueft",
+      "link_geprueft_am": "2026-08-13",
+      "qualitaet": "ungeprueft",
+      "contra": ["⚠️ Kein Repo gefunden, das der Beschreibung 'framework-frei' entspricht — nicht mit mm_radio verwechseln"],
+      "quelle": "Kein bestätigter Treffer"
+    },
+    {
+      "id": "wasabi_boombox",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Alter Link (WasabiRobby/Wasabi-Boombox) war 404 wegen falscher Groß-/Kleinschreibung. fxmanifest.lua von WasabiRobby/wasabi_boombox (main-Branch) bestätigt: version 2.1.5, Abhängigkeiten xsound + ox_lib. Deckt sich mit der Owner-Bestand-Beschreibung ('ESX/QBCore boombox that plays youtube links'). Link korrigiert.",
+      "link": "https://github.com/WasabiRobby/wasabi_boombox",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "version": "2.1.5",
+      "abhaengigkeiten": ["xsound", "ox_lib"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://raw.githubusercontent.com/WasabiRobby/wasabi_boombox/main/fxmanifest.lua"
+    },
+    {
+      "id": "lb_phone",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "lbphone.com leitet per 301 dauerhaft auf lbscripts.com um (Domainwechsel). Startseite und /packages sind clientseitig gerendert (SPA), lieferten kein lesbares Preis-/Lizenz-/Framework-Detail. Dokumentation liegt separat unter docs.lbscripts.com, wurde im Abrufbudget nicht mehr erreicht. Link auf die neue Domain korrigiert, keine Marketingaussagen ungeprüft übernommen.",
+      "link": "https://lbscripts.com",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-13",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://lbphone.com (Redirect), https://lbscripts.com/, https://lbscripts.com/packages"
+    },
+    {
+      "id": "sonoran_radio",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "sonoranradio.com ist eine JS-lastige Seite mit kaum lesbarem Text per direktem Abruf. Über docs.sonoransoftware.com/radio bestätigt: kostenlose Basisversion vorhanden ('a fully-featured free version accessible to anyone'), zusätzliche kostenpflichtige Pakete über sonoran.store — kein einzelner Festpreis, daher kein preis-Feld gesetzt. Explizite Framework-Liste (ESX/QBCore/Qbox) auf den geprüften Seiten nicht gefunden.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "pro": ["Kostenlose Basisversion verfügbar (docs.sonoransoftware.com bestätigt)"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://sonoranradio.com, https://docs.sonoransoftware.com/radio"
+    },
+    {
+      "id": "okokchat",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Store-Startseite okok.tebex.io bot-geschützt. Konkrete Produktseite gefunden: okok.tebex.io/package/4967994 ('okokChatV2'). Direkter Abruf der Produktseite ebenfalls bot-geschützt (403), aber Produktname und ESX/QBCore-Support über Cfx-Forum-Thread bestätigt ('okokChatV2 (chat-theme) [QBCORE][ESX][PAID]').",
+      "link": "https://okok.tebex.io/package/4967994",
+      "link_status": "gesperrt",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "escrow",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://okok.tebex.io/package/4967994, https://forum.cfx.re/t/okokchatv2-chat-theme-qbcore-esx-paid/4818408"
+    },
+    {
+      "id": "okokphone",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Store-Startseite okok.tebex.io bot-geschützt. Konkrete Produktseite gefunden: okok.tebex.io/package/6123242 ('okokPhone'). Direkter Abruf ebenfalls bot-geschützt (403). Websuche deutet auf Tebex-Escrow-System und einen Preis um 44,99 EUR hin, aber weder direkt gegengelesen noch aus einer zweiten unabhängigen Quelle bestätigt — Preis bewusst NICHT übernommen (lieber leer als falsch), nur Escrow-Vermutung vermerkt.",
+      "link": "https://okok.tebex.io/package/6123242",
+      "link_status": "gesperrt",
+      "link_geprueft_am": "2026-08-13",
+      "kompat_warnung": {
+        "text": "Vermutlich Tebex-Asset-Escrow-Produkt (nicht direkt bestätigt, Shop-Seite bot-geschützt). Preisangabe aus Websuche unbestätigt, deshalb nicht übernommen.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "ungeprueft",
+      "quelle": "https://okok.tebex.io/package/6123242"
+    },
+    {
+      "id": "qs_smartphone",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "quasar-store.com ist bot-geschützt/JS-lastig, Preis nicht auslesbar (Ladeplatzhalter). Konkrete Produktseite gefunden und gelesen: quasar-store.com/product/smartphone ('Quasar Smartphone V3', komplett neu in React geschrieben). Framework-Unterstützung im Seitentext direkt bestätigt: 'built for QBCore, ESX and beyond', Installationsanleitung nennt explizit ESX, QBCore, Qbox und Standalone.",
+      "link": "https://www.quasar-store.com/product/smartphone",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "framework": "standalone",
+      "kompat_warnung": {
+        "text": "Seiten-Installationsanleitung nennt Qbox explizit als unterstütztes Framework neben ESX/QBCore/Standalone.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://www.quasar-store.com/product/smartphone"
+    }
+  ]
+}
