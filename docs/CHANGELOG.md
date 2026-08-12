@@ -17,6 +17,39 @@ Format je Eintrag:
 
 ---
 
+## [Runde 16] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-16.json` — letzte 10 von 30 Einträgen der Kategorie „Zivil-Jobs &
+  Aktivitäten" nachgeprüft (Teil 3/3, Kategorie damit komplett). Recherche über 3 parallele
+  Subagents.
+
+**Korrigiert:**
+- `randolio_burgershot`, `randolio_pizzajob`: Katalog-Links unter dem alten Namensmuster
+  `randolio_*` existieren nicht mehr (404) — Autor benennt seine Repos konsequent `randol_*`.
+  Beide Links korrigiert, `framework` von `standalone` auf `qbcore_bridge` korrigiert (README
+  bestätigt ESX/QB-Bridge statt framework-agnostisch).
+- `randolio_busjob`: kein Repo unter irgendeinem bekannten Namensmuster des Autors auffindbar
+  (404, trotz gezielter Suche unter allen `randol_*`-Repos) — vermutlich nie veröffentlicht.
+  Kein Ersatzlink geraten, bewusst auf `ungeprueft` mit `link_status: "404"` gesetzt.
+- `rahe_racing`: Katalog-Link (`github.com/rahe-rescue/rahe-racing`) existiert nicht — kein
+  Open-Source-Repo, tatsächlich ein kostenpflichtiges Tebex-Script. `lizenz` von `open_source`
+  auf `escrow` korrigiert, Link auf die Tebex-Seite gesetzt.
+- `wasabi_fishing`: Katalog-Link war nur die GitHub-Org-Profilseite, kein echtes Repo — echtes
+  Repo (`wasabirobby/wasabi_fishing`) gefunden. `framework` von `standalone` auf
+  `qbcore_bridge` korrigiert, `ox_target` als unbelegte Abhängigkeit entfernt.
+- `qbx_vineyard`: Abhängigkeiten um `ox_lib`/`ox_inventory` präzisiert (Katalog nannte bisher
+  nur `ox_target`).
+- `qbx_recyclejob`, `qbx_taxijob`, `qbx_towjob`, `qbx_truckerjob`: alle Angaben bestätigt,
+  keine inhaltlichen Änderungen nötig.
+
+**Katalog:** 0 neu, 10 aktualisiert, 0 Duplikate übersprungen, 0 ungeprüft (4 verifiziert/teilgeprüft
+solide, 3 auf `ungeprueft`/`teilgeprueft` mit korrigierten Links, 3 mit Framework-/Lizenz-Korrektur)
+**Kategorie „Zivil-Jobs & Aktivitäten" (30 Einträge) damit komplett nachgeprüft (Runden 14–16).**
+**Commit:** folgt
+
+---
+
 ## [Runde 15] – 12.08.2026
 
 **Neu:**

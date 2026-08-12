@@ -1,0 +1,126 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r16",
+  "runde": 16,
+  "thema": "Nachprüfung Kategorie 'Zivil-Jobs & Aktivitäten' (Teil 3/3 — letzte 10 von 30, Kategorie komplett)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "qbx_recyclejob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo, fxmanifest und GitHub-API geprüft. Version 2.1.0, fx_version cerulean, Abhängigkeit qbx_core bestätigt; ox_target als explizite fxmanifest-Dependency nicht auffindbar, daher nur teilgeprüft. Repo aktiv, nicht archiviert, letzter Push 16.07.2026. Vergleichsgruppe zu jim_recycle (beide Recycling-Jobs) bleibt bestehen, kein Widerspruch gefunden.",
+      "version": "2.1.0",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_recyclejob"
+    },
+    {
+      "id": "qbx_taxijob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "fxmanifest bestätigt: Version 1.0.0, Abhängigkeit qbx_core + ox_lib, provide 'qb-taxijob' als Legacy-Kompatibilitätsname. Repo aktiv, nicht archiviert, letzter Push 16.07.2026, GPL-3.0. Link gültig, keine Änderung nötig.",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "abhaengigkeiten": ["qbx_core", "ox_lib"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_taxijob"
+    },
+    {
+      "id": "qbx_towjob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "fxmanifest bestätigt: Version 1.0.0, Abhängigkeit qbx_core + ox_lib, provide 'qb-towjob' als Legacy-Kompatibilitätsname. Repo aktiv, nicht archiviert, letzter Push 16.07.2026, GPL-3.0. Link gültig, keine Änderung nötig.",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "abhaengigkeiten": ["qbx_core", "ox_lib"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_towjob"
+    },
+    {
+      "id": "qbx_truckerjob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo aktiv (151 Commits), nicht archiviert, GPL-3.0. Beschreibung bestätigt Qbox-native Ausrichtung. fxmanifest im Detail nicht einsehbar, Katalogangaben zu qbx_core/ox_target plausibel und unverändert übernommen.",
+      "letztes_update": "Aktiv (151 Commits)",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_truckerjob"
+    },
+    {
+      "id": "qbx_vineyard",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo aktiv (127 Commits), nicht archiviert, GPL-3.0. README/Metadaten bestätigen Dependencies qbx_core, ox_lib, ox_inventory. Katalog nannte bisher nur ox_target statt ox_inventory/ox_lib — korrigiert. Präzise Code-Stichprobe für spätere Runde vorgemerkt.",
+      "letztes_update": "Aktiv (127 Commits)",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_inventory"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_vineyard"
+    },
+    {
+      "id": "rahe_racing",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link https://github.com/rahe-rescue/rahe-racing existiert nicht (404, Org/Repo gibt es nicht). 'Rahe Racing' ist kein Open-Source-GitHub-Projekt, sondern ein kostenpflichtiges Tebex-Script von RAHE Development. lizenz von open_source auf escrow korrigiert. Tebex-Shopseite bot-geschützt (403), Doku nennt qb-inventory/ox_inventory-Support, aber keine ausdrückliche Qbox-Nennung.",
+      "link": "https://rahe.tebex.io/package/5077040",
+      "link_status": "404",
+      "link_geprueft_am": "2026-08-12",
+      "lizenz": "escrow",
+      "kompat_warnung": {
+        "text": "Alter Katalog-Link war tot; korrekte Quelle ist ein kostenpflichtiges Tebex-Script, kein offenes GitHub-Repo. Framework-Support (Qbox vs. QBCore-Bridge) nicht offiziell bestätigt, Shop-Seite bot-geschützt und nicht vollständig einsehbar.",
+        "sicherheit": "vermutung"
+      },
+      "contra": ["🔒 Escrow/Tebex, kein Open-Source-Repo (Katalog-Link war falsch)", "Qbox-Kompatibilität nicht offiziell dokumentiert"],
+      "qualitaet": "ungeprueft",
+      "quelle": "https://docs.rahe.dev/our-scripts/racing/integration, https://rahe.tebex.io/package/5077040"
+    },
+    {
+      "id": "randolio_burgershot",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link auf altem Namen 'randolio_burgershot' existiert nicht mehr (404). Tatsächlicher Pfad ist 'randol_burgershot' (Autor hat umbenannt, nutzt konsequent randol_*-Präfix). README bestätigt: Framework ist NICHT standalone, sondern ESX/QB via Bridge-System — framework-Feld korrigiert. Lizenz erlaubt nur persönliche Nutzung, keine Weiterverbreitung (kein echtes OSS). Letzter README-Stand 19.03.2024, nicht archiviert.",
+      "link": "https://github.com/Randolio/randol_burgershot",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Randolio/randol_burgershot"
+    },
+    {
+      "id": "randolio_busjob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link existiert nicht (404). Der Autor Randolio benennt seine Repos konsequent randol_*-Präfix (randol_burgershot, randol_pizzajob, randol_cargo, randol_multijob, randol_paycheck, randol_cityworker, randol_billing, randol_trucking, randol_newspaper) — ein Busjob-Repo ist darunter trotz gezielter Suche NICHT auffindbar. Vermutlich nie veröffentlicht oder komplett entfernt. Kein Ersatzlink geraten, bewusst ungeprueft belassen.",
+      "link_status": "404",
+      "qualitaet": "ungeprueft",
+      "contra": ["⚠️ Repo unter keinem bekannten Pfad auffindbar — Katalogeintrag möglicherweise fehlerhaft, für Release-Kandidatur gesondert prüfen"],
+      "quelle": "https://github.com/Randolio?tab=repositories (kein busjob-Repo gefunden)"
+    },
+    {
+      "id": "randolio_pizzajob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link auf altem Namen 'randolio_pizzajob' existiert nicht mehr (404). Tatsächlicher Pfad ist 'randol_pizzajob' (umbenannt). README bestätigt: Framework ist NICHT standalone, sondern ESX/QB/ND via Bridge-System — framework-Feld korrigiert. Abhängigkeit ox_lib bestätigt (mandatory). Lizenz erlaubt nur persönliche Nutzung, keine Weiterverbreitung. Letzter README-Stand 26.01.2024, nicht archiviert.",
+      "link": "https://github.com/Randolio/randol_pizzajob",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Randolio/randol_pizzajob"
+    },
+    {
+      "id": "wasabi_fishing",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Alter Link war nur die GitHub-Org-Profilseite, kein echtes Repo. Tatsächliches Repo gefunden: github.com/wasabirobby/wasabi_fishing. fxmanifest bestätigt Version 2.0.7, Abhängigkeit ox_lib. Framework ist NICHT standalone, sondern ESX/QBCore-Bridge (zusätzlich es_extended oder qb-core nötig) — framework-Feld korrigiert. ox_target als Abhängigkeit ließ sich NICHT bestätigen (nur ox_lib im Manifest), aus abhaengigkeiten entfernt. Aktiv gepflegt, nicht archiviert.",
+      "link": "https://github.com/wasabirobby/wasabi_fishing",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "version": "2.0.7",
+      "framework": "qbcore_bridge",
+      "abhaengigkeiten": ["ox_lib"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/wasabirobby/wasabi_fishing"
+    }
+  ]
+}

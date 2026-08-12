@@ -23,6 +23,57 @@ Ob die Seite überhaupt existiert (404, umgezogen, archiviert), fällt dabei neb
 nach `link_status` + `link_geprueft_am`. Ein reiner HTTP-Statuscheck ohne Lesen des Inhalts ist
 wertlos und ersetzt diesen Ablauf nicht.
 
+### 1a. Exakte URL-Muster für GitHub-Repos (kein Rätselraten, kein Web-UI-Klicken)
+
+Bei einem GitHub-Link `https://github.com/<owner>/<repo>` immer diese vier Abrufe machen,
+in dieser Reihenfolge — das erspart das langsame Durchklicken der Web-Oberfläche:
+
+1. **Existenz + Status + letzter Push** (ein API-Call beantwortet mehrere Fragen auf einmal):
+   `https://api.github.com/repos/<owner>/<repo>`
+   Liefert als JSON u.a. `archived` (true/false), `pushed_at` (letzter Push, ISO-Datum),
+   `default_branch` (für Schritt 2/3 wichtig — meist `main`, manchmal `master`),
+   `license.spdx_id`, `description`. Ein 404 hier heißt: Repo existiert nicht (mehr) unter
+   diesem Pfad → `link_status: "404"`, dann gezielt nach dem neuen Namen suchen
+   (siehe 1b), nicht raten.
+2. **fxmanifest.lua roh lesen** (nicht die Web-Ansicht, die ist langsamer und schwerer zu parsen):
+   `https://raw.githubusercontent.com/<owner>/<repo>/<default_branch>/fxmanifest.lua`
+   Manche Repos haben es in einem Unterordner — wenn der direkte Pfad 404 liefert, per GitHub-
+   Code-Suche (`https://github.com/search?q=repo:<owner>/<repo>+filename:fxmanifest.lua&type=code`)
+   den echten Pfad finden. Daraus: `version`, `dependencies`/`dependency`, `shared_scripts`
+   (→ `@ox_lib/init.lua`?), `provide` (Legacy-Kompatibilitätsname, wichtig für Konflikt-Checks).
+3. **README roh lesen**:
+   `https://raw.githubusercontent.com/<owner>/<repo>/<default_branch>/README.md`
+   → Zweck, genannte Frameworks, Installationsschritte, Lizenzhinweise im Klartext (viele Autoren
+   schreiben "personal use only" o.ä. direkt ins README statt eine LICENSE-Datei zu pflegen —
+   das zählt als `lizenz`-Beleg, auch ohne SPDX-Tag).
+4. **Issues, gefiltert**: `https://github.com/<owner>/<repo>/issues?q=qbox+OR+qbx` (offen + geschlossen,
+   also ohne `is:open`-Filter) → offizielle Autor-Aussagen zur Qbox-Kompatibilität.
+
+### 1b. Wenn der Katalog-Link 404 liefert — Repo-Umzug systematisch suchen
+
+Nicht raten, sondern in dieser Reihenfolge prüfen, bevor der Eintrag auf `ungeprueft`/`404`
+fällt:
+1. GitHub leitet umbenannte Repos oft automatisch um — den Link trotzdem einmal im Klartext
+   aufrufen (nicht nur die API), ein Redirect zeigt den neuen Pfad direkt in der URL-Leiste.
+2. Alle Repos des gleichen Owners auflisten: `https://api.github.com/users/<owner>/repos?per_page=100`
+   (oder `/orgs/<owner>/repos`, falls Org) → nach ähnlichem Namen suchen. Viele Autoren nutzen
+   ein festes Präfix (z.B. `randol_*` statt `randolio_*`) — wenn ein Muster erkennbar ist, gezielt
+   danach filtern statt einzeln zu raten.
+3. GitHub-Suche über alle Repos: `https://github.com/search?q=<name>&type=repositories`.
+4. Erst wenn alle drei nichts liefern: `link_status: "404"`, `qualitaet: "ungeprueft"`,
+   `update_grund` explizit festhalten, dass systematisch gesucht wurde (welche Owner/Suchbegriffe),
+   kein Ersatzlink raten.
+
+### 1c. Tebex-Produktseiten (Premium/Escrow)
+
+Tebex-Shopseiten sind oft bot-geschützt (403 bei direktem Fetch). Falls die Seite selbst nicht
+lesbar ist, reicht als Beleg: die URL selbst (Store-Name im Pfad, Paket-ID), plus wenn vorhanden
+eine separate Doku-Domain des Autors (z.B. `docs.<anbieter>.dev` oder `docs.<anbieter>.gitbook.io`)
+oder ein Cfx-Forum-Thread zum Produkt — dort steht meist Preis, unterstützte Frameworks und ob
+Escrow. Wenn nichts davon erreichbar ist: `qualitaet: "ungeprueft"`, `sicherheit: "vermutung"` bei
+etwaigen `kompat_warnung`-Einträgen, keine Marketingaussagen der Seite ungeprüft übernehmen
+(z.B. "fully open source" kann auch nur "nach Kauf editierbar" bedeuten, siehe Runde 15 `jim_tequilala`).
+
 ---
 
 ## 2. Fragen, die jeder Eintrag beantworten muss

@@ -4,18 +4,23 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `8be5710` (Runde 14). Runde 15 ist fertig, aber noch **nicht** committet —
+**Letzter Commit:** `74e9862` (Runde 15). Runde 16 ist fertig, aber noch **nicht** committet —
 das ist der nächste Schritt.
-**Validate-Status:** grün (18 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
-22 Updates, `runde-2.json` 12, `runde-3.json` 14, `runde-4.json` 12, `runde-5.json` 11,
-`runde-6.json` 6, `runde-7.json` 8, `runde-8.json` 8, `runde-9.json` 7, `runde-10.json` 9,
-`runde-11.json` 8, `runde-12.json` 8, `runde-13.json` 7, `runde-14.json` 10, `runde-15.json` 10
-· 262 Plugins gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
-**Katalogstand (laut `npm run stats`):** 262 gesamt · 69 verifiziert (26 %) · 115 ohne
-`geprueft_am` (Kandidaten für künftige Runden) · 27 archiviert · 14 mit `link_status: 404`
-**Aktuelle Runde:** Runde 15 — Kategorie „Zivil-Jobs & Aktivitäten", nächste 10 nachgeprüft
-(Teil 2/3, 10 von 30 bleiben offen für eine spätere Runde 16). Weiterhin kein Neufund
+**Validate-Status:** grün (19 Katalogdateien inkl. `runde-16.json` 10 Updates · 262 Plugins
+gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
+**Katalogstand (laut `npm run stats`):** 262 gesamt · 71 verifiziert/teilgeprüft (27 %) · 105 ohne
+`geprueft_am` (Kandidaten für künftige Runden) · 27 archiviert · 16 mit `link_status: 404`
+**Aktuelle Runde:** Runde 16 — Kategorie „Zivil-Jobs & Aktivitäten" **komplett** durchgeprüft
+(Teil 3/3, Runden 14–16 zusammen 30/30). Weiterhin kein Neufund
 (Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen).
+
+**Nutzerauftrag für diese Session:** Runden 16–18 (nicht mehr 16–20 — Nutzer hat auf „stoppe
+nach Runde 18" reduziert) durchgehend ohne Zwischen-Rückfrage. Zusätzlich wurde
+`docs/RECHERCHE.md` um die Abschnitte 1a–1c ergänzt: exakte URL-Muster
+(`api.github.com/repos/<owner>/<repo>`, `raw.githubusercontent.com/.../fxmanifest.lua` bzw.
+`README.md`, systematisches Vorgehen bei 404/Repo-Umzug, Umgang mit bot-geschützten
+Tebex-Seiten) — Subagent-Prompts ab Runde 17 sollen auf diese Abschnitte verweisen, damit
+weniger Rätselraten/Web-UI-Klicken nötig ist und die Recherche schneller/konsistenter wird.
 
 **Sonnet-5/low-Test abgeschlossen (Runden 7–15, Nutzerwunsch statt der in CLAUDE.md §1
 vorgegebenen medium-Einstellung für Datenrunden).** Zwischenfazit: Über 9 Runden hinweg keine vom
@@ -98,15 +103,13 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Committen, dann pausieren.** Runde 15 ist fertig, aber `data/catalog/runde-15.json` und diese
-Doku-Updates liegen noch uncommittet im Working Tree. Das war die letzte vom Nutzer angekündigte
-Runde des Sonnet-5/low-Tests (Runden 7–15) — **nach dem Commit nicht eigenständig mit Runde 16
-weitermachen**, sondern das Zwischenfazit (siehe oben) vorlegen und Modell/Effort für die
-Fortsetzung mit dem Nutzer klären. Falls es weitergeht: Runde 16 wäre die restlichen 10 von 30
-Einträgen der Kategorie „Zivil-Jobs & Aktivitäten" (`jim_djbooth`, `jim_recyclecenter` o.ä. —
-genaue Liste vor Runde 16 neu aus `data/catalog/altbestand.json` gegen die bereits geprüften IDs
-abgleichen, da mehrere `jim_*`-IDs zwischen den Runden abweichen können). `npm run newround 16`
-legt dann das Gerüst an.
+**Runde 17 starten.** Nutzerauftrag: Runden 16–18 durchgehend, danach stoppen und Zwischenstand
+vorlegen (nicht eigenständig über Runde 18 hinaus weitermachen). Kategorie „Zivil-Jobs &
+Aktivitäten" ist mit Runde 16 komplett (30/30) — Runde 17 beginnt die nächste Kategorie in
+`data/kategorien.json`-Reihenfolge (vor Rundenstart per Skript/Stats ermitteln, welche Kategorie
+als nächstes dran ist und welche IDs darin noch `geprueft_am: null` haben). `npm run newround 17`
+legt das Gerüst an. Subagent-Prompts sollen ab jetzt auf `docs/RECHERCHE.md` Abschnitte 1a–1c
+verweisen (exakte API-/Raw-URL-Muster), damit weniger eigenständig gerätselt werden muss.
 
 **Runde 15 — wichtigster Fund:** `qbx_hotdogjob` hatte einen falschen Katalog-Pfad (Unterstrich
 statt Bindestrich, korrekt `qbx-hotdogjob`) und ist zudem als „Unmaintained" markiert — bisher
