@@ -4,8 +4,7 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `283598d` (Runde 5 + Doku-Fix). Runde 6 ist fertig, aber noch **nicht**
-committet — das ist der nächste Schritt.
+**Letzter Commit:** `7745445` (Runde 6).
 **Validate-Status:** grün (9 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
 22 Updates, `runde-2.json` 12, `runde-3.json` 14, `runde-4.json` 12, `runde-5.json` 11,
 `runde-6.json` 6 · 262 Plugins gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
@@ -67,8 +66,7 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Committen.** Runde 6 ist fertig, aber `data/catalog/runde-6.json` und diese Doku-Updates liegen
-noch uncommittet im Working Tree. Danach: Runde 7 — Start der nächsten Kategorie „3. Fahrzeuge &
+Runde 7 — Start der nächsten Kategorie „3. Fahrzeuge &
 Mechanik" (23 Einträge laut `data/kategorien.json`-Reihenfolge), in 2 Runden à ~11–12.
 `npm run newround 7` legt das Gerüst an. Vorgehen (Batchgröße 10–12, nach Kategorie, reine
 Nachprüfung vor Neusuche) gilt unverändert bis der Nutzer etwas anderes sagt.
@@ -122,4 +120,4 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 | 3 | Nachprüfung Kategorie „Basis" Teil 2/2, restliche 14 von 26 — Kategorie fertig | 0 | 14 | 0 | 2 (4 verifiziert, 8 teilgeprüft, 2 weiterhin ungeprueft) | `data/catalog/runde-3.json` | `7afa348` |
 | 4 | Nachprüfung Kategorie „UI" Teil 1/3, 12 von 31 (kein Neufund) | 0 | 12 | 0 | 0 (8 verifiziert, 4 teilgeprüft) | `data/catalog/runde-4.json` | `3f0345a` |
 | 5 | Nachprüfung Kategorie „UI" Teil 2/3, 11 von 17 verbleibenden (kein Neufund) | 0 | 11 | 0 | 0 (3 verifiziert, 8 teilgeprüft) | `data/catalog/runde-5.json` | `266eeec` |
-| 6 | Nachprüfung Kategorie „UI" Teil 3/3, letzte 6 — Kategorie komplett (kein Neufund) | 0 | 6 | 0 | 0 (2 verifiziert, 4 teilgeprüft) | `data/catalog/runde-6.json` | folgt |
+| 6 | Nachprüfung Kategorie „UI" Teil 3/3, letzte 6 — Kategorie komplett (kein Neufund) | 0 | 6 | 0 | 0 (2 verifiziert, 4 teilgeprüft) | `data/catalog/runde-6.json` | `7745445` |
