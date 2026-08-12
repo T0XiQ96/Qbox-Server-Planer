@@ -17,6 +17,41 @@ Format je Eintrag:
 
 ---
 
+## [Runde 19] – 13.08.2026
+
+**Neu:**
+- `data/catalog/runde-19.json` — letzte 10 von 32 Einträgen der Kategorie „Crime & Unterwelt"
+  nachgeprüft (Teil 3/3, Kategorie damit komplett), plus ein Nachtrag zu `qb_traphouse` aus
+  Runde 18. **Erste Runde mit `npm run prefetch`:** sechs Einträge (fünf `qbx_*`-Repos plus der
+  Nachtrag) wurden direkt aus dem automatisch erzeugten Briefing geschrieben, ganz **ohne
+  Subagent** — vollständige Code-Stichprobe, fxmanifest und README lagen bereits vor. Nur die
+  fünf kniffligen Restfälle (toter Owner, zwei Tebex-Bot-Schutz-Shops, zwei zu bestätigende
+  Namens-Kandidaten) gingen an einen einzigen Subagent, der mit 9 Tool-Aufrufen auskam.
+
+**Korrigiert:**
+- `qbx_lockpick`: archiviert seit 09.07.2026 ('Not Maintained'), bisher nicht erfasst.
+- `qbx_pawnshop`, `qbx_storerobbery`, `qbx_truckrobbery`, `qbx_weed`: vollständig durch
+  automatische Code-Stichprobe verifiziert (ausschließlich grüne Flaggen). `qbx_storerobbery`
+  zusätzlich als README-seitig 'WIP' gekennzeichnet vermerkt.
+- `qb_traphouse` (Nachtrag zu Runde 18): die automatische Stichprobe fand eine zweite, zuvor von
+  Hand übersehene rote Flagge — `exports['qb-target']` in `client/main.lua:25`.
+- `rahe_boosting`: derselbe Fund wie `rahe_racing` in Runde 16 — GitHub-Owner existiert nicht
+  mehr, tatsächlich ein kostenpflichtiges Tebex-Produkt desselben Anbieters (RAHE Development).
+  `lizenz` auf `escrow` korrigiert.
+- `randolio_moneywash`: bisher nur Profil-Link, `Randolio/randol_moneywash` gefunden und über
+  fxmanifest bestätigt.
+- `rainmad_heists`, `t1ger_heists`, `utk_fingerprint`: trotz Suche kein eindeutiges Produkt/Repo
+  bestätigbar — bewusst `ungeprueft` belassen statt eines geratenen Treffers (RAHE-Boosting-Fall
+  zeigt: das Suchbudget aus RECHERCHE.md 1c/1d wurde eingehalten, nicht vorzeitig aufgegeben).
+
+**Katalog:** 0 neu, 11 aktualisiert, 0 Duplikate übersprungen, 0 ungeprüft (7 verifiziert, 1
+teilgeprüft, 3 auf `ungeprueft` mit korrigiertem/fehlendem Link)
+**Kategorie „Crime & Unterwelt" nach Runden 17–19 komplett durchgeprüft (32/32).**
+**Katalogstand:** 262 Plugins, 85 verifiziert/teilgeprüft (32 %), 34 archiviert.
+**Commit:** folgt
+
+---
+
 ## [Werkzeug] Prefetch für Recherche-Runden – 12.08.2026
 
 Kein Katalog-Inhalt, sondern Werkzeug: die mechanische Hälfte einer Recherche-Runde läuft ab

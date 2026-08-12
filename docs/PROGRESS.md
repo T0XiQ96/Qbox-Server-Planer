@@ -3,21 +3,16 @@
 > Diese Datei ist das Gedächtnis des Projekts. Sie wird nach **jedem** Arbeitsschritt aktualisiert.
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
-**Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `d247353` (Runde 18). Danach kam das Prefetch-Werkzeug (siehe unten), das
-noch **nicht** committet ist — das ist der nächste Schritt.
-**Validate-Status:** grün (21 Katalogdateien inkl. `runde-18.json` 11 Updates · 262 Plugins
+**Letzte Aktualisierung:** 13.08.2026
+**Letzter Commit:** `054fce5` (Prefetch-Werkzeug). Runde 19 ist fertig, aber noch **nicht**
+committet — das ist der nächste Schritt.
+**Validate-Status:** grün (22 Katalogdateien inkl. `runde-19.json` 11 Updates · 262 Plugins
 gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
-**Katalogstand:** 262 gesamt, ~21 mit `link_status: 404` nach Runde 18 (zwei weitere
-qbcore-framework-Repos komplett verschwunden: qb_keyminigame, qb_skillbar).
-**Aktuelle Runde:** Runde 18 — Kategorie „Crime & Unterwelt" Teil 2/3, 22 von 32 Einträgen
-nachgeprüft (Runden 17+18 zusammen). Restliche 10 offen für eine spätere Runde 19. Weiterhin
-kein Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen).
-
-**Sitzungsauftrag abgeschlossen:** Nutzer hatte für diese Session „Runden 16–18, dann stoppen"
-vorgegeben. Runden 16, 17, 18 sind fertig und werden mit diesem Schritt committet — **danach
-nicht eigenständig mit Runde 19 weitermachen**, sondern Zwischenstand vorlegen und auf
-Rückmeldung des Nutzers warten.
+**Katalogstand:** 262 gesamt, 85 verifiziert/teilgeprüft (32 %), 34 archiviert, 73 ohne
+`geprueft_am` (Kandidaten für künftige Runden).
+**Aktuelle Runde:** Runde 19 — Kategorie „Crime & Unterwelt" Teil 3/3, Kategorie damit
+**komplett** (32/32, Runden 17–19). Weiterhin kein Neufund (Nutzerwunsch: erst kompletten
+Altbestand kategorieweise durchprüfen).
 
 **Vorgehensweise „weniger Subagent-Arbeit" (Nutzerwunsch, ab Runde 17 eingeführt und in Runde 18
 bestätigt):** `docs/RECHERCHE.md` wurde um Abschnitte 1a–1c ergänzt (exakte URL-Muster
@@ -111,27 +106,22 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Runde 19 — das Briefing liegt bereits fertig unter `data/.prefetch/runde-19.md`.**
-Runden 16–18 sind abgeschlossen und committet, danach kam auf Nutzerwunsch das Prefetch-Werkzeug
-(siehe unten). Runde 19 nimmt die restlichen 10 von 32 Einträgen der Kategorie „Crime & Unterwelt":
-`qbx_lockpick`, `qbx_pawnshop`, `qbx_storerobbery`, `qbx_truckrobbery`, `qbx_weed`,
-`rahe_boosting`, `rainmad_heists`, `randolio_moneywash`, `t1ger_heists`, `utk_fingerprint`.
-`npm run newround 19` legt das Gerüst an.
+**Committen, dann neue Kategorie beginnen.** Runde 19 ist fertig (Datei + Doku), Commit ist der
+nächste Schritt. Kategorie „Crime & Unterwelt" ist damit **komplett** (32/32, Runden 17–19).
 
-**Was das Briefing schon vorwegnimmt** (nicht noch einmal recherchieren lassen):
-- `qbx_lockpick` ist **archiviert** (letzter Push 09.07.2026) — im Katalog noch nicht erfasst.
-- 5 der 10 sind saubere Qbox-Repos mit vollständiger Code-Stichprobe → `verifiziert` erreichbar.
-- `rahe_boosting`: der Owner `rahe-rescue` existiert auf GitHub gar nicht (gleiches Bild wie bei
-  `rahe_racing` in Runde 16 — vermutlich ebenfalls ein Tebex-Produkt).
-- `utk_fingerprint`: Link tot, aber `utkuali/Finger-Print-Hacking-Game` ist ein starker Kandidat.
-- `randolio_moneywash`: Link zeigt nur aufs Profil, 2 Namens-Kandidaten stehen im Briefing.
-- `rainmad_heists`, `t1ger_heists`: Bot-Schutz, höchstens 3 Abrufe (RECHERCHE.md 1d).
+**Nächste Kategorie laut `data/kategorien.json`-Reihenfolge:** „8. Kommunikation & Telefon"
+(16 Einträge, erst 2 davon geprüft — die restlichen 14 sind Kandidaten für Runde 20). Vor
+Rundenstart: `npm run prefetch -- --kategorie kommunikation --offen --max 12 --runde 20`, dann
+`npm run newround 20`. Bei den sauberen Treffern aus dem Briefing (vollständige Code-Stichprobe,
+fxmanifest + README vorhanden) lohnt sich wie in Runde 19 zu prüfen, ob die Hauptsession sie
+direkt selbst schreiben kann, statt einen Subagent zu beauftragen — nur die kniffligen Fälle
+(tote Links, Tebex-Bot-Schutz, Namens-Kandidaten) brauchen noch echte Recherche.
 
-**Nachtrag, der in Runde 19 mit erledigt gehört:** Die Code-Stichprobe hat bei `qb_traphouse`
-(Runde 18) einen zweiten roten Treffer gefunden, den der Subagent übersehen hatte —
-`exports['qb-target']` in `client/main.lua:25`. Gehört in die `kompat_warnung` nachgetragen.
-Außerdem: `qbx_pawnshop` steht in Konflikt mit `jim_pawnshop`, das in Runde 17 nicht auffindbar
-war (404) — bei der Prüfung erwähnen.
+**Bewährtes Muster aus Runde 19 (erste Runde mit `npm run prefetch`):** 6 von 11 Updates wurden
+direkt aus dem Briefing geschrieben, ganz ohne Subagent — nur 5 kniffligere Fälle gingen an einen
+einzigen Subagent (9 Tool-Aufrufe statt der vorher üblichen 40–70 pro Subagent). Für künftige
+Runden fortführen: erst `prefetch` laufen lassen, Briefing lesen, saubere Fälle selbst schreiben,
+nur Restfälle an Subagents delegieren.
 
 ## Werkzeug: `npm run prefetch` (seit 12.08.2026)
 
@@ -262,4 +252,8 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 | 12 | Nachprüfung Kategorie „Staat" Teil 2/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 1 (5 verifiziert, 2 teilgeprüft, 1 herabgestuft) | `data/catalog/runde-12.json` | `58dbbab` |
 | 13 | Nachprüfung Kategorie „Staat" Teil 3/3, letzte 7 — Kategorie komplett (kein Neufund) | 0 | 7 | 0 | 0 (3 verifiziert, 4 teilgeprüft) | `data/catalog/runde-13.json` | `912ef51` |
 | 14 | Nachprüfung Kategorie „Zivil" Teil 1/3, 10 von 30 (kein Neufund, 8 lizenz-Korrekturen) | 0 | 10 | 0 | 9 (0 verifiziert, 1 teilgeprüft, 9 ungeprueft) | `data/catalog/runde-14.json` | `8be5710` |
-| 15 | Nachprüfung Kategorie „Zivil" Teil 2/3, 10 von 30 (kein Neufund) | 0 | 10 | 0 | 0 (5 verifiziert, 5 teilgeprüft) | `data/catalog/runde-15.json` | folgt |
+| 15 | Nachprüfung Kategorie „Zivil" Teil 2/3, 10 von 30 (kein Neufund) | 0 | 10 | 0 | 0 (5 verifiziert, 5 teilgeprüft) | `data/catalog/runde-15.json` | `74e9862` |
+| 16 | Nachprüfung Kategorie „Zivil" Teil 3/3, letzte 10 — Kategorie komplett (kein Neufund) | 0 | 10 | 0 | 3 (4 verifiziert/teilgeprüft, 3 ungeprueft) | `data/catalog/runde-16.json` | `c8a7383` |
+| 17 | Nachprüfung Kategorie „Crime" Teil 1/3, 11 von 32 (kein Neufund) | 0 | 11 | 0 | 4 (2 verifiziert, 6 teilgeprüft, 4 ungeprueft) | `data/catalog/runde-17.json` | `8a4e940` |
+| 18 | Nachprüfung Kategorie „Crime" Teil 2/3, 11 von 32 (kein Neufund) | 0 | 11 | 0 | 2 (5 verifiziert, 4 teilgeprüft, 2 ungeprueft) | `data/catalog/runde-18.json` | `d247353` |
+| 19 | Nachprüfung Kategorie „Crime" Teil 3/3, letzte 10 + Nachtrag — Kategorie komplett (kein Neufund, erste Runde mit `npm run prefetch`) | 0 | 11 | 0 | 3 (7 verifiziert, 1 teilgeprüft, 3 ungeprueft) | `data/catalog/runde-19.json` | folgt |

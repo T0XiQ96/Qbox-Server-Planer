@@ -1,0 +1,160 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r19",
+  "runde": 19,
+  "thema": "Nachprüfung Kategorie 'Crime & Unterwelt' (Teil 3/3 — letzte 10 von 32, Kategorie komplett). Erste Runde mit npm run prefetch.",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "qbx_lockpick",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo ist archiviert seit 09.07.2026, Repo-Beschreibung führt explizit 'Not Maintained'. fxmanifest bestätigt version 1.0.0, keine Framework-Abhängigkeiten (nur client_script, kein qbx_core/ox_lib) — Code-Stichprobe über beide .lua-Dateien fand weder rote noch grüne Flagge, reines UI-Minigame ohne Framework-Zugriff. Bisher im Katalog nicht als archiviert erfasst.",
+      "version": "1.0.0",
+      "letztes_update": "⚠️ Als 'Not Maintained' markiert",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "standalone",
+      "archiviert": {
+        "text": "Repo-Titel führt explizit 'Not Maintained', archiviert seit 09.07.2026. Kein Nachfolger benannt.",
+        "nachfolger": ""
+      },
+      "contra": ["⚠️ Als unmaintained markiert seit 09.07.2026"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_lockpick, https://raw.githubusercontent.com/Qbox-project/qbx_lockpick/main/fxmanifest.lua, https://raw.githubusercontent.com/Qbox-project/qbx_lockpick/main/README.md"
+    },
+    {
+      "id": "qbx_pawnshop",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 16.07.2026. fxmanifest bestätigt version 1.0.0, @ox_lib/init.lua als shared_script. Code-Stichprobe über alle 6 .lua-Dateien bestätigt aktive Nutzung von exports.qbx_core, exports.ox_target, exports.ox_inventory — ausschließlich grüne Flaggen, keine rote. Konflikt mit jim_pawnshop bleibt bestehen — letzteres war in Runde 17 nicht auffindbar (404), qbx_pawnshop ist damit die einzige verlässliche Pfandhaus-Option im Katalog.",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_target", "ox_inventory"],
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt ausschließlich grüne Flaggen (exports.qbx_core, exports.ox_target, exports.ox_inventory, @ox_lib/init.lua), keine rote Flagge gefunden.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["Nativ", "Vollständig durch Code-Stichprobe bestätigt", "Einzige verlässliche Option nach jim_pawnshop-Ausfall (404 in Runde 17)"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_pawnshop, https://raw.githubusercontent.com/Qbox-project/qbx_pawnshop/main/fxmanifest.lua, https://raw.githubusercontent.com/Qbox-project/qbx_pawnshop/main/README.md"
+    },
+    {
+      "id": "qbx_storerobbery",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 16.07.2026. README kennzeichnet es als 'WIP' (Work in Progress) — bisher nicht im Katalog vermerkt. fxmanifest bestätigt version 1.0.0, Abhängigkeiten qbx_core + ox_lib. Code-Stichprobe über alle 6 .lua-Dateien bestätigt exports.qbx_core, exports.ox_target, exports.ox_inventory — ausschließlich grüne Flaggen.",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026 (README kennzeichnet Repo als WIP)",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_target", "ox_inventory"],
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt ausschließlich grüne Flaggen (exports.qbx_core, exports.ox_target, exports.ox_inventory, @ox_lib/init.lua), keine rote Flagge gefunden. README kennzeichnet Repo aber als WIP.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["⚠️ README kennzeichnet Repo als Work in Progress"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_storerobbery, https://raw.githubusercontent.com/Qbox-project/qbx_storerobbery/main/fxmanifest.lua, https://raw.githubusercontent.com/Qbox-project/qbx_storerobbery/main/README.md"
+    },
+    {
+      "id": "qbx_truckrobbery",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 16.07.2026. fxmanifest bestätigt version 1.1.1, Abhängigkeiten qbx_core + ox_lib. Code-Stichprobe über alle 7 .lua-Dateien bestätigt exports.qbx_core, exports.ox_target, exports.ox_inventory — ausschließlich grüne Flaggen.",
+      "version": "1.1.1",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_target", "ox_inventory"],
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt ausschließlich grüne Flaggen (exports.qbx_core, exports.ox_target, exports.ox_inventory, @ox_lib/init.lua), keine rote Flagge gefunden.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_truckrobbery, https://raw.githubusercontent.com/Qbox-project/qbx_truckrobbery/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_weed",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 16.07.2026. README listet Dependencies explizit: ox_lib, ox_inventory, qbx_core. fxmanifest bestätigt version 1.0.0. Code-Stichprobe über alle 7 .lua-Dateien bestätigt exports.qbx_core, exports.ox_inventory, @ox_lib/init.lua — ausschließlich grüne Flaggen. Konflikt mit ps_drugprocessing bleibt bestehen (letzteres seit Runde 17 archiviert, aber laut Autor weiter nutzbar).",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_inventory"],
+      "kompat_warnung": {
+        "text": "README listet Dependencies explizit (ox_lib, ox_inventory, qbx_core), Code-Stichprobe bestätigt ausschließlich grüne Flaggen.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_weed, https://raw.githubusercontent.com/Qbox-project/qbx_weed/main/fxmanifest.lua, https://raw.githubusercontent.com/Qbox-project/qbx_weed/main/README.md"
+    },
+    {
+      "id": "qb_traphouse",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Nachtrag zu Runde 18: die dortige manuelle Code-Stichprobe hatte nur den harten @qb-core/-Include gefunden. Eine vollständige automatisierte Stichprobe (npm run prefetch) über alle .lua-Dateien fand eine zweite rote Flagge, die zuvor übersehen wurde: exports['qb-target'] in client/main.lua:25. Verschärft das bereits bestehende Bridge-Risiko zusätzlich.",
+      "kompat_warnung": {
+        "text": "Zwei harte Bindungen an den Legacy-Stack bestätigt: @qb-core/shared/locale.lua (Datei-Include, kein Export/Bridge-Zugriff) in fxmanifest.lua sowie exports['qb-target'] in client/main.lua:25 — auf Qbox läuft Letzteres nur über den ox_target-Wrapper, falls dieser qb-target-kompatible Exports bereitstellt.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["🪦 Archiviert seit 20.05.2024", "Harte @qb-core-Datei-Includes, keine Bridge", "exports['qb-target'] direkt genutzt (client/main.lua:25)"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/qbcore-framework/qb-traphouse, https://raw.githubusercontent.com/qbcore-framework/qb-traphouse/main/client/main.lua (Nachtrag via npm run prefetch)"
+    },
+    {
+      "id": "rahe_boosting",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Owner rahe-rescue existiert nicht mehr auf GitHub (kein Repo mehr auffindbar). Websuche bestätigt: 'RAHE Boosting System' ist ein kostenpflichtiges Tebex-Produkt von RAHE Development — derselbe Anbieter wie rahe_racing aus Runde 16, gleiches Muster (Katalog-Link war ein totes GitHub-Repo, tatsächlich Tebex-Escrow). Seiteninhalt selbst wegen Bot-Schutz nicht direkt gelesen (Suchbudget 2 Abrufe ausgeschöpft), Preis/Feature-Angaben nur aus Suchergebnis-Snippet, nicht einzeln verifiziert.",
+      "link": "https://rahe.tebex.io/package/5119911",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "escrow",
+      "kompat_warnung": {
+        "text": "Kein Open-Source-Repo, kostenpflichtiges Tebex-Produkt desselben Anbieters wie rahe_racing (Runde 16). Framework-Support nicht offiziell bestätigt, Shop-Seite bot-geschützt.",
+        "sicherheit": "vermutung"
+      },
+      "contra": ["🔒 Escrow/Tebex, kein Open-Source-Repo (Katalog-Link war falsch/tot)"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://rahe.tebex.io/package/5119911"
+    },
+    {
+      "id": "rainmad_heists",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "rainmad.tebex.io ist ein Store mit vielen einzelnen Heist-Produkten (Vault Heist, Paleto Heist, Art Heist, Humane Labs Heist, Fleeca Heist, Artifact Heist, Underground Heist, Union Heist, Drug Boat Heist u.a.) statt eines einzelnen 'Rainmad Heist Pack'. Kein Produkt eindeutig als das im Katalog gemeinte Bundle identifizierbar — Store-Startseite bleibt daher der korrekte, aber unspezifische Link. Seiteninhalt wegen Bot-Schutz nicht direkt abgerufen, nur Suchergebnis-Snippets ausgewertet.",
+      "link_status": "gesperrt",
+      "link_geprueft_am": "2026-08-13",
+      "qualitaet": "ungeprueft",
+      "quelle": "https://rainmad.tebex.io/package/6414949, https://rainmad.tebex.io/package/5451453"
+    },
+    {
+      "id": "t1ger_heists",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "t1ger.tebex.io bietet mehrere separate Heist-/Robbery-Produkte (Maze Bank Heist, ATM Robbery) statt eines einzelnen Bundles. Kein Produkt eindeutig als das im Katalog gemeinte Paket identifizierbar — Store-Startseite bleibt daher der korrekte, aber unspezifische Link. Seiteninhalt wegen Bot-Schutz nicht direkt abgerufen, nur Suchergebnis-Snippets ausgewertet (Auslieferung laut Snippet über Cfx.re Keymaster).",
+      "link_status": "gesperrt",
+      "link_geprueft_am": "2026-08-13",
+      "qualitaet": "ungeprueft",
+      "quelle": "https://t1ger.tebex.io/package/5464127, https://t1ger.tebex.io/package/6635692"
+    },
+    {
+      "id": "randolio_moneywash",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Bisheriger Katalog-Link war nur die Profilseite. Stärkster Kandidat aus dem Owner-Bestand (Randolio/randol_moneywash) bestätigt: fxmanifest.lua zeigt author 'Randolio', shared_scripts @ox_lib/init.lua, Dateien sv_moneywash.lua/cl_moneywash.lua — Zweck stimmt mit 'Moneywash' überein. Link auf konkretes Repo korrigiert.",
+      "link": "https://github.com/Randolio/randol_moneywash",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["ox_lib"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://raw.githubusercontent.com/Randolio/randol_moneywash/main/fxmanifest.lua"
+    },
+    {
+      "id": "utk_fingerprint",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Ursprünglicher Katalog-Link (utkuali/Fingerprint-Game) ist 404. Stärkster Namens-Kandidat aus dem Owner-Bestand (utkuali/Finger-Print-Hacking-Game) konnte NICHT bestätigt werden — fxmanifest.lua liefert dort weder unter main noch master einen Treffer (beide 404, Suchbudget ausgeschöpft). Kein Beleg, dass es sich um dasselbe Script handelt, kein Ersatzlink geraten.",
+      "link_status": "404",
+      "link_geprueft_am": "2026-08-13",
+      "qualitaet": "ungeprueft",
+      "contra": ["⚠️ Repo/Namens-Kandidat nicht bestätigbar (404) — Katalogeintrag für Release-Kandidatur gesondert prüfen"],
+      "quelle": "https://raw.githubusercontent.com/utkuali/Finger-Print-Hacking-Game/main/fxmanifest.lua (404), https://raw.githubusercontent.com/utkuali/Finger-Print-Hacking-Game/master/fxmanifest.lua (404)"
+    }
+  ]
+}
