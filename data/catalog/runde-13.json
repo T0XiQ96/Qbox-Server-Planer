@@ -1,0 +1,114 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r13",
+  "runde": 13,
+  "thema": "Nachprüfung Kategorie 'Staatliche Jobs & Fraktionen' (Teil 3/3 — letzte 7 Einträge, Kategorie damit komplett)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "randolio_grandma",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link war fehlerhaft (falscher Repo-Slug 'randolio_grandma' statt korrekt 'randol_grandma') — vermutlich nie tatsächlich verifiziert. Qbox-Support laut README mit ox_lib-Bridge bestätigt ('ESX/QB/ND/QBOX now supported with bridge').",
+      "link": "https://github.com/Randolio/randol_grandma",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "README nennt explizit 'ESX/QB/ND/QBOX now supported with bridge', benötigt ox_lib.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Randolio/randol_grandma (README)"
+    },
+    {
+      "id": "redutzu_mdt",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Autor ist von reinem Tebex-Store auf eigene Domain umgezogen, konkrete Produktseite gefunden (statt nie verifizierter Startseite). Preis (59,99 EUR) und Qbox-Support laut Herstellerangabe bestätigt, Escrow-Hinweis ergänzt.",
+      "link": "https://redutzu.com/product/mdt",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "preis": { "betrag": 59.99, "waehrung": "EUR", "typ": "einmalig" },
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "Produktseite nennt explizit 'QBCore QBox ESX Standalone'.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["💰 59,99 € (verifiziert)", "🔒 Escrow (Cfx.re Asset Escrow) — bei Bridge-Problemen nicht selbst reparierbar"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://redutzu.com/product/mdt"
+    },
+    {
+      "id": "sonoran_cad",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Der im Katalog stehende Preis '~$20/Monat' konnte trotz mehrfacher Quellen NICHT verifiziert werden (Pricing-Seite JS-gerendert, keine konkreten Beträge auslesbar) — Preisfeld bewusst auf null gesetzt statt eines möglicherweise falschen Fixbetrags. Qbox-Integration laut CMS-Doku bestätigt ('QBCore & Qbox Panel', automatisches Laden von Charakteren/Lizenzen/Fahrzeugen).",
+      "link": "https://sonorancad.com",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "preis": null,
+      "kompat_warnung": {
+        "text": "Externes System, läuft unabhängig vom Framework über API-Resource. CMS-Doku bestätigt explizit 'QBCore & Qbox Panel' mit automatischem Laden von Charakteren/Lizenzen/Fahrzeugen.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["Externe Abhängigkeit", "Overkill für kleine Server", "Konkrete Preistiers nicht öffentlich auslesbar (Free-Tier + kostenpflichtige Monats-/Quartalsabos laut Doku, exakte Beträge nicht verifizierbar)"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://sonorancad.com; CMS-Doku"
+    },
+    {
+      "id": "wasabi_ambulance",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Konkrete Produktseite gefunden (statt Startseite), Preis $49.99 erneut bestätigt, Qbox/OX-Support laut Herstellerangabe bestätigt ('zero-config switching' zwischen ESX/QBCore/Qbox/OX).",
+      "link": "https://wasabiscripts.com/product/advanced-ambulance-job-v2",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "Produktseite bewirbt 'zero-config switching' zwischen ESX, QBCore, Qbox und OX.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://wasabiscripts.com/product/advanced-ambulance-job-v2"
+    },
+    {
+      "id": "wasabi_mdt",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Konkrete Produktseite gefunden. Hinweis ergänzt: $49.99 ist aktuell ein Rabattpreis (-29%), Normalpreis $69.99 — Katalogwert bleibt damit aktuell korrekt, aber zeitlich befristet. Qbox-Bridge bestätigt.",
+      "link": "https://wasabiscripts.com/product/mdt-and-dispatch-system",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "Produktseite nennt explizit ESX, QBCore und Qbox über interne Bridges.",
+        "sicherheit": "bestaetigt"
+      },
+      "neutral": ["$49.99 ist aktuell ein Rabattpreis (-29% vom Normalpreis $69.99) — kann sich ändern. Alternativ Abo 'Advanced Subscription' ab $29.99/Monat für 9 Scripts."],
+      "qualitaet": "verifiziert",
+      "quelle": "https://wasabiscripts.com/product/mdt-and-dispatch-system"
+    },
+    {
+      "id": "wasabi_police",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Konkrete Produktseite gefunden, Preis $49.99 erneut bestätigt, Qbox-Support laut Herstellerangabe (interne Bridges für ESX/QBCore/Qbox) bestätigt.",
+      "link": "https://wasabiscripts.com/product/advanced-police-job",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "Produktseite nennt explizit ESX, QBCore und Qbox über interne Bridges.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://wasabiscripts.com/product/advanced-police-job"
+    },
+    {
+      "id": "wk_wars2x",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link hatte einen Tippfehler im Owner-Namen ('wolfkang98' statt korrekt 'WolfKnight98') — korrigiert. Repo weiterhin aktiv (120 Stars, 100 Forks, MIT-Lizenz), Status 'Klassiker, stabil' bestätigt.",
+      "link": "https://github.com/WolfKnight98/wk_wars2x",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/WolfKnight98/wk_wars2x"
+    }
+  ]
+}

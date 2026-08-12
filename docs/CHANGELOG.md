@@ -17,6 +17,29 @@ Format je Eintrag:
 
 ---
 
+## [Runde 13] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-13.json` — letzte 7 Einträge der Kategorie „Staatliche Jobs & Fraktionen"
+  nachgeprüft (Teil 3/3) — Kategorie damit komplett durchgeprüft (23/23).
+
+**Korrigiert:**
+- `randolio_grandma`, `wk_wars2x`: **wichtigster Fund** — beide Katalog-Links hatten
+  Tippfehler (falscher Repo-Slug bzw. falsche Owner-Schreibweise), vermutlich nie tatsächlich
+  verifiziert. Beide korrigiert.
+- `sonoran_cad`: Preisangabe (~$20/Monat) konnte trotz mehrfacher Quellen nicht verifiziert
+  werden (Pricing-Seite JS-gerendert) — Preisfeld bewusst auf `null` gesetzt statt eines
+  möglicherweise falschen Fixbetrags, Qbox-Integration aber bestätigt.
+- `redutzu_mdt`, `wasabi_ambulance`, `wasabi_mdt`, `wasabi_police`: konkrete Produktseiten statt
+  Startseiten gefunden, Preise und Qbox-Support-Aussagen bestätigt.
+
+**Katalog:** 0 neu, 7 aktualisiert, 0 Duplikate übersprungen, 3 auf `verifiziert`, 4 auf
+`teilgeprueft`
+**Kategorie „Staatliche Jobs & Fraktionen" (23 Einträge) ist damit komplett nachgeprüft.**
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 12] – 12.08.2026
 
 **Neu:**
