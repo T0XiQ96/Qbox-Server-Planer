@@ -17,6 +17,32 @@ Format je Eintrag:
 
 ---
 
+## [Runde 3] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-3.json` — Abschluss der Nachprüfung von Kategorie „Basis & Abhängigkeiten":
+  14 `updates[]` für die restlichen 14 von 26 verbleibenden `ungeprueft`-Einträgen, Kategorie 1
+  damit komplett durchgeprüft (31/31 inkl. Runde 1), recherchiert über 3 parallele Subagents
+
+**Korrigiert:**
+- `peak_bridge`, `qbox_snippets`, `starterpack`, `vue_tailwind_boilerplate`: Katalog-Link war nur
+  die generische GitHub-Topic-Seite `github.com/topics/qbox`, kein echtes Repo. Für
+  `peak_bridge`/`qbox_snippets`/`starterpack` ein plausibles Repo gefunden und Link korrigiert
+  (teils mit Vorbehalt: `starterpack` hat mehrere konkurrierende Kandidaten ohne eindeutig
+  offizielle Quelle). Für `vue_tailwind_boilerplate` kein passender Treffer — bleibt bewusst
+  `ungeprueft` statt eines geratenen Links.
+- `polyzone`, `qb_input`, `qb_menu`: Katalogtext „inaktiv"/Legacy war ungenau — alle drei aktiv
+  gepflegt, kein Archiv-Banner.
+- `saltychat`: Organisation `v10networkscom` zu `SaltyHub-net` umbenannt, Link korrigiert.
+- `qbox_core_site`, `quasar_store`: Katalogaussagen präzisiert (primär Shop statt Guide-Seite;
+  kein dedizierter Qbox-Filter, sondern Framework-Tag pro Produkt).
+
+**Katalog:** 0 neu, 14 aktualisiert, 0 Duplikate übersprungen, 4 auf `verifiziert`, 8 auf
+`teilgeprueft` hochgestuft, 2 bleiben bewusst `ungeprueft` (keine belastbare Quelle gefunden)
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 2] – 12.08.2026
 
 **Neu:**

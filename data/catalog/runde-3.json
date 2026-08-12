@@ -1,0 +1,152 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r3",
+  "runde": 3,
+  "thema": "Nachprüfung Kategorie 'Basis & Abhängigkeiten' (Teil 2/2 — restliche 14 von 26, Kategorie damit fertig)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "peak_bridge",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link war nur die generische GitHub-Topic-Seite github.com/topics/qbox, kein echtes Repo. Tatsächliches Repo gefunden: Peak-Studios/peak-bridge (Bindestrich), Beschreibung deckt sich wortgleich. Sehr kleines Repo (1 Star, 3 Commits) — deshalb teilgeprueft statt verifiziert.",
+      "link": "https://github.com/Peak-Studios/peak-bridge",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "letztes_update": "Aktiv, letzter Commit 24.05.2026",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Peak-Studios/peak-bridge"
+    },
+    {
+      "id": "polyzone",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalogtext 'Inaktiv' ist ungenau — kein Archiv-Banner, Repo ist nicht archiviert. README beschreibt es als Freizeitprojekt ohne Fix-Garantie, aber weiterhin öffentlich gepflegt und laut README nicht durch ox_lib abgelöst.",
+      "letztes_update": "Letzter Commit 05.01.2025 — seither ruhig, aber nicht tot/archiviert",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": null,
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/mkafrin/PolyZone, https://github.com/mkafrin/PolyZone/commits/master"
+    },
+    {
+      "id": "qb_input",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Aktiv gepflegt (Commit vor ca. 3 Monaten), kein Archiv-Banner, keine dokumentierten Qbox-Kompatibilitätsprobleme in den Issues.",
+      "letztes_update": "Aktiv · letzter Commit 20.05.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/qbcore-framework/qb-input (Commits, Issues-Suche 'qbox')"
+    },
+    {
+      "id": "qb_menu",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Aktiv gepflegt (33 Stars, 174 Forks, letzter Commit vor ca. 3 Monaten), kein Archiv-Banner. Issue-Suche nach 'qbox' liefert keine Treffer — die bestehende kompat_warnung (vermutung) bleibt unbestätigt, aber auch nicht widerlegt, deshalb unverändert stehen gelassen.",
+      "letztes_update": "Aktiv · letzter Commit 20.05.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/qbcore-framework/qb-menu (Commits, Issues-Suche 'qbox')"
+    },
+    {
+      "id": "qbox_core_site",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Seite existiert und ist aktiv, aber primär ein kommerzieller Shop für Qbox-Skripte/Fertigserver — der Installationsguide (txAdmin) ist nur ein Blog-Nebenbereich, nicht der Hauptzweck wie der Katalogtext suggeriert.",
+      "letztes_update": "Aktiv · Blog-Beitrag zur Qbox/txAdmin-Installation vom 18.09.2025, weitere Artikel vorhanden",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "neutral": ["Ist primär ein kommerzieller Shop für Qbox-Skripte/Fertigserver — Installationsguides sind nur ein Blog-Nebenbereich"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://qboxcore.com"
+    },
+    {
+      "id": "qbox_snippets",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link war nur die generische Topic-Seite github.com/topics/qbox, kein echtes Repo. Ein möglicher Kandidat gefunden (ihyajb/qbox-code-snippets), aber sehr klein (1 Star) und nicht offiziell — nicht sicher, ob das der ursprünglich gemeinte Eintrag ist. Bleibt deshalb ungeprueft.",
+      "link": "https://github.com/ihyajb/qbox-code-snippets",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "contra": ["Sehr kleines, nicht-offizielles Repo (1 Star, 1 Fork) — unklar, ob es der ursprünglich im Katalog gemeinte Eintrag ist"],
+      "quelle": "https://github.com/ihyajb/qbox-code-snippets"
+    },
+    {
+      "id": "quasar_store",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Shop existiert und ist aktiv, aber es gibt keine dedizierte Qbox-Kategorie/-Filter — Qbox wird stattdessen als Framework-Tag pro Produkt gelistet (bei >100 Premium-Scripts). Katalogaussage 'Qbox-Kategorie' war ungenau.",
+      "letztes_update": "Aktiv · laufende Angebote sichtbar",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "neutral": ["Keine eigene Qbox-Kategorie, sondern ein Framework-Tag pro Produkt neben QBCore/ESX"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://www.quasar-store.com"
+    },
+    {
+      "id": "saltychat",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Organisation v10networkscom wurde zu SaltyHub-net umbenannt, alter Link leitet automatisch um. Repo aktiv gepflegt (169 Commits, 14 offene Issues), nicht archiviert. GitHub-API-Direktabfrage war blockiert (403), Status daher nur über die Repo-Weboberfläche verifiziert — deshalb teilgeprueft statt verifiziert.",
+      "link": "https://github.com/SaltyHub-net/saltychat-fivem",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "letztes_update": "Aktiv · 169 Commits, 14 offene Issues, 2 offene PRs",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/SaltyHub-net/saltychat-fivem"
+    },
+    {
+      "id": "starterpack",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link war nur die generische Topic-Seite github.com/topics/qbox, kein echtes Repo. Mehrere konkurrierende Repos mit fast identischer Beschreibung gefunden (vermutlich Forks voneinander) — kein eindeutig 'offizieller' Kandidat identifizierbar.",
+      "link": "https://github.com/Teezy-Core/cfx-tcd-starterpack",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "neutral": ["Mehrere konkurrierende Repos mit fast identischer Beschreibung gefunden (u.a. mri-Qbox-Brasil/mri_Qstarterpack) — kein eindeutig offizieller Kandidat, dieser Link ist eine Best-Effort-Wahl"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Teezy-Core/cfx-tcd-starterpack, https://github.com/mri-Qbox-Brasil/mri_Qstarterpack"
+    },
+    {
+      "id": "stg_scripts",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Shop existiert, Beschreibung wörtlich bestätigt ('Premium FiveM QBox scripts built against qbx_core and ox_lib with modern statebag-driven player data'). 'Lifetime-Updates' auf der Landingpage nicht explizit gefunden, vermutlich nur auf Produktseiten.",
+      "letztes_update": "Aktiv · 2026, Beschreibung inhaltlich bestätigt",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://stgscripts.com/framework/qbox"
+    },
+    {
+      "id": "tgiann_store",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Shop existiert, listet aktuell rund 90 Items im Qbox-Bereich (Zahl bestätigt), Beschreibung 'nativ, keine Bridge' wörtlich bestätigt ('written to work natively with QBox rather than QBCore compatibility layers').",
+      "letztes_update": "Aktiv, ~90 Qbox-native Scripts bestätigt",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://www.tgiann.com/framework/qbox"
+    },
+    {
+      "id": "txadminrecipe_qbox",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Kein Archiv-Banner gefunden, Repo wirkt aktiv. Exaktes letztes Commit-Datum wegen GitHub-API-Rate-Limit nicht verifizierbar — deshalb teilgeprueft statt verifiziert.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/txAdminRecipe"
+    },
+    {
+      "id": "vue_tailwind_boilerplate",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link war nur die generische Topic-Seite github.com/topics/qbox — die Seite selbst lädt (kein 404), ist aber kein spezifisches Repo. Kein Repo gefunden, das zur Beschreibung 'Vue + TailwindCSS + shadcn' passt — der nächstliegende Treffer (charleshacks/fivem-vue-tailwind-boilerplate) nutzt kein shadcn und ist nicht Qbox-spezifisch. Möglicher Datenfehler aus der Altbestand-Übernahme, bleibt ungeprueft, link_status bewusst unverändert bei 'ungeprueft' statt fälschlich '404'.",
+      "contra": ["Kein Repo gefunden, das exakt zur Beschreibung passt — die Kombination Vue+Tailwind+shadcn ist bei den gefundenen Kandidaten nicht gegeben. Kandidat zum Entfernen oder Neuzuordnen in einer künftigen Runde."],
+      "quelle": "Websuche 'Vue Tailwind shadcn FiveM Qbox boilerplate github' — kein passender Treffer; nächstliegend: https://github.com/charleshacks/fivem-vue-tailwind-boilerplate (ohne shadcn, nicht Qbox-spezifisch)"
+    },
+    {
+      "id": "ybnlimax_list",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Seite existiert und ist aktiv, zeigt aktuell 38 kuratierte Scripts (Katalogzahl 36 ist leicht veraltet).",
+      "letztes_update": "Aktiv · aktuell 38 kuratierte Scripts (Katalog nannte 36), gegliedert nach QBCore/ESX/Qbox/Essentials/Minimap/Standalone",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://ybnlimax.com/free-scripts/"
+    }
+  ]
+}

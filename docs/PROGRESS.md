@@ -4,13 +4,14 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `91d1c40` (Runde 1). Runde 2 ist fertig, aber noch **nicht** committet — das ist der nächste Schritt.
-**Validate-Status:** grün (4 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
-22 Updates, `runde-2.json` 12 Updates · 262 Plugins gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
-**Katalogstand:** 262 gesamt · 28 verifiziert (11 %) · 6 teilgeprüft · 228 ungeprüft
-**Aktuelle Runde:** Runde 2 — Nachprüfung von 12/26 verbleibenden Einträgen der Kategorie
-„Basis & Abhängigkeiten" (weiterhin kein Neufund, Nutzerwunsch: erst kompletten Altbestand
-kategorieweise durchprüfen, dann erst neue Plugins suchen)
+**Letzter Commit:** `f504f7d` (Runde 2). Runde 3 ist fertig, aber noch **nicht** committet — das ist der nächste Schritt.
+**Validate-Status:** grün (6 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
+22 Updates, `runde-2.json` 12 Updates, `runde-3.json` 14 Updates · 262 Plugins gesamt · 13 harmlose
+„nur ein Mitglied"-Warnungen)
+**Katalogstand:** 262 gesamt · 32 verifiziert (12 %) · 16 teilgeprüft · 214 ungeprüft
+**Aktuelle Runde:** Runde 3 — Nachprüfung der restlichen 14/26 Einträge der Kategorie
+„Basis & Abhängigkeiten" — **Kategorie 1 damit komplett durchgeprüft (31/31)**. Weiterhin kein
+Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen)
 
 ---
 
@@ -33,41 +34,40 @@ wiederholt, damit diese Datei bei 40+ geplanten Runden lesbar bleibt). Kurzfassu
 fertig (Fundament, App, Altbestandskonvertierung 256 Plugins), Runde 1 fertig (22 essenzielle
 Einträge nachgeprüft, siehe Runde-1-Eintrag im CHANGELOG für die Einzelfunde).
 
-**Runde 2 — Fortsetzung der reinen Nachprüfung (Nutzerwunsch, siehe unten):**
+**Runden 2–3 — Kategorie „Basis & Abhängigkeiten" komplett durchgeprüft (31/31):**
 
 Nutzer bestätigte nach Runde 1 ausdrücklich: erst **den kompletten Altbestand durchprüfen**
 („möglichst alles geprüft"), erst danach neue Plugins suchen. Vorgehen abgestimmt (AskUserQuestion):
 **größere Batches (10–12 Plugins/Runde)**, Reihenfolge **nach Kategorie** (`data/kategorien.json`,
-Anzeigereihenfolge). Runde 2 = erste 12 von 26 verbleibenden `ungeprueft`-Einträgen in
-„1. Basis & Abhängigkeiten" (die restlichen essenziellen aus dieser Kategorie deckte schon Runde 1
-ab). Recherche über 3 parallele Subagents, `updates[]` in `data/catalog/runde-2.json`.
+Anzeigereihenfolge). Runde 2 (12) + Runde 3 (14) = restliche 26 Einträge der Kategorie
+„1. Basis & Abhängigkeiten" abgeschlossen (die essenziellen deckte schon Runde 1 ab). Recherche
+über je 3 parallele Subagents, `updates[]` in `data/catalog/runde-2.json`/`runde-3.json`.
 
-**Wichtigster Fund:** Dasselbe Falsch-Archiviert-Muster aus Runde 1 (overextended-Repos, die der
-Katalog fälschlich als archiviert führte) trat erneut auf — `awesome_ox`, `ox_core` und `oxmysql`
-waren ebenfalls zu Unrecht als archiviert markiert (alle drei per GitHub-API bestätigt aktiv,
-`archiviert` auf `null` korrigiert). `oxmysql` zusätzlich mit totem `TheOrderFivem`-Fork-Link
-(404) — genau wie `ox_fuel` in Runde 1. `fivem_ts_boilerplate` wurde umbenannt zu `fivem-ts`
-(Link korrigiert). Echt tot (nicht nur behauptet): `mumble-voip`, offiziell archiviert seit
-12.12.2024, Nachfolger `pma-voice` (Community-Konsens). `ghmattimysql`: Original-GitHub-Account
-komplett verschwunden (nicht nur archiviert), Fortführung bei `FrazzIe/ghmattimysql` gefunden.
+**Wiederkehrendes Muster (jetzt in 2 von 3 Runden bestätigt):** Mehrere overextended-Repos
+(`awesome_ox`, `ox_core`, `oxmysql` in Runde 2; dasselbe schon bei `ox_lib`/`ox_inventory`/etc. in
+Runde 1) waren im Katalog fälschlich als archiviert markiert — tatsächlich aktiv, `archiviert` auf
+`null` korrigiert. `oxmysql` hatte zusätzlich einen toten `TheOrderFivem`-Fork-Link (404), wie
+schon `ox_fuel` in Runde 1. **Neuer Fund in Runde 3:** vier Katalogeinträge
+(`peak_bridge`, `qbox_snippets`, `starterpack`, `vue_tailwind_boilerplate`) hatten als „Link" nur
+die generische GitHub-Topic-Suchseite `github.com/topics/qbox` — kein echtes Repo. Für drei davon
+wurde ein plausibles Repo gefunden und der Link korrigiert (teils mit Vorbehalt, z.B. `starterpack`
+hat mehrere konkurrierende Kandidaten); für `vue_tailwind_boilerplate` gab es keinen passenden
+Treffer — bleibt bewusst `ungeprueft` statt eines geratenen Links.
 
 **Für spätere Runden vorgemerkt:** Die 8 v2.1/kimi-Feldkollisionen in
-`docs/altbestand-konflikte.md` sind unverändert nur protokolliert, nicht durchgesehen — das
-wiederkehrende Falsch-Archiviert-Muster (jetzt 2× bestätigt bei overextended-Repos) ist ein
-Hinweis, dass die kimi-Übernahmen zum `ox`-Ökosystem generell mit Vorsicht zu lesen sind.
-`qbx_vehicles` und `qbx_npwd` (aus Runde 1 als echte, aktive, aber unkatalogisierte Qbox-Module
-aufgefallen) sind weiterhin gute Kandidaten für die erste Neusuche-Runde.
+`docs/altbestand-konflikte.md` sind weiterhin nur protokolliert, nicht durchgesehen — das
+Falsch-Archiviert-Muster ist ein Hinweis, dass die kimi-Übernahmen zum `ox`-Ökosystem generell mit
+Vorsicht zu lesen sind. `qbx_vehicles` und `qbx_npwd` (aus Runde 1) sind weiterhin Kandidaten für
+die erste Neusuche-Runde. Die Topic-Seiten-Links (`github.com/topics/qbox`) könnten in weiteren
+Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drauf achten.
 
 ## Nächster Schritt
 
-**Committen.** Runde 2 ist fertig, aber `data/catalog/runde-2.json` und diese Doku-Updates liegen
-noch uncommittet im Working Tree. Danach: Runde 3 — restliche 14 Einträge der Kategorie
-„Basis & Abhängigkeiten" (`peak_bridge`, `polyzone`, `qb_input`, `qb_menu`, `qbox_core_site`,
-`qbox_snippets`, `quasar_store`, `saltychat`, `starterpack`, `stg_scripts`, `tgiann_store`,
-`txadminrecipe_qbox`, `vue_tailwind_boilerplate`, `ybnlimax_list`), dann weiter mit Kategorie
-„2. Charakter, Inventar & UI" (31 offene Einträge). `npm run newround 3` legt das Gerüst an.
-Vorgehen (Batchgröße 10–12, nach Kategorie, reine Nachprüfung vor Neusuche) gilt unverändert bis
-der Nutzer etwas anderes sagt.
+**Committen.** Runde 3 ist fertig, aber `data/catalog/runde-3.json` und diese Doku-Updates liegen
+noch uncommittet im Working Tree. Danach: Runde 4 — Kategorie „2. Charakter, Inventar & UI"
+(31 offene Einträge, 2–3 Runden à 10–12). `npm run newround 4` legt das Gerüst an. Vorgehen
+(Batchgröße 10–12, nach Kategorie, reine Nachprüfung vor Neusuche) gilt unverändert bis der Nutzer
+etwas anderes sagt.
 
 ## Offene Punkte / Rückfragen an den Nutzer
 
@@ -79,7 +79,10 @@ der Nutzer etwas anderes sagt.
   querlesen, siehe „Woran ich zuletzt gearbeitet habe" oben.
 - `qbx_vehicles` und `qbx_npwd` — Kandidaten für die erste Neusuche-Runde, sobald der Altbestand
   durchgeprüft ist.
-- 228 Katalogeinträge sind weiterhin `qualitaet: "ungeprueft"`. Sie bleiben im Katalog, bis
+- `starterpack` hat einen Best-Effort-Link ohne eindeutigen offiziellen Kandidaten,
+  `vue_tailwind_boilerplate` hat gar keinen passenden Link gefunden — beide in einer künftigen
+  Runde nochmal gezielt angehen oder aus dem Katalog nehmen, falls sich nichts Besseres findet.
+- 214 Katalogeinträge sind weiterhin `qualitaet: "ungeprueft"`. Sie bleiben im Katalog, bis
   künftige Runden sie ersetzen oder hochstufen — geplant: kategorieweise, 10–12 pro Runde.
 
 ---
@@ -89,4 +92,5 @@ der Nutzer etwas anderes sagt.
 | Runde | Thema | Neu | Aktualisiert | Übersprungen (Dup.) | Ungeprüft | Datei | Commit |
 |---|---|---|---|---|---|---|---|
 | 1 | Nachprüfung der 22 essenziellen Altbestand-Einträge (kein Neufund, auf Nutzerwunsch) | 0 | 22 | 0 | 0 (18 verifiziert, 4 teilgeprüft) | `data/catalog/runde-1.json` | `91d1c40` |
-| 2 | Nachprüfung Kategorie „Basis" Teil 1/2, 12 von 26 (kein Neufund) | 0 | 12 | 0 | 0 (10 verifiziert, 2 teilgeprüft) | `data/catalog/runde-2.json` | folgt |
+| 2 | Nachprüfung Kategorie „Basis" Teil 1/2, 12 von 26 (kein Neufund) | 0 | 12 | 0 | 0 (10 verifiziert, 2 teilgeprüft) | `data/catalog/runde-2.json` | `f504f7d` |
+| 3 | Nachprüfung Kategorie „Basis" Teil 2/2, restliche 14 von 26 — Kategorie fertig | 0 | 14 | 0 | 2 (4 verifiziert, 8 teilgeprüft, 2 weiterhin ungeprueft) | `data/catalog/runde-3.json` | folgt |
