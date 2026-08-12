@@ -4,8 +4,7 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `3f0345a` (Runde 4). Runde 5 ist fertig, aber noch **nicht** committet — das
-ist der nächste Schritt.
+**Letzter Commit:** `266eeec` (Runde 5).
 **Validate-Status:** grün (8 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
 22 Updates, `runde-2.json` 12, `runde-3.json` 14, `runde-4.json` 12, `runde-5.json` 11 · 262
 Plugins gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
@@ -64,8 +63,7 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Committen.** Runde 5 ist fertig, aber `data/catalog/runde-5.json` und diese Doku-Updates liegen
-noch uncommittet im Working Tree. Danach: Runde 6 — restliche 6/17 Einträge der Kategorie
+Runde 6 — restliche 6/17 Einträge der Kategorie
 „Charakter, Inventar & UI" (`qs_hud`, `qs_inventory`, `t-notify`, `wasabi_backpack`,
 `wasabi_loading`, `wasabi_multichar`), damit ist die Kategorie „UI" komplett. `npm run newround 6`
 legt das Gerüst an. Vorgehen (Batchgröße 10–12, nach Kategorie, reine Nachprüfung vor Neusuche)
@@ -112,4 +110,4 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 | 2 | Nachprüfung Kategorie „Basis" Teil 1/2, 12 von 26 (kein Neufund) | 0 | 12 | 0 | 0 (10 verifiziert, 2 teilgeprüft) | `data/catalog/runde-2.json` | `f504f7d` |
 | 3 | Nachprüfung Kategorie „Basis" Teil 2/2, restliche 14 von 26 — Kategorie fertig | 0 | 14 | 0 | 2 (4 verifiziert, 8 teilgeprüft, 2 weiterhin ungeprueft) | `data/catalog/runde-3.json` | `7afa348` |
 | 4 | Nachprüfung Kategorie „UI" Teil 1/3, 12 von 31 (kein Neufund) | 0 | 12 | 0 | 0 (8 verifiziert, 4 teilgeprüft) | `data/catalog/runde-4.json` | `3f0345a` |
-| 5 | Nachprüfung Kategorie „UI" Teil 2/3, 11 von 17 verbleibenden (kein Neufund) | 0 | 11 | 0 | 0 (3 verifiziert, 8 teilgeprüft) | `data/catalog/runde-5.json` | folgt |
+| 5 | Nachprüfung Kategorie „UI" Teil 2/3, 11 von 17 verbleibenden (kein Neufund) | 0 | 11 | 0 | 0 (3 verifiziert, 8 teilgeprüft) | `data/catalog/runde-5.json` | `266eeec` |
