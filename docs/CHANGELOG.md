@@ -17,6 +17,53 @@ Format je Eintrag:
 
 ---
 
+## [Werkzeug] Prefetch für Recherche-Runden – 12.08.2026
+
+Kein Katalog-Inhalt, sondern Werkzeug: die mechanische Hälfte einer Recherche-Runde läuft ab
+jetzt als Script, nicht mehr im Subagent-Kontext.
+
+**Neu:**
+- `scripts/prefetch.mjs` + `npm run prefetch`. Erzeugt vor jeder Runde ein Briefing nach
+  `data/.prefetch/runde-N.md` mit allem Deterministischen: Repo existiert/archiviert/letzter
+  Push/Lizenz/Default-Branch, fxmanifest **wörtlich**, README-Belegzeilen **wörtlich**, und eine
+  Code-Stichprobe über alle `.lua`-Dateien gegen die Muster aus RECHERCHE.md §3 mit Fundstellen
+  als `datei.lua:zeile`. Bei totem Link zusätzlich die ähnlichsten Repo-Namen desselben Owners.
+- Den Subagents wird nur der **Pfad** genannt, nie der Inhalt — das Briefing landet dadurch weder
+  im Haupt- noch mehrfach im Subagent-Kontext.
+
+**Warum es billiger ist:** Repo-Metadaten werden pro **Owner** gebündelt geholt statt pro Repo.
+Eine Runde braucht dadurch ~4 API-Aufrufe statt ~15 und läuft selbst ohne Token im Limit.
+Dateiinhalte kommen über `raw.githubusercontent.com`, das nicht am API-Limit hängt. Cache mit
+7 Tagen Gültigkeit (kürzer als bei `linkcheck`, weil hier der Archiv-Status zählt).
+Gemessen: 10 Plugins in **4,9 s** bei 7 API-Aufrufen, Briefing ~10 KB. Zum Vergleich Runde 18:
+11 Plugins, ~400 s, ~164k Tokens über drei Subagents.
+
+**Warum es genauer ist:** Die Code-Stichprobe nach §3 war vorher faktisch nie durchgeführt worden
+(die Subagents schrieben durchgehend „Code-Stichprobe nicht durchgeführt" → `teilgeprueft`).
+Das Script prüft **alle** `.lua`-Dateien. Beim Gegentest an `qb_traphouse` fand es zwei rote
+Flaggen — darunter `exports['qb-target']` in `client/main.lua:25`, das der Subagent in Runde 18
+von Hand übersehen hatte. Nebenbei fiel auf, dass `qbx_lockpick` (für Runde 19 vorgesehen)
+bereits archiviert ist.
+
+**Geändert:**
+- `docs/RECHERCHE.md`: neuer Abschnitt 1a (Prefetch zuerst), alte URL-Muster nach 1b verschoben
+  und um ein ausdrückliches Verbot ergänzt, GitHub-HTML-Seiten zu holen wenn die API dieselbe
+  Frage beantwortet. Neu in 1c und 1d: **Suchbudgets** — höchstens 2 Abrufe pro totem Link,
+  höchstens 3 pro Premium-Produkt. Begründung im Dokument: in den Runden 16–18 kostete jeder tote
+  Link 30–45 Abrufe und endete trotzdem bei „nicht auffindbar". Abschnitt 4 hält jetzt fest, dass
+  `verifiziert` dank automatischer Code-Stichprobe häufiger erreichbar ist.
+- `CLAUDE.md` §5: `prefetch` dokumentiert, inklusive Hinweis auf `GITHUB_TOKEN`/`GH_TOKEN`.
+- `.gitignore`: `data/.prefetch/` und `data/.prefetchcache.json` (reine Ableitung, jederzeit neu
+  erzeugbar — wie `.linkcache.json`).
+
+**Offen / vorgemerkt:** Der in Runde 18 übersehene `exports['qb-target']`-Treffer bei
+`qb_traphouse` ist noch nicht im Katalog nachgetragen — gehört in Runde 19 mit erledigt.
+
+**Katalog:** unverändert (262 Plugins). `npm run validate` grün, `npm run selftest` 37/37.
+**Commit:** folgt
+
+---
+
 ## [Runde 18] – 12.08.2026
 
 **Neu:**

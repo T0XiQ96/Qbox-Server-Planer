@@ -104,8 +104,23 @@ npm run build      # dist/qbox-planer.html bauen
 npm run stats      # Anzahl je Kategorie / Qualität / Status
 npm run find <q>   # Plugin im Katalog suchen, ohne den Katalog zu laden
 npm run linkcheck  # HTTP-Status aller Links → link_status + link_geprueft_am
+npm run prefetch   # Recherche-Briefing für die Subagents vorab erzeugen
 npm run newround N # Gerüst für data/catalog/runde-N.json anlegen
 ```
+
+**`prefetch` läuft immer vor einer Recherche-Runde**, sonst arbeiten die Subagents unnötig teuer:
+
+```
+npm run prefetch -- --kategorie crime --offen --max 11 --runde 19
+```
+
+Es holt alles Deterministische selbst (Repo-Status, archiviert, letzter Push, Lizenz, fxmanifest
+wörtlich, README-Belegzeilen, Code-Stichprobe über alle `.lua`-Dateien nach RECHERCHE.md §3) und
+schreibt es nach `data/.prefetch/runde-N.md`. Den Subagents wird **nur der Pfad** genannt — der
+Inhalt darf nie in den Hauptkontext kopiert werden. Repo-Metadaten werden pro Owner gebündelt
+geholt, dadurch braucht eine ganze Runde ~4 API-Aufrufe statt ~15. Ein `GITHUB_TOKEN` oder
+`GH_TOKEN` in der Umgebung hebt das Limit von 60 auf 5000 Anfragen/h; ohne Token läuft es auch,
+ist aber bei mehreren Runden hintereinander knapp.
 
 `linkcheck` ist nur eine Nebensache: es meldet 404 und Umzüge über alle bekannten URLs. Es ersetzt
 **nicht** die inhaltliche Prüfung — die läuft nach `docs/RECHERCHE.md` und besteht daraus, die

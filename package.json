@@ -13,6 +13,7 @@
     "stats": "node scripts/stats.mjs",
     "find": "node scripts/find.mjs",
     "linkcheck": "node scripts/linkcheck.mjs",
+    "prefetch": "node scripts/prefetch.mjs",
     "newround": "node scripts/newround.mjs",
     "selftest": "node scripts/selftest.mjs"
   }

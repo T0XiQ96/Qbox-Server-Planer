@@ -4,6 +4,11 @@ dist/
 # Cache des Link-Checks (30 Tage gueltig, jederzeit neu aufbaubar)
 data/.linkcache.json
 
+# Prefetch: Cache und erzeugte Briefings fuer die Recherche-Subagents.
+# Reine Ableitung aus data/catalog/ + GitHub, jederzeit per "npm run prefetch" neu erzeugbar.
+data/.prefetchcache.json
+data/.prefetch/
+
 # Wird von "npm run validate" erzeugt, reine Ableitung aus data/catalog/
 data/_ids.txt
 

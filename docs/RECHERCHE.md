@@ -23,10 +23,34 @@ Ob die Seite überhaupt existiert (404, umgezogen, archiviert), fällt dabei neb
 nach `link_status` + `link_geprueft_am`. Ein reiner HTTP-Statuscheck ohne Lesen des Inhalts ist
 wertlos und ersetzt diesen Ablauf nicht.
 
-### 1a. Exakte URL-Muster für GitHub-Repos (kein Rätselraten, kein Web-UI-Klicken)
+### 1a. Zuerst: `npm run prefetch` — die mechanische Arbeit passiert vor der Recherche
 
-Bei einem GitHub-Link `https://github.com/<owner>/<repo>` immer diese vier Abrufe machen,
-in dieser Reihenfolge — das erspart das langsame Durchklicken der Web-Oberfläche:
+**Vor jeder Runde** erzeugt die Hauptsession ein Briefing:
+
+```
+npm run prefetch -- --kategorie crime --offen --max 11 --runde 19
+```
+
+Das Script (`scripts/prefetch.mjs`) holt alles, was deterministisch ist, und schreibt es nach
+`data/.prefetch/runde-N.md`: Repo existiert ja/nein, archiviert, letzter Push, Lizenz,
+Default-Branch, das **fxmanifest wörtlich**, die README-Zeilen mit Framework-/Lizenz-Begriffen
+**wörtlich**, und eine Code-Stichprobe über alle `.lua`-Dateien nach den Mustern aus Abschnitt 3
+mit Fundstellen als `datei.lua:zeile`. Bei einem toten Link listet es zusätzlich die ähnlichsten
+Repo-Namen desselben Owners — das löst Umbenennungen wie `randolio_*` → `randol_*` ohne eine
+einzige Suche.
+
+Der Subagent bekommt **den Pfad** zu diesem Briefing im Prompt genannt, nicht den Inhalt.
+Er liest es und macht nur noch das, was Urteilsvermögen braucht: Framework-Einordnung, Beleggrad,
+`update_grund` formulieren, und die unter „Offen für dich" ausgewiesenen Restpunkte.
+
+Die Angaben im Briefing sind bereits abgerufen — **sie werden nicht nachgeholt**. Wer sie
+trotzdem noch einmal abruft, verbrennt Kontext ohne Erkenntnisgewinn.
+
+### 1b. Exakte URL-Muster für GitHub-Repos (wenn das Briefing eine Lücke lässt)
+
+Nur nötig, wenn das Briefing für einen Eintrag etwas offen lässt oder gar nicht vorliegt.
+Dann diese Abrufe, in dieser Reihenfolge — und **niemals** die HTML-Seite `github.com/<owner>/<repo>`
+holen, solange die API dieselbe Frage beantwortet (die HTML-Seite kostet ein Vielfaches an Kontext):
 
 1. **Existenz + Status + letzter Push** (ein API-Call beantwortet mehrere Fragen auf einmal):
    `https://api.github.com/repos/<owner>/<repo>`
@@ -34,7 +58,7 @@ in dieser Reihenfolge — das erspart das langsame Durchklicken der Web-Oberflä
    `default_branch` (für Schritt 2/3 wichtig — meist `main`, manchmal `master`),
    `license.spdx_id`, `description`. Ein 404 hier heißt: Repo existiert nicht (mehr) unter
    diesem Pfad → `link_status: "404"`, dann gezielt nach dem neuen Namen suchen
-   (siehe 1b), nicht raten.
+   (siehe 1c), nicht raten.
 2. **fxmanifest.lua roh lesen** (nicht die Web-Ansicht, die ist langsamer und schwerer zu parsen):
    `https://raw.githubusercontent.com/<owner>/<repo>/<default_branch>/fxmanifest.lua`
    Manche Repos haben es in einem Unterordner — wenn der direkte Pfad 404 liefert, per GitHub-
@@ -49,22 +73,26 @@ in dieser Reihenfolge — das erspart das langsame Durchklicken der Web-Oberflä
 4. **Issues, gefiltert**: `https://github.com/<owner>/<repo>/issues?q=qbox+OR+qbx` (offen + geschlossen,
    also ohne `is:open`-Filter) → offizielle Autor-Aussagen zur Qbox-Kompatibilität.
 
-### 1b. Wenn der Katalog-Link 404 liefert — Repo-Umzug systematisch suchen
+### 1c. Wenn der Link tot ist — Suchbudget beachten
 
-Nicht raten, sondern in dieser Reihenfolge prüfen, bevor der Eintrag auf `ungeprueft`/`404`
-fällt:
-1. GitHub leitet umbenannte Repos oft automatisch um — den Link trotzdem einmal im Klartext
-   aufrufen (nicht nur die API), ein Redirect zeigt den neuen Pfad direkt in der URL-Leiste.
-2. Alle Repos des gleichen Owners auflisten: `https://api.github.com/users/<owner>/repos?per_page=100`
-   (oder `/orgs/<owner>/repos`, falls Org) → nach ähnlichem Namen suchen. Viele Autoren nutzen
-   ein festes Präfix (z.B. `randol_*` statt `randolio_*`) — wenn ein Muster erkennbar ist, gezielt
-   danach filtern statt einzeln zu raten.
-3. GitHub-Suche über alle Repos: `https://github.com/search?q=<name>&type=repositories`.
-4. Erst wenn alle drei nichts liefern: `link_status: "404"`, `qualitaet: "ungeprueft"`,
-   `update_grund` explizit festhalten, dass systematisch gesucht wurde (welche Owner/Suchbegriffe),
-   kein Ersatzlink raten.
+Das Prefetch-Briefing hat den Owner-Bestand bereits durchsucht und listet die ähnlichsten
+Repo-Namen. Wenn dort nichts Passendes steht, ist die Suche zu **80 % schon erledigt**, und der
+Rest ist selten ergiebig.
 
-### 1c. Tebex-Produktseiten (Premium/Escrow)
+**Budget: höchstens 2 weitere Abrufe pro totem Link.** Sinnvoll sind genau diese zwei:
+1. Den Original-Link einmal im Klartext aufrufen — GitHub leitet umbenannte Repos automatisch um,
+   ein Redirect zeigt den neuen Pfad sofort.
+2. Eine Websuche nach `<name> fivem` — deckt Umzüge zu einem anderen Owner oder zu Tebex ab.
+
+Danach ist Schluss. `link_status: "404"`, `qualitaet: "ungeprueft"`, in `update_grund` festhalten,
+was durchsucht wurde — **kein Ersatzlink geraten**.
+
+Das ist ausdrücklich kein Qualitätsverlust: In den Runden 16–18 kostete jeder tote Link 30–45
+Abrufe und endete trotzdem bei „nicht auffindbar" (`jim_pawnshop`, `mhacking`, `mt_washing`,
+`randolio_busjob`). „Nicht auffindbar" ist ein vollwertiges, belastbares Ergebnis — kein Anlass,
+weiterzusuchen.
+
+### 1d. Tebex-Produktseiten (Premium/Escrow)
 
 Tebex-Shopseiten sind oft bot-geschützt (403 bei direktem Fetch). Falls die Seite selbst nicht
 lesbar ist, reicht als Beleg: die URL selbst (Store-Name im Pfad, Paket-ID), plus wenn vorhanden
@@ -73,6 +101,10 @@ oder ein Cfx-Forum-Thread zum Produkt — dort steht meist Preis, unterstützte 
 Escrow. Wenn nichts davon erreichbar ist: `qualitaet: "ungeprueft"`, `sicherheit: "vermutung"` bei
 etwaigen `kompat_warnung`-Einträgen, keine Marketingaussagen der Seite ungeprüft übernehmen
 (z.B. "fully open source" kann auch nur "nach Kauf editierbar" bedeuten, siehe Runde 15 `jim_tequilala`).
+
+**Budget: höchstens 3 Abrufe pro Premium-Produkt.** Der Bot-Schutz gibt bei mehr Versuchen nicht
+nach, und `teilgeprueft` mit korrekter Produkt-URL ist das erreichbare Maximum — mehr Aufwand
+ändert das Ergebnis nicht.
 
 ---
 
@@ -140,6 +172,13 @@ Sicherheit.
 
 Escrow-Scripts sind grundsätzlich nur bis `teilgeprueft` bewertbar, weil der Code verschlüsselt ist.
 Das gehört als Nachteil in `contra`: bei Bridge-Problemen nicht selbst reparierbar.
+
+**Seit Einführung von `npm run prefetch` ist `verifiziert` häufiger erreichbar**, weil die
+Code-Stichprobe nicht mehr von Hand gemacht werden muss: Das Script prüft **alle** `.lua`-Dateien
+eines Repos gegen die Muster aus Abschnitt 3 und nennt die Fundstellen zeilengenau. Wenn das
+Briefing eine Code-Stichprobe ohne Lücken ausweist und fxmanifest sowie README vorliegen, ist
+`verifiziert` die richtige Stufe — `teilgeprueft` bleibt für Fälle, in denen etwas davon fehlt
+(kein README, fxmanifest im Unterordner, Escrow, Repo nicht lesbar).
 
 ---
 

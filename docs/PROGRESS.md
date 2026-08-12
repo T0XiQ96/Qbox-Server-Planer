@@ -4,8 +4,8 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `8a4e940` (Runde 17). Runde 18 ist fertig, aber noch **nicht** committet —
-das ist der nächste Schritt.
+**Letzter Commit:** `d247353` (Runde 18). Danach kam das Prefetch-Werkzeug (siehe unten), das
+noch **nicht** committet ist — das ist der nächste Schritt.
 **Validate-Status:** grün (21 Katalogdateien inkl. `runde-18.json` 11 Updates · 262 Plugins
 gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
 **Katalogstand:** 262 gesamt, ~21 mit `link_status: 404` nach Runde 18 (zwei weitere
@@ -111,18 +111,48 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Warten auf Nutzer-Rückmeldung — nicht eigenständig weitermachen.** Runden 16–18 sind
-abgeschlossen und committet, das war der komplette Sitzungsauftrag. Wenn es weitergeht: Runde 19
-nimmt die restlichen 10 von 32 Einträgen der Kategorie „Crime & Unterwelt": `qbx_lockpick`,
-`qbx_pawnshop`, `qbx_storerobbery`, `qbx_truckrobbery`, `qbx_weed`, `rahe_boosting`,
-`rainmad_heists`, `randolio_moneywash`, `t1ger_heists`, `utk_fingerprint` (IDs vor Rundenstart
-gegen `data/catalog/*.json` neu abgleichen). `npm run newround 19` legt das Gerüst an.
+**Runde 19 — das Briefing liegt bereits fertig unter `data/.prefetch/runde-19.md`.**
+Runden 16–18 sind abgeschlossen und committet, danach kam auf Nutzerwunsch das Prefetch-Werkzeug
+(siehe unten). Runde 19 nimmt die restlichen 10 von 32 Einträgen der Kategorie „Crime & Unterwelt":
+`qbx_lockpick`, `qbx_pawnshop`, `qbx_storerobbery`, `qbx_truckrobbery`, `qbx_weed`,
+`rahe_boosting`, `rainmad_heists`, `randolio_moneywash`, `t1ger_heists`, `utk_fingerprint`.
+`npm run newround 19` legt das Gerüst an.
 
-Bewährtes Vorgehen für künftige Runden (siehe „Vorgehensweise" oben): bei bekannten GitHub-Links
-Owner/Repo-Pfad selbst vorab auflösen und den Subagents direkt mitgeben, nur bei
-Platzhaltern/fehlenden Links eigenständig suchen lassen. `qbx_pawnshop` steht im Katalog in
-Konflikt mit `jim_pawnshop` — letzteres war in Runde 17 nicht auffindbar (404), das sollte bei
-der `qbx_pawnshop`-Prüfung in Runde 19 mit erwähnt werden.
+**Was das Briefing schon vorwegnimmt** (nicht noch einmal recherchieren lassen):
+- `qbx_lockpick` ist **archiviert** (letzter Push 09.07.2026) — im Katalog noch nicht erfasst.
+- 5 der 10 sind saubere Qbox-Repos mit vollständiger Code-Stichprobe → `verifiziert` erreichbar.
+- `rahe_boosting`: der Owner `rahe-rescue` existiert auf GitHub gar nicht (gleiches Bild wie bei
+  `rahe_racing` in Runde 16 — vermutlich ebenfalls ein Tebex-Produkt).
+- `utk_fingerprint`: Link tot, aber `utkuali/Finger-Print-Hacking-Game` ist ein starker Kandidat.
+- `randolio_moneywash`: Link zeigt nur aufs Profil, 2 Namens-Kandidaten stehen im Briefing.
+- `rainmad_heists`, `t1ger_heists`: Bot-Schutz, höchstens 3 Abrufe (RECHERCHE.md 1d).
+
+**Nachtrag, der in Runde 19 mit erledigt gehört:** Die Code-Stichprobe hat bei `qb_traphouse`
+(Runde 18) einen zweiten roten Treffer gefunden, den der Subagent übersehen hatte —
+`exports['qb-target']` in `client/main.lua:25`. Gehört in die `kompat_warnung` nachgetragen.
+Außerdem: `qbx_pawnshop` steht in Konflikt mit `jim_pawnshop`, das in Runde 17 nicht auffindbar
+war (404) — bei der Prüfung erwähnen.
+
+## Werkzeug: `npm run prefetch` (seit 12.08.2026)
+
+Auf Nutzerwunsch („weniger Tokens, schneller, ohne Genauigkeitsverlust") läuft die mechanische
+Hälfte der Recherche jetzt als Script statt im Subagent-Kontext. **Ablauf jeder künftigen Runde:**
+
+1. `npm run prefetch -- --kategorie <kat> --offen --max 11 --runde N`
+2. Den Subagents im Prompt **nur den Pfad** `data/.prefetch/runde-N.md` nennen — niemals den
+   Inhalt hineinkopieren, sonst ist die Ersparnis weg.
+3. Die Agents lesen das Briefing und liefern nur noch das Urteil (Framework-Einordnung,
+   Beleggrad, `update_grund`) plus die dort unter „Offen für dich" ausgewiesenen Restpunkte.
+
+Gemessen: 10 Plugins in 4,9 s bei 7 API-Aufrufen, Briefing ~10 KB. Runde 18 kostete für 11
+Plugins ~400 s und ~164k Tokens. Genauer ist es zusätzlich, weil die Code-Stichprobe nach
+RECHERCHE.md §3 vorher praktisch nie durchgeführt wurde — das Script prüft alle `.lua`-Dateien
+und nennt Fundstellen zeilengenau (Details im CHANGELOG-Eintrag „[Werkzeug] Prefetch").
+
+Ein `GITHUB_TOKEN` oder `GH_TOKEN` in der Umgebung hebt das API-Limit von 60 auf 5000/h. Ohne
+Token läuft es dank Owner-Bündelung auch, wird aber bei mehreren Runden hintereinander knapp —
+falls Läufe mit `api-fehler` enden, ist das die Ursache (nicht mit `owner-weg` verwechseln, das
+ist ein echter Befund).
 
 **Runde 15 — wichtigster Fund:** `qbx_hotdogjob` hatte einen falschen Katalog-Pfad (Unterstrich
 statt Bindestrich, korrekt `qbx-hotdogjob`) und ist zudem als „Unmaintained" markiert — bisher
