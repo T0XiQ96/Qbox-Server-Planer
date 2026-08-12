@@ -1,0 +1,147 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r2",
+  "runde": 2,
+  "thema": "Nachprüfung Kategorie 'Basis & Abhängigkeiten' (Teil 1/2 — 12 von 26 verbleibenden ungeprüften Einträgen)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "awesome_ox",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog behauptete 'Archiviert, Links teils tot' — laut GitHub-API ist das Repo NICHT archiviert und wurde 2026 aktiv gepusht. Gleiches Falsch-Archiviert-Muster wie bei mehreren overextended-Repos in Runde 1.",
+      "letztes_update": "Aktiv · Push vom 23.04.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": null,
+      "qualitaet": "verifiziert",
+      "quelle": "https://api.github.com/repos/overextended/awesome-ox (archived:false, pushed_at 2026-04-23)"
+    },
+    {
+      "id": "cfxlua_vscode",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Aktivität bestätigt, Katalogaussage 'Gepflegt' stimmt weiterhin.",
+      "letztes_update": "Aktiv · Push vom 25.04.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://api.github.com/repos/overextended/cfxlua-vscode (archived:false, pushed_at 2026-04-25)"
+    },
+    {
+      "id": "fivem_lls_addon",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Aktivität bestätigt, sehr aktuell gepflegt.",
+      "letztes_update": "Aktiv · Push vom 26.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://api.github.com/repos/overextended/fivem-lls-addon (archived:false, pushed_at 2026-07-26)"
+    },
+    {
+      "id": "fivem_ts_boilerplate",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog behauptete 'Org archiviert, Code nutzbar' — falsch: weder das Repo noch die Org overextended sind archiviert. Zusätzlich wurde das Repo zu fivem-ts umbenannt (alte URL leitet automatisch um).",
+      "link": "https://github.com/overextended/fivem-ts",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "letztes_update": "Aktiv · Push vom 28.05.2026 (unter neuem Namen fivem-ts)",
+      "qualitaet": "verifiziert",
+      "quelle": "https://api.github.com/repos/overextended/fivem-typescript-boilerplate → Redirect zu https://github.com/overextended/fivem-ts (archived:false, pushed_at 2026-05-28)"
+    },
+    {
+      "id": "fivemx_dir",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Seite existiert und ist aktiv, Qbox wird in der Seitenbeschreibung genannt, aber ein dedizierter Qbox-Filter/Kategorie in der Navigation war nicht auffindbar (nur ESX und QBCore als eigene Kategorien). Die genannten Zahlen 800+/1.400+ konnten nicht bestätigt werden.",
+      "letztes_update": "Seite aktiv, funktionierende Marktplatz-Oberfläche mit Produkten/Preisen",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "contra": ["Kein dedizierter Qbox-Filter in der Navigation gefunden — nur ESX/QBCore als eigene Kategorien, Qbox nur in der Seitenbeschreibung erwähnt", "Die im Katalog genannten Zahlen (800+ kostenlos, 1.400+ Premium) waren auf der Seite nicht bestätigbar"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://fivemx.com"
+    },
+    {
+      "id": "krakencore",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalogaussage bestätigt: aktiver Tracker/Discovery-Layer für kostenlose FiveM-Releases aus mehreren Quellen (Cfx.re Free Releases, ESX-GitHub, Loaf Scripts, Project Sloth), wirbt mit 'Live import every 5 min'.",
+      "letztes_update": "Aktiv · 87 Ressourcen getrackt (82 Scripts / 5 Maps), Live-Import alle 5 Minuten",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://www.krakencore.org/resources"
+    },
+    {
+      "id": "kuz_quality",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Shop existiert und ist aktiv, eigene Qbox-Kategorie mit 48 Produkten bestätigt (neben ESX/QBCore/vRP/TMC), bewirbt sich ausdrücklich als 'nativ für Qbox statt über QBCore-Kompatibilitätsschicht'.",
+      "letztes_update": "Aktiv · 48 Produkte in der Qbox-Kategorie gelistet (z.B. Cocaine Production 38,07€, Shell Creator 77,34€, Drug Empire Bundle 146,36€)",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://kuzquality.com/framework/qbox"
+    },
+    {
+      "id": "ghmattimysql",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Original-Link (GHMatti/ghmattimysql) ist komplett tot — nicht nur archiviert, der GitHub-Account existiert nicht mehr (404). Über Websuche gefunden: FrazzIe/ghmattimysql führt den Code fort, ohne sichtbares Archiviert-Banner. GitHub-API-Status konnte wegen Rate-Limit nicht bestätigt werden, deshalb teilgeprueft statt verifiziert.",
+      "link": "https://github.com/FrazzIe/ghmattimysql",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": null,
+      "stack_hinweis": "Alter MySQL-Wrapper, funktional abgelöst durch oxmysql. Nur installieren, wenn ein Alt-Script ihn zwingend verlangt.",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/FrazzIe/ghmattimysql; Websuche nach 'GHMatti ghmattimysql github' (Original-Account 404)"
+    },
+    {
+      "id": "jim_bridge",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Aktivität bestätigt, kein ox_lib-Import im fxmanifest gefunden — die Bridge bündelt eigene Module statt auf ox_lib aufzusetzen.",
+      "version": "2.1.09",
+      "letztes_update": "Aktiv · Push vom 03.03.2026, laufende Entwicklung bis 21.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://api.github.com/repos/jimathy/jim_bridge (archived:false); fxmanifest.lua auf main"
+    },
+    {
+      "id": "mumble-voip",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Archiv-Status bestätigt (kein 'wieder aktiv'-Muster wie bei den overextended-Repos) — echt tot seit 2021, offiziell archiviert seit 12.12.2024.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": {
+        "text": "Vom Owner am 12.12.2024 archiviert (read-only), letzter Commit bereits vom 13.12.2021. Kein Nachfolger im README dokumentiert — pma-voice ist Community-Konsens als Ersatz, nicht offiziell im Repo genannt.",
+        "nachfolger": "pma-voice"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://api.github.com/repos/FrazzIe/mumble-voip-fivem (archived:true, pushed_at 2021-12-13)"
+    },
+    {
+      "id": "ox_core",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog behauptete 'Archiviert' — falsch, das Repo ist aktiv und wird weiterentwickelt (gleiches Muster wie ox_lib/ox_inventory/oxmysql). Die Qbox-Inkompatibilität selbst bleibt bestehen (eigenes Framework, kann nicht parallel zu qbx_core laufen), nur die Archivierungs-Begründung dafür entfällt.",
+      "letztes_update": "Aktiv · Push vom 16.07.2026, zuletzt aktualisiert 09.08.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": null,
+      "kompat_warnung": {
+        "text": "ox_core ist ein eigenständiges Framework (Player-/Vehicle-Management), das Qbox-Events und -Datenmodell nicht implementiert. Es kann nicht parallel zu qbx_core betrieben werden — Scripts mit ox_core-Abhängigkeit sind für Qbox-Server ungeeignet, unabhängig davon, ob das Repo aktiv gepflegt wird.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://api.github.com/repos/overextended/ox_core (archived:false, pushed_at 2026-07-16)"
+    },
+    {
+      "id": "oxmysql",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Archiv-Kette stimmte nicht mehr (exakt das Muster aus Runde 1 bei ox_lib/ox_inventory/ox_target/ox_doorlock/ox_fuel): overextended/oxmysql ist wieder aktiv, der im Katalog referenzierte Fork TheOrderFivem/oxmysql existiert nicht mehr (404).",
+      "link": "https://github.com/overextended/oxmysql",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "2.14.1",
+      "letztes_update": "Aktiv · Release v2.14.1, Push vom 03.07.2026, zuletzt aktualisiert 05.08.2026",
+      "archiviert": null,
+      "qualitaet": "verifiziert",
+      "quelle": "https://api.github.com/repos/overextended/oxmysql (archived:false); https://github.com/TheOrderFivem/oxmysql → 404"
+    }
+  ]
+}

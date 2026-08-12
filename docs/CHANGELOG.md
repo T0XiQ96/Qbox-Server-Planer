@@ -17,6 +17,34 @@ Format je Eintrag:
 
 ---
 
+## [Runde 2] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-2.json` — Fortsetzung der reinen Nachprüfung auf Nutzerwunsch (erst
+  kompletten Altbestand durchprüfen, dann neue Plugins suchen): 12 `updates[]` für die ersten
+  12 von 26 verbleibenden `ungeprueft`-Einträgen der Kategorie „Basis & Abhängigkeiten",
+  recherchiert über 3 parallele Subagents
+
+**Korrigiert:**
+- `awesome_ox`, `ox_core`, `oxmysql`: dasselbe Falsch-Archiviert-Muster wie in Runde 1 bei
+  `ox_lib`/`ox_inventory`/etc. — alle drei per GitHub-API bestätigt aktiv, `archiviert` auf
+  `null` korrigiert. `oxmysql` hatte zusätzlich einen toten `TheOrderFivem`-Fork-Link (404),
+  auf `overextended/oxmysql` korrigiert.
+- `fivem_ts_boilerplate`: Repo umbenannt zu `overextended/fivem-ts`, Link korrigiert.
+- `mumble-voip`: echt tot bestätigt (nicht nur behauptet) — offiziell archiviert seit
+  12.12.2024, Nachfolger `pma-voice` als Community-Konsens ergänzt.
+- `ghmattimysql`: Original-GitHub-Account (`GHMatti`) existiert nicht mehr — Fortführung bei
+  `FrazzIe/ghmattimysql` gefunden, Link korrigiert, `stack_hinweis` auf `oxmysql` als
+  moderneren Ersatz ergänzt.
+- `fivemx_dir`: Katalogbehauptung eines dedizierten Qbox-Filters nicht bestätigt — als `contra`
+  vermerkt statt stillschweigend übernommen.
+
+**Katalog:** 0 neu, 12 aktualisiert, 0 Duplikate übersprungen, 10 auf `verifiziert` und 2 auf
+`teilgeprueft` hochgestuft (vorher alle 12 `ungeprueft`)
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 1] – 12.08.2026
 
 **Neu:**
