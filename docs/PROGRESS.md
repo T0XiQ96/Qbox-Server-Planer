@@ -4,14 +4,14 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `f504f7d` (Runde 2). Runde 3 ist fertig, aber noch **nicht** committet — das ist der nächste Schritt.
-**Validate-Status:** grün (6 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
-22 Updates, `runde-2.json` 12 Updates, `runde-3.json` 14 Updates · 262 Plugins gesamt · 13 harmlose
-„nur ein Mitglied"-Warnungen)
-**Katalogstand:** 262 gesamt · 32 verifiziert (12 %) · 16 teilgeprüft · 214 ungeprüft
-**Aktuelle Runde:** Runde 3 — Nachprüfung der restlichen 14/26 Einträge der Kategorie
-„Basis & Abhängigkeiten" — **Kategorie 1 damit komplett durchgeprüft (31/31)**. Weiterhin kein
-Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen)
+**Letzter Commit:** `7afa348` (Runde 3). Runde 4 ist fertig, aber noch **nicht** committet — das ist der nächste Schritt.
+**Validate-Status:** grün (7 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
+22 Updates, `runde-2.json` 12, `runde-3.json` 14, `runde-4.json` 12 · 262 Plugins gesamt · 13
+harmlose „nur ein Mitglied"-Warnungen)
+**Katalogstand:** 262 gesamt · 40 verifiziert (15 %) · 20 teilgeprüft · 202 ungeprüft
+**Aktuelle Runde:** Runde 4 — Nachprüfung von 12/31 Einträgen der Kategorie „Charakter, Inventar
+& UI" (Teil 1/3). Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise
+durchprüfen)
 
 ---
 
@@ -63,11 +63,18 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Committen.** Runde 3 ist fertig, aber `data/catalog/runde-3.json` und diese Doku-Updates liegen
-noch uncommittet im Working Tree. Danach: Runde 4 — Kategorie „2. Charakter, Inventar & UI"
-(31 offene Einträge, 2–3 Runden à 10–12). `npm run newround 4` legt das Gerüst an. Vorgehen
-(Batchgröße 10–12, nach Kategorie, reine Nachprüfung vor Neusuche) gilt unverändert bis der Nutzer
-etwas anderes sagt.
+**Committen.** Runde 4 ist fertig, aber `data/catalog/runde-4.json` und diese Doku-Updates liegen
+noch uncommittet im Working Tree. Danach: Runde 5 — restliche 19/31 Einträge der Kategorie
+„Charakter, Inventar & UI" (in 2 weiteren Runden à ~10). `npm run newround 5` legt das Gerüst an.
+Vorgehen (Batchgröße 10–12, nach Kategorie, reine Nachprüfung vor Neusuche) gilt unverändert bis
+der Nutzer etwas anderes sagt.
+
+**Runde 4 — wichtigster Fund:** `lj_inventory` — auch der als „gepflegt" katalogisierte
+`ps-inventory`-Fork (Project-Sloth) wurde am 06.02.2026 archiviert, kein Nachfolger genannt. Zwei
+weitere Topic-Seiten-Links korrigiert (`interaction_menu_mod`, `mtc_loadingscreen` — echte Repos
+gefunden). Zwei „mythic_*"-Legacy-Links waren schlicht tot (nicht nur archiviert): `mythic_notify`
+komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teilgeprueft`),
+`mythic_progbar`-Link falsch, funktionierender Fork bei `wasabirobby/mythic_progbar` gefunden.
 
 ## Offene Punkte / Rückfragen an den Nutzer
 
@@ -93,4 +100,5 @@ etwas anderes sagt.
 |---|---|---|---|---|---|---|---|
 | 1 | Nachprüfung der 22 essenziellen Altbestand-Einträge (kein Neufund, auf Nutzerwunsch) | 0 | 22 | 0 | 0 (18 verifiziert, 4 teilgeprüft) | `data/catalog/runde-1.json` | `91d1c40` |
 | 2 | Nachprüfung Kategorie „Basis" Teil 1/2, 12 von 26 (kein Neufund) | 0 | 12 | 0 | 0 (10 verifiziert, 2 teilgeprüft) | `data/catalog/runde-2.json` | `f504f7d` |
-| 3 | Nachprüfung Kategorie „Basis" Teil 2/2, restliche 14 von 26 — Kategorie fertig | 0 | 14 | 0 | 2 (4 verifiziert, 8 teilgeprüft, 2 weiterhin ungeprueft) | `data/catalog/runde-3.json` | folgt |
+| 3 | Nachprüfung Kategorie „Basis" Teil 2/2, restliche 14 von 26 — Kategorie fertig | 0 | 14 | 0 | 2 (4 verifiziert, 8 teilgeprüft, 2 weiterhin ungeprueft) | `data/catalog/runde-3.json` | `7afa348` |
+| 4 | Nachprüfung Kategorie „UI" Teil 1/3, 12 von 31 (kein Neufund) | 0 | 12 | 0 | 0 (8 verifiziert, 4 teilgeprüft) | `data/catalog/runde-4.json` | folgt |

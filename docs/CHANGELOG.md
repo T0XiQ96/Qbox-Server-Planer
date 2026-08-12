@@ -17,6 +17,35 @@ Format je Eintrag:
 
 ---
 
+## [Runde 4] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-4.json` — erste 12 von 31 Einträgen der Kategorie „Charakter, Inventar &
+  UI" nachgeprüft (Teil 1/3), recherchiert über 3 parallele Subagents
+
+**Korrigiert:**
+- `lj_inventory`: Katalogaussage „ps-Fork gepflegt" überholt — Project-Sloth hat `ps-inventory`
+  am 06.02.2026 archiviert (Fokus künftig auf ps-mdt v3), kein Nachfolger genannt.
+- `interaction_menu_mod`, `mtc_loadingscreen`: Katalog-Link war nur die generische
+  GitHub-Topic-Seite `github.com/topics/qbox` — echte, treffende Repos gefunden und verlinkt.
+- `mythic_notify`: Link komplett tot (Repo verschwunden, auch der ursprüngliche Fork-Baum) — kein
+  verlässlicher Nachfolge-Link gefunden, bleibt bewusst `teilgeprueft` statt eines geratenen Links.
+- `mythic_progbar`: Katalog-Link falsch (404), funktionierender Fork bei
+  `wasabirobby/mythic_progbar` gefunden und verlinkt.
+- `fivem_appearance`: Katalogtext „Gepflegt" war überholt — kein Commit seit Februar 2023, de
+  facto unmaintained (aber nicht offiziell archiviert).
+- `illenium_appearance`: Qbox-Nutzung jetzt direkt belegt (offizielles `txAdminRecipe` lädt es als
+  Standalone-Resource), aber letzter Commit November 2024 — Katalogtext „Aktiv · 2026" war zu
+  optimistisch formuliert.
+- `codem_inventory`, `cd_drawtextui`: tote/veraltete Shop-URLs auf aktuelle Produktseiten
+  korrigiert. `okoknotify`, `okoktextui`: Preise bestätigt (je 4,99 EUR).
+
+**Katalog:** 0 neu, 12 aktualisiert, 0 Duplikate übersprungen, 8 auf `verifiziert`, 4 auf
+`teilgeprueft` hochgestuft
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 3] – 12.08.2026
 
 **Neu:**

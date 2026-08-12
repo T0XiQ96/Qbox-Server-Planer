@@ -1,0 +1,150 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r4",
+  "runde": 4,
+  "thema": "Nachprüfung Kategorie 'Charakter, Inventar & UI' (Teil 1/3 — 12 von 31 verbleibenden ungeprüften Einträgen)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "cd_drawtextui",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Store-URL veraltet, korrekte Produktseite gefunden. Katalogangabe 'Premium/Escrow' konnte NICHT bestätigt werden — das Produkt liegt in der Shop-Navigation unter 'Free', kein Preis/Escrow-Hinweis auf der Seite sichtbar. Bewusst nicht auf open_source/preis:null umgestellt, da die Beobachtung selbst unsicher ist (Tebex lädt Preise teils clientseitig nach) — stattdessen als Hinweis vermerkt.",
+      "link": "https://codesign.pro/product/4299057",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "neutral": ["Katalogangabe 'Premium, Escrow' auf der aktuellen Produktseite nicht bestätigt — Produkt läuft unter 'Free'-Kategorie, Preis manuell auf der Seite verifizieren"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://codesign.pro/product/4299057 (Produktname 'Draw Text UI')"
+    },
+    {
+      "id": "codem_inventory",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-URL codem-store.com existiert nicht mehr (DNS-Fehler). Offizieller Store ist codem.tebex.io, weiterhin durch Cloudflare-Bot-Schutz geschützt. Escrow bestätigt über Cfx-Forum-Post ('Code is accessible: No'). Framework-Support laut Doku nur ESX/QBCore genannt, kein expliziter Qbox-/ox_inventory-Bezug — der Konflikt mit ox_inventory bleibt plausibel (beide sind vollständige Inventarsysteme), ist aber nicht wörtlich als Ersatzanspruch beworben.",
+      "link": "https://codem.tebex.io/package/5900973",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "Escrow bestätigt (Cfx-Forum: 'Code is accessible: No'). Framework-Doku nennt nur ESX/QBCore, kein expliziter Qbox- oder ox_inventory-Bezug. Konflikt mit ox_inventory bleibt plausibel (beide sind vollständige Inventarsysteme, nicht parallel sinnvoll nutzbar), ist aber nicht als expliziter Ersatzanspruch beworben — vor Kauf beim Anbieter nachfragen.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://forum.cfx.re/t/codem-minventory-advanced-inventory-system/5167702; https://codem.tebex.io/package/5900973"
+    },
+    {
+      "id": "fivem_appearance",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo ist nicht archiviert, aber seit über 3,5 Jahren ohne Commit (letzter Commit 04.02.2023) — de facto unmaintained. Katalogtext 'Gepflegt' war überholt.",
+      "letztes_update": "Kein Archiv-Banner, aber letzter Commit 04.02.2023 — de facto unmaintained (über 3,5 Jahre ohne Aktivität)",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "contra": ["Kein Commit seit Februar 2023 — de facto unmaintained, illenium-appearance ist die deutlich aktivere Alternative"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/wasabirobby/fivem-appearance (isArchived:false, Commit-Historie)"
+    },
+    {
+      "id": "illenium_appearance",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Qbox-Nutzung jetzt direkt belegt: das offizielle Qbox-project/txAdminRecipe lädt illenium-appearance per download_file als Standalone-Resource (qbox.yaml). Letzter Commit ist allerdings November 2024 — Katalogtext 'Aktiv · 2026' war zu optimistisch formuliert.",
+      "version": "Release-Tag vom 11.12.2024",
+      "letztes_update": "Kein Archiv-Banner, aktiv in der offiziellen Qbox-Recipe verankert, aber kein Commit/Release seit Ende 2024",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "Bestätigt: Qbox-project/txAdminRecipe (qbox.yaml) lädt illenium-appearance direkt aus den GitHub-Releases als Standalone-Resource. Abhängigkeit ox_lib bestätigt.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://raw.githubusercontent.com/Qbox-project/txAdminRecipe/main/qbox.yaml; https://github.com/iLLeniumStudios/illenium-appearance"
+    },
+    {
+      "id": "interaction_menu_mod",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link war nur die generische Topic-Seite github.com/topics/qbox, kein echtes Repo. Tatsächliches Repo gefunden und passt zur Beschreibung (raycast-/zonen-/entity-basiertes Interaktionsmenü, Topics u.a. qbcore/qbox).",
+      "link": "https://github.com/swkeep/interaction-menu",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "version": "v2.0.0",
+      "letztes_update": "Aktiv · Release v2.0.0 vom 12.09.2025",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/swkeep/interaction-menu (Releases, Commits)"
+    },
+    {
+      "id": "keep_bags",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Aktivität bestätigt, Katalogtext 'Gepflegt' stimmt weiterhin.",
+      "letztes_update": "Aktiv · letzter Commit 20.09.2025 (78 Commits gesamt)",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/swkeep/keep-bags (Commits)"
+    },
+    {
+      "id": "lj_inventory",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalogaussage 'lj inaktiv · ps-Fork gepflegt' stimmt NICHT MEHR — auch der ps-Fork (Project-Sloth/ps-inventory) wurde inzwischen archiviert (06.02.2026), das Team fokussiert sich künftig auf ps-mdt v3. Kein Nachfolger genannt. Die harte qb-inventory-Abhängigkeit (kompat_warnung) bleibt unverändert bestätigt.",
+      "letztes_update": "Beide Quellen (lj-inventory und der ps-Fork) sind inzwischen archiviert",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": {
+        "text": "ps-inventory (Fork von lj-inventory) wurde am 06.02.2026 vom Owner Project-Sloth archiviert — Team fokussiert sich künftig auf ps-mdt v3. Repo bleibt nutzbar, erhält aber keine Updates mehr. Kein Nachfolger genannt.",
+        "nachfolger": ""
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/loljoshie/lj-inventory; https://github.com/Project-Sloth/ps-inventory"
+    },
+    {
+      "id": "mtc_loadingscreen",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link war nur die generische Topic-Seite github.com/topics/qbox, kein echtes Repo. Tatsächliches Repo gefunden, Beschreibung passt exakt ('standalone loadingscreen... clean More Than Code UI').",
+      "link": "https://github.com/morethancodenl/mtc-loadingscreen",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "letztes_update": "Kein Archiv-Banner, aber letzter sichtbarer Commit 21.12.2023 (20 Commits gesamt) — geringe Aktivität",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/morethancodenl/mtc-loadingscreen"
+    },
+    {
+      "id": "mythic_notify",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Der Katalog-Link existiert nicht mehr (404) — schlimmer als nur archiviert, das Repo ist komplett verschwunden (auch der ursprüngliche Fork-Baum). Kein verlässlicher Nachfolge-Link mit ausreichender Sicherheit gefunden (nur unbestätigte Drittforks), deshalb Link unverändert gelassen statt geraten und teilgeprueft statt verifiziert.",
+      "link_status": "404",
+      "link_geprueft_am": "2026-08-12",
+      "contra": ["Katalog-Link ist tot (404), auch der ursprüngliche Fork-Baum ist verschwunden — kein verlässlicher Nachfolge-Link gefunden. ox_lib-Notifications als Ersatz bleibt inhaltlich richtig, unabhängig vom toten Link."],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/wasabirobby/mythic_notify (404, per Browser geprüft)"
+    },
+    {
+      "id": "mythic_progbar",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link (HalCroves/mythic_progbar) existiert nicht mehr (404, auch nicht im Repo-Verzeichnis des Users). Aktiver, nicht archivierter Fork gefunden bei wasabirobby/mythic_progbar, Link korrigiert.",
+      "link": "https://github.com/wasabirobby/mythic_progbar",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/wasabirobby/mythic_progbar (HalCroves/mythic_progbar liefert 404)"
+    },
+    {
+      "id": "okoknotify",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Produktseite existiert, Preis bestätigt (4,99 EUR), FiveM Asset Escrow System bestätigt — Katalogangabe Premium/Escrow stimmt.",
+      "link": "https://okok.tebex.io/package/4724993",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "preis": { "betrag": 4.99, "waehrung": "EUR", "typ": "einmalig" },
+      "qualitaet": "verifiziert",
+      "quelle": "https://okok.tebex.io/package/4724993"
+    },
+    {
+      "id": "okoktextui",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Produktseite existiert, Preis bestätigt (4,99 EUR), FiveM Asset Escrow System bestätigt.",
+      "link": "https://okok.tebex.io/package/6024831",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "preis": { "betrag": 4.99, "waehrung": "EUR", "typ": "einmalig" },
+      "qualitaet": "verifiziert",
+      "quelle": "https://okok.tebex.io/package/6024831"
+    }
+  ]
+}
