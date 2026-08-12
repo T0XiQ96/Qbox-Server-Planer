@@ -4,15 +4,17 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 13.08.2026
-**Letzter Commit:** `054fce5` (Prefetch-Werkzeug). Runde 19 ist fertig, aber noch **nicht**
-committet — das ist der nächste Schritt.
-**Validate-Status:** grün (22 Katalogdateien inkl. `runde-19.json` 11 Updates · 262 Plugins
-gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
-**Katalogstand:** 262 gesamt, 85 verifiziert/teilgeprüft (32 %), 34 archiviert, 73 ohne
-`geprueft_am` (Kandidaten für künftige Runden).
-**Aktuelle Runde:** Runde 19 — Kategorie „Crime & Unterwelt" Teil 3/3, Kategorie damit
-**komplett** (32/32, Runden 17–19). Weiterhin kein Neufund (Nutzerwunsch: erst kompletten
-Altbestand kategorieweise durchprüfen).
+**Letzter Commit:** `22c46cd` (Runde 19). Runden 20–24 sind fertig und werden mit diesem Schritt
+committet.
+**Validate-Status:** grün (27 Katalogdateien inkl. `runde-20.json`–`runde-24.json` · 262 Plugins
+gesamt · 13 harmlose „nur ein Mitglied"-Warnungen) · `npm run selftest` 37/37.
+**Katalogstand:** 262 gesamt, 109 verifiziert/teilgeprüft (42 %), 36 archiviert, nur noch **13
+ohne `geprueft_am`** (8 in Kategorie „assets", je 1–2 Streuverluste in „ui"/„staat"/„wohnen").
+**Aktuelle Runden 20–24:** fünf komplette Kategorien in einer Sitzung durchgeprüft (auf
+Nutzerwunsch: ganze Kategorien statt 10–12er-Batches) — „Kommunikation & Telefon" (14/16),
+„Realismus & Welt" (17/17), „Waffen & Kampf" (2/2 Rest), „Wirtschaft & Banking" (13/13),
+„Admin & Sicherheit" (14/14). Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand
+kategorieweise durchprüfen).
 
 **Vorgehensweise „weniger Subagent-Arbeit" (Nutzerwunsch, ab Runde 17 eingeführt und in Runde 18
 bestätigt):** `docs/RECHERCHE.md` wurde um Abschnitte 1a–1c ergänzt (exakte URL-Muster
@@ -106,22 +108,33 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Committen, dann neue Kategorie beginnen.** Runde 19 ist fertig (Datei + Doku), Commit ist der
-nächste Schritt. Kategorie „Crime & Unterwelt" ist damit **komplett** (32/32, Runden 17–19).
+**Session beendet (Nutzerwunsch: `/clear` nach dieser Runde).** Alles committet, sicher zum
+Neustart. Nur noch **13 Katalogeinträge ohne `geprueft_am`** übrig, davon 8 in einer einzigen
+Kategorie:
 
-**Nächste Kategorie laut `data/kategorien.json`-Reihenfolge:** „8. Kommunikation & Telefon"
-(16 Einträge, erst 2 davon geprüft — die restlichen 14 sind Kandidaten für Runde 20). Vor
-Rundenstart: `npm run prefetch -- --kategorie kommunikation --offen --max 12 --runde 20`, dann
-`npm run newround 20`. Bei den sauberen Treffern aus dem Briefing (vollständige Code-Stichprobe,
-fxmanifest + README vorhanden) lohnt sich wie in Runde 19 zu prüfen, ob die Hauptsession sie
-direkt selbst schreiben kann, statt einen Subagent zu beauftragen — nur die kniffligen Fälle
-(tote Links, Tebex-Bot-Schutz, Namens-Kandidaten) brauchen noch echte Recherche.
+**Nächster Rundenstart — Kategorie „13. MLOs, Kleidung & Assets"** (8 offene Einträge, komplett
+ungeprüft — bisher keine einzige Runde dazu). `npm run prefetch -- --kategorie assets --offen
+--max 12 --runde 25`, dann `npm run newround 25`. Danach die restlichen Streuverluste
+(2× `ui`, 1× `staat`, 2× `wohnen` — IDs vor Rundenstart per `npm run stats`/`find` neu ermitteln,
+das sind vermutlich neu ergänzte oder nachträglich als offen markierte Einzeleinträge, keine
+ganze Kategorie) und danach beginnt die Suche nach **neuen** Plugins (der Altbestand ist dann
+komplett durchgeprüft) — dafür vorher mit dem Nutzer klären, ob `docs/RECHERCHE.md` für
+Neusuche-Runden noch Ergänzungen braucht (bisher nur auf Nachprüfung ausgelegt).
 
-**Bewährtes Muster aus Runde 19 (erste Runde mit `npm run prefetch`):** 6 von 11 Updates wurden
-direkt aus dem Briefing geschrieben, ganz ohne Subagent — nur 5 kniffligere Fälle gingen an einen
-einzigen Subagent (9 Tool-Aufrufe statt der vorher üblichen 40–70 pro Subagent). Für künftige
-Runden fortführen: erst `prefetch` laufen lassen, Briefing lesen, saubere Fälle selbst schreiben,
-nur Restfälle an Subagents delegieren.
+**Bewährtes Muster aus Runden 19–24 (Prefetch + ganze Kategorien pro Runde):** Bei jeder Runde
+schreibt die Hauptsession die sauberen Treffer aus dem Briefing (vollständige Code-Stichprobe,
+fxmanifest + README vorhanden) direkt selbst in den Katalog — typischerweise 30–60 % der Runde,
+ganz ohne Subagent. Nur die kniffligen Fälle (tote Links, Tebex-Bot-Schutz, Namens-Kandidaten,
+externe Anbieterseiten) gehen an einen einzigen Subagent pro Runde. Ergebnis über 5 Runden:
+konstant 9–24 Tool-Aufrufe pro Subagent statt der vorher üblichen 40–70. **Wichtig dabei
+etabliert:** Subagent-Funde vor dem Schreiben gegen die bestehende Katalogbeschreibung
+gegenprüfen, nicht blind übernehmen — in Runde 20 (`pma_radio_ui`) und Runde 21 (`vsync`) wurde
+je ein Fund verworfen, weil er der bestehenden Einordnung widersprochen hätte (siehe
+CHANGELOG-Einträge dieser Runden für die Details). `abhaengigkeiten`-IDs müssen zum Muster
+`^[a-z0-9][a-z0-9_-]*$` passen (klein, keine Großbuchstaben) — Subagents liefern das nicht
+immer korrekt, vor dem Schreiben prüfen. `framework` ist ein einzelner Enum-Wert
+(`qbox_nativ`/`qbcore_bridge`/`standalone`/`qbcore_only`), kein Array. `preis.typ` nur
+`einmalig`/`abo`. `lizenz` nur `open_source`/`escrow`, keine SPDX-Kürzel wie "MIT"/"GPL-3.0".
 
 ## Werkzeug: `npm run prefetch` (seit 12.08.2026)
 
@@ -256,4 +269,9 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 | 16 | Nachprüfung Kategorie „Zivil" Teil 3/3, letzte 10 — Kategorie komplett (kein Neufund) | 0 | 10 | 0 | 3 (4 verifiziert/teilgeprüft, 3 ungeprueft) | `data/catalog/runde-16.json` | `c8a7383` |
 | 17 | Nachprüfung Kategorie „Crime" Teil 1/3, 11 von 32 (kein Neufund) | 0 | 11 | 0 | 4 (2 verifiziert, 6 teilgeprüft, 4 ungeprueft) | `data/catalog/runde-17.json` | `8a4e940` |
 | 18 | Nachprüfung Kategorie „Crime" Teil 2/3, 11 von 32 (kein Neufund) | 0 | 11 | 0 | 2 (5 verifiziert, 4 teilgeprüft, 2 ungeprueft) | `data/catalog/runde-18.json` | `d247353` |
-| 19 | Nachprüfung Kategorie „Crime" Teil 3/3, letzte 10 + Nachtrag — Kategorie komplett (kein Neufund, erste Runde mit `npm run prefetch`) | 0 | 11 | 0 | 3 (7 verifiziert, 1 teilgeprüft, 3 ungeprueft) | `data/catalog/runde-19.json` | folgt |
+| 19 | Nachprüfung Kategorie „Crime" Teil 3/3, letzte 10 + Nachtrag — Kategorie komplett (kein Neufund, erste Runde mit `npm run prefetch`) | 0 | 11 | 0 | 3 (7 verifiziert, 1 teilgeprüft, 3 ungeprueft) | `data/catalog/runde-19.json` | `22c46cd` |
+| 20 | Nachprüfung Kategorie „Kommunikation" komplett, 14 von 16 (kein Neufund, erste Ganze-Kategorie-Runde) | 0 | 14 | 0 | 2 (6 verifiziert, 6 teilgeprüft, 2 ungeprueft) | `data/catalog/runde-20.json` | folgt |
+| 21 | Nachprüfung Kategorie „Realismus & Welt" komplett, 17/17 (kein Neufund) | 0 | 17 | 0 | 3 (6 verifiziert, 8 teilgeprüft, 3 ungeprueft/404) | `data/catalog/runde-21.json` | folgt |
+| 22 | Nachprüfung Kategorie „Waffen & Kampf" komplett, letzte 2 (kein Neufund) | 0 | 2 | 0 | 0 (1 verifiziert, 1 teilgeprüft) | `data/catalog/runde-22.json` | folgt |
+| 23 | Nachprüfung Kategorie „Wirtschaft & Banking" komplett, 13/13 (kein Neufund) | 0 | 13 | 0 | 0 (3 verifiziert, 10 teilgeprüft) | `data/catalog/runde-23.json` | folgt |
+| 24 | Nachprüfung Kategorie „Admin & Sicherheit" komplett, 14/14 (kein Neufund) | 0 | 14 | 0 | 3 (9 verifiziert, 2 teilgeprüft, 3 ungeprueft) | `data/catalog/runde-24.json` | folgt |

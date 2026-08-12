@@ -17,6 +17,138 @@ Format je Eintrag:
 
 ---
 
+## [Runde 24] – 13.08.2026
+
+**Neu:**
+- `data/catalog/runde-24.json` — Kategorie „Admin & Sicherheit" komplett (14/14). 9 Einträge
+  direkt aus dem Prefetch-Briefing geschrieben, 5 kniffligere Fälle (toter Link, drei externe
+  Anti-Cheat-Anbieterseiten, ein Tebex-Shop) an einen Subagent delegiert.
+
+**Korrigiert:**
+- `screenshot_basic`: **wichtigster Fund der Runde** — Katalog-Link zeigte auf
+  `citizenfx/cfx-server-data` (ein generisches, archiviertes Datenrepo ohne screenshot-basic
+  überhaupt zu enthalten, Dateibaum durchsucht). Echtes Repo `citizenfx/screenshot-basic`
+  gefunden und verlinkt.
+- `qb_doorlock`: harte `@qb-core/`-Datei-Bindung im Code bestätigt, zusätzlich abhängig von
+  Legacy-Stack (`qb-input`, `qb-minigames`) — `framework` auf `qbcore_only` korrigiert.
+- `ps_donator`: archiviert seit 06.02.2026 (gleicher Tag wie `ps_drugprocessing`/
+  `ps_weedplanting` aus Runden 17/18 — Project-Sloth-Muster jetzt neunmal bestätigt).
+- `ps_adminmenu`: README nennt `qbox_core` ausdrücklich, Code-Stichprobe bestätigt echte
+  Framework-Autoerkennung.
+- `badger_discord_api`: Link tot, `JaredScar/Badger_Discord_API` (Unterstriche statt CamelCase)
+  gefunden und bestätigt.
+- `eagleac`, `waveshield`: beide Original-Domains verkauft/verwaist (leiten auf
+  Domain-Verkaufsseiten um) — Projektstatus unklar, bewusst `ungeprueft` belassen statt
+  spekulativer neuer Domains als sicher zu behandeln.
+- `fiveguard`, `okokreports`: Bot-Schutz verhinderte Direktbeleg, Kernangaben nur aus
+  Websuche-Snippets — entsprechend vorsichtig als `ungeprueft`/`vermutung` markiert.
+
+**Katalog:** 0 neu, 14 aktualisiert (9 verifiziert, 2 teilgeprüft, 3 ungeprueft)
+**Commit:** folgt
+
+---
+
+## [Runde 23] – 13.08.2026
+
+**Neu:**
+- `data/catalog/runde-23.json` — Kategorie „Wirtschaft & Banking" komplett (13/13). 3 Einträge
+  direkt aus dem Briefing geschrieben, 10 an einen Subagent delegiert.
+
+**Korrigiert:**
+- `qb_banking`: Code-Stichprobe fand DREI rote Flaggen gleichzeitig (harter `@qb-core`-Include,
+  `exports['qb-target']`, `exports['qb-inventory']`) — `framework` von unbekannt auf
+  `qbcore_only` korrigiert, bisher fälschlich als möglicherweise Qbox-tauglich im Katalog.
+  `qb_crypto` zeigt dasselbe Muster mit zwei roten Flaggen.
+- `wasabi_oxshops`, `pl_printer`, `vending_machines`, `keep_crafting`, `crypto_mining_sim`,
+  `give_cash`: Links korrigiert (Groß-/Kleinschreibung, Profil- statt Repo-Link, Platzhalter).
+  Alle nur mit fxmanifest belegt (kein README/vollständige Code-Stichprobe), deshalb bewusst
+  `teilgeprueft` statt `verifiziert` — auch wenn zwei davon in einer Vergleichsgruppe stehen
+  (RECHERCHE.md §4 verlangt für `verifiziert` die volle Prüftiefe, nicht nur Gruppenzugehörigkeit).
+- `keep_crafting`: seit 2023 archiviert, harte `qb-core`-Abhängigkeit.
+- 4× `okok*`-Produkte (banking/billing/crafting/marketplace): konkrete Produktseiten statt nur
+  Store-Startseite gefunden, `lizenz` auf `escrow` korrigiert.
+
+**Katalog:** 0 neu, 13 aktualisiert (3 verifiziert, 10 teilgeprüft)
+**Commit:** folgt
+
+---
+
+## [Runde 22] – 13.08.2026
+
+**Neu:**
+- `data/catalog/runde-22.json` — Kategorie „Waffen & Kampf" komplett (letzte 2 offene Einträge).
+
+**Korrigiert:**
+- `renewed_weaponscarry`: vollständig durch Code-Stichprobe verifiziert (ox_lib/ox_inventory,
+  keine Framework-Bindung).
+- `weapon_balancing`: Websuche bestätigt, dass es sich bewusst um eine ganze Kategorie
+  konkurrierender Ansätze handelt (kostenlose Config-Only-Scripts bis kostenpflichtige
+  Live-Editor-Tools) — passend zur bestehenden Katalogangabe „Version: Diverse". Bewusst kein
+  einzelner Ersatzlink gesetzt, um die kategoriale Natur nicht falsch darzustellen.
+
+**Katalog:** 0 neu, 2 aktualisiert (1 verifiziert, 1 teilgeprüft)
+**Commit:** folgt
+
+---
+
+## [Runde 21] – 13.08.2026
+
+**Neu:**
+- `data/catalog/runde-21.json` — Kategorie „Realismus & Welt" komplett (17/17). 6 Einträge
+  direkt aus dem Briefing geschrieben, 11 an einen Subagent delegiert.
+
+**Korrigiert:**
+- `dpemotes`: Code-Stichprobe fand rote Flagge (`mysql-async` statt oxmysql) — bisher unbekanntes
+  Kompatibilitätsrisiko, jetzt dokumentiert.
+- `renewed_dutyblips`: README nennt Qbox ausdrücklich in der Framework-Liste, läuft über eigene
+  `Renewed-Lib`-Bridge-Abstraktion.
+- `renewed_weathersync`: Code-Stichprobe bestätigt eine ECHTE Framework-Autoerkennung im Code
+  (nicht nur behauptet) — seltener Fall von vollständig code-belegtem Multi-Framework-Support.
+- `vsync`: **Qualitätssicherung vor dem Schreiben** — der Subagent schlug einen aktiv gepflegten
+  Fork (`vSyncR`) als Ersatzlink vor, das hätte aber der bestehenden Katalog-Einordnung „Legacy/
+  archiviert, Nachfolger qbx_weathersync" widersprochen. Stattdessen den tatsächlichen
+  archivierten Original-Repo (`DevTestingPizza/vSync`) verlinkt, der zur bestehenden Einordnung
+  passt — der aktive Fork wurde bewusst NICHT übernommen.
+- `remove_props`: gefundenes Repo (`Simple-World-Clear`) entfernt world-weit Props+Fahrzeuge,
+  die Katalogbeschreibung meint aber nur spielergebundene Props — als unsicherer Match markiert
+  statt stillschweigend gleichgesetzt.
+- `qb_vehiclefailure`, `rpemotes`: keine verlässlichen Nachfolger gefunden (mehrere
+  konkurrierende Forks bzw. gar kein Kandidat) — bewusst kein Ersatzlink geraten.
+- 6 weitere Link-Korrekturen (Platzhalter/Tippfehler): `polaroid_camera`, `turbulence_off`,
+  `scullyy_emotemenu`, `npc_density`, `zyke_smoking`, `cd_easytime`.
+
+**Katalog:** 0 neu, 17 aktualisiert (6 verifiziert, 8 teilgeprüft, 3 ungeprueft/404)
+**Commit:** folgt
+
+---
+
+## [Runde 20] – 13.08.2026
+
+**Neu:**
+- `data/catalog/runde-20.json` — Kategorie „Kommunikation & Telefon" komplett (14 von 16, auf
+  Nutzerwunsch die ganze Kategorie statt der bisherigen 10–12er-Batches). 6 Einträge direkt aus
+  dem Briefing geschrieben, 8 an einen Subagent delegiert.
+
+**Korrigiert:**
+- `qbot`: **wichtigster Fund** — entgegen der bisherigen Katalog-Annahme KEIN FXServer-Resource,
+  sondern ein eigenständiger Discord-Bot (TypeScript/Node.js/Docker), läuft als separater Dienst.
+- `qbx_radio`/`qbx_radio_legacy`: beide archiviert seit 09.07.2026 bestätigt, Nachfolger
+  `mm_radio` war bereits korrekt vermerkt.
+- `pma_radio_ui`: **Qualitätssicherung vor dem Schreiben** — der Subagent schlug
+  `Qbox-project/mm_radio` als Link vor, das hätte aber der Katalogbeschreibung widersprochen
+  (`pma_radio_ui` soll laut Katalog "framework-frei, Alternative zu mm_radio" sein, `mm_radio`
+  ist aber `qbox_nativ`). Fund bewusst verworfen statt eines widersprüchlichen Eintrags.
+- `wasabi_boombox`: Link-Tippfehler behoben (Groß-/Kleinschreibung).
+- `okokchat`, `okokphone`, `qs_smartphone`: konkrete Produktseiten statt nur Store-Startseite
+  gefunden; bei `okokphone` unbestätigten Preis bewusst NICHT übernommen (Budget ausgeschöpft).
+- `gcphone`: kein eindeutiges Original-Repo unter mehreren privaten Forks auffindbar, kein
+  Ersatzlink geraten.
+
+**Katalog:** 0 neu, 14 aktualisiert (6 verifiziert, 6 teilgeprüft, 2 ungeprueft)
+**Commit:** folgt
+
+---
+
 ## [Runde 19] – 13.08.2026
 
 **Neu:**

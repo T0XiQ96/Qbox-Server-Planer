@@ -1,0 +1,214 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r24",
+  "runde": 24,
+  "thema": "Nachprüfung Kategorie 'Admin & Sicherheit' (komplett — 14 von 14, ganze Kategorie in einer Runde)",
+  "erstellt": "2026-08-13",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "discord_ace_perms",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 16.01.2024, MIT-Lizenz. fxmanifest zeigt reines Server-Script ohne Framework-Bindung (Discord-Rollen → ACE-Permissions-Sync). Code-Stichprobe über alle 4 .lua-Dateien fand weder rote noch grüne Flagge — bestätigt echtes Standalone.",
+      "letztes_update": "Aktiv · letzter Push 16.01.2024",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt: keine Framework-Anbindung, reines ACE-Permission-Sync-Script.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/JaredScar/DiscordAcePerms, https://raw.githubusercontent.com/JaredScar/DiscordAcePerms/master/fxmanifest.lua"
+    },
+    {
+      "id": "easyadmin",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo sehr aktiv (letzter Push 09.08.2026), AGPL-3.0. fxmanifest zeigt komplexes Standalone-System mit eigenem Discord-Bot (bot/dist/bot.js) und Node-basiertem Build, unterstützt GTA5 UND RedM. Code-Stichprobe über 40 von 68 .lua-Dateien fand weder rote noch grüne Flagge — kein Framework-Zugriff erkennbar, reines eigenständiges Admin-System mit eigener Permission-Verwaltung.",
+      "version": "8.0.0-alpha.6",
+      "letztes_update": "Sehr aktiv · letzter Push 09.08.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "kompat_warnung": {
+        "text": "Code-Stichprobe über 40 von 68 Dateien fand keine Framework-Bindung — eigenständiges System mit eigener Permission-Verwaltung (nicht ACE-basiert), unabhängig vom RP-Framework.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Blumlaut/EasyAdmin, https://raw.githubusercontent.com/Blumlaut/EasyAdmin/master/fxmanifest.lua"
+    },
+    {
+      "id": "fivem_server_scraper",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 26.03.2026, MIT-Lizenz. README bestätigt: Python-Tool (kein FiveM-Resource, kein fxmanifest), scraped die öffentliche Serverliste und erkennt Frameworks (ESX/QBCore/QBox/VRP/ND) über Ressourcen-Listen. Läuft extern, nicht als Server-Ressource.",
+      "letztes_update": "Aktiv · letzter Push 26.03.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "contra": ["⚠️ Kein FXServer-Resource, sondern externes Python-Tool"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/janto279/fivem-server-scraper"
+    },
+    {
+      "id": "ps_adminmenu",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 01.05.2026. README bestätigt Dependencies qb-core ODER qbox_core (beide explizit genannt) sowie ox_lib. Code-Stichprobe bestätigt exports.ox_inventory, @ox_lib/init.lua und eine echte Framework-Autoerkennung im Code (client/data.lua:80). Wichtig: README nennt eine inoffizielle, NICHT unterstützte ESX-Portierung von einem Drittautor — bewusst nicht übernommen.",
+      "version": "1.1.7",
+      "letztes_update": "Aktiv · letzter Push 01.05.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["ox_lib"],
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "README nennt qbox_core ausdrücklich als unterstütztes Framework neben qb-core. Code-Stichprobe bestätigt echte Framework-Autoerkennung (client/data.lua:80) sowie ox_inventory-Nutzung.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["Qbox im README ausdrücklich als unterstütztes Framework genannt, Autoerkennung im Code bestätigt"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Project-Sloth/ps-adminmenu, https://raw.githubusercontent.com/Project-Sloth/ps-adminmenu/main/fxmanifest.lua, https://raw.githubusercontent.com/Project-Sloth/ps-adminmenu/main/README.md"
+    },
+    {
+      "id": "ps_donator",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Archivierung bestätigt: seit 06.02.2026 archiviert (gleicher Tag wie ps_drugprocessing/ps_weedplanting aus Runden 17/18 — Team fokussiert sich auf ps-mdt v3). Skript bleibt laut Autor nutzbar. fxmanifest bestätigt Dependencies ox_lib + ox_inventory. Code-Stichprobe bestätigt zusätzlich exports.ox_target — ausschließlich grüne Flaggen.",
+      "version": "2.0.0",
+      "letztes_update": "🪦 Archiviert seit 06.02.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory", "ox_target"],
+      "archiviert": {
+        "text": "Archiviert seit 06.02.2026 (Team fokussiert sich laut README auf ps-mdt v3). Skript bleibt laut Autor funktionsfähig, wird aber nicht mehr aktualisiert.",
+        "nachfolger": ""
+      },
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt ausschließlich grüne Flaggen (ox_lib, ox_inventory, ox_target), aber Repo archiviert.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["🪦 Archiviert seit 06.02.2026"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Project-Sloth/ps-donator, https://raw.githubusercontent.com/Project-Sloth/ps-donator/main/fxmanifest.lua"
+    },
+    {
+      "id": "qb_doorlock",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 20.05.2026, GPL-3.0. fxmanifest bindet @qb-core/shared/locale.lua direkt. README listet zusätzlich qb-input und qb-minigames als Dependencies (Legacy-Stack). Code-Stichprobe bestätigt die eine rote Flagge (Datei-Include), keine weiteren gefunden.",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 20.05.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_only",
+      "abhaengigkeiten": ["qb-input", "qb-minigames"],
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt harten @qb-core/shared/locale.lua-Include (fxmanifest.lua:13). Zusätzlich abhängig von Legacy-Stack (qb-input, qb-minigames).",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["🔴 Harte @qb-core-Datei-Bindung, keine Bridge", "Abhängig von Legacy-Stack (qb-input, qb-minigames)"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/qbcore-framework/qb-doorlock, https://raw.githubusercontent.com/qbcore-framework/qb-doorlock/main/fxmanifest.lua, https://raw.githubusercontent.com/qbcore-framework/qb-doorlock/main/README.md"
+    },
+    {
+      "id": "qbx_adminmenu",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 16.07.2026, GPL-3.0. fxmanifest bestätigt version 0.1.0, Abhängigkeiten qbx_core + ox_lib. Code-Stichprobe bestätigt exports.qbx_core, exports.ox_inventory, @ox_lib/init.lua — ausschließlich grüne Flaggen.",
+      "version": "0.1.0",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_inventory"],
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt ausschließlich grüne Flaggen (exports.qbx_core, exports.ox_inventory, @ox_lib/init.lua).",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_adminmenu, https://raw.githubusercontent.com/Qbox-project/qbx_adminmenu/main/fxmanifest.lua"
+    },
+    {
+      "id": "screenshot_basic",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "WICHTIGER FUND: Bisheriger Katalog-Link (citizenfx/cfx-server-data) war falsch — dieses Repo ist ein generisches, als 'finalized/immutable' archiviertes Datenrepo und enthält screenshot-basic gar nicht (Dateibaum durchsucht, kein Treffer). Das echte offizielle Repo ist citizenfx/screenshot-basic (eigenständig in der CitizenFX-Org, nicht archiviert, letzter Push 08.02.2023). fxmanifest bestätigt reines JS-Client/Server-Script ohne jede Framework-Bindung.",
+      "link": "https://github.com/citizenfx/screenshot-basic",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-13",
+      "letztes_update": "Offiziell · letzter Push 08.02.2023",
+      "framework": "standalone",
+      "kompat_warnung": {
+        "text": "fxmanifest bestätigt reines JS-Script ohne Framework-Zugriff — läuft standalone unter jedem Framework inkl. Qbox.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://api.github.com/orgs/citizenfx/repos (Suche nach 'screenshot'), https://raw.githubusercontent.com/citizenfx/screenshot-basic/master/fxmanifest.lua"
+    },
+    {
+      "id": "vmenu",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo sehr aktiv (letzter Push 12.08.2026, praktisch tagesaktuell), eigene Lizenz (siehe license.md laut README, NOASSERTION-Tag bei GitHub). fxmanifest im Wurzelverzeichnis nicht vorhanden (C#-Projekt, kompiliert als .NET-Ressource) — Code-Stichprobe über die eine gefundene .lua-Datei fand keine Muster, bestätigt aber nicht viel bei einer primär C#-basierten Ressource. Bisherige Katalogangaben (standalone, eigenständige Permissions, Konflikt mit qbx_adminmenu/ps_adminmenu) bleiben inhaltlich plausibel und unverändert.",
+      "letztes_update": "Sehr aktiv · letzter Push 12.08.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/TomGrobbe/vMenu"
+    },
+    {
+      "id": "badger_discord_api",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Ursprünglicher Link (JaredScar/BadgerDiscordAPI) ist 404. Owner-Bestand-Kandidat JaredScar/Badger_Discord_API bestätigt: README beschreibt es als Discord-API-Wrapper für FiveM (REST-Integration: Rollen zuweisen/entfernen, Nickname setzen etc.), framework-agnostisch, keine QBCore/ESX/Qbox-Bindung erkennbar. Lizenz MIT laut GitHub. Link korrigiert.",
+      "link": "https://github.com/JaredScar/Badger_Discord_API",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/JaredScar/Badger_Discord_API"
+    },
+    {
+      "id": "eagleac",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Katalog-Link eagleac.com leitet auf eine Domain-Verkaufsseite um — die Domain ist nicht mehr im Besitz des Projekts. Mögliche Nachfolgeseiten (eaglecheat.com, docs.eagleanti.com) lieferten keinen verwertbaren Inhalt zu Preis/Lizenz/Framework. Abrufbudget ausgeschöpft, kein belastbarer neuer Beleg gefunden — Projekt könnte eingestellt sein.",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-13",
+      "contra": ["⚠️ Ursprüngliche Domain verkauft/verwaist — Projektstatus unklar, für Release-Kandidatur gesondert prüfen"],
+      "qualitaet": "ungeprueft",
+      "quelle": "https://eagleac.com (Redirect zu Domain-Verkaufsseite), https://eaglecheat.com, https://docs.eagleanti.com (kein verwertbarer Inhalt)"
+    },
+    {
+      "id": "fiveguard",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Katalog-Link fiveguard.net existiert weiterhin (Websuche bestätigt aktives Produkt: Anti-Aimbot, Objects-/Cheat-AI-Detection, Web-Admin-Panel, Store unter store.fiveguard.ac). Direkter Seitenabruf zweimal 403 (Bot-Schutz), daher keine Erstbeleg-Angaben zu Preis oder konkreter Framework-Liste möglich.",
+      "link_status": "gesperrt",
+      "link_geprueft_am": "2026-08-13",
+      "qualitaet": "ungeprueft",
+      "quelle": "https://fiveguard.net (403 beim Direktabruf), Websuche-Snippets zu fiveguard.net/store.fiveguard.ac"
+    },
+    {
+      "id": "okokreports",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Store-Startseite bot-geschützt. Konkrete Produktseite über Websuche gefunden: okokReportsV2 (okok.tebex.io/package/5032111). Preisangabe 44,99 EUR stammt nur aus einem Suchergebnis-Snippet, nicht aus der Seite selbst gelesen (403 beim Direktabruf) — deshalb als Vermutung markiert, nicht als sicher übernommen.",
+      "link": "https://okok.tebex.io/package/5032111",
+      "link_status": "gesperrt",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "escrow",
+      "preis": {"betrag": 44.99, "waehrung": "EUR", "typ": "einmalig"},
+      "kompat_warnung": {
+        "text": "Preisangabe stammt nur aus einem Websuche-Snippet, nicht direkt von der (bot-geschützten) Produktseite gelesen.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://okok.tebex.io/package/5032111 (403 beim Direktabruf, Preis nur aus Suchergebnis-Snippet)"
+    },
+    {
+      "id": "waveshield",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Katalog-Link waveshield.com ist verwaist (Redirect zu GoDaddy-Domain-Verkaufsseite). Aktueller Auftritt vermutlich unter waveshield.xyz ('WaveShield - Best FiveM Anticheat 2025', plug-and-play mit Aimbot-/ESP-/Lua-Injection-Erkennung, 'compatible with every framework' laut zugehörigem GitHub-Repo AYZNN/waveshield). Direkter Abruf von waveshield.xyz lieferte 403, daher kein Beleg zu Preis/Lizenz. Neue Domain nicht sicher bestätigt (nur aus Websuche), deshalb ungeprueft belassen.",
+      "link": "https://waveshield.xyz",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-13",
+      "contra": ["⚠️ Ursprüngliche Domain verkauft/verwaist, neue Domain nicht direkt bestätigt"],
+      "qualitaet": "ungeprueft",
+      "quelle": "https://waveshield.com (Redirect zu GoDaddy), https://waveshield.xyz (403 beim Direktabruf), https://github.com/AYZNN/waveshield"
+    }
+  ]
+}
