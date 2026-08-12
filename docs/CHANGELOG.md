@@ -17,6 +17,37 @@ Format je Eintrag:
 
 ---
 
+## [Runde 5] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-5.json` — weitere 11 von 17 verbleibenden Einträgen der Kategorie
+  „Charakter, Inventar & UI" nachgeprüft (Teil 2/3), recherchiert über 3 parallele Subagents
+
+**Korrigiert:**
+- `qbx_loading`: **wichtigster Fund** — vom Owner am 09.07.2026 archiviert, kein Nachfolger
+  genannt. Katalogtext „Gepflegt" war veraltet.
+- `ps_hud`: Repo seit 06.02.2026 archiviert (dasselbe Project-Sloth-Team, das schon
+  `ps-inventory` in Runde 4 archiviert hat), Framework auf `qbcore_only` korrigiert (harte
+  `@qb-core`-Abhängigkeit, kein ox_lib, keine Qbox-Nennung), kein Nachfolger benannt.
+- `pulse_scoreboard`: Platzhalter-Link (`github.com/topics/qbox`) war kein echtes Repo — ein
+  „Ultimate Scoreboard" mit Qbox-Bezug existiert nicht. Ersetzt durch `acscripts/ac_scoreboard`
+  (aktiv, Framework-Autoerkennung inkl. `qbx_core`), Name entsprechend angepasst.
+- `qbx_scoreboard`: Gruppe von `null` auf `scoreboard` gesetzt — gehört inhaltlich zur selben
+  Vergleichsgruppe wie der korrigierte `pulse_scoreboard`/`ac_scoreboard`-Eintrag.
+- `ox_inventory_v3`: Archiviert-Status präzisiert — laut GitHub nicht formal archiviert, aber
+  weiterhin unfertig/experimentell ohne Releases seit Erstellung.
+- `qb_radialmenu`, `qb_spawn`, `qb_target`: Framework auf `qbcore_only` präzisiert (kein
+  ox_lib-/Qbox-Bezug im fxmanifest). `qb_target`-Konfliktwarnung mit `ox_target` auf Beleggrad
+  `vermutung` korrigiert (aus Funktionsüberschneidung geschlossen, keine Autor-Aussage gefunden).
+- `qb_spawn`, `qbx_hud`, `qbx_scoreboard`, `qbx_spawn`, `qb_multicharacter`: weiterhin aktiv,
+  Versionen/Commit-Daten aus fxmanifest bestätigt, keine Statusänderung nötig.
+
+**Katalog:** 0 neu, 11 aktualisiert, 0 Duplikate übersprungen, 3 auf `verifiziert`, 8 auf
+`teilgeprueft` bestätigt/hochgestuft
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 4] – 12.08.2026
 
 **Neu:**

@@ -1,0 +1,166 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r5",
+  "runde": 5,
+  "thema": "Nachprüfung Kategorie 'Charakter, Inventar & UI' (Teil 2/3 — 11 von 17 verbleibenden Einträgen)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "ox_inventory_v3",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Archiviert-Status korrigiert: Repo ist laut GitHub nicht formal archiviert, bleibt aber unfertig/experimentell ohne Releases seit Erstellung — Warnung bleibt inhaltlich bestehen, nur präziser formuliert.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "TypeScript/Svelte-Rewrite, laut README explizit 'for testing purposes only'. Nicht offiziell archiviert, aber seit Erstellung unfertig/experimentell, keine Releases. NICHT produktiv nutzen.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/overextended/ox_inventory_v3 (README, Repo-Metadaten)"
+    },
+    {
+      "id": "ps_hud",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo seit 06.02.2026 vom Owner archiviert (read-only) — 'gepflegt' war veraltet, Project-Sloth fokussiert sich laut Runde-4-Fund auf ps-mdt v3. Framework auf qbcore_only korrigiert: fxmanifest hat harte @qb-core-Abhängigkeit, kein ox_lib, keine Qbox-Nennung. Kein Nachfolger benannt.",
+      "letztes_update": "⚠️ Archiviert am 06.02.2026, kein Nachfolger benannt",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "2.1.2",
+      "framework": "qbcore_only",
+      "archiviert": {
+        "text": "Vom Owner am 06.02.2026 archiviert (read-only). Harte QBCore-Abhängigkeit (@qb-core), kein ox_lib, keine Qbox-Nennung. Kein Nachfolger benannt.",
+        "nachfolger": ""
+      },
+      "contra": ["🪦 Archiviert seit 06.02.2026", "🔁 Bridge (harte @qb-core-Abhängigkeit)", "Mehr Resmon-Last", "Stress-Feature ggf. doppelt"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Project-Sloth/ps-hud (Archived-Banner, fxmanifest.lua)"
+    },
+    {
+      "id": "pulse_scoreboard",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Platzhalter-Link (github.com/topics/qbox, generische Themen-Suchseite) war kein echtes Repo — ein 'Ultimate Scoreboard' mit Qbox-Bezug existiert nicht. Ersetzt durch acscripts/ac_scoreboard: aktives, gepflegtes Scoreboard mit expliziter Framework-Autoerkennung (qbx_core/qb-core/ox_core/es_extended) und ox_lib-Nutzung. Name entsprechend angepasst.",
+      "name": "ac_scoreboard",
+      "beschreibung": "Aktives Community-Scoreboard mit automatischer Framework-Erkennung (qbx_core, qb-core, ox_core, es_extended), setzt auf ox_lib.",
+      "link": "https://github.com/acscripts/ac_scoreboard",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "version": "Aktuell",
+      "letztes_update": "Aktiv gepflegt (95 Commits)",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Framework-Autoerkennung im Code (qbx_core/qb-core/ox_core/es_extended-Zweige), ox_lib als Abstraktionsschicht — grüne Flaggen erfüllt.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["Aktiv gepflegt", "Framework-Autoerkennung inkl. qbx_core", "GPL-3.0 quelloffen"],
+      "contra": ["Kein offizielles Qbox-Repo"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/acscripts/ac_scoreboard"
+    },
+    {
+      "id": "qb_multicharacter",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Bestätigt: Repo weiterhin aktiv, nicht archiviert (11 offene Issues, 4 offene PRs — laufende Pflege), Einordnung als Bridge-Legacy unverändert korrekt.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/qbcore-framework/qb-multicharacter"
+    },
+    {
+      "id": "qb_radialmenu",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo weiterhin aktiv (Commit 07/2026), Link und Version bestätigt. Framework auf qbcore_only präzisiert (fxmanifest lädt @qb-core/shared/locale.lua, kein ox_lib-/qbx-Bezug).",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.5.0",
+      "letztes_update": "Aktiv · letzter Commit 22.07.2026",
+      "framework": "qbcore_only",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/qbcore-framework/qb-radialmenu (fxmanifest.lua, Commit-Historie)"
+    },
+    {
+      "id": "qb_spawn",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo weiterhin aktiv, aber unverändert Legacy-Abhängigkeit auf qb-apartments/@qb-core bestätigt (fxmanifest). Nachfolger qbx_spawn als aktiv verifiziert (letzter Push 16.07.2026), bestätigt den Katalogtext 'durch qbx_spawn ersetzt'. Framework auf qbcore_only präzisiert.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.5.0",
+      "letztes_update": "Aktiv · letzter Commit 20.05.2026",
+      "framework": "qbcore_only",
+      "kompat_warnung": {
+        "text": "Setzt auf qb-apartments und den alten qb-Stack auf (@qb-core, @qb-apartments, @oxmysql im fxmanifest), kein Qbox-Bezug im Code. Auf Qbox durch qbx_spawn ersetzt.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/qbcore-framework/qb-spawn (fxmanifest.lua); https://github.com/Qbox-project/qbx_spawn (Aktivitätsbestätigung)"
+    },
+    {
+      "id": "qb_target",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo weiterhin aktiv, kein Nachfolger im qbcore-framework-Namespace, Qbox hat kein eigenes 'qbx_target' — nutzt direkt ox_target. Konflikt-Warnung mit ox_target bleibt bestehen, Beleggrad auf 'vermutung' präzisiert (aus Funktionsüberschneidung Third-Eye geschlossen, keine explizite Autor-Aussage gefunden). Framework auf qbcore_only präzisiert.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "5.5.0",
+      "letztes_update": "Aktiv · letzter Commit 20.05.2026",
+      "framework": "qbcore_only",
+      "kompat_warnung": {
+        "text": "Läuft parallel zu ox_target nicht sauber, da beide dieselbe Interaktionsebene (Third-Eye) besetzen — Doppelbelegung von Tasten/Interaktions-Handlern. Aus Funktionsüberschneidung geschlossen, keine explizite Autor-Aussage gefunden.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/qbcore-framework/qb-target (fxmanifest.lua, Commit-Historie)"
+    },
+    {
+      "id": "qbx_hud",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo weiter aktiv (Commit 22.07.2026), Version und Kernabhängigkeiten (qbx_core + ox_lib) im fxmanifest direkt bestätigt (@ox_lib/init.lua, @qbx_core/modules/lib.lua) — grüne Flaggen erfüllt, Katalogeintrag stimmt weiterhin.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "0.1.0",
+      "letztes_update": "Aktiv · letzter Commit 22.07.2026",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_hud (fxmanifest.lua)"
+    },
+    {
+      "id": "qbx_loading",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Wichtigster Fund: Repo wurde am 09.07.2026 vom Owner archiviert (read-only), kein Nachfolger genannt. Katalogtext 'Gepflegt' war veraltet.",
+      "letztes_update": "⚠️ Archiviert am 09.07.2026, kein Nachfolger benannt",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "0.1.0",
+      "archiviert": {
+        "text": "Vom Owner am 09.07.2026 archiviert (read-only), keine weitere Pflege zu erwarten. Bei künftigen FiveM-Änderungen ggf. nicht mehr lauffähig. Kein Nachfolger genannt.",
+        "nachfolger": ""
+      },
+      "contra": ["🪦 Archiviert seit 09.07.2026"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_loading (Archived-Banner, fxmanifest.lua)"
+    },
+    {
+      "id": "qbx_scoreboard",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo weiterhin aktiv (kein Archiv, Commit 09.07.2026), fxmanifest bestätigt qbx_core + ox_lib als native Abhängigkeit. Gruppe auf 'scoreboard' gesetzt (war null) — gehört inhaltlich zur selben Vergleichsgruppe wie pulse_scoreboard/ac_scoreboard, beide sind Scoreboard-Alternativen.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Commit 09.07.2026",
+      "gruppe": "scoreboard",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_scoreboard (fxmanifest.lua)"
+    },
+    {
+      "id": "qbx_spawn",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo weiterhin aktiv (kein Archiv, Commit 09.07.2026), Version 0.1.1 aus fxmanifest bestätigt. qbx_core-Abhängigkeit im fxmanifest nicht explizit als dependency-Zeile deklariert (nur ox_lib/oxmysql sichtbar) — vermutlich implizit über Runtime-Exports, nicht direkt widerlegt, Katalogangabe daher unverändert gelassen.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "0.1.1",
+      "letztes_update": "Aktiv · letzter Commit 09.07.2026",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_spawn (fxmanifest.lua)"
+    }
+  ]
+}
