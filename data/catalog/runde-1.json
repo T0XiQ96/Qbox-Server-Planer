@@ -1,0 +1,278 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r1",
+  "runde": 1,
+  "thema": "Nachprüfung der 22 essenziellen Altbestand-Einträge (Framework & Kern) — auf Wunsch keine Suche nach neuen Plugins in dieser Runde, ausschließlich Verifikation des bestehenden Katalogs",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "community_bridge",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link (Renewed-Scripts/community_bridge) existiert nicht mehr (404) — aktives Repo liegt bei TheOrderFivem/community_bridge. Version und Aktivität bestätigt.",
+      "link": "https://github.com/TheOrderFivem/community_bridge",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "0.13.5",
+      "letztes_update": "Aktiv · Push vom 10.08.2026, Release 0.13.5 vom 01.08.2026",
+      "qualitaet": "verifiziert",
+      "quelle": "GitHub API repos/TheOrderFivem/community_bridge (archived:false); fxmanifest.lua shared_scripts enthält @ox_lib/init.lua; README 'Framework Compatibility: Supports QBCore, ESX, QBox, and custom roleplay frameworks'"
+    },
+    {
+      "id": "ox_lib",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Lage hat sich gedreht: overextended/ox_lib ist NICHT mehr archiviert (wieder aktiv, Push 07.08.2026). Der im Katalog vermerkte 'TheOrderFivem/CommunityOx'-Fork existiert unter diesem Namen so nicht — CommunityOx/ox_lib ist selbst archiviert (28.04.2026). Aktuell offizielle, aktive Quelle ist wieder das Original.",
+      "link": "https://github.com/overextended/ox_lib",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "3.39.0",
+      "letztes_update": "Aktiv · Push vom 07.08.2026, Release v3.39.0 vom 13.07.2026",
+      "qualitaet": "verifiziert",
+      "quelle": "GitHub API repos/overextended/ox_lib (archived:false, pushed_at 2026-08-07); repos/communityox/ox_lib (archived:true, pushed_at 2026-02-20)"
+    },
+    {
+      "id": "pma-voice",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Version und Aktivität bestätigt, keine Framework-Kopplung im Code gefunden — bleibt reine Standalone-Voice-Lösung.",
+      "version": "7.0.1 (fxmanifest) / v7.0.2-rc3 (Release Candidate, neuester Tag)",
+      "letztes_update": "Aktiv · Push vom 17.06.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "GitHub API repos/AvarianKnight/pma-voice (archived:false, pushed_at 2026-06-17); fxmanifest.lua"
+    },
+    {
+      "id": "txadmin",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo von tabarra/txAdmin zu citizenfx/txAdmin transferiert (GitHub-Redirect 301 bestätigt). Alte URL funktioniert im Browser vermutlich noch, die API meldet aber 'Moved Permanently'.",
+      "link": "https://github.com/citizenfx/txAdmin",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "letztes_update": "Aktiv · Push vom 05.08.2026",
+      "qualitaet": "verifiziert",
+      "quelle": "GitHub API repos/tabarra/txAdmin → 301 Redirect zu citizenfx/txAdmin (archived:false, pushed_at 2026-08-05); README-Hinweis 'txAdmin is a component of FXServer'"
+    },
+    {
+      "id": "discord_logging",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Doku-Seite weiterhin erreichbar und aktuell, kein Umzug nötig.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "letztes_update": "Doku-Modul von ox_lib, folgt dessen Aktivität (Push 07.08.2026)",
+      "qualitaet": "verifiziert",
+      "quelle": "https://overextended.dev/ox_lib/Modules/Logger/Server — lädt fehlerfrei, beschreibt lib.logger() mit Datadog/Grafana-Loki/Fivemanage-Integrationen"
+    },
+    {
+      "id": "qbx_core",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Version und Aktivität bestätigt, Dependencies (ox_lib, oxmysql) im fxmanifest bestätigt.",
+      "version": "1.23.0",
+      "letztes_update": "Aktiv · Push vom 20.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_core (README + fxmanifest.lua)"
+    },
+    {
+      "id": "qbx_multicharacter",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo seit 10.09.2023 archiviert ('Unmaintained') — die Multicharacter-Funktion wurde am selben Tag fest in qbx_core eingebaut (PR #119 'Add multichar to core'). Katalog-Link hatte zudem den falschen Trenner (Unterstrich statt Bindestrich, führte zu 404). Separate Installation ist damit nicht mehr nötig und potenziell redundant zur eingebauten Funktion.",
+      "link": "https://github.com/Qbox-project/qbx-multicharacter",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": {
+        "text": "Archiviert am 10.09.2023 ('Unmaintained'). Die Funktion ist seither fest in qbx_core eingebaut (PR #119 'Add multichar to core').",
+        "nachfolger": "qbx_core"
+      },
+      "essenziell": false,
+      "contra": ["Abgelöst durch die fest eingebaute Multicharacter-Funktion in qbx_core seit PR #119 — separate Installation nicht mehr nötig, ggf. redundant"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx-multicharacter; PR #119 in qbx_core"
+    },
+    {
+      "id": "qbx_garages",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Version und Aktivität bestätigt. README nennt zusätzlich zu qbx_core/ox_lib eine Abhängigkeit auf qbx_vehicles — dieses Modul ist noch nicht im Katalog erfasst, deshalb nicht in abhaengigkeiten aufgenommen (würde einen toten Querverweis erzeugen), sondern als Tipp vermerkt.",
+      "version": "1.1.4",
+      "letztes_update": "Aktiv · Push vom 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_garages (README-Dependencies-Abschnitt + fxmanifest.lua)",
+      "tipp": "README nennt zusätzlich zu qbx_core/ox_lib eine Abhängigkeit auf qbx_vehicles (noch nicht im Katalog erfasst, Kandidat für eine künftige Runde) — vor dem Einsatz prüfen, ob das Vehicle-Management-Modul separat installiert werden muss."
+    },
+    {
+      "id": "qbx_management",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Version und Aktivität bestätigt, Dependencies passen.",
+      "version": "1.4.0",
+      "letztes_update": "Aktiv · Push vom 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_management (fxmanifest.lua)"
+    },
+    {
+      "id": "qbx_smallresources",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Nicht als GitHub-Repo archiviert, aber der Autor kündigt im README selbst den schrittweisen Rückbau an ('now deprecated and will be deconstructed in future releases').",
+      "version": "0.2.0",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "README enthält den wörtlichen Hinweis 'This resource is now deprecated and will be deconstructed in future releases. No new code will be added.' Kein Nachfolge-Repo im README verlinkt — technisch noch installierbar und aktiv gepflegt (Bugfixes), aber ohne neue Features.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_smallresources (README + fxmanifest.lua)"
+    },
+    {
+      "id": "qbx_weathersync",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo am 18.11.2023 archiviert ('Unsupported'), kein Nachfolger im README oder in qbx_core-Issues auffindbar.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": {
+        "text": "Am 18.11.2023 vom Owner archiviert, Repo-Beschreibung 'Unsupported'. Kein offizieller Nachfolger genannt oder auffindbar.",
+        "nachfolger": ""
+      },
+      "essenziell": false,
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_weathersync; https://github.com/Qbox-project/qbx_core/issues?q=weathersync (keine Treffer)"
+    },
+    {
+      "id": "ox_inventory",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Archiv-Kette im Katalog war überholt: TheOrderFivem/ox_inventory ist inzwischen SELBST archiviert (~15.07.2026). overextended/ox_inventory (Original) ist NICHT archiviert und aktueller als jeder Fork (Release v2.47.9, 13.07.2026). Katalog-Link korrigiert.",
+      "link": "https://github.com/overextended/ox_inventory",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "2.47.9",
+      "letztes_update": "Aktiv · overextended/ox_inventory NICHT archiviert, Release v2.47.9 vom 13.07.2026, Push 07.08.2026",
+      "kompat_warnung": {
+        "text": "Enthält natives modules/bridge/qbx/ (client.lua, server.lua) mit assert(lib.checkDependency('qbx_core', ...)) und assert(lib.checkDependency('qbx_vehicles', ...)) — Qbox wird direkt im Code unterstützt. server.cfg braucht 'setr inventory:framework qbx' (Default ist esx). Eine feste Startreihenfolge direkt nach qbx_core ist nur als Empfehlung belegt, nicht als harte technische Pflicht.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "GitHub API repos/overextended/ox_inventory (archived:false); repos/TheOrderFivem/ox_inventory (archived:true); raw modules/bridge/qbx/server.lua"
+    },
+    {
+      "id": "ox_target",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "overextended/ox_target ist NICHT archiviert und aktueller (Juni 2026) als der bisher verlinkte TheOrderFivem-Fork (seit Oktober 2025 ohne Commit, praktisch tot).",
+      "link": "https://github.com/overextended/ox_target",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.18.1",
+      "letztes_update": "Aktiv · Release v1.18.1 vom 25.04.2026, Push 09.06.2026",
+      "qualitaet": "verifiziert",
+      "quelle": "GitHub API repos/overextended/ox_target, repos/TheOrderFivem/ox_target, repos/CommunityOx/ox_target"
+    },
+    {
+      "id": "ox_doorlock",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "overextended/ox_doorlock ist NICHT archiviert und aktueller (Juli 2026) als der bisher verlinkte TheOrderFivem-Fork (seit März 2026 ohne Commit).",
+      "link": "https://github.com/overextended/ox_doorlock",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.22.1",
+      "letztes_update": "Aktiv · Release v1.22.1 vom 25.04.2026, Push 03.07.2026",
+      "qualitaet": "verifiziert",
+      "quelle": "GitHub API repos/overextended/ox_doorlock, repos/TheOrderFivem/ox_doorlock, repos/CommunityOx/ox_doorlock"
+    },
+    {
+      "id": "ox_fuel",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link auf TheOrderFivem/ox_fuel war schlicht falsch — dieses Repo existiert nicht (404, GitHub API + Websuche bestätigt, TheOrderFivem hat nur ox_inventory/ox_target/ox_doorlock). Korrekt ist overextended/ox_fuel, aktiv und nicht archiviert.",
+      "link": "https://github.com/overextended/ox_fuel",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.5.4",
+      "letztes_update": "Aktiv · Release v1.5.4 vom 29.05.2026",
+      "qualitaet": "verifiziert",
+      "quelle": "GitHub API repos/TheOrderFivem/ox_fuel (404), repos/overextended/ox_fuel, repos/CommunityOx/ox_fuel"
+    },
+    {
+      "id": "qbx_invimages",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo existiert weiterhin, nicht archiviert, seltene Commits sind bei diesem Asset-Sammel-Repo normal.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "letztes_update": "Aktiv, nicht archiviert · letzter Push 17.07.2025 (Asset-Repo, kein häufiges Update nötig)",
+      "qualitaet": "verifiziert",
+      "quelle": "GitHub API repos/Qbox-project/qbx_invimages"
+    },
+    {
+      "id": "ox_custom_weapons",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Guide-Seite lädt fehlerfrei, Inhalt (vWeaponsToolkit-Standard, ox_inventory weapons.lua) wirkt praxistauglich, aber Veröffentlichungsdatum (März 2025) noch nicht zeilenweise gegen aktuellen ox_inventory-Waffencode abgeglichen — deshalb teilgeprueft statt verifiziert.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "letztes_update": "Blogpost veröffentlicht 26.03.2025, Seite weiterhin erreichbar",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://docs.qbox.re/blog/install-custom-weapons"
+    },
+    {
+      "id": "qbx_policejob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Sehr aktiv gepflegt (Commits bis Juli 2026), qbx_core-Abhängigkeit bestätigt. ox_inventory-Abhängigkeit plausibel (Evidence-Locker-Funktionen), aber im geprüften Ausschnitt nicht wörtlich im fxmanifest gesehen — deshalb teilgeprueft statt verifiziert.",
+      "letztes_update": "Aktiv · letzter Commit 09.07.2026 (davor 29.03.2026 Lokalisierung, 31.10.2025 Feature-Refactor)",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_policejob (README, Commits)"
+    },
+    {
+      "id": "qbx_ambulancejob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Aktiv gepflegt, Integration mit qbx_medical und ox_target (useTarget-Option) bestätigt, exakte fxmanifest-Dependency-Liste im geprüften Ausschnitt nicht vollständig einsehbar.",
+      "letztes_update": "Aktiv · letzter Commit 09.07.2026 (davor 21.03.2026 Sicherheitsfix an RevivePlayer-Event)",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_ambulancejob (README, Commits)"
+    },
+    {
+      "id": "mm_radio",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Existiert wirklich und ist aktiv gepflegt — der Nachfolger-Verweis im archivierten qbx_radio-Eintrag stimmt also. Basiert laut README auf dem Community-Projekt SOH69/mm_radio.",
+      "letztes_update": "Aktiv · letzter Commit 09.07.2026 (188 Commits gesamt)",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "neutral": ["Braucht pma-voice", "Basiert auf dem Community-Projekt SOH69/mm_radio, für Qbox importiert/angepasst — keine Eigenentwicklung von Qbox-project"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/mm_radio (README, Commits)"
+    },
+    {
+      "id": "npwd",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "npwd selbst ist framework-agnostisch und bringt KEINE native Qbox-Anbindung mit — dafür braucht es das separate Bridge-Repo Qbox-project/qbx_npwd (noch nicht im Katalog erfasst). Pflegeaktivität von npwd selbst seit 27.03.2025 eingeschlafen (kein offizielles Archiv, aber ruhig).",
+      "version": "3.16.0",
+      "letztes_update": "Letzter Commit 27.03.2025 (Version-Bump) — seit ca. 1,5 Jahren keine neue Aktivität, aber nicht offiziell archiviert",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "npwd ist laut README framework-agnostisch (ESX/QBCore/custom) und enthält keine eigene Qbox-Logik. Für Qbox wird die separate Bridge Qbox-project/qbx_npwd benötigt (aktiv, 46 Commits) — noch nicht im Katalog erfasst, Kandidat für eine künftige Runde.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/project-error/npwd (README, Commits); https://github.com/Qbox-project/qbx_npwd (README)"
+    },
+    {
+      "id": "renewed_banking",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalogeintrag framework='qbox_nativ' war falsch — README sagt ausdrücklich nur QBCore/ESX-Support, keine native Qbox-Anbindung. Zusätzlich seit über 15 Monaten ohne Aktivität (17 offene Issues, 7 offene PRs).",
+      "framework": "qbcore_bridge",
+      "version": "2.0.0",
+      "letztes_update": "Letzter Commit 04.05.2025 — seit über 15 Monaten keine neue Aktivität, 17 offene Issues, 7 offene PRs unbearbeitet",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "README: 'Supports QBCore and ESX. You can easily add support for other frameworks by editing the Framework.lua' — keine native Qbox-Anbindung, sondern nur QBCore/ESX-Framework-Dateien; Qbox-Nutzung erfordert eigenes Bridge-Scripting über Framework.lua. Kein bridge/qbx-Ordner und keine Qbox-Erwähnung im Repo gefunden.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Renewed-Scripts/Renewed-Banking (README, fxmanifest, Commits)"
+    }
+  ]
+}

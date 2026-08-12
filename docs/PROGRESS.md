@@ -4,13 +4,12 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `aeec4e7` (Phase 1). Phase 2 ist fertig, aber noch **nicht** committet — das ist der nächste Schritt.
-**Validate-Status:** grün (2 Katalogdateien: `data/catalog/demo.json` mit 6 Einträgen,
-`data/catalog/altbestand.json` mit 256 Einträgen · 262 Plugins gesamt · 13 harmlose Warnungen,
-alles Gruppen mit nur einem Mitglied — erwartbar, solange Vergleichspartner fehlen)
-**Katalogstand:** 262 gesamt · 0 verifiziert · 0 teilgeprüft · 262 ungeprüft (Demo- und
-Altbestand-Konvertierung, noch keine echte Recherche nach docs/RECHERCHE.md)
-**Aktuelle Runde:** — (noch keine Recherche-Runde begonnen, Phase 3 kommt erst nach Phase 2)
+**Letzter Commit:** `19dfb87` (Phase 2). Runde 1 ist fertig, aber noch **nicht** committet — das ist der nächste Schritt.
+**Validate-Status:** grün (3 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
+0 neue + 22 Updates · 262 Plugins gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
+**Katalogstand:** 262 gesamt · 18 verifiziert · 4 teilgeprüft · 240 ungeprüft
+**Aktuelle Runde:** Runde 1 — Nachprüfung der 22 essenziellen Altbestand-Einträge (kein
+Neufund, auf Nutzerwunsch: „prüfe erstmal den Altbestand")
 
 ---
 
@@ -21,7 +20,7 @@ Altbestand-Konvertierung, noch keine echte Recherche nach docs/RECHERCHE.md)
 - [x] Phase 2 — Konvertierung des Altbestands aus `reference/qbox-server-planer-v2-1.html`
   (124 Einträge, nicht 88 wie ursprünglich geschätzt) und `reference/kimi-kataloge/` (140
   Einträge) → `data/catalog/altbestand.json`, 256 Plugins
-- [ ] Phase 3 — Recherche-Runden 1–10
+- [~] Phase 3 — Recherche-Runden 1–10 (Runde 1 fertig, 2–10 offen)
 - [ ] Phase 4 — Finale Duplikatprüfung, Link-Check über alles, Release
 
 ## Woran ich zuletzt gearbeitet habe
@@ -123,14 +122,59 @@ Schema-Prüfer wie `npm run validate`, statt einer zweiten, driftenden Variante)
 wurde per echter Browser-Navigation über `file://` geprüft — Persistenz, Import/Export,
 Konflikt-Warner, Vergleichsmodus, ensure-Export, alles bestätigt.
 
+## Runde 1 — Nachprüfung statt Neufund (auf Nutzerwunsch)
+
+Nutzer bat explizit: „Fang an mit der ersten Runde, prüfe dabei den Altbestand erstmal" — deshalb
+in Runde 1 bewusst **keine** Suche nach neuen Plugins, sondern ausschließlich Nachprüfung. Als
+Stichprobe die 22 `essenziell: true` markierten Einträge gewählt (sinnvollere Priorität als
+alphabetisch, da RECHERCHE.md §6 bei durchgehend leerem `geprueft_am` keine Reihenfolge vorgibt —
+das sind die Plugins, auf denen der ganze Server aufbaut, also der teuerste Ort für falsche Daten).
+Recherche über 4 parallele Subagents (echte GitHub-API-Abfragen, README/fxmanifest-Lektüre, keine
+Vermutungen aus Vorwissen), Ergebnis als `updates[]` in `data/catalog/runde-1.json` — 22 Updates,
+0 neue Plugins. `npm run validate`/`stats`/`selftest` grün, `scripts/lib/katalog.mjs` wendet die
+Updates automatisch beim Laden an (geprüft: `ladeKatalog()` liefert die korrigierten Felder).
+
+**Wichtige Funde (Altbestand war an mehreren Stellen veraltet oder schlicht falsch):**
+
+- **ox_lib war NICHT mehr archiviert.** Der Katalog (aus der kimi-Runde übernommen, D17) behauptete
+  „Overextended archiviert → Fork bei TheOrderFivem/CommunityOx". Tatsächlich (12.08.2026 per
+  GitHub-API geprüft) ist `overextended/ox_lib` wieder aktiv und aktueller als jeder Fork
+  (`communityox/ox_lib` ist archiviert). Overextended hat die Wartung offenbar wieder aufgenommen.
+- **Dieselbe falsche Archiv-Kette betraf `ox_inventory`, `ox_target`, `ox_doorlock`, `ox_fuel`** —
+  bei allen vieren ist das Original bei `overextended/*` aktiv und aktueller als der bisher
+  verlinkte `TheOrderFivem`-Fork. Bei `ox_inventory` ist `TheOrderFivem/ox_inventory` inzwischen
+  selbst archiviert. Bei **`ox_fuel` existierte der Katalog-Link `TheOrderFivem/ox_fuel` gar
+  nicht** (404) — reiner Fehler in der Altbestand-Übernahme. Alle vier Links auf `overextended/*`
+  korrigiert.
+- **`qbx_multicharacter` ist seit 10.09.2023 archiviert** — die Funktion steckt seither fest in
+  `qbx_core` (PR #119). Als `archiviert` mit Nachfolger `qbx_core` markiert, `essenziell` auf
+  `false` gesetzt (separate Installation nicht mehr nötig/potenziell redundant).
+- **`qbx_weathersync` ist seit 18.11.2023 archiviert, ohne Nachfolger.** Als `archiviert` markiert,
+  `essenziell` auf `false`.
+- **`qbx_smallresources`** ist zwar aktiv, aber der Autor kündigt im README selbst den Rückbau an
+  („deprecated and will be deconstructed") — als `kompat_warnung` (bestätigt) festgehalten.
+- **`renewed_banking` war fälschlich als `qbox_nativ` markiert** — README sagt ausdrücklich nur
+  QBCore/ESX-Support. Auf `qbcore_bridge` korrigiert, `kompat_warnung` mit Zitat ergänzt.
+- **`npwd`** ist framework-agnostisch, braucht für Qbox eine separate Bridge (`qbx_npwd`, noch
+  nicht im Katalog) — als `kompat_warnung` festgehalten statt stillschweigend übernommen.
+- **`mm_radio` existiert wirklich und ist aktiv** — der Nachfolger-Verweis im archivierten
+  `qbx_radio`-Demo-Eintrag war also korrekt, keine Korrektur nötig.
+- **`txadmin`**: Repo-Transfer `tabarra/txAdmin` → `citizenfx/txAdmin` (301-Redirect bestätigt),
+  Link korrigiert. **`community_bridge`**: Katalog-Link zeigte auf ein 404-Repo
+  (`Renewed-Scripts/community_bridge`), echtes Repo liegt bei `TheOrderFivem/community_bridge`.
+
+**Bewusst nicht übernommen:** `qbx_garages` braucht laut README zusätzlich `qbx_vehicles`,
+`npwd` braucht `qbx_npwd` — beide IDs sind noch nicht im Katalog. Nicht in `abhaengigkeiten`
+aufgenommen (Validator-Regel R7 wäre ein harter Fehler bei totem Querverweis), stattdessen als
+`tipp`/`kompat_warnung`-Text vermerkt. Kandidaten für eine künftige Runde.
+
 ## Nächster Schritt
 
-**Committen.** Phase 2 ist fertig, aber der gesamte Stand (`scripts/import/*.mjs`,
-`data/catalog/altbestand.json`, `docs/altbestand-konflikte.md`, die Änderung an `demo.json` und
-diese Doku-Updates) liegt noch uncommittet im Working Tree. Danach: Phase 3 (Recherche-Runden nach
-`docs/RECHERCHE.md`) beginnen — eigene Session pro Runde, Sonnet 5, Ablauf: neue Themen suchen UND
-die 20 Katalogeinträge mit ältestem `geprueft_am` nachprüfen (aktuell alle 262 gleich alt/leer,
-also erstmal freie Themenwahl für Runde 1). `npm run newround 1` legt das Gerüst an.
+**Committen.** Runde 1 ist fertig, aber `data/catalog/runde-1.json` und die Doku-Updates liegen
+noch uncommittet im Working Tree. Danach: Runde 2 — jetzt mit echter Neusuche nach neuen Plugins
+(RECHERCHE.md §6 verlangt beides je Runde; Runde 1 war auf Nutzerwunsch eine Ausnahme), plus
+Nachprüfung der nächsten ältesten Einträge (aktuell: alle 240 verbleibenden `ungeprueft` mit
+leerem `geprueft_am`, freie Themenwahl). `npm run newround 2` legt das Gerüst an.
 
 ## Offene Punkte / Rückfragen an den Nutzer
 
@@ -140,10 +184,14 @@ also erstmal freie Themenwahl für Runde 1). `npm run newround 1` legt das Gerü
 
 - Die 8 Feldkollisionen zwischen v2.1 und kimi in `docs/altbestand-konflikte.md` sind zur
   Durchsicht protokolliert, aber nicht blockierend — bei Gelegenheit querlesen, ob die
-  kimi-Version (gewinnt automatisch nach D17) überall die bessere Wahl war.
-- Alle 262 Katalogeinträge sind `qualitaet: "ungeprueft"` (Demo- und Altbestand-Konvertierung,
-  keiner nach `docs/RECHERCHE.md` recherchiert). Sie bleiben im Katalog, bis Phase 3 sie durch
-  echte Recherche ersetzt oder auf `teilgeprueft`/`verifiziert` hochstuft.
+  kimi-Version (gewinnt automatisch nach D17) überall die bessere Wahl war. Die in Runde 1
+  gefundene falsche Archiv-Kette bei den ox_*-Plugins kam genau aus so einer kimi-Übernahme —
+  ein Hinweis, dass die restlichen kimi-Funde ebenfalls mit Vorsicht zu genießen sind.
+- `qbx_vehicles` und `qbx_npwd` sind laut Runde-1-Funden echte, aktive Qbox-Module, aber noch
+  nicht im Katalog erfasst — gute Kandidaten für die Neusuche in Runde 2.
+- 240 Katalogeinträge sind weiterhin `qualitaet: "ungeprueft"` (Demo- und Altbestand-Konvertierung,
+  keiner nach `docs/RECHERCHE.md` recherchiert). Sie bleiben im Katalog, bis künftige Runden sie
+  ersetzen oder hochstufen.
 
 ---
 
@@ -151,4 +199,4 @@ also erstmal freie Themenwahl für Runde 1). `npm run newround 1` legt das Gerü
 
 | Runde | Thema | Neu | Aktualisiert | Übersprungen (Dup.) | Ungeprüft | Datei | Commit |
 |---|---|---|---|---|---|---|---|
-| — | — | — | — | — | — | — | — |
+| 1 | Nachprüfung der 22 essenziellen Altbestand-Einträge (kein Neufund, auf Nutzerwunsch) | 0 | 22 | 0 | 0 (18 verifiziert, 4 teilgeprüft) | `data/catalog/runde-1.json` | folgt |

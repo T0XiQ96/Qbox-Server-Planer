@@ -17,6 +17,41 @@ Format je Eintrag:
 
 ---
 
+## [Runde 1] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-1.json` — erste Recherche-Runde nach `docs/RECHERCHE.md`, auf
+  ausdrücklichen Nutzerwunsch als reine Nachprüfung des Altbestands (keine Suche nach neuen
+  Plugins): 22 `updates[]` für die essenziellen Basis-Plugins, recherchiert über 4 parallele
+  Subagents (GitHub-API, README/fxmanifest, keine Vermutungen aus Vorwissen)
+
+**Korrigiert (Altbestand war veraltet oder falsch):**
+- `ox_lib`, `ox_inventory`, `ox_target`, `ox_doorlock`, `ox_fuel`: die aus der kimi-Runde
+  übernommene Archiv-Kette „Overextended archiviert → TheOrderFivem/CommunityOx-Fork aktuell"
+  stimmt nicht mehr. `overextended/*` ist bei allen fünf wieder aktiv und aktueller als jeder
+  Fork; bei `ox_inventory` ist der bisher empfohlene `TheOrderFivem`-Fork inzwischen selbst
+  archiviert; der Katalog-Link zu `TheOrderFivem/ox_fuel` existierte nie (404). Alle fünf Links
+  auf `overextended/*` korrigiert.
+- `qbx_multicharacter`: archiviert seit 10.09.2023, Funktion seither fest in `qbx_core`
+  eingebaut (PR #119) — als `archiviert` markiert, `essenziell` auf `false`.
+- `qbx_weathersync`: archiviert seit 18.11.2023, kein Nachfolger — als `archiviert` markiert,
+  `essenziell` auf `false`.
+- `renewed_banking`: fälschlich `framework: "qbox_nativ"` — README bestätigt nur QBCore/ESX,
+  auf `qbcore_bridge` korrigiert.
+- `txadmin`: Repo-Transfer `tabarra/txAdmin` → `citizenfx/txAdmin`, Link korrigiert.
+- `community_bridge`: Katalog-Link zeigte auf ein nicht existierendes Repo
+  (`Renewed-Scripts/community_bridge`, 404), korrekt ist `TheOrderFivem/community_bridge`.
+- `qbx_smallresources`, `npwd`: neue `kompat_warnung` ergänzt (Autor kündigt Rückbau an,
+  bzw. braucht für Qbox die separate, noch nicht katalogisierte Bridge `qbx_npwd`).
+- `mm_radio`: bestätigt existent und aktiv — keine Korrektur nötig, der Nachfolger-Verweis im
+  archivierten `qbx_radio`-Demo-Eintrag war richtig.
+
+**Katalog:** 0 neu, 22 aktualisiert, 0 Duplikate übersprungen, 18 auf `verifiziert` und 4 auf
+`teilgeprueft` hochgestuft (vorher alle 22 `ungeprueft`)
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Phase 2] – 12.08.2026
 
 **Neu:**
