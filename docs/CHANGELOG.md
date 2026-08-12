@@ -17,6 +17,44 @@ Format je Eintrag:
 
 ---
 
+## [Phase 1] – 12.08.2026
+
+**Neu:**
+- Alle App-Module in `src/app/`: `state.js`, `relations.js`, `render.js`, `filters.js`,
+  `compare.js`, `import.js`, `katalogspeicher.js`, `custom.js`, `exportcfg.js`, `costs.js`,
+  `ui.js`, `main.js`
+- `src/style.css` — Dark Theme im GitHub-Stil (Feature H3)
+- `src/lib/hilfen.js` — geteilter Kleinkram (`kopie`, `warnen`, `WAEHRUNG_ZEICHEN`), entstanden
+  weil der Bau-Prüfer dieselben Definitionen doppelt in zwei Modulen fand
+- `data/catalog/demo.json` — 10 Demo-Plugins, decken jedes Merkmal aus dem Plan ab
+- Alle 59 Features aus `docs/FEATURES.md` `getestet`
+
+**Geändert:**
+- `scripts/lib/schema.mjs` → `src/lib/schema.js` verschoben und ins Build eingebettet: der
+  Katalog-Import in der App prüft jetzt mit demselben Schema-Prüfer wie `npm run validate`
+- `docs/DECISIONS.md`: D3a ergänzt (Import-Differenz wird dauerhaft gespeichert, aber nur die
+  Differenz zum eingebauten Katalog, nicht der volle Katalog — Präzisierung von D3)
+- `src/index.html`: Platzhalter-Erklärkommentar umgeschrieben, damit er die Marken nicht mehr
+  wörtlich nennt (siehe „Korrigiert")
+
+**Korrigiert:**
+- `scripts/build.mjs` verdoppelte eingebetteten Katalog und Skript, weil der Erklärkommentar in
+  `src/index.html` die Platzhalter-Marken wörtlich nannte und der globale String-Replace auch dort
+  zuschlug. Kommentar umgeschrieben, plus eine Prüfung, die abbricht, wenn eine Marke nicht genau
+  einmal vorkommt.
+- Badge „🆓 Kostenlos" erschien doppelt auf der Karte (Badge-Ableitung und Preisanzeige lieferten
+  beide denselben Fall).
+- Zahnrad-Menü und Backup-Liste reagierten nicht auf Klicks — `modal()` löste nur über die
+  Fuß-Buttons auf, nicht über `data-tat`-Elemente im Inhalt.
+- Formular „Eigenes Plugin" (H2) speicherte nichts, weil die Feldwerte erst nach dem Schließen
+  des Modals ausgelesen wurden, wenn das Formular schon aus dem DOM entfernt war.
+
+**Katalog:** 0 neu, 0 aktualisiert, 0 Duplikate übersprungen, 10 ungeprüft (Demodaten, nicht
+nach docs/RECHERCHE.md recherchiert — bewusst so markiert)
+**Commit:** noch keiner — folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Phase 0] – 12.08.2026
 
 **Neu:**

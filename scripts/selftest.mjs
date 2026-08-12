@@ -14,7 +14,7 @@ import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { parseJson, fehlerText } from '../src/lib/jsonfehler.js';
 import { mitStandard, badgesVon } from '../src/app/defaults.js';
-import { pruefe } from './lib/schema.mjs';
+import { pruefe } from '../src/lib/schema.js';
 import { pfad, rot, gruen, grau, fett } from './lib/katalog.mjs';
 
 let gelaufen = 0;

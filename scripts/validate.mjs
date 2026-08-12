@@ -15,7 +15,7 @@
 
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { pruefe, unbekannteSchluessel } from './lib/schema.mjs';
+import { pruefe, unbekannteSchluessel } from '../src/lib/schema.js';
 import {
   katalogDateien, KATALOG_ORDNER, ladeJson, ladeKategorien, pfad, relPfad,
   rot, gruen, gelb, blau, grau, fett
@@ -45,7 +45,7 @@ const luecken = unbekannteSchluessel(SCHEMA);
 if (luecken.length) {
   console.error(rot('✖ Das Schema benutzt Schlüsselwörter, die der Prüfer nicht auswertet:'));
   luecken.forEach((l) => console.error('  ' + l));
-  console.error(grau('  Entweder scripts/lib/schema.mjs erweitern oder das Schlüsselwort entfernen — eine stille Prüflücke wäre schlimmer.'));
+  console.error(grau('  Entweder src/lib/schema.js erweitern oder das Schlüsselwort entfernen — eine stille Prüflücke wäre schlimmer.'));
   process.exit(1);
 }
 

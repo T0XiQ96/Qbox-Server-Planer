@@ -1,0 +1,250 @@
+/* style.css — Dark Theme im GitHub-Stil (Feature H3).
+   Keine externen Schriften oder Bilder: alles muss über file:// ohne Internet funktionieren (H5). */
+
+:root {
+  --bg: #0d1117;
+  --bg2: #161b22;
+  --bg3: #21262d;
+  --rand: #30363d;
+  --text: #e6edf3;
+  --leise: #8b949e;
+  --blau: #58a6ff;
+  --gruen: #3fb950;
+  --rot: #f85149;
+  --orange: #d29922;
+  --lila: #bc8cff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 16px 64px;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4 { margin: 0; font-weight: 600; }
+code { background: var(--bg3); padding: 1px 5px; border-radius: 4px; font-size: .9em; }
+a { color: var(--blau); }
+ul { margin: 4px 0; padding-left: 20px; }
+
+/* ================================== Kopf ================================== */
+
+.kopf {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;
+  padding: 16px 0; border-bottom: 1px solid var(--rand); margin-bottom: 16px;
+  position: sticky; top: 0; background: var(--bg); z-index: 10;
+}
+.kopf-titel { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.kopf-titel h1 { font-size: 20px; }
+.kopf-version { color: var(--leise); font-size: 12px; }
+.kopf-knoepfe { display: flex; gap: 8px; }
+
+/* ================================= Knöpfe ================================= */
+
+.btn {
+  background: var(--bg3); color: var(--text); border: 1px solid var(--rand);
+  border-radius: 6px; padding: 6px 12px; font-size: 13px; cursor: pointer; font-family: inherit;
+}
+.btn:hover { background: var(--rand); }
+.btn-gut { background: #238636; border-color: #2ea043; }
+.btn-gut:hover { background: #2ea043; }
+.btn-gefahr { background: #6e2c2c; border-color: var(--rot); }
+.btn-gefahr:hover { background: #8b3232; }
+.btn-leise { background: transparent; }
+.btn-klein { padding: 3px 8px; font-size: 12px; }
+
+/* ================================ Warnbox ================================ */
+
+.warnbox {
+  background: #1c2128; border: 1px solid var(--orange); border-left-width: 4px;
+  border-radius: 6px; padding: 12px 16px; margin-bottom: 16px; font-size: 13px;
+}
+.warnbox strong { color: var(--orange); }
+.warnbox ul { margin-top: 6px; }
+
+/* ================================= Kosten ================================= */
+
+.kosten { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.kosten-spalte {
+  background: var(--bg2); border: 1px solid var(--rand); border-radius: 6px;
+  padding: 8px 14px; display: flex; gap: 14px; align-items: center; font-size: 13px;
+}
+.kosten-spalte span { color: var(--leise); }
+
+/* ============================= Werkzeugleiste ============================= */
+
+.werkzeugleiste { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+.feld {
+  background: var(--bg2); color: var(--text); border: 1px solid var(--rand);
+  border-radius: 6px; padding: 6px 10px; font-size: 13px; font-family: inherit;
+}
+.feld-suche { flex: 1; min-width: 240px; }
+.schalter-klein { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--leise); cursor: pointer; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.chip {
+  background: var(--bg2); color: var(--leise); border: 1px solid var(--rand);
+  border-radius: 999px; padding: 4px 12px; font-size: 12px; cursor: pointer; font-family: inherit;
+}
+.chip:hover { border-color: var(--blau); }
+.chip-aktiv { background: var(--blau); color: #0d1117; border-color: var(--blau); font-weight: 600; }
+
+.treffer { color: var(--leise); font-size: 12px; margin-bottom: 12px; }
+.leer { color: var(--leise); text-align: center; padding: 40px; }
+
+/* =============================== Kategorien =============================== */
+
+.kategorie { margin-bottom: 28px; }
+.kategorie-titel {
+  font-size: 15px; padding-bottom: 6px; margin-bottom: 12px;
+  border-bottom: 1px solid var(--rand); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+}
+.kategorie-zaehler { color: var(--leise); font-size: 12px; font-weight: 400; }
+
+.karten { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+
+/* ================================= Karte ================================= */
+
+.karte {
+  background: var(--bg2); border: 1px solid var(--rand); border-radius: 8px; padding: 14px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.karte-titel { font-size: 15px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.karte-beschreibung { margin: 0; color: var(--text); font-size: 13px; }
+.karte-features { color: var(--leise); font-size: 12px; }
+.karte-meta { margin: 0; color: var(--leise); font-size: 12px; }
+.karte-link { font-size: 12px; word-break: break-all; }
+.karte-tipp { margin: 0; font-size: 12px; color: var(--lila); }
+
+.karte-abwaegung { font-size: 12px; }
+.karte-pro li { color: var(--gruen); }
+.karte-contra li { color: var(--rot); }
+.karte-neutral li { color: var(--orange); }
+
+@keyframes aufblinken { 0%, 100% { background: var(--bg2); } 30% { background: #2d4a6b; } }
+.karte.blinkt { animation: aufblinken 1.2s ease; }
+
+/* ================================= Badges ================================= */
+
+.karte-badges { display: flex; flex-wrap: wrap; gap: 5px; }
+.badge {
+  font-size: 11px; padding: 2px 8px; border-radius: 999px;
+  border: 1px solid var(--rand); background: var(--bg3); color: var(--leise); white-space: nowrap;
+}
+.badge-qbox { color: var(--gruen); border-color: var(--gruen); }
+.badge-bridge { color: var(--blau); border-color: var(--blau); }
+.badge-qbonly, .badge-kompat, .badge-linktot { color: var(--rot); border-color: var(--rot); }
+.badge-escrow, .badge-preis, .badge-archiviert, .badge-altstack { color: var(--orange); border-color: var(--orange); }
+.badge-open, .badge-kostenlos, .badge-linkok, .badge-qualitaet-verifiziert { color: var(--gruen); }
+.badge-essenziell { color: var(--lila); border-color: var(--lila); }
+.badge-kompat, .badge-archiviert, .badge-altstack { cursor: help; }
+
+/* =============================== Beziehungen =============================== */
+
+.karte-beziehung { font-size: 12px; background: var(--bg3); border-radius: 6px; padding: 8px 10px; }
+.karte-beziehung strong { color: var(--leise); }
+.karte-sprung { text-decoration: none; }
+.karte-sprung:hover { text-decoration: underline; }
+.karte-sprung-fehlt { color: var(--leise); font-style: italic; }
+.karte-plus li { color: var(--gruen); }
+.karte-minus li { color: var(--rot); }
+
+.karte-banner {
+  font-size: 12px; padding: 6px 10px; border-radius: 6px;
+  background: #3d2e12; border-left: 3px solid var(--orange); color: var(--orange);
+}
+
+/* ============================== Steuerelemente ============================== */
+
+.karte-aktionen { display: flex; flex-direction: column; gap: 8px; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--rand); }
+.karte-haken { display: flex; gap: 10px; }
+.karte-schalter {
+  flex: 1; display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 13px;
+  background: var(--bg3); border: 1px solid var(--rand); border-radius: 6px; padding: 6px 10px;
+}
+.karte-schalter small { color: var(--leise); font-size: 11px; }
+/* B7 — abgedeckt heißt abgeschwächt, NICHT ausgeblendet: die Karte bleibt sichtbar. */
+.schalter-abgedeckt { opacity: .5; border-style: dashed; }
+.karte-notiz {
+  background: var(--bg); color: var(--text); border: 1px solid var(--rand);
+  border-radius: 6px; padding: 6px 8px; font: inherit; font-size: 12px; resize: vertical; min-height: 38px;
+}
+.karte-prioritaet { background: var(--bg3); color: var(--text); border: 1px solid var(--rand); border-radius: 6px; padding: 4px 8px; font-size: 12px; }
+
+/* ================================= Modal ================================= */
+
+.modal-huelle {
+  position: fixed; inset: 0; background: rgba(1, 4, 9, .8);
+  display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 100;
+}
+.modal {
+  background: var(--bg2); border: 1px solid var(--rand); border-radius: 10px;
+  max-width: 760px; width: 100%; max-height: 88vh; display: flex; flex-direction: column;
+}
+.modal-kopf { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--rand); }
+.modal-kopf h2 { font-size: 16px; }
+.modal-schliessen { background: none; border: none; color: var(--leise); font-size: 18px; cursor: pointer; }
+.modal-inhalt { padding: 18px; overflow-y: auto; font-size: 13px; }
+.modal-fuss { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 18px; border-top: 1px solid var(--rand); }
+
+.menue { display: flex; flex-direction: column; gap: 2px; }
+.menue hr { border: none; border-top: 1px solid var(--rand); margin: 6px 0; }
+.menue-punkt {
+  background: none; border: none; color: var(--text); text-align: left;
+  padding: 9px 12px; border-radius: 6px; cursor: pointer; font: inherit; font-size: 13px;
+}
+.menue-punkt:hover { background: var(--bg3); }
+.menue-gefahr { color: var(--rot); }
+.backup-zeile { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid var(--rand); }
+.backup-zeile small { display: block; color: var(--leise); font-size: 11px; }
+
+.formular { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.formular label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--leise); }
+.formular-breit { grid-column: 1 / -1; }
+
+.ensure-box, .fehler-box {
+  background: var(--bg); border: 1px solid var(--rand); border-radius: 6px; padding: 12px;
+  font-family: "Cascadia Code", Consolas, monospace; font-size: 12px;
+  white-space: pre-wrap; word-break: break-word; max-height: 45vh; overflow-y: auto;
+}
+.fehler-box { border-color: var(--rot); color: #ffb4ab; }
+.hinweis-rot { color: var(--rot); }
+.hinweis-leise { color: var(--leise); font-size: 12px; }
+
+.vorschau-warnung { background: #3d1d1d; border: 1px solid var(--rot); border-radius: 6px; padding: 10px 12px; margin-bottom: 12px; }
+.vorschau-warnung strong { color: var(--rot); }
+.vorschau-warnung-zeile { margin-top: 6px; font-size: 12px; }
+
+/* ================================ Vergleich ================================ */
+
+.vergleich-auswahl { display: flex; gap: 10px; margin-bottom: 14px; }
+.vergleich-auswahl .feld { flex: 1; }
+.vergleich-kopf { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.vergleich-kopf h3 { font-size: 14px; }
+.vergleich-funktionen, .vergleich-zweck, .vergleich-abwaegung { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 12px; }
+.vergleich-funktionen { grid-template-columns: repeat(3, 1fr); }
+.vergleich-pro li { color: var(--gruen); }
+.vergleich-contra li { color: var(--rot); }
+.vergleich-neutral li { color: var(--orange); }
+.vergleich-hinweis { color: var(--orange); font-size: 12px; }
+.vergleich-fehler { color: var(--rot); }
+
+/* ================================== Toast ================================== */
+
+.toast {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(120%);
+  background: var(--bg3); color: var(--text); border: 1px solid var(--rand);
+  border-radius: 8px; padding: 10px 18px; font-size: 13px; z-index: 200;
+  transition: transform .25s ease; max-width: 90vw; text-align: center;
+}
+.toast.sichtbar { transform: translateX(-50%) translateY(0); }
+.toast-warnung { border-color: var(--orange); }
+.toast-fehler { border-color: var(--rot); }
+
+@media (max-width: 600px) {
+  .karten { grid-template-columns: 1fr; }
+  .formular, .vergleich-funktionen, .vergleich-zweck, .vergleich-abwaegung { grid-template-columns: 1fr; }
+}

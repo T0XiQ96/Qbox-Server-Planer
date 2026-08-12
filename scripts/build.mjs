@@ -122,11 +122,17 @@ const katalogVersion = dateien.length
 /** In ein <script>-Element eingebettetes JSON: < muss escapt werden, sonst beendet </script die Datei. */
 const alsJson = (wert) => JSON.stringify(wert).replace(/</g, '\\u003c');
 
+// Das Schema wandert mit in die gebaute Datei, damit der Katalog-Import in der App GENAU dieselbe
+// Prüfung fährt wie "npm run validate". Sonst würden Kommandozeile und Werkzeug auseinanderdriften
+// und eine Datei, die hier durchgeht, im Tool durchfallen (oder schlimmer: umgekehrt).
+const schema = JSON.parse(readFileSync(pfad('schema', 'plugin.schema.json'), 'utf8'));
+
 const daten = {
   katalogVersion,
   toolVersion: paket.version,
   gebaut: new Date().toISOString().slice(0, 10),
   kategorien: kategorien.kategorien,
+  schema,
   plugins
 };
 
