@@ -4,17 +4,17 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `7745445` (Runde 6).
-**Validate-Status:** grün (9 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
+**Letzter Commit:** `7745445` (Runde 6). Runde 7 ist fertig, aber noch **nicht** committet — das
+ist der nächste Schritt.
+**Validate-Status:** grün (10 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
 22 Updates, `runde-2.json` 12, `runde-3.json` 14, `runde-4.json` 12, `runde-5.json` 11,
-`runde-6.json` 6 · 262 Plugins gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
-**Katalogstand:** 262 gesamt · 45 verifiziert · 32 teilgeprüft · ~185 ungeprüft
-**Aktuelle Runde:** Runde 6 — Nachprüfung der letzten 6/6 verbleibenden Einträge der Kategorie
-„Charakter, Inventar & UI" (Teil 3/3). **Kategorie „UI" (33 Einträge) damit komplett
-durchgeprüft.** Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise
-durchprüfen). Getestet auf Sonnet 5 / Effort low (Nutzerwunsch) statt der in CLAUDE.md §1
-vorgegebenen medium-Einstellung für Datenrunden — Recherchequalität wirkte im Ergebnis
-unverändert (ein echter Link-Fehlerfund bei wasabi_backpack), aber nur eine Runde getestet.
+`runde-6.json` 6, `runde-7.json` 8 · 262 Plugins gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
+**Katalogstand:** 262 gesamt · 47 verifiziert · 37 teilgeprüft · ~178 ungeprüft
+**Aktuelle Runde:** Runde 7 — Start der Kategorie „Fahrzeuge & Mechanik" (23 Einträge), erste
+8 nachgeprüft (Teil 1/3). Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand
+kategorieweise durchprüfen). Läuft weiter auf Sonnet 5 / Effort low (Nutzerwunsch, Test über
+Runden 7–9) statt der in CLAUDE.md §1 vorgegebenen medium-Einstellung — bisher kein erkennbarer
+Qualitätsabfall, in Runde 6 und 7 je ein konkreter Link-/Sachfehler gefunden und korrigiert.
 
 ---
 
@@ -66,10 +66,18 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-Runde 7 — Start der nächsten Kategorie „3. Fahrzeuge &
-Mechanik" (23 Einträge laut `data/kategorien.json`-Reihenfolge), in 2 Runden à ~11–12.
-`npm run newround 7` legt das Gerüst an. Vorgehen (Batchgröße 10–12, nach Kategorie, reine
-Nachprüfung vor Neusuche) gilt unverändert bis der Nutzer etwas anderes sagt.
+**Committen.** Runde 7 ist fertig, aber `data/catalog/runde-7.json` und diese Doku-Updates
+liegen noch uncommittet im Working Tree. Danach: Runde 8 — nächste 8 von 23 Einträgen der
+Kategorie „Fahrzeuge & Mechanik" (`mileage_tracker`, `okokgarage`, `ox_fuel`, `ps_fuel`,
+`qb_customs`, `qbx_carwash`, `qbx_garages`, `qbx_mechanicjob`), danach Runde 9 mit den
+restlichen 7 (`qbx_vehiclekeys`, `qbx_vehiclesales`, `qbx_vehicleshop`, `qs_garages`,
+`qs_vehiclekeys`, `renewed_vehicleshops`, `wasabi_carlock`) — Nutzer hat Runden 7–9 als
+zusammenhängenden Sonnet-5/low-Test angekündigt.
+
+**Runde 7 — wichtigster Fund:** `jim_mechanic` ist inzwischen kostenpflichtig (v3.6, primär über
+Tebex), nicht mehr das im Katalog beschriebene kostenlose Open-Source-System — `lizenz` auf
+`escrow` korrigiert. `legacyfuel` hatte einen Link-Bug (`legacy_fuel` Kleinschreibung → 404,
+korrekt `LegacyFuel`).
 
 **Runde 6 — wichtigster Fund:** `wasabi_backpack` — der Katalog-Link war schlicht falsch
 geschrieben (`Wasabi-Backpack` statt `wasabi_backpack`), führte zu 404 und wurde deshalb bisher
@@ -121,3 +129,4 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 | 4 | Nachprüfung Kategorie „UI" Teil 1/3, 12 von 31 (kein Neufund) | 0 | 12 | 0 | 0 (8 verifiziert, 4 teilgeprüft) | `data/catalog/runde-4.json` | `3f0345a` |
 | 5 | Nachprüfung Kategorie „UI" Teil 2/3, 11 von 17 verbleibenden (kein Neufund) | 0 | 11 | 0 | 0 (3 verifiziert, 8 teilgeprüft) | `data/catalog/runde-5.json` | `266eeec` |
 | 6 | Nachprüfung Kategorie „UI" Teil 3/3, letzte 6 — Kategorie komplett (kein Neufund) | 0 | 6 | 0 | 0 (2 verifiziert, 4 teilgeprüft) | `data/catalog/runde-6.json` | `7745445` |
+| 7 | Nachprüfung Kategorie „Fahrzeuge" Teil 1/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 0 (3 verifiziert, 5 teilgeprüft) | `data/catalog/runde-7.json` | folgt |

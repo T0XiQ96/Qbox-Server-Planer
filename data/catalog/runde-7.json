@@ -1,0 +1,123 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r7",
+  "runde": 7,
+  "thema": "Nachprüfung Kategorie 'Fahrzeuge & Mechanik' (Teil 1/3 — 8 von 23 Einträgen)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "cd_garage",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Konkrete Produktseite gefunden (statt Startseite mit 'Bot-Schutz'-Vermerk), Qbox-Support jetzt über CFX-Forum-Thread belegt statt nur behauptet. Preis weiterhin nicht öffentlich einsehbar (Tebex-Login nötig).",
+      "link": "https://codesign.pro/product/4206352",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "Qbox wird im CFX-Forum-Thread des Anbieters explizit als unterstütztes Framework gelistet (ESX/QBCore/qBox/vRP).",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://codesign.pro/product/4206352; https://docs.codesign.pro/paid-scripts/garage/"
+    },
+    {
+      "id": "cdn_fuel",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Letztes Update auf konkretes Datum präzisiert: letzter Commit 06.09.2023, seit fast 3 Jahren keine Aktivität mehr, 58 offene Issues unbeantwortet. Repo nicht formal archiviert, aber de facto unmaintained — Warnung ergänzt.",
+      "letztes_update": "Kein Archiv-Banner, aber letzter Commit 06.09.2023 — seit fast 3 Jahren inaktiv, 58 offene Issues unbeantwortet",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "2.1.9",
+      "kompat_warnung": {
+        "text": "Seit 09/2023 kein Commit mehr, 58 offene Issues unbeantwortet. Qbox-Support laut README vorhanden ('QBCore Framework & QBox Remastered'), aber an aktuellen Qbox-Versionen ungetestet.",
+        "sicherheit": "vermutung"
+      },
+      "contra": ["🔁 Bridge", "Komplexes Setup", "Balancing-Aufwand", "Seit 09/2023 kein Commit mehr, 58 offene Issues unbeantwortet"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/CodineDev/cdn-fuel (README, Issues, Commit-Historie)"
+    },
+    {
+      "id": "custom_cars",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Link erneut bestätigt, weiterhin die richtige Anlaufstelle (über 870 Seiten Add-on-Fahrzeuge, funktionsfähig).",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://www.gta5-mods.com/vehicles"
+    },
+    {
+      "id": "jg_dealerships",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Konkrete Produktseite gefunden (statt Startseite), Preis $54 erneut bestätigt, Qbox-Support-Aussage jetzt direkt von der Produktseite belegt statt nur behauptet.",
+      "link": "https://jgscripts.com/scripts/dealerships",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "preis": { "betrag": 54, "waehrung": "USD", "typ": "einmalig" },
+      "kompat_warnung": {
+        "text": "Qbox wird auf der Produktseite explizit als kompatibles Framework gelistet.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://jgscripts.com/scripts/dealerships"
+    },
+    {
+      "id": "jg_mechanic",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Konkrete Produktseite gefunden (statt Startseite), Preis $81 erneut bestätigt, Qbox-Support jetzt direkt über die Requirements-Sektion der Produktseite belegt.",
+      "link": "https://jgscripts.com/scripts/mechanic",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "preis": { "betrag": 81, "waehrung": "USD", "typ": "einmalig" },
+      "kompat_warnung": {
+        "text": "Requirements-Sektion der Produktseite nennt explizit 'QBCore / Qbox / ESX'.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://jgscripts.com/scripts/mechanic"
+    },
+    {
+      "id": "jim_jobgarage",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Version 2.0.02 aus fxmanifest ergänzt. Kostenlos-Status über zusätzlichen Tebex-Distributionskanal ($0) bestätigt, kein Widerspruch zu open_source. Qbox-Support via jim_bridge bleibt bestätigt.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "2.0.02",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/jimathy/jim-jobgarage (fxmanifest.lua); https://jimathy666.tebex.io"
+    },
+    {
+      "id": "jim_mechanic",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Wichtigster Fund: jim-mechanic ist inzwischen kostenpflichtig (v3.6, Vertrieb primär über Tebex), nicht mehr das im Katalog beschriebene kostenlose Open-Source-System. Code laut CFX-Forum 'mostly accessible' (kein volles Escrow, aber auch nicht mehr frei einsehbar wie ein reines GitHub-Repo). Preis auf der Store-Seite nicht öffentlich einsehbar (Bot-Schutz). Qbox-Support bleibt bestätigt, jetzt zusätzlich durch Store-Beschreibung belegt.",
+      "beschreibung": "Tiefes Mechaniker-System: Cosmetics-Live-Vorschau, NOS, Stance, Tuning-Teile als Items. Offizieller Qbox-Support. Inzwischen kostenpflichtig (v3.6), primär über Tebex vertrieben — nicht mehr frei wie in früheren Versionen.",
+      "version": "3.6",
+      "letztes_update": "Aktiv (v3.6)",
+      "lizenz": "escrow",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "Qbox-Support offiziell über jim-bridge, jetzt zusätzlich durch Store-Beschreibung belegt ('QBCore, QBox, ESX + ox_lib, OX_Core').",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["💰 Inzwischen kostenpflichtig (Preis auf Store-Seite nicht einsehbar)", "Nicht mehr komplett frei einsehbar (Code 'mostly accessible' laut CFX-Forum)", "Komplexe Config", "Einarbeitung nötig"],
+      "pro": ["Enorme Tuning-Tiefe", "Offizieller Qbox-Support", "Live-Vorschau"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/jimathy/jim-mechanic; https://jimathy666.tebex.io/package/4821399; CFX-Forum-Thread 'Jim-Mechanic v3.6'"
+    },
+    {
+      "id": "legacyfuel",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Link korrigiert: Katalog-Pfad 'legacy_fuel' (Kleinschreibung) war falsch und führte zu 404, korrekt ist 'LegacyFuel'. Nachfolger-Feld ergänzt: ox_fuel ist in mehreren Quellen (Overextended-Doku, Community) explizit als Ersatz genannt.",
+      "link": "https://github.com/InZidiuZ/LegacyFuel",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.3",
+      "archiviert": {
+        "text": "Technisch überholt; ox_fuel ist der Nachfolger.",
+        "nachfolger": "ox_fuel"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/InZidiuZ/LegacyFuel"
+    }
+  ]
+}

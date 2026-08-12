@@ -17,6 +17,29 @@ Format je Eintrag:
 
 ---
 
+## [Runde 7] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-7.json` — erste 8 von 23 Einträgen der Kategorie „Fahrzeuge & Mechanik"
+  nachgeprüft (Teil 1/3), recherchiert über 1 Subagent
+
+**Korrigiert:**
+- `jim_mechanic`: **wichtigster Fund** — ist inzwischen kostenpflichtig (v3.6, primär über
+  Tebex vertrieben), nicht mehr das im Katalog beschriebene kostenlose Open-Source-System.
+  `lizenz` auf `escrow` korrigiert, Beschreibung/Contra angepasst. Qbox-Support bleibt bestätigt.
+- `legacyfuel`: Link-Bug behoben (`legacy_fuel` Kleinschreibung führte zu 404, korrekt ist
+  `LegacyFuel`), Nachfolger-Feld auf `ox_fuel` ergänzt.
+- `cd_garage`, `jg_dealerships`, `jg_mechanic`: Store-Startseiten durch konkrete Produktseiten
+  ersetzt, Qbox-Support-Aussagen jetzt direkt belegt statt nur behauptet, Preise ($54/$81)
+  bestätigt.
+- `cdn_fuel`: seit 09/2023 keine Aktivität mehr (58 offene Issues unbeantwortet) — Warnung ergänzt.
+
+**Katalog:** 0 neu, 8 aktualisiert, 0 Duplikate übersprungen, 3 auf `verifiziert`, 5 auf
+`teilgeprueft` hochgestuft/bestätigt
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 6] – 12.08.2026
 
 **Neu:**
