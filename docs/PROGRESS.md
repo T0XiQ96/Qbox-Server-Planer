@@ -4,8 +4,7 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `5851328` (Runde 8). Runde 9 ist fertig, aber noch **nicht** committet — das
-ist der nächste Schritt.
+**Letzter Commit:** `b688c5a` (Runde 9).
 **Validate-Status:** grün (12 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
 22 Updates, `runde-2.json` 12, `runde-3.json` 14, `runde-4.json` 12, `runde-5.json` 11,
 `runde-6.json` 6, `runde-7.json` 8, `runde-8.json` 8, `runde-9.json` 7 · 262 Plugins gesamt ·
@@ -80,8 +79,7 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Committen.** Runde 9 ist fertig, aber `data/catalog/runde-9.json` und diese Doku-Updates
-liegen noch uncommittet im Working Tree. Danach: Runde 10 — Start der nächsten Kategorie
+Runde 10 — Start der nächsten Kategorie
 „4. Immobilien & Wohnen" (9 Einträge laut `data/kategorien.json`-Reihenfolge, kleinste
 verbleibende Kategorie, passt vermutlich in eine Runde). `npm run newround 10` legt das Gerüst
 an. Vorgehen (Batchgröße 8–12, nach Kategorie, reine Nachprüfung vor Neusuche) gilt unverändert
@@ -156,4 +154,4 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 | 6 | Nachprüfung Kategorie „UI" Teil 3/3, letzte 6 — Kategorie komplett (kein Neufund) | 0 | 6 | 0 | 0 (2 verifiziert, 4 teilgeprüft) | `data/catalog/runde-6.json` | `7745445` |
 | 7 | Nachprüfung Kategorie „Fahrzeuge" Teil 1/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 0 (3 verifiziert, 5 teilgeprüft) | `data/catalog/runde-7.json` | `c92f18f` |
 | 8 | Nachprüfung Kategorie „Fahrzeuge" Teil 2/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 1 (4 verifiziert, 3 teilgeprüft, 1 ungeprueft) | `data/catalog/runde-8.json` | `5851328` |
-| 9 | Nachprüfung Kategorie „Fahrzeuge" Teil 3/3, letzte 7 — Kategorie komplett (kein Neufund) | 0 | 7 | 0 | 1 (3 verifiziert, 3 teilgeprüft, 1 auf ungeprueft herabgestuft) | `data/catalog/runde-9.json` | folgt |
+| 9 | Nachprüfung Kategorie „Fahrzeuge" Teil 3/3, letzte 7 — Kategorie komplett (kein Neufund) | 0 | 7 | 0 | 1 (3 verifiziert, 3 teilgeprüft, 1 auf ungeprueft herabgestuft) | `data/catalog/runde-9.json` | `b688c5a` |
