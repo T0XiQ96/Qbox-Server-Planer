@@ -17,6 +17,35 @@ Format je Eintrag:
 
 ---
 
+## [Runde 8] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-8.json` — nächste 8 von 23 Einträgen der Kategorie „Fahrzeuge & Mechanik"
+  nachgeprüft (Teil 2/3). Erster Recherche-Versuch brach nach 2 Tool-Aufrufen mit einer
+  ungültigen „ich melde mich später"-Antwort ab (Subagents laufen synchron) — mit expliziter
+  Klarstellung neu gestartet, zweiter Versuch lieferte vollständige GitHub-API-gestützte Ergebnisse.
+
+**Korrigiert:**
+- `ox_fuel`: **wichtigster Fund** — der bisher verlinkte Fork `TheOrderFivem/ox_fuel` existiert
+  nicht mehr (404). Das Original `overextended/ox_fuel` ist entgegen der bisherigen
+  Katalog-Annahme NICHT archiviert, sondern aktiv gepflegt (Release v1.5.4) — Link zurück aufs
+  Original korrigiert, essenzielles Plugin auf `verifiziert` hochgestuft.
+- `ps_fuel`: entgegen dem bisherigen Katalogstand tatsächlich archiviert (GitHub-API bestätigt)
+  — reiht sich ein in die bereits archivierten Project-Sloth-Repos (`ps-inventory`, `ps-hud`).
+- `qb_customs`: Original-Repo `qbcore-framework/qb-customs` existiert nicht mehr (404, komplette
+  Org-Liste durchsucht), nur inoffizielle Community-Forks, kein offizieller Nachfolger.
+- `mileage_tracker`: Platzhalter-Link (Topic-Seite) durch echtes Repo `jgscripts/jg-vehiclemileage`
+  ersetzt.
+- `okokgarage`: konkrete Produktseite (QB-Variante) statt Store-Startseite, aber Preis/Qbox-Nennung
+  weiterhin nicht verifizierbar (Tebex-Bot-Schutz) — bleibt bewusst `ungeprueft`.
+- `qbx_carwash`, `qbx_garages`, `qbx_mechanicjob`: weiterhin aktiv, Datenstände aktualisiert.
+
+**Katalog:** 0 neu, 8 aktualisiert, 0 Duplikate übersprungen, 4 auf `verifiziert`, 3 auf
+`teilgeprueft` hochgestuft/bestätigt, 1 bleibt `ungeprueft`
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 7] – 12.08.2026
 
 **Neu:**

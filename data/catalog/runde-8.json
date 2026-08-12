@@ -1,0 +1,114 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r8",
+  "runde": 8,
+  "thema": "Nachprüfung Kategorie 'Fahrzeuge & Mechanik' (Teil 2/3 — 8 von 23 Einträgen)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "mileage_tracker",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Platzhalter-Link (GitHub-Topic-Suchseite) durch echtes Repo ersetzt: jgscripts/jg-vehiclemileage, README nennt explizit QBCore/QBox/ESX-Support. Preis nicht sicher verifizierbar (Shop-Seite nicht direkt geöffnet).",
+      "link": "https://github.com/jgscripts/jg-vehiclemileage",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "Frameworks (QBCore/QBox/ESX) nur aus README/Doku-Titeln entnommen, kein Code-Review durchgeführt.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/jgscripts/jg-vehiclemileage; docs.jgscripts.com/vehicle-mileage"
+    },
+    {
+      "id": "okokgarage",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Store-Startseite durch konkrete Produktseite (QB-Variante) ersetzt, aber Preis und explizite Qbox-Nennung konnten nicht direkt verifiziert werden (Tebex-Seite mit Bot-Schutz, nur Suchtreffer ausgewertet) — Qualität bleibt bei ungeprueft statt Hochstufung.",
+      "link": "https://okok.tebex.io/package/5411267",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "Qbox-Support nicht explizit bestätigt gefunden — Produkt existiert separat für QB- und ESX-Variante, kein direkter Qbox-Nachweis.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "ungeprueft",
+      "quelle": "https://okok.tebex.io/package/5411267 (Suchtreffer, nicht direkt geöffnet — Bot-Schutz)"
+    },
+    {
+      "id": "ox_fuel",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Wichtige Korrektur: Fork-Link TheOrderFivem/ox_fuel existiert nicht mehr (404). Das Original overextended/ox_fuel ist entgegen der bisherigen Katalog-Annahme NICHT archiviert, sondern aktiv gepflegt (Release v1.5.4 vom 29.05.2026) — Link zurück aufs Original korrigiert.",
+      "link": "https://github.com/overextended/ox_fuel",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.5.4",
+      "letztes_update": "Aktiv · Release v1.5.4 vom 29.05.2026",
+      "kompat_warnung": null,
+      "contra": ["UI minimalistisch"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/overextended/ox_fuel (GitHub-API: archived:false, Release-Tag)"
+    },
+    {
+      "id": "ps_fuel",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "ps-fuel ist entgegen dem bisherigen Katalogstand tatsächlich archiviert (GitHub-API bestätigt archived:true) — reiht sich damit in die bereits archivierten Project-Sloth-Scripts ein (ps-inventory, ps-hud). Kein Nachfolger genannt.",
+      "letztes_update": "⚠️ Archiviert, kein Nachfolger genannt",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.0.2",
+      "archiviert": {
+        "text": "Repo archiviert (GitHub-API bestätigt), keine weitere Pflege zu erwarten — wie ps-inventory und ps-hud im selben Project-Sloth-Team. Kein Nachfolger benannt.",
+        "nachfolger": ""
+      },
+      "contra": ["🪦 Archiviert", "🔁 Bridge", "Kein funktionaler Mehrwert"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Project-Sloth/ps-fuel (GitHub-API: archived:true, Release v1.0.2)"
+    },
+    {
+      "id": "qb_customs",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Katalog-Link führt ins Leere: qbcore-framework/qb-customs existiert nicht mehr (404, vollständige Org-Repo-Liste durchsucht, Repo nicht enthalten). Nur inoffizielle Community-Forks gefunden (z.B. sandunisuru/qb-customs), kein offizieller Nachfolger — Link bewusst nicht auf einen inoffiziellen Fork geändert.",
+      "link_status": "404",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "Original-Repo aus der qbcore-framework-Org entfernt/gelöscht, nur inoffizielle Community-Forks verfügbar (z.B. sandunisuru/qb-customs), kein offizieller Ersatz.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["Original-Repo existiert nicht mehr (404)", "jim-mechanic deutlich besser"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/qbcore-framework/qb-customs (404); GitHub-API Org-Repo-Liste qbcore-framework"
+    },
+    {
+      "id": "qbx_carwash",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Status weiterhin aktiv bestätigt (GitHub-API: archived:false, letzter Push 16.07.2026), kein Release-Tag zum Versionsabgleich vorhanden.",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_carwash (GitHub-API)"
+    },
+    {
+      "id": "qbx_garages",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Weiterhin aktiv (GitHub-API bestätigt), Release-Tag v1.1.4 vom 11.11.2024 ist älter als der tatsächliche Entwicklungsstand (letzter Push 16.07.2026) — Hinweis ergänzt.",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026 (Release-Tag v1.1.4 vom 11.11.2024 ist veraltet, aber Entwicklung läuft weiter)",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "v1.1.4 (Release-Tag) / aktiver Entwicklungsstand neuer",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_garages (GitHub-API: Release, pushed_at, archived:false)"
+    },
+    {
+      "id": "qbx_mechanicjob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Status weiterhin aktiv bestätigt (GitHub-API: archived:false, letzter Push 16.07.2026), kein Release-Tag zum Versionsabgleich vorhanden.",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_mechanicjob (GitHub-API)"
+    }
+  ]
+}
