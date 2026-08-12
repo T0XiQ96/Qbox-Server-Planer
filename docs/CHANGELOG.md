@@ -17,6 +17,42 @@ Format je Eintrag:
 
 ---
 
+## [Runde 17] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-17.json` — erste 11 von 32 Einträgen der Kategorie „Crime & Unterwelt"
+  nachgeprüft (Teil 1/3). Recherche über 3 parallele Subagents, erstmals mit vorab von der
+  Hauptsession aufgelösten Owner/Repo-Pfaden statt eigenständiger Suche (siehe RECHERCHE.md
+  1a–1c, in dieser Runde eingeführt).
+
+**Korrigiert:**
+- `jim_pawnshop`, `mhacking`, `mt_washing`: alle drei Katalog-Links liefern 404, unter keinem
+  bekannten Namens-/Autorenmuster ein Ersatz auffindbar (systematisch geprüft: vollständige
+  Repo-Listen der Autoren/Orgs, jeweilige Shop-/Doku-Seiten) — bewusst auf `ungeprueft` mit
+  `link_status: "404"` gesetzt, kein Ersatzlink geraten.
+- `ps_drugprocessing`: seit 06.02.2026 archiviert — bestätigt zum sechsten Mal das
+  „Project-Sloth archiviert reihenweise ps-*-Repos"-Muster (nach ps-inventory, ps-hud, ps-fuel,
+  ps-housing, ps-realtor).
+- `blackmarket_script`, `moneywash_qbtarget`, `pipe_hacking`: Platzhalter-Links
+  (`github.com/topics/qbox`) durch echte Repos ersetzt (`pulsepk/pl_blackmarket`,
+  `morethancodenl/mtc-moneywash`, `vizuugit/vzu_circuit_hack`).
+- `pipe_hacking`: Lizenz war fälschlich als `escrow` geführt — README bestätigt „Free,
+  open-source" unter MIT, korrigiert.
+- `pl_fraud`: bisher nur Profil-Link ohne echtes Repo — `pulsepk/pl_fraud` gefunden und
+  bestätigt (gleiches Namensschema wie `pl_atmrob`).
+- `pl_atmrob`: Qbox-Support jetzt direkt im README belegt statt nur vermutet.
+- `drc_drugs`: konkrete Produktseite (statt nur Store-Startseite) gefunden, Preis 42 EUR
+  einmalig bestätigt.
+- `okokrobbery`: Produkt unter diesem Namen weder im Tebex-Store noch im Cfx-Forum auffindbar —
+  bewusst `ungeprueft` belassen, kein Ersatzlink geraten (möglicherweise Katalogfehler/
+  umbenanntes Produkt, für spätere Klärung vorgemerkt).
+
+**Katalog:** 0 neu, 11 aktualisiert, 0 Duplikate übersprungen, 0 ungeprüft (2 verifiziert, 6
+teilgeprüft, 4 auf `ungeprueft` mit korrigiertem/fehlendem Link)
+**Commit:** folgt
+
+---
+
 ## [Runde 16] – 12.08.2026
 
 **Neu:**

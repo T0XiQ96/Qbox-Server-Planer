@@ -1,0 +1,154 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r17",
+  "runde": 17,
+  "thema": "Nachprüfung Kategorie 'Crime & Unterwelt' (Teil 1/3 — 11 von 32 Einträgen)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "jim_pawnshop",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "GitHub-API und direkter Aufruf von jimathy/jim-pawnshop liefern 404. Systematische Suche in Jimathys vollständiger Repo-Liste (26 Repos) und Tebex-Shop (jimathy666.tebex.io) ergab keinen Treffer — anders als bei anderen jim_*-Funden gibt es hier nicht mal ein Ersatz-Tebex-Produkt. Eintrag existiert derzeit unter keinem bekannten Pfad, kein Ersatzlink geraten.",
+      "link_status": "404",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "ungeprueft",
+      "contra": ["⚠️ Repo/Produkt nicht auffindbar (404) — Katalogeintrag für Release-Kandidatur gesondert prüfen"],
+      "quelle": "https://api.github.com/repos/jimathy/jim-pawnshop, https://github.com/jimathy?tab=repositories, https://jimathy666.tebex.io/"
+    },
+    {
+      "id": "mhacking",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "GitHub-API und direkter Aufruf von JustSomeDude2001/mhacking liefern 404. Das Profil des ursprünglichen Autors ist komplett auf Game-Jam-/ML-Projekte umgeschwenkt, kein FiveM-Bezug mehr. Andere unabhängige mhacking-Forks existieren (u.a. offizielles Qbox-project/mhacking), sind aber nicht erkennbar Nachfolger dieses konkreten Katalogeintrags — kein Ersatzlink geraten.",
+      "link_status": "404",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "ungeprueft",
+      "contra": ["⚠️ Repo nicht auffindbar (404), Autor-Profil komplett umgeschwenkt"],
+      "quelle": "https://api.github.com/repos/JustSomeDude2001/mhacking, https://github.com/JustSomeDude2001?tab=repositories"
+    },
+    {
+      "id": "mt_washing",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "GitHub-API und direkter Aufruf von MT-Scripts/mt-washing liefern 404 (auch Unterstrich-Schreibweise 404). Die aktuelle Repo-Liste der Organisation MT-Scripts enthält kein Washing-/Moneywash-Script mehr, auch Doku (docs.mt-scripts.com) und Shop (mt-scripts.com) nennen kein solches Produkt. Die geplante Anhebung von sicherheit auf 'bestaetigt' war damit nicht möglich — Repo nicht mehr auffindbar.",
+      "link_status": "404",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "ungeprueft",
+      "contra": ["⚠️ Repo nicht mehr auffindbar (404), Org führt es nicht mehr im Sortiment"],
+      "quelle": "https://api.github.com/repos/MT-Scripts/mt-washing, https://github.com/MT-Scripts?tab=repositories, https://docs.mt-scripts.com/, https://www.mt-scripts.com/"
+    },
+    {
+      "id": "ps_drugprocessing",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo existiert weiterhin, ist aber seit 06.02.2026 archiviert (bestätigt dasselbe Muster wie ps-inventory/ps-hud/ps-fuel/ps-housing/ps-realtor). README nennt Grund: Team fokussiert sich auf ps-mdt v3, Skript bleibt laut Autor nutzbar, wird aber nicht mehr aktualisiert. fxmanifest zeigt Version 1.4.1 und harte Abhängigkeiten auf PolyZone, qb-target, qb-menu, ps-ui (kein ox_lib) — unter Qbox nur über QBCore-Bridge lauffähig.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.4.1",
+      "archiviert": {
+        "text": "Archiviert seit 06.02.2026 (Team fokussiert sich laut README auf ps-mdt v3 und dessen Abhängigkeiten). Skript bleibt laut Autor funktionsfähig, wird aber nicht mehr aktualisiert.",
+        "nachfolger": ""
+      },
+      "kompat_warnung": {
+        "text": "Harte fxmanifest-Abhängigkeiten auf qb-target und qb-menu (kein ox_lib erkennbar) — unter Qbox nur über die QBCore-Bridge lauffähig, kein natives Qbox-Target/-Menu.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["🪦 Archiviert seit 06.02.2026", "🔁 Bridge (qb-target/qb-menu, kein ox_lib)"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Project-Sloth/ps-drugprocessing, https://raw.githubusercontent.com/Project-Sloth/ps-drugprocessing/main/fxmanifest.lua, https://raw.githubusercontent.com/Project-Sloth/ps-drugprocessing/main/README.md"
+    },
+    {
+      "id": "pl_atmrob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "README (raw.githubusercontent.com) nennt explizit 'ESX, QBCore, and Qbox frameworks' als unterstützt sowie qb-target/ox_target-Kompatibilität. fxmanifest bestätigt dependencies ox_lib + pl_lib, shared_scripts @ox_lib/init.lua, version 2.1.1. Qbox-Erwähnung damit direkt belegt statt nur vermutet.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "2.1.1",
+      "abhaengigkeiten": ["ox_lib", "pl_lib"],
+      "kompat_warnung": {
+        "text": "README nennt Qbox ausdrücklich als unterstütztes Framework, dependencies auf ox_lib bestätigt.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/pulsepk/pl-atmrob, https://raw.githubusercontent.com/pulsepk/pl-atmrob/main/README.md, https://raw.githubusercontent.com/pulsepk/pl-atmrob/main/fxmanifest.lua"
+    },
+    {
+      "id": "pl_fraud",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Bisheriger Katalog-Link war nur die Profilseite, kein echtes Repo. Über das Namensschema des Autors (wie bei pl-atmrob) das echte Repo pulsepk/pl_fraud gefunden — Repo-Beschreibung: 'FiveM Fraud Script | ESX, QBCore, QBox'. fxmanifest bestätigt dependencies ox_lib + pl_lib, version 1.2.0. README unter main/master lieferte 404, daher kein Volltext-Beleg, nur teilgeprueft.",
+      "link": "https://github.com/pulsepk/pl_fraud",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.2.0",
+      "abhaengigkeiten": ["ox_lib", "pl_lib"],
+      "kompat_warnung": {
+        "text": "Repo-Beschreibung nennt Qbox ausdrücklich, fxmanifest bestätigt ox_lib-Nutzung. README nicht auffindbar, daher kein Volltext-Beleg.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/pulsepk/pl_fraud, https://raw.githubusercontent.com/pulsepk/pl_fraud/main/fxmanifest.lua"
+    },
+    {
+      "id": "drc_drugs",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Store-Startseite drcscripts.tebex.io bot-geschützt (403). Über Anbieter-eigene Domain drcscripts.com konkretes Produkt 'Drug System V2' gefunden (drcscripts.com/product/drug-system-v2): Preis 42 EUR zzgl. Steuer, einmalig, Framework ESX/QBCore/QBox laut Anbieterangabe, Code laut Anbieter über Cfx verschlüsselt (Escrow), >9000 Zeilen, 10 Substanzen. Tebex-Store selbst weiterhin nicht direkt einsehbar (403), daher nur teilgeprueft.",
+      "link": "https://drcscripts.com/product/drug-system-v2",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "preis": { "betrag": 42, "waehrung": "EUR", "typ": "einmalig" },
+      "lizenz": "escrow",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://drcscripts.com, https://drcscripts.com/product/drug-system-v2, https://drcdocs.com/"
+    },
+    {
+      "id": "blackmarket_script",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Platzhalter github.com/topics/qbox durch echtes Repo ersetzt: pulsepk/pl_blackmarket — Repo-Titel 'ESX, QBCore, QBox | FiveM Black Market Script' deckt sich exakt mit Katalog-Framework-Angabe. fxmanifest bestätigt shared_scripts @ox_lib/init.lua, dependencies ox_lib + pl_lib, version 1.2.0. README nicht auffindbar (404 unter main/master), GitHub-API war rate-limitet — archiviert/letzter Push nicht verifizierbar, daher nur teilgeprueft.",
+      "link": "https://github.com/pulsepk/pl_blackmarket",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.2.0",
+      "framework": "qbcore_bridge",
+      "abhaengigkeiten": ["ox_lib", "pl_lib"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://raw.githubusercontent.com/pulsepk/pl_blackmarket/main/fxmanifest.lua, https://github.com/pulsepk/pl_blackmarket"
+    },
+    {
+      "id": "moneywash_qbtarget",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Platzhalter github.com/topics/qbox durch echtes Repo ersetzt: morethancodenl/mtc-moneywash — Beschreibung explizit 'A Moneywash script for QBCore or Qbox Framework, which uses QB-Target'. README bestätigt Dependencies qb-core oder qbx-core (Qbox-project/qbx-core ausdrücklich genannt), qb-target, ox_lib. Eigenständiges Projekt, kein Bezug zu mt_washing (anderer Autor/Owner, keine Code-Überschneidung erkennbar).",
+      "link": "https://github.com/morethancodenl/mtc-moneywash",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "qbcore_bridge",
+      "abhaengigkeiten": ["qb-core_oder_qbx-core", "qb-target", "ox_lib"],
+      "kompat_warnung": {
+        "text": "Nutzt QB-Target — auf Qbox läuft das über den ox_target-Wrapper. Autor nennt qbx-core ausdrücklich im README, damit belegt statt reiner Verdacht.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://raw.githubusercontent.com/morethancodenl/mtc-moneywash/main/README.md"
+    },
+    {
+      "id": "okokrobbery",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Gezielt nach der konkreten Produktseite gesucht (Tebex-Store, Cfx-Forum). Kein Treffer: weder auf okok.tebex.io noch im Cfx-Forum existiert ein Produkt mit exakt diesem Namen — Store-Startseite und Kategorieseite beide bot-geschützt (403). Möglich, dass der Katalogeintrag ein Fantasiename/Verwechslung ist oder das Produkt eingestellt/umbenannt wurde. Kein Ersatzlink geraten.",
+      "link_status": "gesperrt",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "ungeprueft",
+      "contra": ["⚠️ Produkt unter diesem Namen nicht auffindbar — Katalogeintrag für Release-Kandidatur gesondert prüfen"],
+      "quelle": "https://okok.tebex.io (403), https://okok.tebex.io/category/robbery (403), Google-/Cfx-Forum-Suche ohne Treffer"
+    },
+    {
+      "id": "pipe_hacking",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Platzhalter github.com/topics/qbox durch echtes Repo ersetzt: vizuugit/vzu_circuit_hack — 'Premium Pipe Dream-style hacking minigame for FiveM'. README bestätigt: 'Free, open-source, framework-agnostic', MIT-Lizenz laut Badge, nutzt ox_lib, kein hartes ESX/QBCore-Anbindung. Wichtiger Fund: Katalog nannte bisher lizenz 'escrow', README widerspricht klar (MIT/open source) — korrigiert. Alternativkandidat Qbox-project/mhacking verworfen (anderer Mechanismus: Sequenz-/Knopf-Hack statt Rohr-Verbindung).",
+      "link": "https://github.com/vizuugit/vzu_circuit_hack",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "abhaengigkeiten": ["ox_lib"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://raw.githubusercontent.com/vizuugit/vzu_circuit_hack/main/README.md, https://api.github.com/search/repositories?q=pipe+hacking+fivem+qbox"
+    }
+  ]
+}

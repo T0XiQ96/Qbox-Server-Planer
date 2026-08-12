@@ -4,23 +4,28 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `74e9862` (Runde 15). Runde 16 ist fertig, aber noch **nicht** committet —
+**Letzter Commit:** `c8a7383` (Runde 16). Runde 17 ist fertig, aber noch **nicht** committet —
 das ist der nächste Schritt.
-**Validate-Status:** grün (19 Katalogdateien inkl. `runde-16.json` 10 Updates · 262 Plugins
+**Validate-Status:** grün (20 Katalogdateien inkl. `runde-17.json` 11 Updates · 262 Plugins
 gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
-**Katalogstand (laut `npm run stats`):** 262 gesamt · 71 verifiziert/teilgeprüft (27 %) · 105 ohne
-`geprueft_am` (Kandidaten für künftige Runden) · 27 archiviert · 16 mit `link_status: 404`
-**Aktuelle Runde:** Runde 16 — Kategorie „Zivil-Jobs & Aktivitäten" **komplett** durchgeprüft
-(Teil 3/3, Runden 14–16 zusammen 30/30). Weiterhin kein Neufund
-(Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen).
+**Katalogstand:** 262 gesamt, ~19 mit `link_status: 404` nach Runde 17 (drei weitere jim_*/mt_*-
+Funde ohne Ersatz).
+**Aktuelle Runde:** Runde 17 — Kategorie „Crime & Unterwelt" Teil 1/3, erste 11 von 32 Einträgen
+nachgeprüft. Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise
+durchprüfen).
 
-**Nutzerauftrag für diese Session:** Runden 16–18 (nicht mehr 16–20 — Nutzer hat auf „stoppe
-nach Runde 18" reduziert) durchgehend ohne Zwischen-Rückfrage. Zusätzlich wurde
-`docs/RECHERCHE.md` um die Abschnitte 1a–1c ergänzt: exakte URL-Muster
-(`api.github.com/repos/<owner>/<repo>`, `raw.githubusercontent.com/.../fxmanifest.lua` bzw.
+**Nutzerauftrag für diese Session:** Runden 16–18, danach stoppen (Nutzer hat explizit auf
+„stoppe nach Runde 18" reduziert — NICHT eigenständig über Runde 18 hinaus weitermachen).
+Zusätzlich: `docs/RECHERCHE.md` wurde um Abschnitte 1a–1c ergänzt (exakte URL-Muster
+`api.github.com/repos/<owner>/<repo>`, `raw.githubusercontent.com/.../fxmanifest.lua` bzw.
 `README.md`, systematisches Vorgehen bei 404/Repo-Umzug, Umgang mit bot-geschützten
-Tebex-Seiten) — Subagent-Prompts ab Runde 17 sollen auf diese Abschnitte verweisen, damit
-weniger Rätselraten/Web-UI-Klicken nötig ist und die Recherche schneller/konsistenter wird.
+Tebex-Seiten). **Ab Runde 17 umgesetzt:** die Hauptsession löst bei bereits bekannten
+GitHub-Links den Owner/Repo-Pfad selbst auf und gibt ihn den Subagents direkt mit (kein
+eigenständiges Suchen mehr nötig) — nur bei Platzhalter-Links (`github.com/topics/qbox`) oder
+reinen Profil-Links müssen Subagents noch selbst recherchieren. Hat sich in Runde 17 bewährt
+(alle Funde weiterhin akkurat belegt, spürbar weniger Tool-Aufrufe pro Subagent für die
+bekannten Repos jim_pawnshop/mhacking/mt_washing/ps_drugprocessing) — **dieses Muster für
+Runde 18 fortführen.**
 
 **Sonnet-5/low-Test abgeschlossen (Runden 7–15, Nutzerwunsch statt der in CLAUDE.md §1
 vorgegebenen medium-Einstellung für Datenrunden).** Zwischenfazit: Über 9 Runden hinweg keine vom
@@ -103,13 +108,23 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Runde 17 starten.** Nutzerauftrag: Runden 16–18 durchgehend, danach stoppen und Zwischenstand
-vorlegen (nicht eigenständig über Runde 18 hinaus weitermachen). Kategorie „Zivil-Jobs &
-Aktivitäten" ist mit Runde 16 komplett (30/30) — Runde 17 beginnt die nächste Kategorie in
-`data/kategorien.json`-Reihenfolge (vor Rundenstart per Skript/Stats ermitteln, welche Kategorie
-als nächstes dran ist und welche IDs darin noch `geprueft_am: null` haben). `npm run newround 17`
-legt das Gerüst an. Subagent-Prompts sollen ab jetzt auf `docs/RECHERCHE.md` Abschnitte 1a–1c
-verweisen (exakte API-/Raw-URL-Muster), damit weniger eigenständig gerätselt werden muss.
+**Runde 18 starten, danach stoppen.** Kategorie „Crime & Unterwelt" (32 Einträge gesamt) ist
+nach Runde 17 zu 11/32 durchgeprüft. Runde 18 nimmt die nächsten ~11: `ps_ui`,
+`ps_weedplanting`, `qb_keyminigame`, `qb_minigames`, `qb_skillbar`, `qb_traphouse`,
+`qbx_bankrobbery`, `qbx_drugs`, `qbx_fireworks`, `qbx_houserobbery`, `qbx_jewelery` (IDs vor
+Rundenstart gegen `data/catalog/*.json` neu abgleichen, falls sich etwas verschoben hat). Die
+restlichen 10 (`qbx_lockpick`, `qbx_pawnshop`, `qbx_storerobbery`, `qbx_truckrobbery`,
+`qbx_weed`, `rahe_boosting`, `rainmad_heists`, `randolio_moneywash`, `t1ger_heists`,
+`utk_fingerprint`) bleiben für eine spätere Runde 19 offen — Kategorie „Crime" ist nach Runde 18
+also NICHT komplett. `npm run newround 18` legt das Gerüst an.
+
+**Nach Runde 18: STOPPEN.** Nutzer hat das für diese Session explizit so vorgegeben. Committen,
+PROGRESS.md/CHANGELOG.md fortschreiben, dann kurz zusammenfassen und auf Rückmeldung warten
+statt eigenständig mit Runde 19 weiterzumachen.
+
+Für Runde 18 gilt weiterhin: bei bekannten GitHub-Links Owner/Repo-Pfad selbst vorab auflösen
+und den Subagents direkt mitgeben (siehe Runde 17), nur bei Platzhaltern/fehlenden Links
+eigenständig suchen lassen.
 
 **Runde 15 — wichtigster Fund:** `qbx_hotdogjob` hatte einen falschen Katalog-Pfad (Unterstrich
 statt Bindestrich, korrekt `qbx-hotdogjob`) und ist zudem als „Unmaintained" markiert — bisher
