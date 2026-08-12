@@ -1,0 +1,112 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r12",
+  "runde": 12,
+  "thema": "Nachprüfung Kategorie 'Staatliche Jobs & Fraktionen' (Teil 2/3 — 8 von 23 Einträgen)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "ps_mdt",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Qbox-Support läuft inzwischen direkt über ps_lib im Original-Repo ('Works on QBCore and QBX through the ps_lib abstraction layer') — kein separater Community-Fork mehr nötig, der Katalog-Hinweis 'Qbox-Community-Forks aktiv' war veraltet. Nicht archiviert (im Gegensatz zu vielen anderen Project-Sloth-Repos), Version 3.1.4, aktiv gepflegt.",
+      "version": "3.1.4",
+      "letztes_update": "Aktiv · Release vom 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "Qbox-Support läuft direkt über die ps_lib-Abstraktionsschicht im Original-Repo, kein separater Fork mehr nötig.",
+        "sicherheit": "bestaetigt"
+      },
+      "tipp": "Original-Repo direkt verwenden, kein Community-Fork mehr nötig — ps_lib deckt Qbox ab.",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Project-Sloth/ps-mdt (README, Release 3.1.4)"
+    },
+    {
+      "id": "qb_gangmenu",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo wurde von der qbcore-framework-Org komplett entfernt (nicht nur archiviert) — GitHub-API liefert 404, im vollständigen Org-Repo-Verzeichnis nicht mehr enthalten, kein Rename/Redirect. Redundanz-Einordnung zu qbx_management bleibt inhaltlich richtig.",
+      "link_status": "404",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "Original-Repo aus der qbcore-framework-Org entfernt (404), kein Nachfolger im selben Namespace. Auf Qbox ohnehin durch qbx_management abgedeckt.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["Original-Repo existiert nicht mehr (404)", "Redundant auf Qbox"],
+      "qualitaet": "ungeprueft",
+      "quelle": "https://github.com/qbcore-framework/qb-gangmenu (404); GitHub-API Org-Repo-Liste"
+    },
+    {
+      "id": "qbx_ambulancejob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "fxmanifest bestätigt Hard-Dependency auf qbx_medical (bisher nicht im Katalog-Feld abhaengigkeiten enthalten) — Verhältnis zu qbx_medical jetzt eindeutig geklärt: Pflicht-Ergänzung, kein alternatives Modul. abhaengigkeiten-Feld entsprechend ergänzt.",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "abhaengigkeiten": ["qbx_core", "ox_target", "qbx_medical"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_ambulancejob (fxmanifest.lua)"
+    },
+    {
+      "id": "qbx_cityhall",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Aktivität bestätigt (letzter Push 16.07.2026, kein getaggtes Release/rollende Versionierung) — keine inhaltliche Änderung nötig.",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026 (kein Release-Tag)",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_cityhall"
+    },
+    {
+      "id": "qbx_management",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Aktivität bestätigt (letzter Push 16.07.2026, kein getaggtes Release), weiterhin gepflegt — kein inhaltlicher Änderungsbedarf.",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026 (kein Release-Tag)",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_management"
+    },
+    {
+      "id": "qbx_medical",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Offene Frage aus dem Katalog geklärt: qbx_medical ist Pflichtabhängigkeit von qbx_ambulancejob (fxmanifest-Beleg bei beiden Repos), kein alternatives/konkurrierendes Modul. qbx_medical liefert das ausgelagerte Kern-Gesundheitssystem (Health/Armor/Damage/Status), qbx_ambulancejob die EMS-Job-Logik obendrauf — beide zusammen nötig, nicht alternativ.",
+      "beschreibung": "Offizielles Medical-Kernmodul (Health/Armor/Damage/Status-Effekte), aus dem ambulancejob ausgelagert. Pflichtabhängigkeit von qbx_ambulancejob, kein Ersatz — beide Module werden zusammen benötigt.",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026 (kein Release-Tag)",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "contra": [],
+      "neutral": ["Pflichtabhängigkeit von qbx_ambulancejob, nicht eigenständig einsetzbar — beide Module gehören zusammen installiert."],
+      "kompat_warnung": null,
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_medical (README); https://github.com/Qbox-project/qbx_ambulancejob (fxmanifest.lua, README)"
+    },
+    {
+      "id": "qbx_policejob",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Wichtiger Fund: Repo wurde von 'qbx_policejob' zu 'qbx_police' umbenannt (GitHub-API liefert 'Moved Permanently' mit Redirect-Ziel Qbox-project/qbx_police). Alter Link funktioniert weiterhin per GitHub-Redirect, im Katalog aber auf die neue URL korrigiert.",
+      "link": "https://github.com/Qbox-project/qbx_police",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026 (kein Release-Tag)",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_police (Redirect von qbx_policejob bestätigt)"
+    },
+    {
+      "id": "qbx_prison",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo am 09.07.2026 vom Owner archiviert (read-only), kein Nachfolger genannt. README bestätigt Abhängigkeit von qbx_policejob (jetzt qbx_police).",
+      "letztes_update": "⚠️ Archiviert seit 09.07.2026, kein Nachfolger benannt",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": {
+        "text": "Vom Owner am 09.07.2026 archiviert (read-only), keine weiteren Fixes/Updates mehr zu erwarten. Für neue Server ggf. Alternative prüfen. Kein Nachfolger benannt.",
+        "nachfolger": ""
+      },
+      "contra": ["🪦 Archiviert seit 09.07.2026", "Vanilla-Interior (MLO-Upgrade möglich)"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_prison (Archived-Banner, README)"
+    }
+  ]
+}

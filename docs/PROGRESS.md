@@ -4,16 +4,16 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `f027817` (Runde 10). Runde 11 ist fertig, aber noch **nicht** committet —
+**Letzter Commit:** `771f330` (Runde 11). Runde 12 ist fertig, aber noch **nicht** committet —
 das ist der nächste Schritt.
-**Validate-Status:** grün (14 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
+**Validate-Status:** grün (15 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
 22 Updates, `runde-2.json` 12, `runde-3.json` 14, `runde-4.json` 12, `runde-5.json` 11,
 `runde-6.json` 6, `runde-7.json` 8, `runde-8.json` 8, `runde-9.json` 7, `runde-10.json` 9,
-`runde-11.json` 8 · 262 Plugins gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
-**Katalogstand:** 262 gesamt · 60 verifiziert · 53 teilgeprüft · ~149 ungeprüft
-**Aktuelle Runde:** Runde 11 — Start der Kategorie „Staatliche Jobs & Fraktionen" (23 Einträge),
-erste 8 nachgeprüft (Teil 1/3). Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand
-kategorieweise durchprüfen). Sonnet-5/low-Test läuft bis einschließlich Runde 15 (Nutzerwunsch).
+`runde-11.json` 8, `runde-12.json` 8 · 262 Plugins gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
+**Katalogstand:** 262 gesamt · 65 verifiziert · 55 teilgeprüft · ~142 ungeprüft
+**Aktuelle Runde:** Runde 12 — Kategorie „Staatliche Jobs & Fraktionen", nächste 8 nachgeprüft
+(Teil 2/3). Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise
+durchprüfen). Sonnet-5/low-Test läuft bis einschließlich Runde 15 (Nutzerwunsch).
 
 **Sonnet-5/low-Test abgeschlossen (Runden 7–9, Nutzerwunsch statt der in CLAUDE.md §1
 vorgegebenen medium-Einstellung für Datenrunden):** Ergebnisqualität bei erfolgreichem
@@ -80,15 +80,20 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Committen.** Runde 11 ist fertig, aber `data/catalog/runde-11.json` und diese Doku-Updates
-liegen noch uncommittet im Working Tree. Danach: Runde 12 — nächste 8 von 23 Einträgen der
-Kategorie „Staatliche Jobs & Fraktionen" (`ps_mdt`, `qb_gangmenu`, `qbx_ambulancejob`,
-`qbx_cityhall`, `qbx_management`, `qbx_medical`, `qbx_policejob`, `qbx_prison`), danach Runde 13
-mit den restlichen 7 (`randolio_grandma`, `redutzu_mdt`, `sonoran_cad`, `wasabi_ambulance`,
-`wasabi_mdt`, `wasabi_police`, `wk_wars2x`) — damit ist Kategorie „Staat" komplett. Runden 14–15
-dann Start der Kategorie „6. Zivil-Jobs & Aktivitäten" (30 Einträge, wird nicht in Runde 14–15
-fertig). Nutzer hat den Sonnet-5/low-Test bis einschließlich Runde 15 verlängert — danach
-Zwischenfazit ziehen und Modell/Effort neu abstimmen. `npm run newround 12` legt das Gerüst an.
+**Committen.** Runde 12 ist fertig, aber `data/catalog/runde-12.json` und diese Doku-Updates
+liegen noch uncommittet im Working Tree. Danach: Runde 13 — restliche 7 von 23 Einträgen der
+Kategorie „Staatliche Jobs & Fraktionen" (`randolio_grandma`, `redutzu_mdt`, `sonoran_cad`,
+`wasabi_ambulance`, `wasabi_mdt`, `wasabi_police`, `wk_wars2x`) — damit ist Kategorie „Staat"
+komplett. Runden 14–15 dann Start der Kategorie „6. Zivil-Jobs & Aktivitäten" (30 Einträge, wird
+nicht in Runde 14–15 fertig). Nutzer hat den Sonnet-5/low-Test bis einschließlich Runde 15
+verlängert — danach Zwischenfazit ziehen und Modell/Effort neu abstimmen.
+`npm run newround 13` legt das Gerüst an.
+
+**Runde 12 — wichtigster Fund:** `qbx_policejob` (essenziell!) wurde zu `qbx_police` umbenannt
+(GitHub-Redirect bestätigt), Link korrigiert, ID zur Wahrung der Querverweise unverändert
+gelassen. `qbx_prison` frisch archiviert seit 09.07.2026. `qb_gangmenu` komplett aus der
+qbcore-framework-Org entfernt. Offene Beziehungsfrage `qbx_medical`↔`qbx_ambulancejob` geklärt:
+Pflicht-Ergänzung per fxmanifest-Beleg, kein alternatives Modul.
 
 **Runde 11 — wichtigster Fund:** `ox_mdt` war entgegen der Katalog-Annahme NICHT archiviert
 (weiterhin aktiv gepflegt) — die `ox_core`-Abhängigkeit und damit Qbox-Inkompatibilität bleibt
@@ -172,4 +177,5 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 | 8 | Nachprüfung Kategorie „Fahrzeuge" Teil 2/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 1 (4 verifiziert, 3 teilgeprüft, 1 ungeprueft) | `data/catalog/runde-8.json` | `5851328` |
 | 9 | Nachprüfung Kategorie „Fahrzeuge" Teil 3/3, letzte 7 — Kategorie komplett (kein Neufund) | 0 | 7 | 0 | 1 (3 verifiziert, 3 teilgeprüft, 1 auf ungeprueft herabgestuft) | `data/catalog/runde-9.json` | `b688c5a` |
 | 10 | Nachprüfung Kategorie „Wohnen" komplett, 9 von 9 (kein Neufund) | 0 | 9 | 0 | 0 (3 verifiziert, 6 teilgeprüft) | `data/catalog/runde-10.json` | `f027817` |
-| 11 | Nachprüfung Kategorie „Staat" Teil 1/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 0 (3 verifiziert, 5 teilgeprüft) | `data/catalog/runde-11.json` | folgt |
+| 11 | Nachprüfung Kategorie „Staat" Teil 1/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 0 (3 verifiziert, 5 teilgeprüft) | `data/catalog/runde-11.json` | `771f330` |
+| 12 | Nachprüfung Kategorie „Staat" Teil 2/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 1 (5 verifiziert, 2 teilgeprüft, 1 herabgestuft) | `data/catalog/runde-12.json` | folgt |

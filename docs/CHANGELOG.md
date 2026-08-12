@@ -17,6 +17,31 @@ Format je Eintrag:
 
 ---
 
+## [Runde 12] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-12.json` — nächste 8 von 23 Einträgen der Kategorie „Staatliche Jobs &
+  Fraktionen" nachgeprüft (Teil 2/3), recherchiert über 1 Subagent.
+
+**Korrigiert:**
+- `qbx_policejob`: **wichtigster Fund** — Repo wurde zu `qbx_police` umbenannt (GitHub-Redirect
+  bestätigt), Link im Katalog korrigiert (ID bleibt zur Wahrung der Querverweise unverändert).
+- `qbx_prison`: frisch archiviert seit 09.07.2026, kein Nachfolger benannt.
+- `qb_gangmenu`: Repo komplett aus der qbcore-framework-Org entfernt (404, nicht nur archiviert).
+- `qbx_medical`/`qbx_ambulancejob`: offene Beziehungsfrage aus dem Katalog geklärt — per
+  fxmanifest-Beleg ist `qbx_medical` eine Pflichtabhängigkeit von `qbx_ambulancejob` (ausgelagertes
+  Kern-Gesundheitssystem), kein alternatives Modul. `abhaengigkeiten`-Feld bei `qbx_ambulancejob`
+  entsprechend ergänzt.
+- `ps_mdt`: nicht von der Project-Sloth-Archivierungswelle betroffen, Qbox-Support läuft
+  inzwischen direkt über die `ps_lib`-Abstraktionsschicht im Original-Repo — der Katalog-Hinweis
+  auf separate „Qbox-Community-Forks" war veraltet.
+
+**Katalog:** 0 neu, 8 aktualisiert, 0 Duplikate übersprungen, 5 auf `verifiziert`, 2 auf
+`teilgeprueft`, 1 auf `ungeprueft` herabgestuft
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 11] – 12.08.2026
 
 **Neu:**
