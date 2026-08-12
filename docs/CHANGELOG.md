@@ -17,6 +17,45 @@ Format je Eintrag:
 
 ---
 
+## [Phase 2] – 12.08.2026
+
+**Neu:**
+- `scripts/import/von-v21.mjs` — liest `reference/qbox-server-planer-v2-1.html` nur lesend,
+  wertet das `RAW`-Array in einem Node-`vm`-Kontext aus (reines Datenliteral)
+- `scripts/import/von-kimi.mjs` — repariert die 6 bekannten Syntaxdefekte aus
+  `reference/kimi-kataloge/*.json` NUR im Speicher (Originaldateien unverändert), bricht bei
+  jedem unbekannten Defekt mit der `jsonfehler.js`-Diagnose ab statt zu raten
+- `scripts/import/mapping.mjs` — gemeinsame Feldabbildung Rohformat → Katalogschema für beide
+  Quellen (identisches Rohvokabular)
+- `scripts/import/build-altbestand.mjs` — führt beide Quellen nach D17 zusammen (kimi gewinnt
+  feldweise bei ID-Kollision, v2.1-only-Felder bleiben erhalten) und schreibt
+  `data/catalog/altbestand.json` + `docs/altbestand-konflikte.md`
+- `data/catalog/altbestand.json` — 256 Plugins (124 aus v2.1, 132 nur bei kimi, 8 Kollisionen),
+  durchgehend `qualitaet: "ungeprueft"`, `geprueft_am: ""` (D18)
+- `docs/altbestand-konflikte.md` — Konfliktbericht der 8 Feld-Überschreibungen zur Durchsicht
+
+**Geändert:**
+- `data/catalog/demo.json`: die vier Einträge, die jetzt echte Entsprechungen in
+  `altbestand.json` haben (`ox_lib`, `qbx_core`, `qbx_policejob`, `ox_inventory`), entfernt —
+  gleiche ID wäre ein Duplikatfehler gewesen. Die Abhängigkeitskette der übrigen sechs
+  Demo-Einträge bleibt über diese IDs cross-file intakt (`abhaengigkeiten`/`konflikte` zeigen
+  jetzt auf die altbestand-Version). Bewusst vorgesehen, siehe `docs/PROGRESS.md` Phase 1.
+
+**Korrigiert:**
+- `docs/DECISIONS.md`/Plan gingen von 88 Plugins in `reference/qbox-server-planer-v2-1.html`
+  aus (grobe Schätzung vor dem tatsächlichen Parsen). Das `RAW`-Array enthält tatsächlich
+  **124** eindeutige Einträge, keine Duplikate. Fünf IDs (`okokGarage`, `LegacyFuel`,
+  `okokPhone`, `vSync`, `okokBanking`) enthielten Großbuchstaben und wurden beim Mapping
+  kleingeschrieben (Schema-Pflicht `^[a-z0-9][a-z0-9_-]*$`); alle Querverweise sind konsistent
+  mitkleingeschrieben.
+
+**Katalog:** 256 neu (davon 124 aus v2.1, 132 nur bei kimi), 0 aktualisiert (Altbestand ist eine
+eigenständige Datei, kein `updates`-Import gegen einen bestehenden Katalog), 8 Kollisionen
+feldweise nach kimi aufgelöst (`docs/altbestand-konflikte.md`), 256 ungeprüft (D18)
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Phase 1] – 12.08.2026
 
 **Neu:**
@@ -51,7 +90,7 @@ Format je Eintrag:
 
 **Katalog:** 0 neu, 0 aktualisiert, 0 Duplikate übersprungen, 10 ungeprüft (Demodaten, nicht
 nach docs/RECHERCHE.md recherchiert — bewusst so markiert)
-**Commit:** noch keiner — folgt direkt im Anschluss an diesen Changelog-Eintrag
+**Commit:** `aeec4e7`
 
 ---
 

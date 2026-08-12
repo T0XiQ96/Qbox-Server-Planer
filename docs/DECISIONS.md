@@ -41,6 +41,19 @@ Katalog-Import in der App genutzt) benennt stattdessen Datei, Zeile, Spalte, bet
 Ursache im Klartext — mit genau diesen sechs Fällen regressionsgetestet in `scripts/selftest.mjs`.
 Die Originaldateien in `reference/kimi-kataloge/` bleiben unverändert.
 
+## Korrektur: tatsächliche Größe des v2.1-Altbestands (Plan/CLAUDE.md nannten 88)
+
+Der Plan und `docs/PROGRESS.md` gingen vor der Umsetzung von Phase 2 von 88 Plugins in
+`reference/qbox-server-planer-v2-1.html` aus — eine grobe Schätzung, nicht gezählt. Das
+tatsächliche `RAW`-Array enthält **124 eindeutige Einträge** (keine Duplikate), ausgewertet von
+`scripts/import/von-v21.mjs` per Node-`vm`. Zusammen mit den 140 kimi-Einträgen (83 + 57) und 8
+Kollisionen (D17, kimi gewinnt feldweise) ergibt das 256 Plugins in `data/catalog/altbestand.json`.
+Fünf v2.1-IDs enthielten Großbuchstaben (`okokGarage`, `LegacyFuel`, `okokPhone`, `vSync`,
+`okokBanking`) und wurden beim Mapping kleingeschrieben, weil die Schema-ID-Regel
+(`^[a-z0-9][a-z0-9_-]*$`) das verlangt — alle Querverweise (`deps`/`conflicts`/`synergy`) sind
+konsistent mitkleingeschrieben, dieselbe Normalisierungsfunktion läuft auf beiden Seiten.
+(12.08.2026)
+
 ## Offen / zu klären
 
 - Ablageort des Repos (lokal vs. Unraid-Share).
