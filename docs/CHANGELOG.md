@@ -17,6 +17,42 @@ Format je Eintrag:
 
 ---
 
+## [Runde 18] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-18.json` — nächste 11 von 32 Einträgen der Kategorie „Crime & Unterwelt"
+  nachgeprüft (Teil 2/3). Recherche über 3 parallele Subagents, durchgehend mit vorab
+  aufgelösten Owner/Repo-Pfaden (siehe Runde 17).
+
+**Korrigiert:**
+- `ps_ui`, `ps_weedplanting`: beide seit Runde 18 archiviert bestätigt (04.08.2025 bzw.
+  06.02.2026, letzteres am selben Tag wie `ps_drugprocessing` aus Runde 17) — bestätigt das
+  Project-Sloth-Muster jetzt zum siebten/achten Mal. `ps_ui` hat einen benannten Nachfolger
+  (`ps_lib`), auf den die restliche Funktionalität zusammengeführt wurde.
+- `qb_keyminigame`, `qb_skillbar`: beide komplett aus der `qbcore-framework`-Org entfernt (404,
+  Org-Suche bestätigt 0 Treffer) — weitere Fälle des schon aus Runde 8/9 bekannten Musters
+  (`qb-customs`, `qb-gangmenu`).
+- `qb_traphouse`: existiert noch, ist aber seit 20.05.2024 archiviert. Harte
+  `@qb-core/shared/locale.lua`-Datei-Include im fxmanifest bestätigt echtes Bridge-Risiko —
+  `kompat_warnung` von Vermutung auf bestätigt hochgestuft.
+- `qb_minigames`: Standalone-Aussage (bisher unbelegte Altbestand-Übernahme) jetzt im Code/README
+  tatsächlich verifiziert.
+- `qbx_drugs`, `qbx_jewelery`: Abhängigkeiten im Code bestätigt bzw. präzisiert (ox_target/
+  ox_inventory bzw. zusätzlich ox_target).
+- `qbx_bankrobbery`, `qbx_fireworks`, `qbx_houserobbery`: Versionen/Grunddaten bestätigt, einige
+  Synergie-/Abhängigkeitsangaben im aktuell einsehbaren Code nicht auffindbar — für spätere
+  Code-Stichprobe vorgemerkt statt spekulativ korrigiert.
+
+**Katalog:** 0 neu, 11 aktualisiert, 0 Duplikate übersprungen, 0 ungeprüft (5 verifiziert, 4
+teilgeprüft, 2 auf `ungeprueft` mit `link_status: "404"`)
+**Kategorie „Crime & Unterwelt" nach Runden 17–18 zu 22/32 durchgeprüft — restliche 10 offen für
+eine spätere Runde 19.**
+**Session-Ende:** Nutzer hat für diese Session explizit „Runden 16–18, dann stoppen" vorgegeben.
+Nach diesem Commit folgt kein eigenständiger Rundenstart mehr, sondern Zwischenstand-Meldung.
+**Commit:** folgt
+
+---
+
 ## [Runde 17] – 12.08.2026
 
 **Neu:**

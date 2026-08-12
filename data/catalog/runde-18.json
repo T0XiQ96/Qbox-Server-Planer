@@ -1,0 +1,157 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r18",
+  "runde": 18,
+  "thema": "Nachprüfung Kategorie 'Crime & Unterwelt' (Teil 2/3 — 11 von 32 Einträgen)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "qbx_bankrobbery",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "fxmanifest bestätigt version 1.0.0, Abhängigkeit qbx_core über @qbx_core/modules/lib.lua + playerdata.lua. Synergie zu ps_dispatch/qbx_pawnshop im aktuell einsehbaren Code (server/main.lua) nicht bestätigt — ggf. veraltete Angabe, bei Gelegenheit gegenprüfen. GitHub-API war rate-limitet, archiviert-Status nicht direkt abrufbar, Repo aber über raw-Zugriff erreichbar.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.0.0",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_bankrobbery, https://raw.githubusercontent.com/Qbox-project/qbx_bankrobbery/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_drugs",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "fxmanifest bestätigt version 1.0.0, Abhängigkeit qbx_core. Code-Stichprobe (client/deliveries.lua, client/cornerselling.lua) bestätigt aktive Nutzung von exports.ox_target und exports.ox_inventory — ox_target/ox_inventory als Abhängigkeiten damit im Code belegt, nicht nur vermutet. Konflikt mit ps_drugprocessing bleibt bestehen (dieses ist seit Runde 17 als archiviert bekannt, aber laut Autor weiter nutzbar).",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.0.0",
+      "abhaengigkeiten": ["qbx_core", "ox_inventory", "ox_target"],
+      "kompat_warnung": {
+        "text": "Nutzung von exports.ox_target und exports.ox_inventory im Code direkt bestätigt (client/deliveries.lua, client/cornerselling.lua).",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_drugs, https://raw.githubusercontent.com/Qbox-project/qbx_drugs/main/fxmanifest.lua, https://raw.githubusercontent.com/Qbox-project/qbx_drugs/main/client/deliveries.lua"
+    },
+    {
+      "id": "qbx_fireworks",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "fxmanifest zeigt version 1.3.0 (Versionsstand aktualisiert), shared_script @ox_lib/init.lua. Eine direkte qbx_core-Abhängigkeit ließ sich im fxmanifest NICHT bestätigen (kein qbx_core-Pfad in shared/client/server_scripts) — README nennt nur ox_inventory-Integration für Feuerwerk-Items. abhaengigkeiten-Feld daher vorsichtshalber nicht auf qbx_core festgelegt, für spätere Runde zur Präzisierung vorgemerkt.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.3.0",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_fireworks, https://raw.githubusercontent.com/Qbox-project/qbx_fireworks/main/fxmanifest.lua, https://raw.githubusercontent.com/Qbox-project/qbx_fireworks/main/README.md"
+    },
+    {
+      "id": "qbx_houserobbery",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "fxmanifest bestätigt version 1.0.0, Abhängigkeit qbx_core über @qbx_core/modules/lib.lua. Synergie zu qbx_lockpick/qbx_pawnshop und ox_target-Nutzung im aktuell einsehbaren client/main.lua nicht direkt gefunden (evtl. anderer Dateiname) — für spätere Code-Stichprobe vorgemerkt.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.0.0",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/Qbox-project/qbx_houserobbery, https://raw.githubusercontent.com/Qbox-project/qbx_houserobbery/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_jewelery",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo aktiv, nicht archiviert. fxmanifest bestätigt version 1.0.0, Abhängigkeiten qbx_core + ox_lib. README nennt zusätzlich ox_target und 'ultra-voltlab' als Abhängigkeit — bisher nicht im Katalog vermerkt, ergänzt.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "1.0.0",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_target"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Qbox-project/qbx_jewelery, https://raw.githubusercontent.com/Qbox-project/qbx_jewelery/main/fxmanifest.lua, https://raw.githubusercontent.com/Qbox-project/qbx_jewelery/main/README.md"
+    },
+    {
+      "id": "ps_ui",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo wurde am 04.08.2025 vom Owner archiviert (read-only). Bestätigt zum siebten Mal das Project-Sloth-Archivierungsmuster (nach ps-inventory, ps-hud, ps-fuel, ps-housing, ps-realtor, ps-drugprocessing). Archivierungsbanner nennt explizit einen Nachfolger: Funktionalität wurde in ps_lib zusammengeführt, dort finden künftige Updates statt.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": {
+        "text": "Archiviert vom Owner am 04.08.2025 (read-only). Funktionalität laut Repo-Banner in ps_lib zusammengeführt.",
+        "nachfolger": "ps_lib"
+      },
+      "contra": ["🪦 Archiviert seit 04.08.2025 — Nachfolger ps_lib"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Project-Sloth/ps-ui"
+    },
+    {
+      "id": "ps_weedplanting",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo wurde am 06.02.2026 vom Owner archiviert (read-only, gleicher Tag wie ps_drugprocessing aus Runde 17 — Team fokussiert sich laut Banner auf ps-mdt v3). Skript bleibt laut Autor nutzbar, wird aber nicht mehr aktualisiert. fxmanifest bestätigt version 2.1.2, Abhängigkeiten ox_lib + oxmysql, framework qbcore_bridge — keine Abhängigkeit auf ps-ui/ps_lib im Manifest gefunden.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "version": "2.1.2",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "archiviert": {
+        "text": "Archiviert vom Owner am 06.02.2026 (read-only), gleicher Tag wie ps_drugprocessing. Laut Banner Fokus-Verschiebung auf ps-mdt v3, Script bleibt nutzbar, keine weiteren Updates geplant.",
+        "nachfolger": ""
+      },
+      "contra": ["🪦 Archiviert seit 06.02.2026"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Project-Sloth/ps-weedplanting, https://raw.githubusercontent.com/Project-Sloth/ps-weedplanting/main/fxmanifest.lua"
+    },
+    {
+      "id": "qb_keyminigame",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo qbcore-framework/qb-keyminigame existiert nicht mehr (404, mehrfach geprüft inkl. raw-URL auf main/master). GitHub-Org-Suche nach 'keyminigame' liefert 0 Treffer — komplett aus der Org entfernt, analog zu qb-customs/qb-gangmenu (frühere Runden). Kein Ersatzlink geraten.",
+      "link_status": "404",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": {
+        "text": "Repo komplett aus der qbcore-framework-Org entfernt (404, Org-Suche bestätigt 0 Treffer). Kein Nachfolger auffindbar.",
+        "nachfolger": ""
+      },
+      "contra": ["⚠️ Repo nicht mehr auffindbar (404), aus Org entfernt"],
+      "qualitaet": "ungeprueft",
+      "quelle": "https://github.com/qbcore-framework/qb-keyminigame (404), https://api.github.com/search/repositories?q=keyminigame+org:qbcore-framework (0 Treffer)"
+    },
+    {
+      "id": "qb_minigames",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo aktiv, nicht archiviert (letzter Push 30.03.2024, GPL-3.0). fxmanifest enthält KEINE Abhängigkeit auf qb-core/qb-inventory — nur client_scripts + ui_page, reines Frontend-Package. README bestätigt Standalone-Nutzung (Export-Muster exports['qb-minigames']:MinigameName(...) ohne Framework-Anbindung). Die bisher unbelegte Aussage 'standalone nutzbar, sicherheit bestaetigt' ist damit jetzt tatsächlich im Code/README verifiziert.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "standalone",
+      "kompat_warnung": {
+        "text": "Reine Minigames (Thermite, Hack) ohne Framework-Zugriff → standalone nutzbar, kein Bridge-Problem. Jetzt im Code/README bestätigt statt nur übernommen.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://api.github.com/repos/qbcore-framework/qb-minigames, https://raw.githubusercontent.com/qbcore-framework/qb-minigames/main/fxmanifest.lua, https://raw.githubusercontent.com/qbcore-framework/qb-minigames/main/README.md"
+    },
+    {
+      "id": "qb_skillbar",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo qbcore-framework/qb-skillbar existiert nicht mehr (404, mehrfach geprüft inkl. raw-URL auf main/master). GitHub-Org-Suche nach 'skillbar' liefert 0 Treffer. Eine Skillbar-Funktion lebt als Teilexport im weiterhin aktiven qb_minigames-Repo weiter, ist aber kein eigenständiger Nachfolger (anderes Produkt, bereits separat im Katalog geführt) — nicht als Ersatzlink eingetragen.",
+      "link_status": "404",
+      "link_geprueft_am": "2026-08-12",
+      "archiviert": {
+        "text": "Repo komplett aus der qbcore-framework-Org entfernt (404, Org-Suche bestätigt 0 Treffer). Eine Teilfunktion lebt im separaten qb_minigames-Repo weiter, ist aber kein direkter Nachfolger.",
+        "nachfolger": ""
+      },
+      "contra": ["⚠️ Repo nicht mehr auffindbar (404), aus Org entfernt"],
+      "qualitaet": "ungeprueft",
+      "quelle": "https://github.com/qbcore-framework/qb-skillbar (404), https://api.github.com/search/repositories?q=skillbar+org:qbcore-framework (0 Treffer)"
+    },
+    {
+      "id": "qb_traphouse",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Repo existiert noch, ist aber seit 20.05.2024 archiviert (API bestätigt archived:true, GPL-3.0). Die bisherige contra-Aussage 'Ungepflegt zuletzt' war zutreffend, jetzt verschärft: offiziell eingestellt. fxmanifest importiert hart @qb-core/shared/locale.lua per Datei-Include (kein Export/Bridge-Zugriff) — unter Qbox (Ressource qbx_core statt qb-core) nur mit zusätzlicher qb-core-Kompatschicht lauffähig. README nennt ausschließlich QBCore, keine Qbox-Erwähnung. kompat_warnung von Vermutung auf bestätigt hochgestuft.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "framework": "qbcore_only",
+      "archiviert": {
+        "text": "Archiviert seit 20.05.2024. Letzter Push 17.02.2024.",
+        "nachfolger": ""
+      },
+      "kompat_warnung": {
+        "text": "Harter Include @qb-core/shared/locale.lua in fxmanifest.lua greift direkt auf die Legacy-Ressource 'qb-core' zu statt über Exports/Bridge — unter reinem Qbox (Ressource qbx_core) ohne qb-core-Kompatschicht nicht lauffähig.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["🪦 Archiviert seit 20.05.2024", "Harte @qb-core-Datei-Includes, keine Bridge"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/qbcore-framework/qb-traphouse, https://api.github.com/repos/qbcore-framework/qb-traphouse, https://raw.githubusercontent.com/qbcore-framework/qb-traphouse/main/fxmanifest.lua"
+    }
+  ]
+}

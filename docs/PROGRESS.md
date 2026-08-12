@@ -4,28 +4,31 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `c8a7383` (Runde 16). Runde 17 ist fertig, aber noch **nicht** committet —
+**Letzter Commit:** `8a4e940` (Runde 17). Runde 18 ist fertig, aber noch **nicht** committet —
 das ist der nächste Schritt.
-**Validate-Status:** grün (20 Katalogdateien inkl. `runde-17.json` 11 Updates · 262 Plugins
+**Validate-Status:** grün (21 Katalogdateien inkl. `runde-18.json` 11 Updates · 262 Plugins
 gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
-**Katalogstand:** 262 gesamt, ~19 mit `link_status: 404` nach Runde 17 (drei weitere jim_*/mt_*-
-Funde ohne Ersatz).
-**Aktuelle Runde:** Runde 17 — Kategorie „Crime & Unterwelt" Teil 1/3, erste 11 von 32 Einträgen
-nachgeprüft. Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise
-durchprüfen).
+**Katalogstand:** 262 gesamt, ~21 mit `link_status: 404` nach Runde 18 (zwei weitere
+qbcore-framework-Repos komplett verschwunden: qb_keyminigame, qb_skillbar).
+**Aktuelle Runde:** Runde 18 — Kategorie „Crime & Unterwelt" Teil 2/3, 22 von 32 Einträgen
+nachgeprüft (Runden 17+18 zusammen). Restliche 10 offen für eine spätere Runde 19. Weiterhin
+kein Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen).
 
-**Nutzerauftrag für diese Session:** Runden 16–18, danach stoppen (Nutzer hat explizit auf
-„stoppe nach Runde 18" reduziert — NICHT eigenständig über Runde 18 hinaus weitermachen).
-Zusätzlich: `docs/RECHERCHE.md` wurde um Abschnitte 1a–1c ergänzt (exakte URL-Muster
+**Sitzungsauftrag abgeschlossen:** Nutzer hatte für diese Session „Runden 16–18, dann stoppen"
+vorgegeben. Runden 16, 17, 18 sind fertig und werden mit diesem Schritt committet — **danach
+nicht eigenständig mit Runde 19 weitermachen**, sondern Zwischenstand vorlegen und auf
+Rückmeldung des Nutzers warten.
+
+**Vorgehensweise „weniger Subagent-Arbeit" (Nutzerwunsch, ab Runde 17 eingeführt und in Runde 18
+bestätigt):** `docs/RECHERCHE.md` wurde um Abschnitte 1a–1c ergänzt (exakte URL-Muster
 `api.github.com/repos/<owner>/<repo>`, `raw.githubusercontent.com/.../fxmanifest.lua` bzw.
-`README.md`, systematisches Vorgehen bei 404/Repo-Umzug, Umgang mit bot-geschützten
-Tebex-Seiten). **Ab Runde 17 umgesetzt:** die Hauptsession löst bei bereits bekannten
-GitHub-Links den Owner/Repo-Pfad selbst auf und gibt ihn den Subagents direkt mit (kein
-eigenständiges Suchen mehr nötig) — nur bei Platzhalter-Links (`github.com/topics/qbox`) oder
-reinen Profil-Links müssen Subagents noch selbst recherchieren. Hat sich in Runde 17 bewährt
-(alle Funde weiterhin akkurat belegt, spürbar weniger Tool-Aufrufe pro Subagent für die
-bekannten Repos jim_pawnshop/mhacking/mt_washing/ps_drugprocessing) — **dieses Muster für
-Runde 18 fortführen.**
+`README.md`, systematisches Vorgehen bei 404/Repo-Umzug nach Autoren-Namensmuster, Umgang mit
+bot-geschützten Tebex-Seiten). Zusätzlich löst die Hauptsession vor dem Rundenstart bei bereits
+bekannten GitHub-Links den Owner/Repo-Pfad selbst per `npm run find`/Katalog-Auszug auf und gibt
+ihn den Subagents direkt mit — nur bei echten Platzhalter-Links (`github.com/topics/qbox`) oder
+reinen Profil-Links müssen Subagents noch selbst suchen. Bewährt sich über zwei Runden: weiterhin
+akkurate, gut belegte Funde bei spürbar weniger Tool-Aufrufen pro Subagent für bekannte Repos.
+**Für künftige Runden beibehalten.**
 
 **Sonnet-5/low-Test abgeschlossen (Runden 7–15, Nutzerwunsch statt der in CLAUDE.md §1
 vorgegebenen medium-Einstellung für Datenrunden).** Zwischenfazit: Über 9 Runden hinweg keine vom
@@ -108,23 +111,18 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Runde 18 starten, danach stoppen.** Kategorie „Crime & Unterwelt" (32 Einträge gesamt) ist
-nach Runde 17 zu 11/32 durchgeprüft. Runde 18 nimmt die nächsten ~11: `ps_ui`,
-`ps_weedplanting`, `qb_keyminigame`, `qb_minigames`, `qb_skillbar`, `qb_traphouse`,
-`qbx_bankrobbery`, `qbx_drugs`, `qbx_fireworks`, `qbx_houserobbery`, `qbx_jewelery` (IDs vor
-Rundenstart gegen `data/catalog/*.json` neu abgleichen, falls sich etwas verschoben hat). Die
-restlichen 10 (`qbx_lockpick`, `qbx_pawnshop`, `qbx_storerobbery`, `qbx_truckrobbery`,
-`qbx_weed`, `rahe_boosting`, `rainmad_heists`, `randolio_moneywash`, `t1ger_heists`,
-`utk_fingerprint`) bleiben für eine spätere Runde 19 offen — Kategorie „Crime" ist nach Runde 18
-also NICHT komplett. `npm run newround 18` legt das Gerüst an.
+**Warten auf Nutzer-Rückmeldung — nicht eigenständig weitermachen.** Runden 16–18 sind
+abgeschlossen und committet, das war der komplette Sitzungsauftrag. Wenn es weitergeht: Runde 19
+nimmt die restlichen 10 von 32 Einträgen der Kategorie „Crime & Unterwelt": `qbx_lockpick`,
+`qbx_pawnshop`, `qbx_storerobbery`, `qbx_truckrobbery`, `qbx_weed`, `rahe_boosting`,
+`rainmad_heists`, `randolio_moneywash`, `t1ger_heists`, `utk_fingerprint` (IDs vor Rundenstart
+gegen `data/catalog/*.json` neu abgleichen). `npm run newround 19` legt das Gerüst an.
 
-**Nach Runde 18: STOPPEN.** Nutzer hat das für diese Session explizit so vorgegeben. Committen,
-PROGRESS.md/CHANGELOG.md fortschreiben, dann kurz zusammenfassen und auf Rückmeldung warten
-statt eigenständig mit Runde 19 weiterzumachen.
-
-Für Runde 18 gilt weiterhin: bei bekannten GitHub-Links Owner/Repo-Pfad selbst vorab auflösen
-und den Subagents direkt mitgeben (siehe Runde 17), nur bei Platzhaltern/fehlenden Links
-eigenständig suchen lassen.
+Bewährtes Vorgehen für künftige Runden (siehe „Vorgehensweise" oben): bei bekannten GitHub-Links
+Owner/Repo-Pfad selbst vorab auflösen und den Subagents direkt mitgeben, nur bei
+Platzhaltern/fehlenden Links eigenständig suchen lassen. `qbx_pawnshop` steht im Katalog in
+Konflikt mit `jim_pawnshop` — letzteres war in Runde 17 nicht auffindbar (404), das sollte bei
+der `qbx_pawnshop`-Prüfung in Runde 19 mit erwähnt werden.
 
 **Runde 15 — wichtigster Fund:** `qbx_hotdogjob` hatte einen falschen Katalog-Pfad (Unterstrich
 statt Bindestrich, korrekt `qbx-hotdogjob`) und ist zudem als „Unmaintained" markiert — bisher
