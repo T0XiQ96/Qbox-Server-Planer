@@ -1,0 +1,254 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r21",
+  "runde": 21,
+  "thema": "Nachprüfung Kategorie 'Realismus & Welt' (komplett — 17 von 17, ganze Kategorie in einer Runde)",
+  "erstellt": "2026-08-13",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "dpemotes",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 22.05.2024, GPL-3.0. Code-Stichprobe über alle 12 .lua-Dateien fand eine rote Flagge: fxmanifest bindet '@mysql-async/lib/MySQL.lua' — veraltete Datenbank-Basis statt oxmysql. Läuft nur, wenn oxmysql die mysql-async-Kompatibilitätsschicht bereitstellt oder mysql-async selbst noch läuft.",
+      "letztes_update": "Aktiv · letzter Push 22.05.2024",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "framework": "standalone",
+      "kompat_warnung": {
+        "text": "fxmanifest bindet '@mysql-async/lib/MySQL.lua' direkt (fxmanifest.lua:13) — veraltete DB-Basis. Läuft unter Qbox nur, wenn oxmysql die mysql-async-Exports bereitstellt (Standard bei aktuellem oxmysql), sonst Fehlstart.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["⚠️ Bindet mysql-async statt oxmysql direkt — Kompatibilität hängt an oxmysql-Shim"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/andristum/dpemotes, https://raw.githubusercontent.com/andristum/dpemotes/master/fxmanifest.lua"
+    },
+    {
+      "id": "jim_consumables",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 11.10.2025. fxmanifest bestätigt version 2.0.09, dependency jim_bridge. Code-Stichprobe bestätigt Nutzung von jim_bridge (grüne Flagge). Keine Lizenzangabe im Repo gefunden.",
+      "version": "2.0.09",
+      "letztes_update": "Aktiv · letzter Push 11.10.2025",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["jim_bridge"],
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "Läuft über jim_bridge (Jimathys Framework-Abstraktion), im Code bestätigt.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["Keine Lizenzangabe im Repo gefunden"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/jimathy/jim-consumables, https://raw.githubusercontent.com/jimathy/jim-consumables/main/fxmanifest.lua"
+    },
+    {
+      "id": "renewed_chargers",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 06.09.2024, GPL-3.0 (README bestätigt Lizenz explizit). fxmanifest bestätigt version 1.0.0, @ox_lib/init.lua, README nennt ox_lib + ox_target als Dependencies. Code-Stichprobe bestätigt beide grün, keine rote Flagge.",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 06.09.2024",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "abhaengigkeiten": ["ox_lib", "ox_target"],
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt exports.ox_target und @ox_lib/init.lua, keine Framework-Bindung.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Renewed-Scripts/Renewed-Chargers, https://raw.githubusercontent.com/Renewed-Scripts/Renewed-Chargers/main/fxmanifest.lua, https://raw.githubusercontent.com/Renewed-Scripts/Renewed-Chargers/main/README.md"
+    },
+    {
+      "id": "renewed_dutyblips",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 06.09.2024, GPL-3.0. fxmanifest bestätigt version 2.0.1, shared_scripts @ox_lib/init.lua + @Renewed-Lib/init.lua (eigene Bridge-Abstraktion der Renewed Scripts, ähnlich jim_bridge). README listet Dependencies explizit: Ox_Inventory, Ox_lib, 'Esx/Qbox/QB/ox_core' — Qbox ausdrücklich genannt. Code-Stichprobe bestätigt exports.ox_inventory.",
+      "version": "2.0.1",
+      "letztes_update": "Aktiv · letzter Push 06.09.2024",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory", "renewed-lib"],
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "README nennt Qbox ausdrücklich in der Framework-Liste ('Esx/Qbox/QB/ox_core'), läuft über eigene Renewed-Lib-Bridge. Code-Stichprobe bestätigt exports.ox_inventory, keine rote Flagge.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["Qbox im README ausdrücklich als unterstütztes Framework genannt"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Renewed-Scripts/Renewed-Dutyblips, https://raw.githubusercontent.com/Renewed-Scripts/Renewed-Dutyblips/main/fxmanifest.lua, https://raw.githubusercontent.com/Renewed-Scripts/Renewed-Dutyblips/main/README.md"
+    },
+    {
+      "id": "renewed_sirensync",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 29.01.2025, MIT-Lizenz. fxmanifest bestätigt version 1.0.2, einzige Abhängigkeit @ox_lib/init.lua. README beschreibt es als kompletten Rewrite von PMA Sirensync in Lua. Code-Stichprobe bestätigt ausschließlich grüne Flagge (ox_lib), keine Framework-Bindung.",
+      "version": "1.0.2",
+      "letztes_update": "Aktiv · letzter Push 29.01.2025",
+      "lizenz": "open_source",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["ox_lib"],
+      "framework": "standalone",
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt ausschließlich @ox_lib/init.lua, keine Framework-Bindung — läuft standalone unter jedem Framework inkl. Qbox.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Renewed-Scripts/Renewed-Sirensync, https://raw.githubusercontent.com/Renewed-Scripts/Renewed-Sirensync/main/fxmanifest.lua, https://raw.githubusercontent.com/Renewed-Scripts/Renewed-Sirensync/main/README.md"
+    },
+    {
+      "id": "renewed_weathersync",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 04.12.2025, GPL-3.0. fxmanifest bestätigt version 1.1.8, @ox_lib/init.lua, provide-Aliase für qb-weathersync und cd_easytime (Legacy-Kompatibilitätsnamen). Code-Stichprobe bestätigt neben @ox_lib/init.lua eine echte Framework-Autoerkennung (compatability/qb/client.lua) — läuft nachweislich mit mehreren Frameworks automatisch.",
+      "version": "1.1.8",
+      "letztes_update": "Aktiv · letzter Push 04.12.2025",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["ox_lib"],
+      "framework": "standalone",
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt echte Framework-Autoerkennung (compatability/qb/client.lua) zusätzlich zu @ox_lib/init.lua — läuft nachweislich standalone mit automatischer Framework-Anpassung.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["Framework-Autoerkennung im Code bestätigt, nicht nur behauptet"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Renewed-Scripts/Renewed-Weathersync, https://raw.githubusercontent.com/Renewed-Scripts/Renewed-Weathersync/main/fxmanifest.lua"
+    },
+    {
+      "id": "cd_easytime",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Store-Startseite codesign.pro bot-geschützt. Konkrete Anbieter-Doku gefunden: docs.codesign.pro führt Easytime als kostenloses Time/Weather-Script, vorkonfiguriert für ESX/QBCore/Qbox/vRP. Zusätzlich Cfx-Forum-Thread als Beleg. Kein öffentliches Repo bekannt, kein Code-Zugriff.",
+      "link": "https://docs.codesign.pro/free-scripts/easytime-time-and-weather-management/",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "preis": {"betrag": 0, "waehrung": "EUR", "typ": "einmalig"},
+      "kompat_warnung": {
+        "text": "Anbieter-Doku nennt Qbox ausdrücklich in der vorkonfigurierten Framework-Liste (ESX/QBCore/Qbox/vRP).",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://docs.codesign.pro/free-scripts/easytime-time-and-weather-management/, https://forum.cfx.re/t/free-release-easytime-time-and-weather-management-by-codesign/1790503"
+    },
+    {
+      "id": "npc_density",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Statt der generischen Forum-Kategorieseite konkretes, passendes Repo gefunden: daniel-likins/NPC-Density ('control the density of all NPC's and all vehicle traffic'), deckt sich mit der Katalogbeschreibung. Repo nicht archiviert, letzter Push 30.04.2022 — seit über 4 Jahren ungepflegt, keine Lizenz angegeben. fxmanifest/README nicht im Detail gelesen (Abrufbudget).",
+      "link": "https://github.com/daniel-likins/NPC-Density",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "letztes_update": "⚠️ Ungepflegt seit 30.04.2022",
+      "contra": ["⚠️ Über 4 Jahre kein Commit mehr"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://api.github.com/repos/daniel-likins/NPC-Density"
+    },
+    {
+      "id": "polaroid_camera",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Platzhalter-Link ersetzt durch morethancodenl/mtc-polaroid — Repo-Beschreibung nennt Qbox ausdrücklich ('A Polaroid Camera resource for QBCore or Qbox Framework'). Aktiv im Sinne von nicht archiviert, letzter Push 05.02.2024, GPL-3.0. fxmanifest/README nicht im Detail gelesen (Abrufbudget), Framework-Aussage stammt aus der Repo-Beschreibung, nicht aus dem Code selbst.",
+      "link": "https://github.com/morethancodenl/mtc-polaroid",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "Repo-Beschreibung nennt Qbox ausdrücklich, aber nicht durch fxmanifest/Code-Stichprobe gegengeprüft.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://api.github.com/repos/morethancodenl/mtc-polaroid"
+    },
+    {
+      "id": "qb_vehiclefailure",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Original-Repo unter qbcore-framework existiert nicht mehr (404), im Owner-Bestand kein ähnlicher Name. Ein Community-Fork (scotchndev/qb-vehiclefailure) existiert, letzter Push aber 11.07.2021 — seit über 4 Jahren nicht gepflegt, keine Qbox-Aussage, deshalb bewusst NICHT als Ersatzlink übernommen. Kein verlässlicher Nachfolger innerhalb des Suchbudgets identifizierbar.",
+      "link_status": "404",
+      "link_geprueft_am": "2026-08-13",
+      "contra": ["⚠️ Repo nicht auffindbar (404) — Katalogeintrag für Release-Kandidatur gesondert prüfen"],
+      "qualitaet": "ungeprueft",
+      "quelle": "Original 404, Fork scotchndev/qb-vehiclefailure ungepflegt seit 2021 — nicht übernommen"
+    },
+    {
+      "id": "remove_props",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Platzhalter-Link ersetzt durch YonLiud/Simple-World-Clear, standalone. WICHTIGER VORBEHALT: Die Katalogbeschreibung nennt 'hängengebliebene Props vom SPIELER entfernen' (Fix für am eigenen Ped hängende Bug-Objekte), das gefundene Repo entfernt laut eigener Beschreibung dagegen ALLE sichtbaren Props UND Fahrzeuge in der Nähe (world-weites Aufräum-Tool) — nicht exakt dasselbe Werkzeug, nur thematisch verwandt. Bewusst nur teilgeprueft mit Vorbehalt statt als sichere Bestätigung. Letzter Push 24.06.2021, keine Lizenz angegeben.",
+      "link": "https://github.com/YonLiud/Simple-World-Clear",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "framework": "standalone",
+      "contra": ["⚠️ Gefundenes Repo entfernt world-weit Props+Fahrzeuge, nicht nur spielergebundene Props — Match unsicher, in Release-Runde gegenprüfen", "Ungepflegt seit 2021"],
+      "qualitaet": "ungeprueft",
+      "quelle": "https://api.github.com/repos/YonLiud/Simple-World-Clear"
+    },
+    {
+      "id": "renewed_audiotool",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Alter Link Renewed-Scripts/Renewed-Audiotool ist 404. Im Owner-Bestand existiert Renewed-Scripts/Audiotool mit passender Beschreibung ('automates the create of Native Audio'), Push 09.05.2026. fxmanifest.lua unter main/master beide 404 (abweichender Pfad/Branch), Abrufbudget ausgeschöpft — Link auf Basis der Namens-/Beschreibungsübereinstimmung korrigiert, aber NICHT durch fxmanifest/README bestätigt.",
+      "link": "https://github.com/Renewed-Scripts/Audiotool",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-13",
+      "qualitaet": "ungeprueft",
+      "quelle": "Owner-Bestand Renewed-Scripts (via npm run prefetch)"
+    },
+    {
+      "id": "rpemotes",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Original-Repo TayMcKenzieNZ/rpemotes bestätigt 404, Owner-Bestand (12 Repos) enthält keinen ähnlichen Namen. Websuche zeigt mehrere parallele Forks (jimathy/rpemotes, Tnoxious/nox-rpemotes, alberttheprince/rpemotes-reborn u.a.), keiner davon eindeutig als kanonischer Nachfolger erkennbar. Kein Ersatzlink geraten.",
+      "link_status": "404",
+      "link_geprueft_am": "2026-08-13",
+      "contra": ["⚠️ Original-Repo weg, mehrere konkurrierende Forks ohne klaren Nachfolger — Katalogeintrag für Release-Kandidatur gesondert prüfen"],
+      "qualitaet": "ungeprueft",
+      "quelle": "Original 404, mehrere unbestätigte Forks gefunden"
+    },
+    {
+      "id": "scullyy_emotemenu",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Alter Link Scullyy/scullyy_emotemenu ist 404 (Tippfehler, doppeltes 'y'). Korrekt ist Scullyy/scully_emotemenu — bestätigt über fxmanifest.lua: version 2.1.0, use_experimental_fxv2_oal, Abhängigkeit ox_lib, umfangreiche Emote-Kategorien inkl. eigener .ytyp-Prop-Modelle. Nicht zu verwechseln mit dpemotes (anderer Autor, eigenständiger Katalogeintrag).",
+      "link": "https://github.com/Scullyy/scully_emotemenu",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-13",
+      "version": "2.1.0",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "fxmanifest bestätigt @ox_lib-Nutzung, keine Framework-Bindung erkennbar. OneSync muss serverseitig aktiv sein (Server-Einstellung, keine Ressourcen-Abhängigkeit).",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://raw.githubusercontent.com/Scullyy/scully_emotemenu/main/fxmanifest.lua"
+    },
+    {
+      "id": "turbulence_off",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Platzhalter-Link ersetzt durch DrCroll/Croll-Turbulence: 'Standalone open-source FiveM resource that disables plane & helicopter turbulence while inside aircraft' — deckt sich exakt mit der Katalogbeschreibung. Aktiv gepflegt, letzter Push 07.05.2026, keine Lizenz angegeben, Standalone ohne Framework-Abhängigkeit laut Beschreibung.",
+      "link": "https://github.com/DrCroll/Croll-Turbulence",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "letztes_update": "Aktiv · letzter Push 07.05.2026",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://api.github.com/repos/DrCroll/Croll-Turbulence"
+    },
+    {
+      "id": "vsync",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Katalogeintrag ist bewusst als '(Legacy)'/archiviert/inaktiv geführt, Nachfolger qbx_weathersync bereits vermerkt. Originalquelle DevTestingPizza/vSync (Fork von Vespuras vSync) bestätigt: archiviert, letzter Stand von 2018 — passt exakt zur bestehenden 'Legacy/Inaktiv'-Einordnung. Ein aktiv gepflegter Nachbau (KalinkaGit/vSyncR) existiert zwar, wird hier aber BEWUSST NICHT als Link übernommen, da er ein eigenständiges, anders benanntes Projekt ist und die 'vsync (Legacy)'-Einordnung sonst widersprüchlich würde (archiviert + aktiver Link). Für ein aktives Zeit/Wetter-System stehen im Katalog bereits qbx_weathersync und renewed_weathersync bereit.",
+      "link": "https://github.com/DevTestingPizza/vSync",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://api.github.com/repos/DevTestingPizza/vSync"
+    },
+    {
+      "id": "zyke_smoking",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Alter Link zeigt nur auf ein leeres GitHub-Profil (Owner hat laut Briefing nur 1 Repo, keins passend). Websuche bestätigt: 'Zyke's Advanced Smoking' ist ein reines Premium-Produkt über den anbietereigenen Tebex-Store, kein öffentliches Repo. Anbieter-Doku (docs.zykeresources.com) und Cfx-Forum-Thread ('ESX, QB — Zyke's Advanced Smoking') als Beleg gelesen, bestätigen ESX/QB-Support; Qbox nicht ausdrücklich genannt.",
+      "link": "https://store.zykeresources.com/package/6351336",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "escrow",
+      "kompat_warnung": {
+        "text": "Anbieter-Doku und Forum-Thread bestätigen ESX/QB-Support, Qbox wird nicht ausdrücklich genannt — auf Qbox voraussichtlich nur über die QBCore-Bridge nutzbar, ungetestet.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://store.zykeresources.com/package/6351336, https://docs.zykeresources.com/paid-resources/smoking/config, https://forum.cfx.re/t/esx-qb-zykes-advanced-smoking-synced-dynamic-sounds-particles-vapes-bongs-cigarattes-joints-cigars-ui-effects/5263462"
+    }
+  ]
+}
