@@ -1,0 +1,188 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r23",
+  "runde": 23,
+  "thema": "Nachprüfung Kategorie 'Wirtschaft & Banking' (komplett — 13 von 13, ganze Kategorie in einer Runde)",
+  "erstellt": "2026-08-13",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "jim_shops",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 04.11.2025. fxmanifest bestätigt version 3.1.0, dependency jim_bridge. Code-Stichprobe bestätigt Nutzung von jim_bridge (grüne Flagge). Keine Lizenzangabe im Repo gefunden.",
+      "version": "3.1.0",
+      "letztes_update": "Aktiv · letzter Push 04.11.2025",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["jim_bridge"],
+      "framework": "qbcore_bridge",
+      "kompat_warnung": {
+        "text": "Läuft über jim_bridge (Jimathys Framework-Abstraktion), im Code bestätigt.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["Keine Lizenzangabe im Repo gefunden"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/jimathy/jim-shops, https://raw.githubusercontent.com/jimathy/jim-shops/main/fxmanifest.lua"
+    },
+    {
+      "id": "qb_banking",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 20.05.2026, GPL-3.0, offizielles QBCore-Doku-Repo. fxmanifest bindet @qb-core/shared/locale.lua per Datei-Include. Code-Stichprobe über alle 9 .lua-Dateien fand DREI rote Flaggen: harter @qb-core-Include, exports['qb-target'] in client.lua:150, exports['qb-inventory'] in server.lua:189 — greift mehrfach direkt am Framework vorbei, die Bridge hilft hier nicht.",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 20.05.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_only",
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt drei rote Flaggen: harter @qb-core/shared/locale.lua-Include (fxmanifest.lua:9), exports['qb-target'] (client.lua:150), exports['qb-inventory'] (server.lua:189). Läuft unter Qbox nur mit vollständiger QBCore-Kompatschicht, sonst Absturzrisiko.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["🔴 Drei harte QBCore-Bindungen im Code (qb-core-Include, qb-target, qb-inventory) — Bridge reicht nicht"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/qbcore-framework/qb-banking, https://raw.githubusercontent.com/qbcore-framework/qb-banking/main/fxmanifest.lua, https://raw.githubusercontent.com/qbcore-framework/qb-banking/main/client.lua"
+    },
+    {
+      "id": "qb_crypto",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 20.05.2026, GPL-3.0. fxmanifest bindet @qb-core/shared/locale.lua, dependency qb-minigames + qb-phone (laut README). Code-Stichprobe fand zwei rote Flaggen: harter @qb-core-Include, exports['qb-inventory'] in server.lua:196.",
+      "version": "1.2.1",
+      "letztes_update": "Aktiv · letzter Push 20.05.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_only",
+      "abhaengigkeiten": ["qb-minigames", "qb-phone"],
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt zwei rote Flaggen: harter @qb-core/shared/locale.lua-Include (fxmanifest.lua:9), exports['qb-inventory'] (server.lua:196). Zusätzlich abhängig von qb-phone und qb-minigames (Legacy-Stack).",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": ["🔴 Zwei harte QBCore-Bindungen im Code (qb-core-Include, qb-inventory)", "Abhängig von Legacy-Stack (qb-phone, qb-minigames)"],
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/qbcore-framework/qb-crypto, https://raw.githubusercontent.com/qbcore-framework/qb-crypto/main/fxmanifest.lua, https://raw.githubusercontent.com/qbcore-framework/qb-crypto/main/README.md"
+    },
+    {
+      "id": "crypto_mining_sim",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Platzhalter-Link ersetzt durch planeklm/razed-cryptomining ('Razed's Crypto Mining'), bestätigt über fxmanifest: version 1.0.1, Abhängigkeiten ox_lib + oxmysql. Nur fxmanifest gelesen, kein README und keine vollständige Code-Stichprobe — daher trotz Vergleichsgruppe 'mining' nur teilgeprueft, nicht verifiziert (RECHERCHE.md §4 verlangt für verifiziert alle Quellen plus Code-Stichprobe).",
+      "link": "https://github.com/planeklm/razed-cryptomining",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "version": "1.0.1",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://raw.githubusercontent.com/planeklm/razed-cryptomining/main/fxmanifest.lua"
+    },
+    {
+      "id": "give_cash",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Platzhalter-Link ersetzt durch planeklm/razed-givecash ('einfaches Give-Cash-Script für qbcore und ox mit Empfänger-Nachricht'), bestätigt über fxmanifest: version 1.0. Nur fxmanifest gelesen, kein README/Code-Stichprobe.",
+      "link": "https://github.com/planeklm/razed-givecash",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "version": "1.0",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://raw.githubusercontent.com/planeklm/razed-givecash/main/fxmanifest.lua"
+    },
+    {
+      "id": "keep_crafting",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Profil-Link durch konkretes Repo swkeep/keep-crafting ersetzt, bestätigt über fxmanifest (Autor Swkeep, QB-Core + PolyZone-Abhängigkeiten). Repo seit 23.07.2023 ohne weitere Pushes, vom Autor als archiviert markiert. Nur fxmanifest gelesen, kein README/vollständige Code-Stichprobe — trotz Vergleichsgruppe 'crafting' nur teilgeprueft.",
+      "link": "https://github.com/swkeep/keep-crafting",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["qb-core", "polyzone"],
+      "archiviert": {
+        "text": "Repo seit 23.07.2023 ohne weitere Pushes, vom Autor als archiviert markiert. Kein Nachfolger benannt.",
+        "nachfolger": ""
+      },
+      "contra": ["🪦 Archiviert seit 2023", "Harte qb-core-Abhängigkeit laut fxmanifest"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/swkeep/keep-crafting, https://raw.githubusercontent.com/swkeep/keep-crafting/master/fxmanifest.lua"
+    },
+    {
+      "id": "okokbanking",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Store-Startseite bot-geschützt. Konkrete Produktseiten über Websuche gefunden: okokBankingV2 [QB] sowie eine Banking+Billing-Bundle-Variante. Anbieter-Doku (docs.okokscripts.io) als Zusatzbeleg gefunden, Produktseiten selbst nicht direkt gelesen (bot-geschützt).",
+      "link": "https://okok.tebex.io/package/7144972",
+      "link_status": "gesperrt",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "escrow",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://okok.tebex.io/package/7144972 (okokBankingV2 [QB]), https://docs.okokscripts.io/scripts/okokbankingv2/config-file"
+    },
+    {
+      "id": "okokbilling",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Store-Startseite bot-geschützt. Konkrete Produktseiten über Websuche gefunden: okokBillingV2 in QB- und ESX-Variante. Produktseite selbst nicht direkt gelesen (bot-geschützt).",
+      "link": "https://okok.tebex.io/package/5246435",
+      "link_status": "gesperrt",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "escrow",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://okok.tebex.io/package/5246435 (okokBillingV2 [QB]), https://okok.tebex.io/package/5246431 (okokBillingV2 [ESX])"
+    },
+    {
+      "id": "okokcrafting",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Store-Startseite bot-geschützt. Konkrete Produktseiten über Websuche gefunden: okokCraftingV2 in QB- und ESX-Variante, laut Bewerbung 'meistverkauftes Crafting-System in FiveM'. Produktseite selbst nicht direkt gelesen (bot-geschützt), Marketingaussage nicht ungeprüft übernommen.",
+      "link": "https://okok.tebex.io/package/5221680",
+      "link_status": "gesperrt",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "escrow",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://okok.tebex.io/package/5221680 (okokCraftingV2 [QB]), https://okok.tebex.io/package/5221678 (okokCraftingV2 [ESX])"
+    },
+    {
+      "id": "okokmarketplace",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Store-Startseite bot-geschützt. Konkrete Produktseiten über Websuche gefunden: okokMarketplace in QB- und ESX-Variante. Produktseite selbst nicht direkt gelesen (bot-geschützt).",
+      "link": "https://okok.tebex.io/package/4771134",
+      "link_status": "gesperrt",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "escrow",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://okok.tebex.io/package/4771134 (okokMarketplace [QB]), https://okok.tebex.io/package/4764674 (okokMarketplace [ESX])"
+    },
+    {
+      "id": "pl_printer",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Profil-Link durch konkretes Repo pulsepk/pl_printer ersetzt, bestätigt über fxmanifest (Autor PulseScripts, version 1.1.0, Abhängigkeit pl_lib). Repo-Beschreibung nennt Qbox explizit ('FiveM Printer Script [ESX, QBCore, QBox]'). Nur fxmanifest gelesen, kein README/vollständige Code-Stichprobe.",
+      "link": "https://github.com/pulsepk/pl_printer",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "version": "1.1.0",
+      "abhaengigkeiten": ["pl_lib"],
+      "kompat_warnung": {
+        "text": "Repo-Beschreibung nennt Qbox ausdrücklich, aber nicht durch README/Code-Stichprobe gegengeprüft.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/pulsepk/pl_printer, https://raw.githubusercontent.com/pulsepk/pl_printer/main/fxmanifest.lua"
+    },
+    {
+      "id": "vending_machines",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Platzhalter-Link ersetzt durch swkeep/keep-vendingMachines, bestätigt über fxmanifest: version 1.0.0, benötigt Serverversion 5848+ und OneSync. Nur fxmanifest gelesen, kein README/vollständige Code-Stichprobe.",
+      "link": "https://github.com/swkeep/keep-vendingMachines",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "contra": ["Benötigt Serverbuild 5848+ und OneSync"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://raw.githubusercontent.com/swkeep/keep-vendingMachines/main/fxmanifest.lua"
+    },
+    {
+      "id": "wasabi_oxshops",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Falsche Groß-/Kleinschreibung im Link korrigiert (Wasabi-OxShops → wasabi_oxshops, 404 behoben). fxmanifest bestätigt: version 1.0.4, Abhängigkeit ox_inventory. Nur fxmanifest gelesen, kein README/vollständige Code-Stichprobe.",
+      "link": "https://github.com/WasabiRobby/wasabi_oxshops",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "version": "1.0.4",
+      "abhaengigkeiten": ["ox_inventory"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://raw.githubusercontent.com/WasabiRobby/wasabi_oxshops/main/fxmanifest.lua"
+    }
+  ]
+}
