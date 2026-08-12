@@ -17,6 +17,34 @@ Format je Eintrag:
 
 ---
 
+## [Runde 6] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-6.json` — letzte 6 Einträge der Kategorie „Charakter, Inventar & UI"
+  nachgeprüft (Teil 3/3) — Kategorie damit komplett durchgeprüft. Recherchiert über 1 Subagent
+  (nur 6 Einträge, kein 3er-Split nötig)
+
+**Korrigiert:**
+- `wasabi_backpack`: **wichtigster Fund** — Katalog-Link war schlicht falsch geschrieben
+  (`Wasabi-Backpack` statt `wasabi_backpack`), führte zu 404. Das erklärte den alten
+  „bot-geschützt, manuell prüfen"-Vermerk. Korrigiert, Repo lange inaktiv (letzter Commit
+  02/2023) aber nicht archiviert. Katalogtext „Framework-erkennend" war ungenau — es ist ein
+  reines ox_inventory-Item ohne eigene Framework-Detection.
+- `t-notify`: Katalogaussage „ungepflegt" war zu hart formuliert — Repo ist nicht archiviert,
+  nur seit Ende 2024 ohne Commit.
+- `qs_hud`, `qs_inventory`: konkrete Produktseiten im Quasar-Store gefunden (Katalog hatte nur
+  die Startseite), Qbox-Support jetzt bestätigt statt nur vermutet. Preise bleiben unverifiziert
+  (JS-Rendering im Shop).
+- `wasabi_loading`, `wasabi_multichar`: konkrete Produktseiten ergänzt, Preise ($19.99 /
+  $39.99) und Qbox-Bridge-Aussagen bestätigt.
+
+**Katalog:** 0 neu, 6 aktualisiert, 0 Duplikate übersprungen, 2 auf `verifiziert`, 4 auf
+`teilgeprueft` hochgestuft/bestätigt
+**Kategorie „Charakter, Inventar & UI" (33 Einträge) ist damit komplett nachgeprüft.**
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 5] – 12.08.2026
 
 **Neu:**

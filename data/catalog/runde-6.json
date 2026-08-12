@@ -1,0 +1,95 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r6",
+  "runde": 6,
+  "thema": "Nachprüfung Kategorie 'Charakter, Inventar & UI' (Teil 3/3 — letzte 6 Einträge, Kategorie damit komplett)",
+  "erstellt": "2026-08-12",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "qs_hud",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Konkrete Produktseite gefunden (statt bisheriger Store-Startseite), Qbox-Support laut Store jetzt bestätigt (Badges auf Produktseite: esx/qb/qbox). Preis bleibt nicht auslesbar, da clientseitig per JavaScript nachgeladen (weder WebFetch noch Suche liefern eine Zahl).",
+      "link": "https://www.quasar-store.com/product/interface",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "Qbox-Support laut Produktseite ausdrücklich beworben (Badges esx/qb/qbox). Escrow, Code nicht einsehbar — Tiefe der Qbox-Integration bleibt vor Kauf im Anbieter-Discord zu verifizieren.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://www.quasar-store.com/product/interface"
+    },
+    {
+      "id": "qs_inventory",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Konkrete Produktseite gefunden (statt bisheriger Store-Startseite), Qbox-Support laut Store jetzt bestätigt statt nur vermutet. Preis (~$65) bleibt unverifiziert, da clientseitig per JavaScript nachgeladen.",
+      "link": "https://www.quasar-store.com/product/inventory",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "Ersetzt ox_inventory komplett → qbx-Module mit fester ox_inventory-Anbindung (z.B. Beweissystem qbx_policejob) könnten Anpassung brauchen. Qbox-Support laut Produktseite jetzt bestätigt (statt nur vermutet), Tiefe der Integration weiterhin vor Kauf im Quasar-Discord zu verifizieren.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://www.quasar-store.com/product/inventory"
+    },
+    {
+      "id": "t-notify",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Korrektur: Repo ist NICHT archiviert (GitHub-Flag archived:false) — letzter Commit 24.10.2024. Bleibt aber als Legacy einzuordnen, kein aktiver Qbox-Bezug.",
+      "letztes_update": "Nicht archiviert, aber seit 24.10.2024 kein Commit mehr — inaktiv",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-12",
+      "kompat_warnung": {
+        "text": "Legacy-Notification-Wrapper (SimpleNotification-Library), keine Framework-Bindung, kein aktiver Qbox-Bezug. ox_lib-Notifications sind der moderne Ersatz.",
+        "sicherheit": "vermutung"
+      },
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/TasoOneAsia/t-notify"
+    },
+    {
+      "id": "wasabi_backpack",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Wichtigster Fund: Katalog-Link war falsch geschrieben (Wasabi-Backpack mit Bindestrich/Großschreibung statt wasabi_backpack) und führte zu 404 — das erklärt den bisherigen 'bot-geschützt, manuell prüfen'-Vermerk. Korrigiert und verifiziert erreichbar. Letzter Commit 06.02.2023 (lange inaktiv, aber nicht archiviert). Katalogtext 'Framework-erkennend' ist ungenau — README belegt nur ox_inventory-Abhängigkeit, keine eigene Framework-Detection im Code.",
+      "beschreibung": "Rucksäcke als Items: erweitern das Inventar, sichtbar am Rücken. Reines ox_inventory-Item, keine eigene Framework-Erkennung im Code.",
+      "link": "https://github.com/WasabiRobby/wasabi_backpack",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "letztes_update": "Kein Archiv-Banner, aber letzter Commit 06.02.2023 — lange inaktiv",
+      "kompat_warnung": {
+        "text": "Kein eigenes Framework-Detection im Code, funktioniert einfach als ox_inventory-Item — Katalogaussage 'Framework-erkennend' war ungenau, beruht nur auf ox_inventory-Kompatibilität.",
+        "sicherheit": "bestaetigt"
+      },
+      "neutral": ["Kein eigenes Framework-Detection — läuft als reines ox_inventory-Item, unabhängig vom darunterliegenden Framework"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://github.com/WasabiRobby/wasabi_backpack (README, Commit-Historie)"
+    },
+    {
+      "id": "wasabi_loading",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Konkrete Produktseite ergänzt, Preis $19.99 bestätigt (deckt sich mit Katalog), Qbox-Bridge laut Anbieter-Doku vorhanden.",
+      "link": "https://wasabiscripts.com/product/loading-screen",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "preis": { "betrag": 19.99, "waehrung": "USD", "typ": "einmalig" },
+      "qualitaet": "verifiziert",
+      "quelle": "https://wasabiscripts.com/product/loading-screen"
+    },
+    {
+      "id": "wasabi_multichar",
+      "geprueft_am": "2026-08-12",
+      "update_grund": "Konkrete Produktseite ergänzt, Preis $39.99 bestätigt (deckt sich mit Katalog), Qbox-Auto-Erkennung durch Produkttext bestätigt ('Automatically detects and bridges ESX, QBCore, QBOX').",
+      "link": "https://wasabiscripts.com/package/6682839",
+      "link_status": "umgezogen",
+      "link_geprueft_am": "2026-08-12",
+      "preis": { "betrag": 39.99, "waehrung": "USD", "typ": "einmalig" },
+      "kompat_warnung": {
+        "text": "Automatische Framework-Erkennung/Bridge für ESX, QBCore und Qbox laut Produktseite ausdrücklich beworben.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://wasabiscripts.com/package/6682839"
+    }
+  ]
+}
