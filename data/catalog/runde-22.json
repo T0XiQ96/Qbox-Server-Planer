@@ -1,0 +1,37 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r22",
+  "runde": 22,
+  "thema": "Nachprüfung Kategorie 'Waffen & Kampf' (komplett — letzte 2 offene Einträge)",
+  "erstellt": "2026-08-13",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "renewed_weaponscarry",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 07.04.2025, GPL-3.0. fxmanifest bestätigt version 2.5.2, README listet Dependencies explizit: ox_inventory, ox_lib ('Plug and Play for ox_inventory'). Code-Stichprobe über alle 10 .lua-Dateien bestätigt exports.ox_inventory und @ox_lib/init.lua — ausschließlich grüne Flaggen.",
+      "version": "2.5.2",
+      "letztes_update": "Aktiv · letzter Push 07.04.2025",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory"],
+      "framework": "standalone",
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt exports.ox_inventory und @ox_lib/init.lua, keine Framework-Bindung — läuft standalone unter jedem Framework inkl. Qbox.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Renewed-Scripts/Renewed-Weaponscarry, https://raw.githubusercontent.com/Renewed-Scripts/Renewed-Weaponscarry/main/fxmanifest.lua, https://raw.githubusercontent.com/Renewed-Scripts/Renewed-Weaponscarry/main/README.md"
+    },
+    {
+      "id": "weapon_balancing",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Websuche bestätigt: 'Waffen-Balancing' ist tatsächlich eine ganze Kategorie konkurrierender Ansätze, kein einzelnes Script — deckt sich mit der bisherigen Katalogangabe 'Version: Diverse'. Gefunden u.a.: kostenlose Config-Only-Lösungen wie qbcore-framework/qb-weapons (bzw. Community-Forks wie DonHulieo/qb-weapons), sowie mehrere kostenpflichtige Live-Editor-Produkte mit explizitem Qbox-Support ('Blend WeaponDamage', 'Blend Advanced Weapon Damage', Cfx-Forum-Threads vorhanden). Bewusst KEIN einzelner Link als Ersatz gesetzt, da das die kategoriale Natur des Eintrags falsch darstellen würde — die generische Forum-Verweisung bleibt sachlich korrekt.",
+      "link_status": "ungeprueft",
+      "link_geprueft_am": "2026-08-13",
+      "neutral": ["Mehrere konkurrierende Lösungen: kostenlose Config-Only-Scripts (z.B. qb-weapons-Forks) bis kostenpflichtige Live-Editor-Tools mit Qbox-Support (z.B. Blend WeaponDamage)"],
+      "qualitaet": "teilgeprueft",
+      "quelle": "Websuche 'fivem weapon balancing recoil damage script github qbcore qbox', u.a. https://github.com/qbcore-framework/qb-weapons, https://forum.cfx.re/t/blend-weapondamage-live-weapon-damage-recoil-editor-qbcore-esx-qbox-mysql-discord-logs/5405208"
+    }
+  ]
+}
