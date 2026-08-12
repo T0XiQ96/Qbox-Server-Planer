@@ -17,6 +17,32 @@ Format je Eintrag:
 
 ---
 
+## [Runde 11] – 12.08.2026
+
+**Neu:**
+- `data/catalog/runde-11.json` — erste 8 von 23 Einträgen der Kategorie „Staatliche Jobs &
+  Fraktionen" nachgeprüft (Teil 1/3), recherchiert über 1 Subagent.
+
+**Korrigiert:**
+- `ox_mdt`: **wichtigster Fund** — entgegen der bisherigen Katalog-Annahme ist das Repo NICHT
+  archiviert (GitHub-API: `archived:false`, letzter Push 04.05.2026, weiterhin aktiv gepflegt).
+  Die `ox_core`-Abhängigkeit und damit Qbox-Inkompatibilität bleibt aber unverändert bestätigt.
+- `mythic_hospital`: Ursprungslink ist jetzt 404 (Account existiert nicht mehr) — schärfer als
+  der bisherige „ungepflegt"-Vermerk, die Quelle ist komplett verschwunden.
+- `origen_police`: Qbox-Support-Verifizierung durchgeführt (offener Punkt aus dem Katalog) —
+  Ergebnis negativ, kein Nachweis gefunden, CFX-Forum-Thread nennt seit 2023 nur QBCore/ESX.
+- `leo_lockbox`, `mugshot_base64`: Platzhalter-Links (Topic-/Suchseite) durch echte Repos ersetzt.
+- `cd_dispatch`, `codem_mdt`: konkrete Produktseiten statt Startseiten, Qbox-Support über
+  Anbieter-Doku bestätigt.
+- `ps_dispatch`: explizit geprüft, ob von der Project-Sloth-Archivierungswelle betroffen — ist
+  es nicht, bleibt aktiv, aber seit rund einem Jahr ohne neuen Commit.
+
+**Katalog:** 0 neu, 8 aktualisiert, 0 Duplikate übersprungen, 3 auf `verifiziert`, 5 auf
+`teilgeprueft`
+**Commit:** folgt direkt im Anschluss an diesen Changelog-Eintrag
+
+---
+
 ## [Runde 10] – 12.08.2026
 
 **Neu:**

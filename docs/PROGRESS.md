@@ -4,17 +4,16 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 12.08.2026
-**Letzter Commit:** `b688c5a` (Runde 9). Runde 10 ist fertig, aber noch **nicht** committet —
+**Letzter Commit:** `f027817` (Runde 10). Runde 11 ist fertig, aber noch **nicht** committet —
 das ist der nächste Schritt.
-**Validate-Status:** grün (13 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
+**Validate-Status:** grün (14 Katalogdateien: `demo.json` 6, `altbestand.json` 256, `runde-1.json`
 22 Updates, `runde-2.json` 12, `runde-3.json` 14, `runde-4.json` 12, `runde-5.json` 11,
-`runde-6.json` 6, `runde-7.json` 8, `runde-8.json` 8, `runde-9.json` 7, `runde-10.json` 9 ·
-262 Plugins gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
-**Katalogstand:** 262 gesamt · 57 verifiziert · 48 teilgeprüft · ~157 ungeprüft
-**Aktuelle Runde:** Runde 10 — komplette Kategorie „Immobilien & Wohnen" nachgeprüft (9/9,
-passte in eine Runde). **Kategorie „Wohnen" damit komplett durchgeprüft.** Weiterhin kein
-Neufund (Nutzerwunsch: erst kompletten Altbestand kategorieweise durchprüfen). Nutzer hat den
-Sonnet-5/low-Test bis einschließlich Runde 15 verlängert.
+`runde-6.json` 6, `runde-7.json` 8, `runde-8.json` 8, `runde-9.json` 7, `runde-10.json` 9,
+`runde-11.json` 8 · 262 Plugins gesamt · 13 harmlose „nur ein Mitglied"-Warnungen)
+**Katalogstand:** 262 gesamt · 60 verifiziert · 53 teilgeprüft · ~149 ungeprüft
+**Aktuelle Runde:** Runde 11 — Start der Kategorie „Staatliche Jobs & Fraktionen" (23 Einträge),
+erste 8 nachgeprüft (Teil 1/3). Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand
+kategorieweise durchprüfen). Sonnet-5/low-Test läuft bis einschließlich Runde 15 (Nutzerwunsch).
 
 **Sonnet-5/low-Test abgeschlossen (Runden 7–9, Nutzerwunsch statt der in CLAUDE.md §1
 vorgegebenen medium-Einstellung für Datenrunden):** Ergebnisqualität bei erfolgreichem
@@ -81,13 +80,21 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Committen.** Runde 10 ist fertig, aber `data/catalog/runde-10.json` und diese Doku-Updates
-liegen noch uncommittet im Working Tree. Danach: Runde 11 — Start der nächsten Kategorie
-„5. Staatliche Jobs & Fraktionen" (23 Einträge, größte noch nicht angefasste Kategorie),
-geplant in 3 Runden à ~8 (Runden 11–13). Runden 14–15 dann Start der Kategorie „6. Zivil-Jobs &
-Aktivitäten" (30 Einträge, wird nicht in den Runden 11–15 fertig). Nutzer hat den Sonnet-5/low-Test
-bis einschließlich Runde 15 verlängert — danach Zwischenfazit ziehen und Modell/Effort neu
-abstimmen. `npm run newround 11` legt das Gerüst an.
+**Committen.** Runde 11 ist fertig, aber `data/catalog/runde-11.json` und diese Doku-Updates
+liegen noch uncommittet im Working Tree. Danach: Runde 12 — nächste 8 von 23 Einträgen der
+Kategorie „Staatliche Jobs & Fraktionen" (`ps_mdt`, `qb_gangmenu`, `qbx_ambulancejob`,
+`qbx_cityhall`, `qbx_management`, `qbx_medical`, `qbx_policejob`, `qbx_prison`), danach Runde 13
+mit den restlichen 7 (`randolio_grandma`, `redutzu_mdt`, `sonoran_cad`, `wasabi_ambulance`,
+`wasabi_mdt`, `wasabi_police`, `wk_wars2x`) — damit ist Kategorie „Staat" komplett. Runden 14–15
+dann Start der Kategorie „6. Zivil-Jobs & Aktivitäten" (30 Einträge, wird nicht in Runde 14–15
+fertig). Nutzer hat den Sonnet-5/low-Test bis einschließlich Runde 15 verlängert — danach
+Zwischenfazit ziehen und Modell/Effort neu abstimmen. `npm run newround 12` legt das Gerüst an.
+
+**Runde 11 — wichtigster Fund:** `ox_mdt` war entgegen der Katalog-Annahme NICHT archiviert
+(weiterhin aktiv gepflegt) — die `ox_core`-Abhängigkeit und damit Qbox-Inkompatibilität bleibt
+aber bestätigt, reine Statuskorrektur. `mythic_hospital`-Quelle ist komplett verschwunden (404
+statt nur „ungepflegt"). `origen_police`: Qbox-Support-Verifizierung ergab negativ — kein Nachweis
+gefunden, nur QBCore/ESX offiziell genannt.
 
 **Runde 10 — wichtigster Fund:** `qbx_houses` und `qbx_apartments` (beide offizielle Qbox-Repos)
 wurden am 09.07.2026 archiviert und offiziell als unmaintained markiert — `qbx_properties` ist
@@ -164,4 +171,5 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 | 7 | Nachprüfung Kategorie „Fahrzeuge" Teil 1/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 0 (3 verifiziert, 5 teilgeprüft) | `data/catalog/runde-7.json` | `c92f18f` |
 | 8 | Nachprüfung Kategorie „Fahrzeuge" Teil 2/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 1 (4 verifiziert, 3 teilgeprüft, 1 ungeprueft) | `data/catalog/runde-8.json` | `5851328` |
 | 9 | Nachprüfung Kategorie „Fahrzeuge" Teil 3/3, letzte 7 — Kategorie komplett (kein Neufund) | 0 | 7 | 0 | 1 (3 verifiziert, 3 teilgeprüft, 1 auf ungeprueft herabgestuft) | `data/catalog/runde-9.json` | `b688c5a` |
-| 10 | Nachprüfung Kategorie „Wohnen" komplett, 9 von 9 (kein Neufund) | 0 | 9 | 0 | 0 (3 verifiziert, 6 teilgeprüft) | `data/catalog/runde-10.json` | folgt |
+| 10 | Nachprüfung Kategorie „Wohnen" komplett, 9 von 9 (kein Neufund) | 0 | 9 | 0 | 0 (3 verifiziert, 6 teilgeprüft) | `data/catalog/runde-10.json` | `f027817` |
+| 11 | Nachprüfung Kategorie „Staat" Teil 1/3, 8 von 23 (kein Neufund) | 0 | 8 | 0 | 0 (3 verifiziert, 5 teilgeprüft) | `data/catalog/runde-11.json` | folgt |
