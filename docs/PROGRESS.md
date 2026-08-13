@@ -4,12 +4,31 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 13.08.2026
-**Letzter Commit:** `83be0c9` (Runde 24). Runden 25 + 25b sind fertig und werden mit diesem
+**Letzter Commit:** `bccba88` (Doku Runde 25/25b). Runde 26 ist fertig und wird mit diesem
 Schritt committet.
-**Validate-Status:** grün (29 Katalogdateien inkl. `runde-25.json`/`runde-25b.json` · 262 Plugins
-gesamt · 13 harmlose „nur ein Mitglied"-Warnungen).
-**Katalogstand:** 262 gesamt, 114 verifiziert/teilgeprüft (44 %), 38 archiviert, **0 Einträge
-ohne `geprueft_am` — kompletter Altbestand ist damit durchgeprüft.**
+**Validate-Status:** grün (29 Katalogdateien inkl. `runde-26.json` · 273 Plugins gesamt · 16
+harmlose „nur ein Mitglied"-Warnungen, 3 davon neu und erwartet — lösen sich beim Merge der
+`updates[]` der drei neuen Gruppen `cityhall`/`garbagejob`/`houserobbery` auf).
+**Katalogstand:** 273 gesamt (262 Altbestand + 11 Neusuche Runde 26), **0 Einträge ohne
+`geprueft_am`.**
+
+**Runde 26 — erste Neusuche-Runde (Phase 3 „Nachprüfung" ist fertig, jetzt Wachstum):**
+11 neue Plugins über `npm run discover`/`prefetch --kandidaten` gefunden und ausgearbeitet
+(Details siehe `docs/CHANGELOG.md`). Fünf davon sind Konkurrenzprodukte zu Bestandseinträgen mit
+gepflegten Vergleichsdaten nach RECHERCHE.md §5. Subagent hat direkt in
+`data/catalog/runde-26.json` geschrieben statt nur JSON zurückzuliefern (Abweichung von der
+Vorlage in `docs/SUBAGENT-VORLAGE.md`, die „Schreibe NICHTS selbst in Katalogdateien" vorsieht) —
+Ergebnis wurde von der Hauptsession gegengeprüft (Cross-Referenzen, Framework-Einzelwert,
+Lizenz-Enum, `abhaengigkeiten`-IDs gegen `data/_ids.txt`, bestehende Preisangabe von
+`wasabi_ambulance` gegen den Bestand) und für korrekt befunden, `npm run validate` grün.
+**Für künftige Runden:** Vorlage im Prompt nochmal ausdrücklich betonen oder akzeptieren, dass
+der Subagent ohnehin schreibt und die Hauptsession nur noch gegenprüft — bisher kein Qualitäts-
+problem dadurch aufgetreten.
+
+**Auswahl der 11 aus 25 discover-Kandidaten war eine Kuratierung der Hauptsession** (nicht alle
+25, um Low-Signal-Funde wie 0-Stern-Duplikate oder Namens-Cluster desselben Autors mit vielen
+Parallelprojekten nicht unnötig zu recherchieren) — `data/.kandidaten.json` wurde dafür temporär
+auf die gewählten 11 gekürzt (gitignored, kein Verlust: `discover` erzeugt bei Bedarf neu).
 **Runde 25 — Kategorie „MLOs, Kleidung & Assets" komplett (8/8):** `bob74_ipl` klar verifiziert
 (Standalone-IPL-Fixer). Die restlichen 7 waren überwiegend fremde Shop-/Forum-Seiten ohne
 GitHub-Repo (Tebex-Bot-Schutz bei `gabz`/`k4mb1`/`patoche`, reine Forum-Übersichten bei
@@ -117,27 +136,27 @@ nach jedem `npm run build`, das committet wird, ein Release mit der `catalogVers
 
 ## Nächster Schritt
 
-**Altbestand ist vollständig durchgeprüft (0 Einträge ohne `geprueft_am`).** Phase 3
-„Nachprüfung" ist abgeschlossen. **Das Werkzeug für die Neusuche steht ebenfalls** (siehe
-CHANGELOG „[Werkzeug] Discover"), `docs/RECHERCHE.md` §7 beschreibt den Ablauf.
+**Runde 26 ist fertig, Neusuche läuft.** 11 Kandidaten sind jetzt im Katalog (273 gesamt).
+Von den ursprünglich 25 discover-Funden für Runde 26 stehen noch **14 unbearbeitet** in
+`data/.prefetch/kandidaten-26.md` (die Cluster `XyraL/cipher-*` außer `cipher-mdt`,
+`jraxion_lib`, `mri_qbox`, `qbx_customs-redesign-`, `dd-characters`,
+`flipper-zero-inspired-hacking-device-fivem-`, `yk_restaurant`, `car_dealer_2`, `vp_cityworks`,
+`vp_electrician`, `project07-namechanger`, das zweite `element_hud`-Duplikat mit 0 Sternen) —
+bewusst zurückgestellt wegen 0 Sternen/geringem Signal/unklarem Zweck, kein Muss für Runde 27.
 
-**Runde 26 kann direkt starten — Neusuche, erste Runde:**
+**Runde 27 (nächste Neusuche) so starten:**
 
 ```
-npm run discover -- --runde 26                          # Kandidaten (schon einmal gelaufen)
-npm run newround 26
-npm run prefetch -- --kandidaten --max 12 --runde 26
+npm run discover -- --seit-letztem-lauf --runde 27
+npm run newround 27
+npm run prefetch -- --kandidaten --max 11 --runde 27
 ```
 
-Der erste `discover`-Lauf vom 13.08.2026 liegt bereits vor: 687 Rohtreffer → rund 200 echte
-Kandidaten, Bekanntes/Umbenennungen/Nicht-Ressourcen automatisch aussortiert. Die Top-25 stehen
-in `data/.prefetch/kandidaten-26.md`, `data/.kandidaten.json` ist die Eingabe für `prefetch`.
-Beide Dateien sind gitignored (reine Ableitung) — bei einem frischen Klon einfach neu erzeugen.
-
-**Offene Entscheidung vor Runde 26:** Wie viele Kandidaten pro Runde? Der Katalog soll auf
-500–1000+ wachsen (aktuell 262), aber jeder Eintrag braucht `kategorie`, deutsche `beschreibung`
-und bei Gruppenzugehörigkeit die Vergleichsdaten **beider** Seiten (RECHERCHE.md §5). 10–12
-Kandidaten pro Runde wie bei der Nachprüfung ist der naheliegende Startwert.
+`--seit-letztem-lauf` verhindert, dass dieselben 687 Rohtreffer erneut durchsucht werden.
+Vor dem `prefetch`-Aufruf `data/.kandidaten.json` wie in Runde 26 auf eine kuratierte
+Teilmenge kürzen, falls die Rohliste wieder viele Low-Signal-Funde enthält (0 Sterne, einzelne
+Autoren mit vielen Parallelprojekten, nicht-englische Kurzbeschreibungen ohne erkennbaren
+Funktionsumfang) — 10–12 Kandidaten pro Runde hat sich in Runde 26 bewährt.
 
 Zwei kleine Aufräumpunkte aus Runde 25 sind noch offen (siehe „Bewusst verschoben" unten:
 `kingmaps_shop`-Duplikat, `patoche`-Linkverdacht) — beiläufig in einer künftigen Runde mitnehmen.
@@ -262,3 +281,4 @@ Verdopplung kostet also jedes Mal. Übertragbar ist nur, was sich als *Muster* w
 | 24 | Nachprüfung Kategorie „Admin & Sicherheit" komplett, 14/14 (kein Neufund) | 0 | 14 | 0 | 3 (9 verifiziert, 2 teilgeprüft, 3 ungeprueft) | `data/catalog/runde-24.json` | `83be0c9` |
 | 25 | Nachprüfung Kategorie „MLOs, Kleidung & Assets" komplett, 8/8 (kein Neufund) | 0 | 8 | 0 | 3 (1 verifiziert, 4 teilgeprüft, 3 ungeprueft/Bot-Schutz) | `data/catalog/runde-25.json` | folgt |
 | 25b | Letzte Streuverluste ohne `geprueft_am` (ui/staat/wohnen), Altbestand damit komplett durchgeprüft | 0 | 5 | 0 | 1 (4 verifiziert, 0 teilgeprüft, 1 ungeprueft/Bot-Schutz) | `data/catalog/runde-25b.json` | folgt |
+| 26 | Erste Neusuche-Runde: 11 neue Plugins über discover/prefetch, 5 davon Konkurrenzprodukte mit Gruppenvergleich | 11 | 5 (Gruppenvergleiche bei Bestandseinträgen) | 0 | 0 (10 verifiziert, 1 teilgeprüft) | `data/catalog/runde-26.json` | folgt |

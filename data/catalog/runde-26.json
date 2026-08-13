@@ -1,0 +1,364 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r26",
+  "runde": 26,
+  "thema": "Neusuche (docs/RECHERCHE.md §7): 11 bisher unbekannte Kandidaten aus npm run discover/prefetch — 5 davon als Konkurrenzprodukte zu bestehenden Einträgen (cityhall, multichar, garbagejob, ambulance, houserobbery), dafür neue gruppe-Zuordnungen bei den Bestandseinträgen.",
+  "erstellt": "2026-08-13",
+  "plugins": [
+    {
+      "id": "mtc-cityhall",
+      "name": "mtc-cityhall",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "Rathaus-Script als Ersatz für qbx_cityhall: Spieler können dort Jobs übernehmen und sich Ausweis und/oder Führerschein ausstellen lassen, Konfiguration ist frei anpassbar.",
+      "link": "https://github.com/morethancodenl/mtc-cityhall",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 22.01.2026",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "gruppe": "cityhall",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_target", "ox_inventory"],
+      "pro": [
+        "Konfigurierbare Jobübernahme direkt am Rathaus, zusätzlich zu Ausweis/Führerschein",
+        "Code-Stichprobe bestätigt native Qbox-Anbindung (exports.qbx_core, ox_target, ox_inventory, ox_lib)"
+      ],
+      "contra": [
+        "Kein README im Repo-Root vorhanden — Framework-Aussage nur aus fxmanifest und Repo-Beschreibung abgeleitet",
+        "Kleinere Nutzerbasis als das offizielle qbx_cityhall"
+      ],
+      "neutral": [
+        "Als Replacement für qbx_cityhall gedacht, kein Parallelbetrieb vorgesehen"
+      ],
+      "quelle": "https://github.com/morethancodenl/mtc-cityhall, https://raw.githubusercontent.com/morethancodenl/mtc-cityhall/main/fxmanifest.lua"
+    },
+    {
+      "id": "element_hud",
+      "name": "element_hud",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Konfigurierbares HUD für FiveM, gebaut mit React/TypeScript, das automatisch die passende Framework-Bridge für Qbox, QBCore oder ESX lädt.",
+      "link": "https://github.com/Thomasdev18/element_hud",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "",
+      "letztes_update": "Aktiv · letzter Push 26.07.2026",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "Unterstützt Qbox, QBCore und ESX über automatische Framework-Erkennung (bridge/bridge.lua)",
+        "Code-Stichprobe bestätigt ox_lib-, qbx_core- und ox_inventory-Anbindung"
+      ],
+      "contra": [
+        "Laut README ausdrücklich \"source available\", nicht OSI-lizenziert — Quellcode einsehbar, aber Weitergabe/Bearbeitung laut Autor eingeschränkt trotz fehlender Verschlüsselung"
+      ],
+      "quelle": "https://github.com/Thomasdev18/element_hud, https://raw.githubusercontent.com/Thomasdev18/element_hud/main/fxmanifest.lua, https://raw.githubusercontent.com/Thomasdev18/element_hud/main/README.md"
+    },
+    {
+      "id": "w2f-multicharacter",
+      "name": "w2f-multicharacter",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Charakterauswahl mit Kamerafahrt für Qbox, QBCore und ESX Legacy: Charakter erstellen, auswählen, löschen und spawnen, inklusive optionaler Starter-Apartment-Anbindung.",
+      "link": "https://github.com/Wayy2Flyyy/w2f-multicharacter",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 15.06.2026",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "gruppe": "multichar",
+      "pro": [
+        "Unterstützt Qbox, QBCore und ESX Legacy über Config.Framework='auto' (eigene Doku-Abschnitte für QBCore/ESX)",
+        "Optionale Starter-Apartment-Anbindung mit automatischem Fallback auf Standalone-Spawn, wenn kein Wohnungssystem läuft",
+        "Code-Stichprobe bestätigt ox_lib-, qbx_core- und ox_inventory-Anbindung"
+      ],
+      "contra": [
+        "Zusätzliche Abhängigkeit auf illenium-appearance für neue Charaktere (bei ESX dient esx_skin als Fallback)"
+      ],
+      "neutral": [
+        "Muss den offiziellen Qbox-Spawn-Resource ablösen — README verlangt, diesen vorher zu stoppen"
+      ],
+      "quelle": "https://github.com/Wayy2Flyyy/w2f-multicharacter, https://raw.githubusercontent.com/Wayy2Flyyy/w2f-multicharacter/main/fxmanifest.lua, https://raw.githubusercontent.com/Wayy2Flyyy/w2f-multicharacter/main/README.md"
+    },
+    {
+      "id": "slrn_rolldice",
+      "name": "slrn_rolldice",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Würfel- und Münzwurf-Script für Qbox, nutzt ox_lib und ox_inventory für die Interaktion.",
+      "link": "https://github.com/solareon/slrn_rolldice",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.2.0",
+      "letztes_update": "Aktiv · letzter Push 12.04.2026",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_inventory"],
+      "pro": [
+        "Schlank (4 Lua-Dateien), Code-Stichprobe bestätigt native Qbox-Anbindung (qbx_core, ox_lib, ox_inventory)"
+      ],
+      "neutral": [
+        "Reines Minigame ohne Job-Anbindung"
+      ],
+      "quelle": "https://github.com/solareon/slrn_rolldice, https://raw.githubusercontent.com/solareon/slrn_rolldice/main/fxmanifest.lua, https://raw.githubusercontent.com/solareon/slrn_rolldice/main/README.md"
+    },
+    {
+      "id": "murderface-pets",
+      "name": "murderface-pets",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Begleittier-System mit 26 Rassen, XP-Fortschritt und KI-Verhalten (Folgen, Verteidigen, Umweltreaktionen); Kauf über ox_target, läuft ohne externe Shop-Ressource.",
+      "link": "https://github.com/fruitmob/murderface-pets",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 02.04.2026",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_target", "ox_inventory", "qbx_core"],
+      "pro": [
+        "26 Begleittier-Rassen mit XP-System und KI-Verhalten laut README",
+        "Läuft standalone ohne externe Shop-Ressource (Kauf über ox_target)",
+        "Code-Stichprobe bestätigt qbx_core-, ox_target- und ox_inventory-Anbindung"
+      ],
+      "contra": [
+        "Harte Abhängigkeit auf qbx_core, ox_target, ox_inventory und ox_lib — kein Framework-Fallback"
+      ],
+      "neutral": [
+        "10 der Zusatz-Rassen benötigen laut README eine separate Addon-Ped-Streaming-Ressource"
+      ],
+      "quelle": "https://github.com/fruitmob/murderface-pets, https://raw.githubusercontent.com/fruitmob/murderface-pets/master/fxmanifest.lua, https://raw.githubusercontent.com/fruitmob/murderface-pets/master/README.md"
+    },
+    {
+      "id": "bs_garbagejob",
+      "name": "bs_garbagejob",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Müllabfuhr-Job ohne feste Zonen: Müllsäcke werden frei auf der Karte per ox_target aufgesammelt, optional mit Crew-Pflicht über slrn_groups oder sd-phone; erkennt Qbox, QBCore und ESX automatisch.",
+      "link": "https://github.com/BeetleStudios/bs_garbagejob",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 05.08.2026",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_target", "oxmysql"],
+      "gruppe": "garbagejob",
+      "pro": [
+        "Keine festen Zonen — Müllsäcke werden frei auf der Karte aufgesammelt",
+        "Erkennt Qbox, QBCore und ESX automatisch (bridge/framework.lua)",
+        "Optionale Crew-Pflicht über slrn_groups oder sd-phone konfigurierbar",
+        "Code-Stichprobe bestätigt qbx_core-, ox_target- und ox_inventory-Anbindung"
+      ],
+      "neutral": [
+        "Fahrzeugschlüssel-Integration wählbar zwischen qbx_vehiclekeys, qb-vehiclekeys und MrNewb"
+      ],
+      "quelle": "https://github.com/BeetleStudios/bs_garbagejob, https://raw.githubusercontent.com/BeetleStudios/bs_garbagejob/main/fxmanifest.lua, https://raw.githubusercontent.com/BeetleStudios/bs_garbagejob/main/README.md"
+    },
+    {
+      "id": "cipher-mdt",
+      "name": "cipher-mdt",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "Polizei-MDT mit CAD-Anbindung, Zivilaktenverwaltung, Festnahmen, Strafzetteln, Vorfällen, Haftbefehlen und Bulletins; setzt zwingend qbx_core voraus, Standard-QBCore wird laut README nicht direkt unterstützt.",
+      "link": "https://github.com/XyraL/cipher-mdt",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.4.0",
+      "letztes_update": "Aktiv · letzter Push 04.08.2026",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "qbx_core", "oxmysql"],
+      "kompat_warnung": {
+        "text": "Code-Stichprobe fand exports['qb-target'] als optionale Alternative zu ox_target (client/target.lua:53) — laut README nur ein Wahl-Feature (ox_target/qb-target als Optional markiert), kein Zwang, aber bei reinem ox-Stack ohne qb-target-kompatible Bridge zu beachten.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Umfangreiches MDT-Featureset laut README: CAD-Dispatch, Zivilakten, Festnahmen, Strafzettel, Vorfälle, Haftbefehle, Bulletins, Audit-Log",
+        "Code-Stichprobe bestätigt qbx_core- und ox_target-Anbindung",
+        "README nennt MIT-Lizenz ausdrücklich, obwohl GitHub keine SPDX-Lizenz meldet"
+      ],
+      "contra": [
+        "README bestätigt: nur qbx_core unterstützt, Standard-QBCore (qb-core) ausdrücklich nicht direkt unterstützt"
+      ],
+      "quelle": "https://github.com/XyraL/cipher-mdt, https://raw.githubusercontent.com/XyraL/cipher-mdt/master/fxmanifest.lua, https://raw.githubusercontent.com/XyraL/cipher-mdt/master/README.md"
+    },
+    {
+      "id": "w2f-ambulance",
+      "name": "w2f-ambulance",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "EMS-Job mit medizinischem Kern für Qbox: Krankenhaus, Apotheke, Tod-/Laststand- und Verletzungssystem in einer Ressource, ersetzt qbx_ambulancejob und qbx_medical.",
+      "link": "https://github.com/Wayy2Flyyy/w2f-ambulance",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.4.0",
+      "letztes_update": "Aktiv · letzter Push 17.06.2026",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_inventory", "ox_target", "oxmysql"],
+      "gruppe": "ambulance",
+      "pro": [
+        "Bündelt EMS-Job, Krankenhaus, Apotheke sowie Tod-/Laststand- und Verletzungssystem in einer Ressource",
+        "Ersetzt qbx_ambulancejob und qbx_medical direkt — README liefert dafür eine Anleitung",
+        "Code-Stichprobe bestätigt qbx_core-, ox_target- und ox_inventory-Anbindung",
+        "Kostenlos und quelloffen — im Gegensatz zu wasabi_ambulance als kostenpflichtiges Escrow-Produkt"
+      ],
+      "contra": [
+        "Harte Abhängigkeit auf qbx_core — kein Framework-Fallback wie bei standalone laufenden Alternativen",
+        "Erfordert manuelle Anpassung der ox_inventory items.lua und der qbx_core-Jobgrade (0–8) laut README"
+      ],
+      "quelle": "https://github.com/Wayy2Flyyy/w2f-ambulance, https://raw.githubusercontent.com/Wayy2Flyyy/w2f-ambulance/main/fxmanifest.lua, https://raw.githubusercontent.com/Wayy2Flyyy/w2f-ambulance/main/README.md"
+    },
+    {
+      "id": "noted_fitbit",
+      "name": "noted_fitbit",
+      "kategorie": "kommunikation",
+      "essenziell": false,
+      "beschreibung": "Fitbit-App für LB Phone mit Benachrichtigungen bei niedriger Nahrung/Hydration; erkennt Qbox, QBCore oder ESX automatisch und ersetzt das alte qb/qbx-Fitbit-Item.",
+      "link": "https://github.com/NotedDevelopment/noted_fitbit",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 09.08.2026",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "lb_phone"],
+      "pro": [
+        "Erkennt Qbox, QBCore oder ESX automatisch, Framework-Code sauber in eigenen Dateien gekapselt (client/framework.lua, server/framework.lua)",
+        "Ersetzt das alte qb/qbx-Fitbit-Item laut README",
+        "Code-Stichprobe bestätigt qbx_core- und ox_lib-Anbindung"
+      ],
+      "contra": [
+        "Erfordert LB Phone als Abhängigkeit — nicht mit anderen Phone-Systemen kompatibel laut fxmanifest"
+      ],
+      "quelle": "https://github.com/NotedDevelopment/noted_fitbit, https://raw.githubusercontent.com/NotedDevelopment/noted_fitbit/main/fxmanifest.lua, https://raw.githubusercontent.com/NotedDevelopment/noted_fitbit/main/README.md"
+    },
+    {
+      "id": "ad-houserobberys",
+      "name": "ad-houserobberys",
+      "kategorie": "crime",
+      "essenziell": false,
+      "beschreibung": "Einbruchs-Script für Häuser unter Qbox mit Alarm-Risiko, setzt ox_target, ox_inventory und t3_lockpick voraus.",
+      "link": "https://github.com/TerraEgg/ad-houserobberys",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "",
+      "letztes_update": "Aktiv · letzter Push 18.07.2026",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_target"],
+      "gruppe": "houserobbery",
+      "pro": [
+        "Code-Stichprobe bestätigt qbx_core-, ox_target- und ox_inventory-Anbindung",
+        "Alarm-System mit eigenem Soundfile"
+      ],
+      "contra": [
+        "Kein Versionshinweis im fxmanifest oder README auffindbar — Version bleibt unbekannt",
+        "Zusätzliche Abhängigkeit auf t3_lockpick (Drittanbieter-Lockpick statt ox_lib-Minigame)"
+      ],
+      "quelle": "https://github.com/TerraEgg/ad-houserobberys, https://raw.githubusercontent.com/TerraEgg/ad-houserobberys/main/fxmanifest.lua, https://raw.githubusercontent.com/TerraEgg/ad-houserobberys/main/README.md"
+    },
+    {
+      "id": "matti-hud",
+      "name": "matti-hud",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "HUD im \"Digital Dark-Glass\"-Stil als Drop-in-Ersatz für qbx_hud, ohne Anpassungen an anderen Ressourcen nötig.",
+      "link": "https://github.com/MattiVboiii/matti-hud",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 05.08.2026",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "qbx_core"],
+      "konflikte": ["qbx_hud"],
+      "pro": [
+        "Drop-in-Ersatz für qbx_hud ohne Anpassungen an anderen Ressourcen (deklariert provide 'qbx_hud')",
+        "Erkennt ox_inventory und qbx_seatbelt automatisch als optionale Soft-Dependencies laut README",
+        "Code-Stichprobe bestätigt qbx_core- und ox_inventory-Anbindung",
+        "MIT-lizenziert laut README und LICENSE-Datei"
+      ],
+      "contra": [
+        "Muss qbx_hud vor dem Start stoppen, sonst doppelte Stress-/HUD-Events laut README"
+      ],
+      "quelle": "https://github.com/MattiVboiii/matti-hud, https://raw.githubusercontent.com/MattiVboiii/matti-hud/main/fxmanifest.lua, https://raw.githubusercontent.com/MattiVboiii/matti-hud/main/README.md"
+    }
+  ],
+  "updates": [
+    {
+      "id": "qbx_cityhall",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Konkurrent mtc-cityhall (More Than Code) gefunden — gleiche Funktion (Ausweise/Lizenzen/Jobcenter), anderer Anbieter. Gruppe 'cityhall' angelegt, damit beide vergleichbar sind. qbx_cityhall selbst wurde in dieser Runde nicht neu gegen README/Code geprüft, bleibt daher ungeprueft.",
+      "gruppe": "cityhall",
+      "contra": [
+        "Konkurrenzprodukt mtc-cityhall bietet zusätzlich konfigurierbare Jobübernahme direkt am Rathaus"
+      ]
+    },
+    {
+      "id": "qb_multicharacter",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Konkurrent w2f-multicharacter gefunden — modernere Charakterauswahl mit Kamerafahrt, Cursor-Ped-Auswahl und nativer Qbox/QBCore/ESX-Erkennung. qb_multicharacter selbst wurde in dieser Runde nicht neu gegen README/Code geprüft (Altbestand-Eintrag), bleibt ungeprueft.",
+      "contra": [
+        "Redundant",
+        "Bridge-Overhead",
+        "Kein Kamerafahrt-/Cinematic-Feature wie w2f-multicharacter"
+      ]
+    },
+    {
+      "id": "qbx_garbagejob",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Konkurrent bs_garbagejob (Beetle Studios) gefunden — gleiche Funktion (Müllabfuhr), anderer Anbieter mit zusätzlicher Framework-Autoerkennung (Qbox/QBCore/ESX) und optionaler Crew-Pflicht. Gruppe 'garbagejob' angelegt. qbx_garbagejob selbst wurde in dieser Runde nicht neu gegen README/Code geprüft, bleibt ungeprueft.",
+      "gruppe": "garbagejob",
+      "contra": [
+        "Konkurrenzprodukt bs_garbagejob läuft framework-übergreifend (Qbox/QBCore/ESX) und ohne feste Zonen"
+      ]
+    },
+    {
+      "id": "wasabi_ambulance",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Konkurrent w2f-ambulance gefunden — quelloffene, kostenlose Qbox-native Alternative, die qbx_ambulancejob/qbx_medical ersetzt. wasabi_ambulance selbst wurde in dieser Runde nicht neu gegen die Shop-Seite geprüft, bleibt ungeprueft.",
+      "contra": [
+        "💰 $49.99 (verifiziert)",
+        "🔒 Escrow",
+        "Kostenlose Open-Source-Alternative w2f-ambulance verfügbar (allerdings nur für Qbox, kein Framework-Fallback)"
+      ]
+    },
+    {
+      "id": "qbx_houserobbery",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Konkurrent ad-houserobberys (TerraEgg) gefunden — gleiche Funktion (Haus-Einbrüche), anderer Anbieter. Gruppe 'houserobbery' angelegt. qbx_houserobbery selbst wurde in dieser Runde nicht neu gegen README/Code geprüft, bleibt ungeprueft.",
+      "gruppe": "houserobbery",
+      "contra": [
+        "Konkurrenzprodukt ad-houserobberys setzt zusätzlich t3_lockpick statt des ox_lib-Minigames voraus"
+      ]
+    }
+  ]
+}

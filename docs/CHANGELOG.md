@@ -17,6 +17,43 @@ Format je Eintrag:
 
 ---
 
+## [Runde 26] Erste Neusuche-Runde – 13.08.2026
+
+**Neu:** 11 bisher unbekannte Plugins in den Katalog aufgenommen — gefunden über
+`npm run discover` (687 Rohtreffer → 25 Kandidaten in `data/.prefetch/kandidaten-26.md`),
+davon 11 mit gutem Beleggrad (Stars/Aktivität/echter Funktionsumfang) manuell ausgewählt und
+per `npm run prefetch --kandidaten` mit vollständiger Code-Stichprobe/README-Beleg vorbereitet.
+Ausgearbeitet über einen Subagenten nach `docs/RECHERCHE.md` §7:
+`mtc-cityhall`, `element_hud`, `w2f-multicharacter`, `slrn_rolldice`, `murderface-pets`,
+`bs_garbagejob`, `cipher-mdt`, `w2f-ambulance`, `noted_fitbit`, `ad-houserobberys`, `matti-hud`.
+
+**Fünf davon sind Konkurrenzprodukte zu Bestandseinträgen** (RECHERCHE.md §5-Vergleichsdaten
+mitgepflegt): `mtc-cityhall`↔`qbx_cityhall` (Gruppe `cityhall`, neu angelegt),
+`w2f-multicharacter`↔`qb_multicharacter` (Gruppe `multichar`, bereits vorhanden),
+`bs_garbagejob`↔`qbx_garbagejob` (Gruppe `garbagejob`, neu angelegt),
+`w2f-ambulance`↔`wasabi_ambulance` (Gruppe `ambulance`, bereits vorhanden — w2f-ambulance ist
+die kostenlose Open-Source-Alternative zum $49.99-Escrow-Produkt),
+`ad-houserobberys`↔`qbx_houserobbery` (Gruppe `houserobbery`, neu angelegt). Die drei neu
+angelegten Gruppen erzeugen bei `npm run validate` erwartungsgemäß eine „nur ein Mitglied"-
+Warnung, weil der Validator `gruppe` nur aus `plugins[]` zählt, nicht aus den `updates[]`, die
+den Bestandseintrag ergänzen — löst sich beim Merge im Import/Build auf, kein Fehler.
+
+**Framework-Korrekturen gegenüber dem Prefetch-Vorschlag:** vier Kandidaten hatten laut
+fxmanifest-Rohsignalen `qbox_nativ` vorgeschlagen, README bestätigte aber echte
+Qbox/QBCore/ESX-Autoerkennung im Code → auf `qbcore_bridge` korrigiert: `element_hud`,
+`w2f-multicharacter`, `bs_garbagejob`, `noted_fitbit`.
+
+**Zwei Abhängigkeits-Bereinigungen:** `lb-phone` → `lb_phone` (tatsächliche Katalog-ID) bei
+`noted_fitbit`; `t3_lockpick` bei `ad-houserobberys` NICHT als `abhaengigkeiten`-ID übernommen
+(steht noch in keinem Katalogeintrag) — stattdessen als `contra`-Punkt festgehalten, statt eine
+ID zu erfinden.
+
+**Katalog:** 11 neu, 5 aktualisiert (Gruppenvergleiche bei `qbx_cityhall`, `qb_multicharacter`,
+`qbx_garbagejob`, `wasabi_ambulance`, `qbx_houserobbery`), 0 Duplikate übersprungen, 0 ungeprüft
+**Datei:** `data/catalog/runde-26.json` · **Commit:** folgt
+
+---
+
 ## [v3.0-r25b] Erstes GitHub-Release – 13.08.2026
 
 **Neu:** Repo `T0XiQ96/Qbox-Server-Planer` (privat) angelegt, kompletter Verlauf (33 Commits)
