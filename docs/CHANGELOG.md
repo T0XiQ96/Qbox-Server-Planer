@@ -17,6 +17,48 @@ Format je Eintrag:
 
 ---
 
+## [Runde 28] Dritte Neusuche-Runde – 13.08.2026
+
+**Neu:** 10 weitere Plugins über `npm run discover` gefunden (Vollsuche statt
+`--seit-letztem-lauf`, da der inkrementelle Lauf 0 neue Kandidaten lieferte — die Rohtreffer von
+heute waren bereits über Runde 26/27 abgedeckt). 60 Kandidaten insgesamt, davon diesmal spürbar
+populärere Funde als in den vorigen beiden Runden (14–228 ⭐ statt meist 0–2) — 10 davon
+ausgewählt und ausgearbeitet: `um-idcard`, `z-phone`, `ac_radio`, `mbt_meta_clothes`,
+`slrn_scratchcard`, `polarix_truckerjob`, `cx-hud`, `red40_mining`, `murderface-shops`,
+`bs_credit`.
+
+**Fünf mit Gruppenvergleich:** `z-phone`↔`lb_phone` (Gruppe `phone`, bestand schon),
+`ac_radio`↔`mm_radio` (Gruppe `radio`, bestand schon), `cx-hud`↔`qbx_hud` (Gruppe `hud`, bestand
+schon), `polarix_truckerjob`↔`qbx_truckerjob` (neue Gruppe `truckerjob`),
+`red40_mining`↔`jim_mining` (neue Gruppe `bergbau`).
+
+**Kollision beim Gruppennamen gefunden und korrigiert:** Der Subagent hatte für
+`red40_mining`/`jim_mining` die Gruppe `mining` vergeben — die gab es aber bereits, belegt von
+`crypto_mining_sim` (ein Krypto-Mining-Simulator, funktional komplett anderes Thema als
+Erzabbau). Vor dem Schreiben aufgefallen, weil `npm run validate` die Gruppe sofort als
+vollständig (2 Mitglieder) meldete, statt wie bei den anderen vier neuen Gruppen als „nur ein
+Mitglied" — das war das Signal für eine Namenskollision statt einer echten Zusammenführung.
+Auf `bergbau` umbenannt. **Lehre für künftige Runden:** Bei einer neu vergebenen `gruppe`-ID
+nach dem Schreiben kurz `npm run validate` auf genau diese Gruppe prüfen — meldet sie „nur ein
+Mitglied" nicht, obwohl nur ein echter Katalogeintrag dazugehören sollte, ist der Name bereits
+anderweitig vergeben.
+
+**Mehrere `kompat_warnung`-Funde mit echten Codebefunden statt reiner Übernahme des
+Prefetch-Vorschlags:** `um-idcard` und `murderface-shops` haben je einen Legacy-Pfad mit
+`exports['qb-inventory']` neben der eigentlichen Qbox-Anbindung im Code (konfigurationsabhängig,
+kein hartes Problem, aber dokumentiert). `mbt_meta_clothes` nutzt `ox_core`- statt
+`qbx_core`-Exports und ist laut README nur mit Ox Core/ESX getestet — als `standalone` statt
+`qbcore_bridge` eingeordnet, Qbox-Kompatibilität ausdrücklich als unbestätigt markiert.
+`z-phone` verlangt laut README eine Direktanpassung an `qb-core/server/player.lua` und zeigt
+keinen `qbx_core`-Export im Code — `qualitaet: teilgeprueft` statt `verifiziert`.
+
+**Katalog:** 10 neu, 5 aktualisiert (Gruppenvergleiche bei `lb_phone`, `mm_radio`, `qbx_hud`,
+`qbx_truckerjob`, `jim_mining`), 0 Duplikate übersprungen, 0 ungeprüft (2 auf `teilgeprueft`
+wegen dokumentierter Vorbehalte)
+**Datei:** `data/catalog/runde-28.json` · **Commit:** folgt
+
+---
+
 ## [Runde 27] Zweite Neusuche-Runde – 13.08.2026
 
 **Neu:** 10 weitere Plugins über `npm run discover -- --seit-letztem-lauf` gefunden (20

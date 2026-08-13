@@ -1,0 +1,370 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r28",
+  "runde": 28,
+  "thema": "Neusuche (docs/RECHERCHE.md §7): 10 Kandidaten aus npm run discover, diesmal deutlich populärer (14–228 GitHub-Sterne). 5 mit Gruppenvergleich: z-phone↔lb_phone, ac_radio↔mm_radio, cx-hud↔qbx_hud, polarix_truckerjob↔qbx_truckerjob (neue Gruppe), red40_mining↔jim_mining (neue Gruppe 'bergbau' — 'mining' war schon durch crypto_mining_sim belegt).",
+  "erstellt": "2026-08-13",
+  "plugins": [
+    {
+      "id": "um-idcard",
+      "name": "um-idcard",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Erstellt Personalausweise mit Mugshot und Metadaten und ist der direkte Nachfolger von qb-idcard. Läuft über eigene Framework-Bridges für QBCore, ESX und Qbox.",
+      "link": "https://github.com/alp1x/um-idcard",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "2.2.3",
+      "letztes_update": "Aktiv · letzter Push 2026-05-16",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Enthält einen Legacy-Bridge-Pfad mit exports['qb-inventory'] (bridge/inventory/qb.lua:4). Betrifft nur den QBCore-Zweig; der Qbox-Pfad nutzt separat ox_inventory (bridge/inventory/ox.lua:3) und exports.qbx_core (bridge/framework/qbox.lua:3).",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Eigene Qbox-Bridge mit direktem qbx_core-Export",
+        "Nutzt ox_inventory im Qbox-Pfad statt qb-inventory",
+        "Aktiv gepflegt, GPL-3.0 offen einsehbar"
+      ],
+      "contra": [
+        "Legacy qb-inventory-Export nur im QBCore-Zweig vorhanden (kein Qbox-Risiko, aber Restkomplexität im Code)"
+      ],
+      "neutral": [
+        "Ablösung/Umbenennung von qb-idcard laut README"
+      ],
+      "quelle": "https://github.com/alp1x/um-idcard, https://raw.githubusercontent.com/alp1x/um-idcard/main/fxmanifest.lua"
+    },
+    {
+      "id": "z-phone",
+      "name": "z-phone",
+      "kategorie": "kommunikation",
+      "essenziell": false,
+      "beschreibung": "Handy-System mit iPhone-artigem UI, inspiriert von QBPhone. Unterstützt QBCore, ESX und über ox_lib auch Qbox, jeweils per eigener Bridge.",
+      "link": "https://github.com/alfaben12/z-phone",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Länger nicht aktualisiert · letzter Push 2025-01-15",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "gruppe": "phone",
+      "kompat_warnung": {
+        "text": "README (Zeile 59) verweist auf eine Anpassung direkt in qb-core/server/player.lua — ein Eingriff am Framework vorbei statt über die Bridge, riskant unter Qbox. Kein direkter qbx_core-Export im Code gefunden (nur ox_inventory-Nutzung in esx.lua/qb.lua).",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Kostenlos und quelloffen (im Gegensatz zu lb_phone)",
+        "iOS-artiges, poliertes UI als kostenlose Alternative"
+      ],
+      "contra": [
+        "Kein offizieller Qbox-Support, kein qbx_core-Export im Code gefunden",
+        "README verlangt Direktanpassung an qb-core/server/player.lua",
+        "Seit 01/2025 kein Push mehr — deutlich weniger aktiv als lb_phone",
+        "Sound-Dateien müssen manuell importiert werden",
+        "Eigene DWYWDBM-Lizenz statt Standard-Open-Source-Lizenz"
+      ],
+      "neutral": [
+        "Braucht je nach Framework QB Banking bzw. ESX Banking/Billing als Zusatzressource",
+        "Rufnummern-Format ggf. inkompatibel mit QBCore.Functions.GetPlayerByPhone laut README"
+      ],
+      "quelle": "https://github.com/alfaben12/z-phone, https://raw.githubusercontent.com/alfaben12/z-phone/main/README.md"
+    },
+    {
+      "id": "ac_radio",
+      "name": "ac_radio",
+      "kategorie": "kommunikation",
+      "essenziell": false,
+      "beschreibung": "Framework-unabhängige Radio-UI für pma-voice. Läuft standalone, bietet aber bei erkanntem Framework (ox_core, qbx_core, qb-core) Zusatzfunktionen wie Item-Pflicht und Frequenzbeschränkung.",
+      "link": "https://github.com/acscripts/ac_radio",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "2.1.0",
+      "letztes_update": "Aktiv · letzter Push 2025-07-20",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "pma-voice"],
+      "gruppe": "radio",
+      "pro": [
+        "Läuft framework-unabhängig, auch ohne Qbox/QBCore",
+        "Leichtgewichtige Alternative zu mm_radio",
+        "Unterstützt ox_inventory sowie ESX/QB-Inventare für die Item-Pflicht"
+      ],
+      "contra": [
+        "Kein offizielles Qbox-Projekt (Community-Script, im Gegensatz zu mm_radio)",
+        "Keine verschlüsselten Kanäle dokumentiert (Feature von mm_radio)"
+      ],
+      "neutral": [
+        "Erweiterte Features (Item-Pflicht, Frequenzbeschränkung) nur mit erkanntem Framework aktiv"
+      ],
+      "quelle": "https://github.com/acscripts/ac_radio, https://raw.githubusercontent.com/acscripts/ac_radio/main/README.md"
+    },
+    {
+      "id": "mbt_meta_clothes",
+      "name": "mbt_meta_clothes",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Verwandelt Kleidungsstücke über ox_inventory-Metadaten in eindeutige Items und bietet ein NUI zum An-/Ausziehen und Wechseln von Outfits.",
+      "link": "https://github.com/MalibuTechTeam/mbt_meta_clothes",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.2.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-11",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory"],
+      "kompat_warnung": {
+        "text": "Code greift direkt auf ox_core-Exports zu (server/server.lua:11, client/client.lua:39), nicht auf qbx_core. Laut README (Zeile 14) wurde nur mit Ox Core und ESX getestet; QB Core wird nur als 'kompatibel wenn ox_inventory vorhanden' genannt — Qbox-Kompatibilität ist damit nicht bestätigt.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Nutzt ox_inventory-Metadaten für einzigartige Kleidungs-Items",
+        "Sauberes NUI zum An-/Ausziehen",
+        "Aktiv gepflegt"
+      ],
+      "contra": [
+        "Direkter ox_core-Exportzugriff im Code statt qbx_core — Qbox-Kompatibilität laut README nicht getestet",
+        "Keine Lizenzangabe im Repo"
+      ],
+      "quelle": "https://github.com/MalibuTechTeam/mbt_meta_clothes, https://raw.githubusercontent.com/MalibuTechTeam/mbt_meta_clothes/main/README.md"
+    },
+    {
+      "id": "slrn_scratchcard",
+      "name": "slrn_scratchcard",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Rubbelkarten-System auf Basis von ox_inventory-Metadaten mit React-UI für dynamisch große Karten, mit denen Spieler Geld gewinnen können.",
+      "link": "https://github.com/solareon/slrn_scratchcard",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-10",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory"],
+      "pro": [
+        "Eigene Framework-Bridges für ESX, QB, ND und Qbox (exports.qbx_core bestätigt)",
+        "Nutzt ox_inventory-Metadaten für dynamische Rubbelkarten",
+        "GPL-3.0 offen einsehbar"
+      ],
+      "contra": [
+        "Kein dokumentiertes Balancing der Auszahlungen — muss selbst konfiguriert werden",
+        "Ohne fertiges Release muss die UI selbst per pnpm gebaut werden"
+      ],
+      "quelle": "https://github.com/solareon/slrn_scratchcard, https://raw.githubusercontent.com/solareon/slrn_scratchcard/master/README.md"
+    },
+    {
+      "id": "polarix_truckerjob",
+      "name": "polarix_truckerjob",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "LKW-Lieferjob mit wählbarem Target-System (ox_target, qb-target oder sleepless_interact) und einem In-Game-Editor für Lieferrouten per Admin-Command.",
+      "link": "https://github.com/derPolarix/polarix_truckerjob",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.2.0",
+      "letztes_update": "Sehr aktiv · letzter Push 2026-08-11",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "gruppe": "truckerjob",
+      "pro": [
+        "Nativ für qbox, qb-core und ESX out of the box (exports.qbx_core bestätigt)",
+        "Wählbares Target-System (ox_target/qb-target/sleepless_interact) ohne Codeänderung",
+        "In-Game-Editor für Lieferrouten per /truckeradmin mit Live-Vorschau",
+        "MIT-Lizenz, sehr aktiv gepflegt (Push vom 2026-08-11)"
+      ],
+      "contra": [
+        "Kleineres Community-Projekt, kein offizielles Qbox-Team dahinter (im Gegensatz zu qbx_truckerjob)"
+      ],
+      "neutral": [
+        "Zusatzprops von einem separaten Tebex-Anbieter (StraussMoewe) eingebunden"
+      ],
+      "quelle": "https://github.com/derPolarix/polarix_truckerjob, https://raw.githubusercontent.com/derPolarix/polarix_truckerjob/main/README.md"
+    },
+    {
+      "id": "cx-hud",
+      "name": "cx-hud",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Spieler-HUD für Qbox und QBCore mit direkter qbx_core-Anbindung sowie optionalen Erweiterungen für Stress- und Buff-Anzeigen.",
+      "link": "https://github.com/JustCxsper/cx-hud",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.2.6",
+      "letztes_update": "Aktiv · letzter Push 2026-05-18",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib"],
+      "gruppe": "hud",
+      "pro": [
+        "Direkte qbx_core-Anbindung im Code (client/status.lua:166)",
+        "Nutzt ox_inventory für Waffenanzeige (client/weapon.lua:161)",
+        "Optionale Erweiterungen für Stress (jg-stress-addon) und Buffs (ps-buffs)"
+      ],
+      "contra": [
+        "Kein README im Repo — Zweck und Installation nur aus fxmanifest/Repo-Beschreibung ableitbar",
+        "fxmanifest-Beschreibung nichtssagend ('this is a hud i guess')"
+      ],
+      "neutral": [
+        "Optionale Abhängigkeiten jg-stress-addon und ps-buffs sind nicht selbst im Katalog erfasst"
+      ],
+      "quelle": "https://github.com/JustCxsper/cx-hud, https://raw.githubusercontent.com/JustCxsper/cx-hud/main/fxmanifest.lua"
+    },
+    {
+      "id": "red40_mining",
+      "name": "red40_mining",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Bergbau-Aktivität mit eigener Bridge für QBCore und Qbox, inklusive eigener Sound-Assets fürs Abbauen.",
+      "link": "https://github.com/Red40-Development/red40_mining",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.1",
+      "letztes_update": "Aktiv · letzter Push 2026-08-03",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory", "ox_target"],
+      "gruppe": "bergbau",
+      "pro": [
+        "Eigene Bridge für QBCore und Qbox nativ (exports.qbx_core bestätigt), kein Umweg über jim_bridge nötig",
+        "Eigene Audio-Assets für den Abbau",
+        "Aktiv gepflegt (Push vom 2026-08-03)"
+      ],
+      "contra": [
+        "Sehr kurzes README (23 Zeilen) — Funktionsumfang schlechter dokumentiert als bei jim_mining",
+        "Jüngeres Projekt mit kleinerer Community als jim_mining"
+      ],
+      "neutral": [
+        "Setzt ox_target voraus, kein alternatives Targetsystem erwähnt"
+      ],
+      "quelle": "https://github.com/Red40-Development/red40_mining, https://raw.githubusercontent.com/Red40-Development/red40_mining/main/README.md"
+    },
+    {
+      "id": "murderface-shops",
+      "name": "murderface-shops",
+      "kategorie": "wirtschaft",
+      "essenziell": false,
+      "beschreibung": "Shop-System für den Qbox/ox-Stack mit NUI-Warenkorb, Waffen-Individualisierung, spielereigenen Läden, Raubüberfällen und MySQL-Caching.",
+      "link": "https://github.com/fruitmob/murderface-shops",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "3.3.0",
+      "letztes_update": "Aktiv · letzter Push 2026-04-03",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory"],
+      "kompat_warnung": {
+        "text": "Enthält Legacy-Exportpfade exports['qb-inventory'] (server/framework/main.lua:140, server/main.lua:180) neben der qbx-sicheren Player-Wrapper-Schicht (server/framework/player.lua). Laut README ist qbx_core die Zielintegration; der qb-inventory-Pfad greift nur bei falscher Framework-Konfiguration.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Speziell für Qbox + ox_lib + ox_inventory + ox_target gebaut",
+        "MySQL-Caching-System, Diebstahl-/Raub-Feature, Gabz-MLO-Support",
+        "Aktiv gepflegt, LGPL-3.0 offen einsehbar"
+      ],
+      "contra": [
+        "Legacy qb-inventory-Exportpfade im Code vorhanden — nur bei falscher Config relevant, aber Restrisiko"
+      ],
+      "neutral": [
+        "ox_target optional, Marker als Alternative konfigurierbar"
+      ],
+      "quelle": "https://github.com/fruitmob/murderface-shops, https://raw.githubusercontent.com/fruitmob/murderface-shops/master/README.md"
+    },
+    {
+      "id": "bs_credit",
+      "name": "bs_credit",
+      "kategorie": "wirtschaft",
+      "essenziell": false,
+      "beschreibung": "Finanz-Bonitätssystem: Bankangestellte können per Command einen Credit-Report zu einem Spieler abrufen. Unterstützt Qbox, QBCore und ESX über Framework-Autoerkennung.",
+      "link": "https://github.com/BeetleStudios/bs_credit",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "2.0.1",
+      "letztes_update": "Aktiv · letzter Push 2026-08-09",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["oxmysql", "ox_lib"],
+      "pro": [
+        "Framework-Autoerkennung für Qbox/QBCore/ESX (exports.qbx_core bestätigt)",
+        "Einfacher Bankier-Command /creditreport",
+        "GPL-3.0 offen einsehbar"
+      ],
+      "contra": [
+        "Sehr kleines Repo (nur 4 Lua-Dateien) — begrenzter Funktionsumfang über den Credit-Report hinaus"
+      ],
+      "quelle": "https://github.com/BeetleStudios/bs_credit, https://raw.githubusercontent.com/BeetleStudios/bs_credit/main/README.md"
+    }
+  ],
+  "updates": [
+    {
+      "id": "lb_phone",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Gruppen-Konkurrent z-phone (Runde 28) gefunden — Vergleichsdaten der Gruppe 'phone' aktualisiert.",
+      "contra": [
+        "💰 Preis im Store prüfen",
+        "🔒 Kern Escrow",
+        "Kostenlose Open-Source-Alternative verfügbar: z-phone (weniger poliert, ohne offiziellen Qbox-Support)"
+      ]
+    },
+    {
+      "id": "mm_radio",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Gruppen-Konkurrent ac_radio (Runde 28) gefunden — Vergleichsdaten der Gruppe 'radio' aktualisiert.",
+      "neutral": [
+        "Braucht pma-voice",
+        "Community-Alternative ac_radio ist framework-unabhängig nutzbar (kein qbx_core zwingend), aber ohne verschlüsselte Kanäle"
+      ]
+    },
+    {
+      "id": "qbx_hud",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Gruppen-Konkurrent cx-hud (Runde 28) gefunden — Vergleichsdaten der Gruppe 'hud' aktualisiert.",
+      "neutral": [
+        "Status aus qbx_smallresources",
+        "Community-Alternative cx-hud bietet dieselbe qbx_core-Anbindung, aber ohne README/Doku"
+      ]
+    },
+    {
+      "id": "qbx_truckerjob",
+      "geprueft_am": "2026-08-13",
+      "gruppe": "truckerjob",
+      "update_grund": "Neuer Gruppen-Konkurrent polarix_truckerjob (Runde 28) gefunden — eigene gruppe 'truckerjob' vergeben, Vergleichsdaten ergänzt.",
+      "contra": [
+        "Nur ox_target als Targetsystem unterstützt (kein Alternativsystem wie bei polarix_truckerjob)",
+        "Kein In-Game-Editor für Lieferrouten bekannt"
+      ]
+    },
+    {
+      "id": "jim_mining",
+      "geprueft_am": "2026-08-13",
+      "gruppe": "bergbau",
+      "update_grund": "Neuer Gruppen-Konkurrent red40_mining (Runde 28) gefunden — eigene gruppe 'mining' vergeben, Vergleichsdaten ergänzt.",
+      "contra": [
+        "Grind-Gefahr – Balancing nötig",
+        "Hängt an jim_bridge als zusätzlicher Abstraktionsschicht (red40_mining bringt eigene, direkte QB-/Qbox-Bridge mit)"
+      ]
+    }
+  ]
+}
