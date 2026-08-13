@@ -1,0 +1,312 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r35",
+  "runde": 35,
+  "thema": "Neusuche (docs/RECHERCHE.md §7): 10 Kandidaten, zwei davon (gs-blackmarket, rv_blackmarket) als Konkurrenten zur bestehenden Gruppe 'blackmarket' erkannt (bisheriger Bestandseintrag blackmarket_script hat nur einen Platzhalter-Link, bleibt ungeprueft). stark_harness als dritter Fund vom Autor Stark-Development-Studios eingeordnet, klar von stark_lockbox (anderer Account trotz ähnlichem Namen) abgegrenzt.",
+  "erstellt": "2026-08-13",
+  "plugins": [
+    {
+      "id": "murderface-skate",
+      "name": "murderface-skate",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Physikbasiertes Skateboard-Script mit Trick-Sprüngen und Ragdoll-Stürzen, integriert sich über ox_inventory als nutzbares Item.",
+      "link": "https://github.com/fruitmob/murderface-skate",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-04-02",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory"],
+      "pro": [
+        "README nennt Qbox (qbx_core) ausdrücklich als unterstützten Stack",
+        "Keine SQL-Einrichtung nötig, minimaler Konfigurationsaufwand laut README",
+        "MIT-lizenziert"
+      ],
+      "contra": [
+        "Kein qbx_core-Export im Code gefunden, nur ox_lib/ox_inventory-Muster — Qbox-Kompatibilität stützt sich auf README-Aussage, nicht auf Code-Beleg"
+      ],
+      "quelle": "https://github.com/fruitmob/murderface-skate, https://raw.githubusercontent.com/fruitmob/murderface-skate/master/fxmanifest.lua"
+    },
+    {
+      "id": "bsm_weapon_control",
+      "name": "BSM_Weapon_Control",
+      "kategorie": "waffen",
+      "essenziell": false,
+      "beschreibung": "Entwaffnungs-System mit konfigurierbarem Radius, persistenten MySQL-Cooldowns und Safe-Zones; nutzbar über ox_inventory-Items.",
+      "link": "https://github.com/BASIL-SAJI-MATHEW/BSM_Weapon_Control",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-03-31",
+      "lizenz": "escrow",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "pro": [
+        "Direkte exports.qbx_core-Nutzung im Code (server/framework.lua:42, client/main.lua:28) plus Framework-Autoerkennung (server/framework.lua:10)",
+        "Läuft laut Repo-Beschreibung zusätzlich auf ESX und QBCore"
+      ],
+      "contra": [
+        "README erklärt explizit 'All rights reserved. Do not redistribute without explicit permission' — trotz öffentlichem Repo kein freies Nutzungsrecht, daher als Escrow eingestuft, nicht open_source",
+        "Nur 0.1er-Hauptversion, kein Hinweis auf Test-Coverage"
+      ],
+      "quelle": "https://github.com/BASIL-SAJI-MATHEW/BSM_Weapon_Control, https://raw.githubusercontent.com/BASIL-SAJI-MATHEW/BSM_Weapon_Control/main/fxmanifest.lua"
+    },
+    {
+      "id": "gs-blackmarket",
+      "name": "GS-BlackMarket",
+      "kategorie": "crime",
+      "essenziell": false,
+      "beschreibung": "Tablet-basierter Schwarzmarkt mit serverseitig gesteuerter Auftragsabwicklung, NPC-Kurierlieferungen und neustart-sicherer Zustellung, persistente Speicherung über oxmysql.",
+      "link": "https://github.com/XyraL/GS-BlackMarket",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "0.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-02-23",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": "blackmarket",
+      "abhaengigkeiten": ["oxmysql", "ox_lib", "ox_inventory"],
+      "pro": [
+        "Direkte exports.qbx_core-Nutzung im Code (shared/sh_adapter.lua:46, server/sv_main.lua:262), zusätzlich konfigurierbarer Framework-Modus 'auto | qbox | qbcore'",
+        "Restart-sichere Zustellung und persistente Datenbank-Speicherung — robuster als ein reiner NPC-Verkäufer",
+        "Nutzt ox_target für die Kurier-Interaktion (empfohlen, nicht zwingend)"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben, aber öffentlich einsehbarer Code ohne Verkaufsmodell-Hinweis",
+        "Sehr frühe Versionsnummer (0.1.0)"
+      ],
+      "neutral": [
+        "Im Vergleich zu rv_blackmarket funktional umfangreicher (Kurier-System, Neustart-Recovery), dafür ohne eigene Lokalisierungsdatei"
+      ],
+      "quelle": "https://github.com/XyraL/GS-BlackMarket, https://raw.githubusercontent.com/XyraL/GS-BlackMarket/main/fxmanifest.lua"
+    },
+    {
+      "id": "rv_blackmarket",
+      "name": "rv_blackmarket",
+      "kategorie": "crime",
+      "essenziell": false,
+      "beschreibung": "Schwarzmarkt-Script zum Kaufen und Verkaufen illegaler Items über ox_inventory, mit eigener Lokalisierungsdatei über ox_lib.",
+      "link": "https://github.com/programmernb-ctrl/rv_blackmarket",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.3",
+      "letztes_update": "Aktiv · letzter Push 2026-01-23",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "gruppe": "blackmarket",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory"],
+      "pro": [
+        "Direkte exports.qbx_core-Nutzung im Code (server/helpers/jobHelper.lua:26, client/client.lua:172) und Framework-Autoerkennung (client/client.lua:137, config/server.lua:42)",
+        "Eigene Lokalisierung über ox_lib ('locale')",
+        "MIT-lizenziert"
+      ],
+      "contra": [
+        "Keine README.md im Repo vorhanden — Beschreibung stützt sich auf fxmanifest und Repo-Beschreibung, nicht auf ausführliche Doku",
+        "Kein Kurier- oder Neustart-Recovery-System wie bei gs-blackmarket"
+      ],
+      "neutral": [
+        "Schlankerer Funktionsumfang als gs-blackmarket, dafür einfacher aufgebaut (nur ein Client-/Hauptserver-Script)"
+      ],
+      "quelle": "https://github.com/programmernb-ctrl/rv_blackmarket, https://raw.githubusercontent.com/programmernb-ctrl/rv_blackmarket/main/fxmanifest.lua"
+    },
+    {
+      "id": "ap_crosshair",
+      "name": "ap_crosshair",
+      "kategorie": "waffen",
+      "essenziell": false,
+      "beschreibung": "Leichtgewichtiges, framework-unabhängiges Fadenkreuz-Script mit konfigurierbarem Ingame-Menü, wahlweise über lation_ui oder ox_lib.",
+      "link": "https://github.com/anya-project/ap_crosshair",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-02-25",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "pro": [
+        "README nennt explizit 'Zero Framework Dependency — 100% Standalone, works with any framework'",
+        "MIT-lizenziert",
+        "Minimaler Funktionsumfang, dadurch geringes Konfliktrisiko"
+      ],
+      "contra": [
+        "ox_lib nur als eine von zwei UI-Optionen genutzt, keine tiefere Framework-Integration"
+      ],
+      "quelle": "https://github.com/anya-project/ap_crosshair, https://raw.githubusercontent.com/anya-project/ap_crosshair/main/fxmanifest.lua"
+    },
+    {
+      "id": "bus-stops",
+      "name": "bus-stops",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Fügt bezahlbare, konfigurierbare Bushaltestellen-Reiseziele auf der Karte hinzu.",
+      "link": "https://github.com/ScrachStack/bus-stops",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.1",
+      "letztes_update": "Aktiv · letzter Push 2025-08-18",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "README belegt nur ox_lib als Anforderung, keine Framework-Autoerkennung oder qbx_core-Exports im Code nachgewiesen — Zahlungsanbindung (Geldabzug) bleibt ungeklärt, wie sie an ein Framework koppelt.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "GPL-3.0-lizenziert, offen einsehbarer Code",
+        "Sehr schlanke Ressource (5 Lua-Dateien), geringes Konfliktrisiko"
+      ],
+      "contra": [
+        "README ist sehr kurz (17 Zeilen) und nennt keine Framework-Vorgabe — nur ox_lib als Anforderung, keine qbx_core-Nutzung im Code belegt",
+        "Kein Zahlungssystem-Bezug zu einem bestimmten Framework dokumentiert, Kompatibilität daher nur vermutet"
+      ],
+      "quelle": "https://github.com/ScrachStack/bus-stops, https://raw.githubusercontent.com/ScrachStack/bus-stops/main/fxmanifest.lua"
+    },
+    {
+      "id": "bcde_holster",
+      "name": "bcde_holster",
+      "kategorie": "waffen",
+      "essenziell": false,
+      "beschreibung": "Holster-Script für Qbox und QBCore, das Waffen sichtbar am Charakter anzeigt; integriert sich mit ox_inventory und Illenium Appearance, funktioniert laut README aber auch ohne Inventar-Abhängigkeit.",
+      "link": "https://github.com/blainecountyde/bcde_holster",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-10-27",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "README bestätigt Testlauf auf Qbox mit Illenium Appearance",
+        "Läuft laut README auch ohne festes Inventar-Script"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben, aber öffentlich einsehbarer Code ohne Verkaufsmodell-Hinweis",
+        "Qbox-Kompatibilität nur als getestete Beobachtung im README beschrieben ('should also work with QB-Core'), kein Code-Beleg für qbx_core-Exports"
+      ],
+      "kompat_warnung": {
+        "text": "README: 'This script has been tested on QBox... Since QBox is mostly backwards compatible with QB-Core, this should also work with QB-Core.' — Aussage bezieht sich auf getestetes Qbox, die QB-Core-Kompatibilität ist die eigentliche Vermutung, nicht umgekehrt. Kein direkter qbx_core- oder qb-Export im Code gefunden.",
+        "sicherheit": "vermutung"
+      },
+      "quelle": "https://github.com/blainecountyde/bcde_holster, https://raw.githubusercontent.com/blainecountyde/bcde_holster/main/fxmanifest.lua"
+    },
+    {
+      "id": "papa_squatchecker",
+      "name": "papa_squatchecker",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "beschreibung": "Misst die Fahrwerks-Stance (Front/Heck-Federung) eines Fahrzeugs über ox_target und zeigt das Ergebnis per ox_lib-Fortschrittsanzeige an.",
+      "link": "https://github.com/papadevelopment/papa_squatchecker",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-29",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib", "ox_target"],
+      "kompat_warnung": {
+        "text": "Code-Stichprobe findet einen ox_core-Zugriff (client/main.lua:76) neben Framework-Autoerkennung und direkten exports.qbx_core-Aufrufen (client/main.lua:68) — ox_core ist laut RECHERCHE.md §3 kein eigenständiger Beleg für Qbox-Kompatibilität, auch wenn der qbx_core-Pfad separat vorhanden ist.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Direkte exports.qbx_core-Nutzung und Framework-Autoerkennung im Code (client/main.lua:12, :68)",
+        "Läuft laut Repo-Beschreibung zusätzlich auf ESX und QBCore"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz und kein LICENSE-File im Repo — Standardannahme open_source, da kein Verkaufsmodell (Tebex/Preis) erkennbar ist",
+        "ox_core-Fund im Code (client/main.lua:76) ist laut Kompatibilitäts-Kriterien kein eigenständiger Qbox-Beleg, auch wenn qbx_core-Exports zusätzlich vorhanden sind"
+      ],
+      "quelle": "https://github.com/papadevelopment/papa_squatchecker, https://raw.githubusercontent.com/papadevelopment/papa_squatchecker/main/fxmanifest.lua"
+    },
+    {
+      "id": "mri_qadmin",
+      "name": "mri_Qadmin",
+      "kategorie": "admin",
+      "essenziell": false,
+      "beschreibung": "Umfangreiches Admin-Panel mit React-Oberfläche für Qbox und QBCore: Spieler-, Fahrzeug- und Inventarverwaltung, Live-Karte und Logging.",
+      "link": "https://github.com/ZonaNorteRP/mri_Qadmin",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.9.6",
+      "letztes_update": "Aktiv · letzter Push 2026-05-19",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "pro": [
+        "Direkte exports.qbx_core-Nutzung und Framework-Autoerkennung im Code (client/misc.lua:81, server/groups.lua:5)",
+        "Umfangreicher Funktionsumfang: React-UI, Live-Karte, Berechtigungssystem, Logging-Export",
+        "40 von 52 Lua-Dateien in der Code-Stichprobe geprüft, keine roten Flaggen gefunden"
+      ],
+      "contra": [
+        "Lizenz NOASSERTION (kein LICENSE-File) — Standardannahme open_source, da kein Verkaufsmodell erkennbar ist",
+        "Abhängig vom proprietären, nicht mitgelieferten '@mriqbox/ui-kit'-Paket für das UI — Build ohne Zugriff darauf nicht ohne Weiteres möglich",
+        "Erfordert separaten React/Vite-Frontend-Build, höherer Einrichtungsaufwand als reine Lua-Scripts"
+      ],
+      "quelle": "https://github.com/ZonaNorteRP/mri_Qadmin, https://raw.githubusercontent.com/ZonaNorteRP/mri_Qadmin/main/fxmanifest.lua"
+    },
+    {
+      "id": "stark_harness",
+      "name": "stark_harness",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "beschreibung": "Persistentes Kabelbaum-/Anschnall-Script für Fahrzeuge, ursprünglich für QBCore entwickelt und laut README um Qbox-Unterstützung erweitert.",
+      "link": "https://github.com/Stark-Development-Studios/stark_harness",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "4.1.2",
+      "letztes_update": "Aktiv · letzter Push 2026-06-29",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["oxmysql", "ox_lib"],
+      "kompat_warnung": {
+        "text": "Direkter exports['qb-inventory']-Aufruf im Code (server/main.lua:44) neben vorhandenen exports.qbx_core- und exports.ox_inventory-Pfaden (client/main.lua:9, server/main.lua:13/48) — Qbox nutzt ox_inventory statt qb-inventory, dieser Pfad kann unter Qbox brechen, sofern nicht die richtige Config-Weiche greift. README listet Qbox zudem explizit als 'COMING SOON' (Zeile 181), also noch nicht als fertig getestet markiert.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "GPL-3.0-lizenziert, offener Code",
+        "ox_lib- und ox_inventory-Pfade vorhanden neben dem QBCore-Pfad",
+        "Aktiv gepflegt (Version 4.1.2, letzter Push 06/2026)"
+      ],
+      "contra": [
+        "README listet Qbox-Support explizit als 'COMING SOON' — noch nicht als abgeschlossen dokumentiert, trotz vorhandener qbx_core-Exports im Code",
+        "Direkter exports['qb-inventory']-Zugriff (server/main.lua:44) ist eine rote Flagge, sofern der qb-Pfad unter Qbox überhaupt erreicht wird",
+        "Premium-UI (Lation's UI) separat über Tebex zu kaufen"
+      ],
+      "neutral": [
+        "Dritter Fund vom Autor Stark-Development-Studios (Adama Stark) nach stark_vehiclecloset (Runde 32) — derselbe Autor/Org, im Gegensatz zu stark_lockbox, das trotz ähnlichem Namen von einem anderen GitHub-Account (AdamaStark-N7) stammt und keine bestätigte Autor-Identität mit den beiden anderen Stark-Scripts teilt"
+      ],
+      "quelle": "https://github.com/Stark-Development-Studios/stark_harness, https://raw.githubusercontent.com/Stark-Development-Studios/stark_harness/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "blackmarket_script",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Zwei neue Konkurrenzprodukte in derselben Gruppe gefunden: gs-blackmarket (Tablet-UI, NPC-Kurier, Neustart-Recovery, qbox_nativ, verifiziert) und rv_blackmarket (klassischer NPC-Kauf/Verkauf, qbox_nativ, teilgeprueft). Bestandseintrag selbst bleibt bei einem nicht auflösbaren Platzhalter-Link (github.com/topics/qbox statt eines echten Repos) — Qualität unverändert.",
+      "contra": [
+        "Link zu ermitteln",
+        "Zwei konkrete, verifizierte Alternativen mit echtem Repo verfügbar: gs-blackmarket (umfangreicher, Kurier+Recovery) und rv_blackmarket (schlanker, ohne README)"
+      ]
+    }
+  ]
+}

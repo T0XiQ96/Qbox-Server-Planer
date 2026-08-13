@@ -17,6 +17,34 @@ Format je Eintrag:
 
 ---
 
+## [Runde 35] Zehnte Neusuche-Runde – 13.08.2026
+
+**Neu:** 10 weitere Plugins: `murderface-skate`, `bsm_weapon_control`, `gs-blackmarket`,
+`rv_blackmarket`, `ap_crosshair`, `bus-stops`, `bcde_holster`, `papa_squatchecker`, `mri_qadmin`,
+`stark_harness`.
+
+**Zwei neue Konkurrenten in der bestehenden Gruppe `blackmarket`:** `gs-blackmarket`
+(Tablet-UI, NPC-Kurier, Neustart-Recovery) und `rv_blackmarket` (schlanker NPC-Handel) —
+`blackmarket_script` selbst bleibt bei einem toten `github.com/topics/qbox`-Platzhalterlink,
+Qualität unverändert, aber jetzt mit zwei echten Alternativen verglichen.
+
+**Zwei Lizenz-Fehleinstufungen vor dem Commit korrigiert:** Der Subagent hatte `papa_squatchecker`
+und `mri_qadmin` als `escrow` eingestuft, obwohl in beiden Fällen nur eine fehlende SPDX-Angabe
+vorlag (der Standardfall `open_source`) — keine zitierte einschränkende Lizenz wie beim
+tatsächlich korrekt als `escrow` eingestuften `bsm_weapon_control` ("All rights reserved. Do not
+redistribute"). Auf `open_source` korrigiert, `mri_qadmin`s Abhängigkeit vom proprietären
+`@mriqbox/ui-kit`-Paket bleibt als `contra`-Punkt erhalten.
+
+**`stark_harness` als dritter Fund vom Autor Stark-Development-Studios eingeordnet** (nach
+`stark_vehiclecloset`, Runde 32) — klar von `stark_lockbox` abgegrenzt, das trotz ähnlichem Namen
+von einem anderen GitHub-Account (`AdamaStark-N7`) stammt, keine bestätigte Autor-Identität.
+
+**Katalog:** 10 neu, 1 aktualisiert (`blackmarket_script` mit zwei neuen Vergleichspunkten),
+0 Duplikate übersprungen, 0 ungeprüft (6 verifiziert, 4 teilgeprüft)
+**Datei:** `data/catalog/runde-35.json` · **Commit:** folgt
+
+---
+
 ## [Runde 34] Neunte Neusuche-Runde – 13.08.2026
 
 **Neu:** 10 weitere Plugins: `peak-clothingitems`, `ap_autoshoot`, `bcs_auction`, `v-digging`,
