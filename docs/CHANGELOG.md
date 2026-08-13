@@ -17,6 +17,40 @@ Format je Eintrag:
 
 ---
 
+## [Runde 31] Sechste Neusuche-Runde – 13.08.2026
+
+**Neu:** 10 weitere Plugins, darunter drei weitere offizielle Qbox-project-Repos:
+`qbx_binoculars`, `qbx_divegear`, `qbx_gearbox` (`qbx_gearbox` liegt bei einem Fork-Autor, nicht
+im offiziellen Qbox-project-Namespace — als `teilgeprueft` markiert, kein README). Dazu sechs
+Community-Funde: `bd-badges`, `anx_bridge`, `tx_garage`, `ryn-multichar`, `ryn-garages`,
+`digonto-ambulance-job`, `saiif_banlist`.
+
+**Fünf mit Gruppenvergleich, ein Datenfehler dabei gefunden und korrigiert:** Der Subagent hat
+festgestellt, dass `qbx_garages` schon dieselbe Gruppe `garage` trägt wie `cd_garage` — beide
+Garagensysteme sind Teil derselben Vergleichsgruppe, nicht getrennte Kategorien wie ursprünglich
+im Prompt vermutet. `tx_garage` und `ryn-garages` wurden entsprechend beide in die bestehende
+Gruppe `garage` eingeordnet (jetzt 5 Mitglieder: `cd_garage`, `qbx_garages`, `qs_garages`,
+`rhd_garage`, `tx_garage`, `ryn-garages`). Weitere Gruppen: `anx_bridge`↔`jim_bridge` (**neue
+Gruppe `bridge`**, Kollisionscheck durchgeführt), `ryn-multichar`↔`wasabi_multichar` (Gruppe
+`multichar`, bestand schon), `digonto-ambulance-job`↔`qbx_ambulancejob` (Gruppe `ambulance`,
+bestand schon).
+
+**`tx_garage` als erstes `escrow`-Produkt seit Runde 26/27/28/29/30**, die alle open_source
+waren: `escrow_ignore`-Block im fxmanifest und explizite "Tebex-ready"-README-Badges als
+Verkaufssignal erkannt — Standardannahme `open_source` bewusst nicht angewendet.
+
+**Schema-Fehler beim Schreiben gefunden:** `ergaenzt` (für `qbx_divegear`↔`qbx_diving`) erwartet
+laut Schema ein Array von `{id, plus, minus}`-Objekten, nicht simple ID-Strings — der Subagent
+lieferte `["qbx_diving"]`, `npm run validate` schlug sofort fehl (`erwartet Objekt, gefunden
+Text`), vor dem Commit auf das korrekte Objektformat korrigiert.
+
+**Katalog:** 10 neu, 5 aktualisiert (Gruppenvergleiche bei `jim_bridge`, `cd_garage`,
+`qbx_garages`, `wasabi_multichar`, `qbx_ambulancejob`), 0 Duplikate übersprungen,
+0 ungeprüft (9 verifiziert, 1 teilgeprüft)
+**Datei:** `data/catalog/runde-31.json` · **Commit:** folgt
+
+---
+
 ## [Runde 30] Fünfte Neusuche-Runde – 13.08.2026
 
 **Neu:** 10 weitere Plugins, darunter erstmals vier **offizielle Qbox-project-Repos**, die bislang

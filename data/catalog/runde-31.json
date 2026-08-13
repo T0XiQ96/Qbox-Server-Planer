@@ -1,0 +1,352 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r31",
+  "runde": 31,
+  "thema": "Neusuche (docs/RECHERCHE.md §7): 10 Kandidaten, davon 3 offizielle Qbox-project-Repos (qbx_binoculars, qbx_divegear, qbx_gearbox). 5 mit Gruppenvergleich: anx_bridge↔jim_bridge (neue Gruppe 'bridge'), tx_garage/ryn-garages↔cd_garage/qbx_garages (Gruppe 'garage', bestand schon — qbx_garages trägt bereits dieselbe Gruppe wie cd_garage), ryn-multichar↔wasabi_multichar (Gruppe 'multichar', bestand schon), digonto-ambulance-job↔qbx_ambulancejob (Gruppe 'ambulance', bestand schon).",
+  "erstellt": "2026-08-13",
+  "plugins": [
+    {
+      "id": "qbx_binoculars",
+      "name": "qbx_binoculars",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Fernglas als offizielle Qbox-project-Ressource: nutzbares Item, das eine Zoom-Ansicht für den Spieler bereitstellt und direkt auf qbx_core-Playerdaten sowie ox_lib aufsetzt.",
+      "link": "https://github.com/Qbox-project/qbx_binoculars",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.1",
+      "letztes_update": "Aktiv · letzter Push 2026-07-09",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_lib"],
+      "pro": [
+        "Offizielles Qbox-project-Repo",
+        "Nutzt qbx_core-Exports direkt, kein Bridge-Umweg",
+        "Sehr klein und leichtgewichtig (3 Lua-Dateien)"
+      ],
+      "contra": [
+        "Kaum dokumentiert — README enthält praktisch nur ein Bild und den Titel",
+        "Nur Qbox, keine QBCore/ESX-Unterstützung"
+      ],
+      "quelle": "https://github.com/Qbox-project/qbx_binoculars, https://raw.githubusercontent.com/Qbox-project/qbx_binoculars/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_divegear",
+      "name": "qbx_divegear",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Offizielle Qbox-project-Ressource, die Tauchausrüstung (u.a. Sauerstoffflasche) als Items bereitstellt, mit denen Spieler länger unter Wasser atmen und sich bewegen können; die Items sind für ox_inventory vorbereitet.",
+      "link": "https://github.com/Qbox-project/qbx_divegear",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.1",
+      "letztes_update": "Aktiv · letzter Push 2026-07-09",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_inventory"],
+      "ergaenzt": [
+        {
+          "id": "qbx_diving",
+          "plus": ["Sauerstoff-/Ausrüstungs-Items, mit denen sich qbx_diving länger nutzen lässt"]
+        }
+      ],
+      "pro": [
+        "Offizielles Qbox-project-Repo",
+        "Items direkt für ox_inventory vorbereitet (Bilder + Item-Defs im README)",
+        "Ergänzt qbx_diving nahtlos (selbe Community, gleicher Autorenkreis)"
+      ],
+      "contra": [
+        "Nur Qbox nativ, keine QBCore/ESX-Bridge"
+      ],
+      "quelle": "https://github.com/Qbox-project/qbx_divegear, https://raw.githubusercontent.com/Qbox-project/qbx_divegear/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_gearbox",
+      "name": "qbx_gearbox",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "beschreibung": "Manuelles Schaltgetriebe und Tempomat (Cruise-Control) für Fahrzeuge unter Qbox, gesteuert über Tastatureingaben im Client-Script.",
+      "link": "https://github.com/Bevrick/qbx_gearbox",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.03.1",
+      "letztes_update": "Aktiv · letzter Push 2026-07-01",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["qbx_core", "ox_lib"],
+      "pro": [
+        "Manuelles Getriebe und Cruise-Control in einer Ressource",
+        "Klein und einfach gehalten (2 Lua-Dateien)"
+      ],
+      "contra": [
+        "Kein README im Repo — Installation/Konfiguration nicht dokumentiert",
+        "fxmanifest-Beschreibung nur auf Russisch, wenig Kontext zum Funktionsumfang"
+      ],
+      "quelle": "https://github.com/Bevrick/qbx_gearbox, https://raw.githubusercontent.com/Bevrick/qbx_gearbox/main/fxmanifest.lua"
+    },
+    {
+      "id": "bd-badges",
+      "name": "bd-badges",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "Zeigt nahen Spielern automatisch ein Polizei- oder Rettungsdienst-Abzeichen mit Label, Bild und Farbe je Abteilung; erkennt Framework (QBox/qbx_core oder QBCore/qb-core) und Inventarsystem (ox_inventory/qb-inventory) selbstständig.",
+      "link": "https://github.com/BayloraiEX/bd-badges",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.1",
+      "letztes_update": "Aktiv · letzter Push 2026-07-07",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "Framework- und Inventar-Autoerkennung (qb-core/qbx_core, qb-inventory/ox_inventory)",
+        "Pro Abteilung konfigurierbar: Label, Bild, Farbe, Pflichtitem"
+      ],
+      "contra": [
+        "Nutzt exports['qb-inventory'] als Fallback-Pfad, wenn kein ox_inventory läuft"
+      ],
+      "quelle": "https://github.com/BayloraiEX/bd-badges, https://raw.githubusercontent.com/BayloraiEX/bd-badges/main/fxmanifest.lua"
+    },
+    {
+      "id": "anx_bridge",
+      "name": "anx_bridge",
+      "kategorie": "basis",
+      "essenziell": false,
+      "beschreibung": "Leichte Kompatibilitätsbrücke für anx-scripts-Ressourcen: erkennt Framework (qb-core/qbx_core/es_extended), Inventar (qb-inventory/ox_inventory) und Target-System (qb-target/ox_target) automatisch und stellt eine einheitliche Bridge-API bereit.",
+      "link": "https://github.com/anx-scripts/anx_bridge",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-23",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "gruppe": "bridge",
+      "pro": [
+        "Deckt Framework, Inventar UND Target in einer Bridge ab",
+        "Fallback-Module statt Absturz bei fehlender Abhängigkeit (loggen nur eine Warnung)",
+        "MIT-Lizenz"
+      ],
+      "contra": [
+        "Nur für anx-scripts-Ressourcen konzipiert, kleinerer Funktionsumfang als jim_bridge",
+        "Jünger und deutlich weniger verbreitet als jim_bridge"
+      ],
+      "quelle": "https://github.com/anx-scripts/anx_bridge, https://raw.githubusercontent.com/anx-scripts/anx_bridge/main/fxmanifest.lua"
+    },
+    {
+      "id": "tx_garage",
+      "name": "tx_garage",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "beschreibung": "Premium-Garagensystem für Qbox mit Valet-Service, Live-Impound-Auktionen (Anti-Snipe, Bid-Escrow), Sub-Ownern, Kennzeichenwechsel und Boss-Menü; Version 2.0 ist laut README Qbox-nativ, für QBCore/ESX gibt es einen separaten Legacy-Branch (v1.x).",
+      "link": "https://github.com/Deegan4/tx_garage",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-24",
+      "lizenz": "escrow",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib", "oxmysql", "qbx_core"],
+      "gruppe": "garage",
+      "pro": [
+        "Live-Impound-Auktionen mit Anti-Snipe — Alleinstellungsmerkmal in dieser Gruppe",
+        "Kennzeichenwechsel und Sub-Owner-Verwaltung eingebaut",
+        "Upgrade-Pfad von v1.x per idempotentem SQL-Script (bestehende Daten bleiben erhalten)"
+      ],
+      "contra": [
+        "Escrow/Tebex-Produkt — Code nicht einsehbar, bei Bridge-Problemen nicht selbst reparierbar",
+        "Kein verifizierter Preis öffentlich genannt",
+        "Nur Qbox-nativ in v2; QBCore/ESX nur über veralteten v1-Branch"
+      ],
+      "neutral": [
+        "Fällt in dieselbe Gruppe wie cd_garage, qbx_garages, qs_garages, rhd_garage und okokgarage"
+      ],
+      "quelle": "https://github.com/Deegan4/tx_garage, https://raw.githubusercontent.com/Deegan4/tx_garage/main/fxmanifest.lua"
+    },
+    {
+      "id": "ryn-multichar",
+      "name": "ryn-multichar",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Cineastischer Multicharacter- und Spawn-Auswahlbildschirm mit 3D-Szenen und React-NUI für QBox, QBCore und ESX; ersetzt die klassische Kombination aus qb-multicharacter und qb-spawn durch eine Ressource mit Framework-Autoerkennung.",
+      "link": "https://github.com/vmRyn/ryn-multichar",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "gruppe": "multichar",
+      "pro": [
+        "Framework-Autoerkennung für QBox, QBCore und ESX",
+        "3D-Szenen mit Photo-Mode statt reinem 2D-UI",
+        "Kostenlos nutzbar, kein Kauf nötig"
+      ],
+      "contra": [
+        "Lizenz-Badge verbietet Weiterverbreitung — nur aus dem Original-Repo installierbar",
+        "Nutzt exports['qb-inventory'] als Fallback-Pfad im Bridge-Code"
+      ],
+      "neutral": [
+        "Optionale Tebex-Integration für Slot-Verkauf vorhanden"
+      ],
+      "quelle": "https://github.com/vmRyn/ryn-multichar, https://raw.githubusercontent.com/vmRyn/ryn-multichar/main/fxmanifest.lua"
+    },
+    {
+      "id": "ryn-garages",
+      "name": "ryn-garages",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "beschreibung": "Cineastisches, framework-übergreifendes Garagensystem (ESX/QBCore/QBox) mit Tablet-UI, öffentlichen/privaten/Job-/Gang-/Boot-/Flug-/Impound-Garagen, Fahrzeugfreigabe und automatischer Synchronisation aus player_vehicles/owned_vehicles.",
+      "link": "https://github.com/vmRyn/ryn-garages",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-12",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "gruppe": "garage",
+      "pro": [
+        "Deckt ESX, QBCore und QBox in einer Ressource ab (Autoerkennung)",
+        "Automatische Migration aus bestehenden player_vehicles/owned_vehicles-Tabellen inkl. Admin-Befehl",
+        "Öffentliche/private/Job/Gang/Boot/Flug/Impound-Garagen in einem System"
+      ],
+      "contra": [
+        "Nutzt exports['qb-target'] als Fallback, primär auf ox_target ausgelegt",
+        "Eigene ryn_vehicles-Tabelle — Migrationsschritt bei Umstieg von anderen Garagensystemen nötig"
+      ],
+      "neutral": [
+        "Fällt in dieselbe Gruppe wie cd_garage, tx_garage, qbx_garages, qs_garages und okokgarage"
+      ],
+      "quelle": "https://github.com/vmRyn/ryn-garages, https://raw.githubusercontent.com/vmRyn/ryn-garages/main/fxmanifest.lua"
+    },
+    {
+      "id": "digonto-ambulance-job",
+      "name": "Digonto-Ambulance-Job",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "Rettungsdienst- und Todessystem für ESX, QBCore und Qbox (Weiterentwicklung von Arius Ambulance Job) mit Wundenbehandlung, Krankenhaus-UI und automatischer Framework-Erkennung.",
+      "link": "https://github.com/Joy-Devnath12/Digonto-Ambulance-Job",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-10",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "gruppe": "ambulance",
+      "pro": [
+        "Deckt ESX, QBCore und Qbox über Bridge-Autoerkennung ab",
+        "Aktiv gepflegt — Fork/Redesign von ars_ambulancejob mit zusätzlichen Features"
+      ],
+      "contra": [
+        "Nutzt exports['qb-target'] und exports['qb-inventory'] als Fallback-Pfade",
+        "Kein LICENSE-Hinweis im Repo"
+      ],
+      "neutral": [
+        "Basiert auf Arius Ambulance Job (ars_ambulancejob), umbenannt und erweitert"
+      ],
+      "quelle": "https://github.com/Joy-Devnath12/Digonto-Ambulance-Job, https://raw.githubusercontent.com/Joy-Devnath12/Digonto-Ambulance-Job/main/fxmanifest.lua"
+    },
+    {
+      "id": "saiif_banlist",
+      "name": "saiif_banlist",
+      "kategorie": "admin",
+      "essenziell": false,
+      "beschreibung": "Ban-Verwaltung für FiveM-Server mit ox_lib-UI: Spielerbans anzeigen, hinzufügen und per Discord-ID, License oder IP entbannen; läuft auf QBCore und Qbox ohne zusätzliche Konfiguration.",
+      "link": "https://github.com/ImSaiif/saiif_banlist",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-18",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "Läuft auf QBCore und Qbox ohne Extra-Setup",
+        "1-Klick-Kopie von Discord/License/IP direkt im UI",
+        "MIT-Lizenz"
+      ],
+      "contra": [
+        "Reine Admin-Funktion ohne eigenes Framework — Berechtigungen über ACE/Framework-Gruppen"
+      ],
+      "quelle": "https://github.com/ImSaiif/saiif_banlist, https://raw.githubusercontent.com/ImSaiif/saiif_banlist/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "jim_bridge",
+      "geprueft_am": "2026-08-13",
+      "gruppe": "bridge",
+      "update_grund": "Konkurrenzprodukt anx_bridge gefunden (Runde 31) — gemeinsame gruppe 'bridge' vergeben (Kollisions-Check gegen alle Katalogdateien durchgeführt, Name war frei), Vergleichsdaten ergänzt.",
+      "contra": [
+        "Zusätzliche Dependency",
+        "Umfangreicher als schlankere Alternativen wie anx_bridge"
+      ],
+      "neutral": [
+        "Deckt rund 20 eigene jim-Scripts ab, breiter etabliert als anx_bridge"
+      ]
+    },
+    {
+      "id": "cd_garage",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Konkurrenzprodukt tx_garage gefunden (Runde 31, selbe gruppe 'garage') — Vergleichsdaten ergänzt.",
+      "contra": [
+        "💰 Kostenpflichtig",
+        "🔒 Escrow",
+        "Kein Live-Auktionshaus für Impound-Fahrzeuge (im Gegensatz zu tx_garage)"
+      ]
+    },
+    {
+      "id": "qbx_garages",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Konkurrenzprodukt ryn-garages gefunden (Runde 31, selbe gruppe 'garage') — Vergleichsdaten ergänzt.",
+      "contra": [
+        "UI schlicht",
+        "Keine geteilten Garagen ootb",
+        "Kein Multi-Framework-Support (im Gegensatz zu ryn-garages, das ESX/QBCore/QBox in einer Ressource abdeckt)"
+      ]
+    },
+    {
+      "id": "wasabi_multichar",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Konkurrenzprodukt ryn-multichar gefunden (Runde 31, selbe gruppe 'multichar') — Vergleichsdaten ergänzt.",
+      "contra": [
+        "💰 $39.99 (verifiziert)",
+        "🔒 Escrow",
+        "Funktional wie die Gratis-Variante",
+        "Kostenlose Alternative ryn-multichar bietet ebenfalls 3D-Szenen und Autoerkennung"
+      ]
+    },
+    {
+      "id": "qbx_ambulancejob",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Konkurrenzprodukt digonto-ambulance-job gefunden (Runde 31, selbe gruppe 'ambulance') — Vergleichsdaten ergänzt.",
+      "contra": [
+        "UI schlicht",
+        "Kein Multi-Framework-Support (im Gegensatz zu digonto-ambulance-job, das ESX/QBCore/Qbox über eine Bridge abdeckt)"
+      ]
+    }
+  ]
+}
