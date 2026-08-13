@@ -1,0 +1,95 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r25",
+  "runde": 25,
+  "thema": "Nachprüfung Kategorie 'MLOs, Kleidung & Assets' (8 offene Einträge, erste Runde zu dieser Kategorie)",
+  "erstellt": "2026-08-13",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "bob74_ipl",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 22.07.2026, MIT-Lizenz. fxmanifest bestätigt reines Standalone-IPL-Fix-Script (client-seitig, über 130 .lua-Dateien für einzelne Interiors). Code-Stichprobe über 40 von 131 Dateien fand weder rote noch grüne Flagge — keine Framework-Bindung, wie erwartet für ein reines Map-/IPL-Tool.",
+      "version": "2.7.0",
+      "letztes_update": "Aktiv · letzter Push 22.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Bob74/bob74_ipl, https://raw.githubusercontent.com/Bob74/bob74_ipl/master/fxmanifest.lua"
+    },
+    {
+      "id": "cfx_free_mlos",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Bestätigt: reine Forum-Kategorie-Übersicht (aktiv, Beiträge bis 12.08.2026), kein einzelnes Produkt. Sammelt Scripts/Vehicles/Cosmetics/Maps mit Framework-Tags. Kein pauschales Kompatibilitätsurteil möglich, jeder Thread ist einzeln zu bewerten.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://forum.cfx.re/c/releases/7"
+    },
+    {
+      "id": "eup",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Katalog-Link forum.lcpdfr.com ist nicht erreichbar (DNS-Fehler), war zudem nur eine Forum-Startseite ohne konkretes Produkt. Echte EUP-Downloads liegen unter lcpdfr.com/downloads/gta5mods/character/. Mehrere gefundene Packs verlangen ausdrücklich eine Erlaubnis-Anfrage vor FiveM-Nutzung — pauschale Einordnung als frei nutzbar wäre falsch, deshalb bewusst ungeprueft belassen statt eines geratenen Lizenzurteils.",
+      "link_status": "ungeprueft",
+      "link_geprueft_am": "2026-08-13",
+      "qualitaet": "ungeprueft",
+      "quelle": "lcpdfr.com/downloads/gta5mods/character/ (Kategorie-Seite, alter Katalog-Link forum.lcpdfr.com tot)"
+    },
+    {
+      "id": "gabz",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Existenz und Geschäftsmodell über offizielle Domain fivem.gabzv.com und Cfx-Forum-Thread bestätigt (Tebex-Direktabruf 403 Bot-Schutz, wie erwartet). Subscription-Modell ab ca. 15 EUR/Monat für Zugriff auf alle Projekte, einzelne MLOs auch separat käuflich (~10-16 USD je nach Wiederverkäufer) — konkreter Betrag nicht eindeutig genug für ein festes preis-Feld, deshalb hier als Text belegt statt geraten. MLOs sind reine Streams ohne Framework-Logik.",
+      "link_status": "ungeprueft",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "escrow",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://fivem.gabzv.com/, https://fivem.gabzv.com/category/subscription, https://forum.cfx.re/t/paid-mlo-tarmac-bar/5214505"
+    },
+    {
+      "id": "k4mb1",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Bestehende Beschreibung (Shells für Housing-/Gang-/Crime-Locations) durch aktiven Cfx-Forum-Thread von 2025 bestätigt — kein Kleidungs-/EUP-Anbieter. Tebex-Direktabruf 403 Bot-Schutz, Existenz über offizielle Domain k4mb1maps.com und Forum-Thread belegt.",
+      "link_status": "ungeprueft",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "escrow",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://k4mb1maps.com/, https://forum.cfx.re/t/paid-150-all-shells-pack-k4mb1-maps-2025/5347513"
+    },
+    {
+      "id": "kingmaps",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Seite direkt erreichbar (kingmaps.net), 18 Maps im Shop, ~9.615 Discord-Mitglieder, Abo-Tiers (monatlich/quartalsweise/halbjährlich mit Free Updates/Support) plus Einzelkauf pro MLO bestätigt. Konkrete Preise auf der Seite nicht öffentlich ausgewiesen, deshalb kein festes preis-Feld gesetzt.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "escrow",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://kingmaps.net"
+    },
+    {
+      "id": "kingmaps_shop",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Bestätigter Duplikat-Fund: identische URL (kingmaps.net) und identische Fakten wie Eintrag 'kingmaps'. Nicht selbst gelöscht (CLAUDE.md §2 Punkt 6, nichts löschen ohne Einordnung) — als Duplikat markiert, Zusammenführung ist eine App-/Datenpflege-Entscheidung für den Nutzer.",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "escrow",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "quelle": "https://kingmaps.net (identisch mit Eintrag kingmaps — Dublette)"
+    },
+    {
+      "id": "patoche",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Katalog-Link patoche-maps.tebex.io lieferte 403 (Bot-Schutz, keine Aussage über Existenz möglich). Alle über Websuche gefundenen aktiven Produktseiten liegen unter der abweichenden Subdomain patoche-mapping.tebex.io (Bindestrich-Schreibweise 'mapping' statt 'maps') — ob Tippfehler, Umzug oder zweiter Shop, ließ sich wegen Bot-Schutz auf beiden Domains nicht zweifelsfrei klären. Bewusst kein Linkwechsel ohne sicheren Beleg (RECHERCHE.md 1c), bleibt ungeprueft.",
+      "link_status": "ungeprueft",
+      "link_geprueft_am": "2026-08-13",
+      "qualitaet": "ungeprueft",
+      "quelle": "patoche-maps.tebex.io (Katalog-Link, 403), Verdacht auf patoche-mapping.tebex.io als korrekte aktive Domain — vor Übernahme gezielt nachprüfen"
+    }
+  ]
+}

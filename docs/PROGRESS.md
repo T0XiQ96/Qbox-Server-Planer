@@ -4,17 +4,31 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 13.08.2026
-**Letzter Commit:** `22c46cd` (Runde 19). Runden 20–24 sind fertig und werden mit diesem Schritt
-committet.
-**Validate-Status:** grün (27 Katalogdateien inkl. `runde-20.json`–`runde-24.json` · 262 Plugins
-gesamt · 13 harmlose „nur ein Mitglied"-Warnungen) · `npm run selftest` 37/37.
-**Katalogstand:** 262 gesamt, 109 verifiziert/teilgeprüft (42 %), 36 archiviert, nur noch **13
-ohne `geprueft_am`** (8 in Kategorie „assets", je 1–2 Streuverluste in „ui"/„staat"/„wohnen").
-**Aktuelle Runden 20–24:** fünf komplette Kategorien in einer Sitzung durchgeprüft (auf
-Nutzerwunsch: ganze Kategorien statt 10–12er-Batches) — „Kommunikation & Telefon" (14/16),
-„Realismus & Welt" (17/17), „Waffen & Kampf" (2/2 Rest), „Wirtschaft & Banking" (13/13),
-„Admin & Sicherheit" (14/14). Weiterhin kein Neufund (Nutzerwunsch: erst kompletten Altbestand
-kategorieweise durchprüfen).
+**Letzter Commit:** `83be0c9` (Runde 24). Runden 25 + 25b sind fertig und werden mit diesem
+Schritt committet.
+**Validate-Status:** grün (29 Katalogdateien inkl. `runde-25.json`/`runde-25b.json` · 262 Plugins
+gesamt · 13 harmlose „nur ein Mitglied"-Warnungen).
+**Katalogstand:** 262 gesamt, 114 verifiziert/teilgeprüft (44 %), 38 archiviert, **0 Einträge
+ohne `geprueft_am` — kompletter Altbestand ist damit durchgeprüft.**
+**Runde 25 — Kategorie „MLOs, Kleidung & Assets" komplett (8/8):** `bob74_ipl` klar verifiziert
+(Standalone-IPL-Fixer). Die restlichen 7 waren überwiegend fremde Shop-/Forum-Seiten ohne
+GitHub-Repo (Tebex-Bot-Schutz bei `gabz`/`k4mb1`/`patoche`, reine Forum-Übersichten bei
+`cfx_free_mlos`/`eup`) — alle auf `teilgeprueft`/`ungeprueft` mit Belegen aus Websuche/Forum
+eingeordnet, keine geratenen Preise oder Lizenzen. **Zwei Funde für später:** `kingmaps_shop`
+ist ein bestätigtes Duplikat von `kingmaps` (gleiche URL) — Zusammenführung ist eine
+Datenpflege-Entscheidung, noch nicht ausgeführt. `patoche`-Link (`patoche-maps.tebex.io`) könnte
+falsch sein — aktive Produktseiten liegen unter `patoche-mapping.tebex.io`, wegen Bot-Schutz auf
+beiden Domains nicht zweifelsfrei geklärt.
+**Runde 25b — letzte Streuverluste ohne `geprueft_am` (`qb-inventory`/ui, `ps-mdt`/staat,
+`ps-housing`+`ps-realtor`/wohnen, `qs-inventory`/ui):** Damit ist der komplette Altbestand
+durchgeprüft. Wichtigste Funde: **`ps-realtor`** war im Katalog fälschlich als kostenpflichtig
+(escrow, 5 EUR/Monat) geführt — tatsächlich ein öffentliches, quelloffenes Repo ohne
+Escrow-Verschlüsselung, Preis auf `null`/`open_source` korrigiert. **`ps-housing` und
+`ps-realtor`** sind beide seit 06.02.2026 archiviert (gleiche Project-Sloth-Ankündigung wie
+`ps-mdt`-Fokus). `ps-mdt` selbst ist weiterhin aktiv, README bestätigt jetzt textlich
+Qbox-Unterstützung über die `ps_lib`-Abstraktionsschicht (vorher nur Vermutung). `qb-inventory`
+bestätigt als reiner alter qb-Stack ohne ox-Bridge. `qs-inventory` bleibt bot-geschützt und
+ungeprueft.
 
 **Vorgehensweise „weniger Subagent-Arbeit" (Nutzerwunsch, ab Runde 17 eingeführt und in Runde 18
 bestätigt):** `docs/RECHERCHE.md` wurde um Abschnitte 1a–1c ergänzt (exakte URL-Muster
@@ -108,18 +122,19 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Session beendet (Nutzerwunsch: `/clear` nach dieser Runde).** Alles committet, sicher zum
-Neustart. Nur noch **13 Katalogeinträge ohne `geprueft_am`** übrig, davon 8 in einer einzigen
-Kategorie:
+**Altbestand ist jetzt vollständig durchgeprüft (0 Einträge ohne `geprueft_am`).** Phase 3
+„Nachprüfung" ist damit abgeschlossen. Zwei kleine Aufräumpunkte aus Runde 25 sind noch offen
+(siehe „Bewusst verschoben" unten: `kingmaps_shop`-Duplikat, `patoche`-Linkverdacht) — klein
+genug, um sie beiläufig in einer künftigen Runde mitzuerledigen statt eine eigene Runde dafür zu
+verwenden.
 
-**Nächster Rundenstart — Kategorie „13. MLOs, Kleidung & Assets"** (8 offene Einträge, komplett
-ungeprüft — bisher keine einzige Runde dazu). `npm run prefetch -- --kategorie assets --offen
---max 12 --runde 25`, dann `npm run newround 25`. Danach die restlichen Streuverluste
-(2× `ui`, 1× `staat`, 2× `wohnen` — IDs vor Rundenstart per `npm run stats`/`find` neu ermitteln,
-das sind vermutlich neu ergänzte oder nachträglich als offen markierte Einzeleinträge, keine
-ganze Kategorie) und danach beginnt die Suche nach **neuen** Plugins (der Altbestand ist dann
-komplett durchgeprüft) — dafür vorher mit dem Nutzer klären, ob `docs/RECHERCHE.md` für
-Neusuche-Runden noch Ergänzungen braucht (bisher nur auf Nachprüfung ausgelegt).
+**Als Nächstes: Beginn der Suche nach neuen Plugins** (Katalogziel 500–1000+, aktuell 262).
+Vorher mit dem Nutzer klären, ob `docs/RECHERCHE.md` für Neusuche-Runden noch Ergänzungen
+braucht — das Dokument ist bisher ausschließlich auf Nachprüfung bestehender Katalogeinträge
+zugeschnitten (Repo-Status/fxmanifest/README eines bekannten Links prüfen), nicht auf das
+Finden neuer, bisher unbekannter Plugins (andere Suchstrategie: GitHub-Topic-Suche, Cfx-Forum
+„Releases", Tebex-Kategorien, Community-Empfehlungen). Erst danach `npm run newround 26`
+starten.
 
 **Bewährtes Muster aus Runden 19–24 (Prefetch + ganze Kategorien pro Runde):** Bei jeder Runde
 schreibt die Hauptsession die sauberen Treffer aus dem Briefing (vollständige Code-Stichprobe,
@@ -242,8 +257,16 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 - `starterpack` hat einen Best-Effort-Link ohne eindeutigen offiziellen Kandidaten,
   `vue_tailwind_boilerplate` hat gar keinen passenden Link gefunden — beide in einer künftigen
   Runde nochmal gezielt angehen oder aus dem Katalog nehmen, falls sich nichts Besseres findet.
-- 214 Katalogeinträge sind weiterhin `qualitaet: "ungeprueft"`. Sie bleiben im Katalog, bis
-  künftige Runden sie ersetzen oder hochstufen — geplant: kategorieweise, 10–12 pro Runde.
+- `kingmaps_shop` (Runde 25) ist ein bestätigtes Duplikat von `kingmaps` — gleiche URL, gleiche
+  Fakten. Zusammenführen oder einen der beiden Einträge entfernen, sobald eine App-Aufgabe ansteht
+  (reine Datenpflege, keine Recherche mehr nötig).
+- `patoche` (Runde 25): Katalog-Link `patoche-maps.tebex.io` lieferte 403, alle über Websuche
+  gefundenen aktiven Produktseiten liegen unter `patoche-mapping.tebex.io`. Bot-Schutz verhinderte
+  eine zweifelsfreie Klärung, ob das ein Tippfehler, Umzug oder zweiter Shop ist — vor einer
+  Höherstufung auf `verifiziert` gezielt nachprüfen.
+- Nach Runde 25/25b sind noch **38 Katalogeinträge** `qualitaet: "ungeprueft"`, alle Kategorien
+  sind aber inzwischen mindestens einmal durchgeprüft — der ursprüngliche Rückstand „13 Einträge
+  ganz ohne `geprueft_am`" ist auf 0 abgebaut.
 
 ---
 
@@ -274,4 +297,6 @@ komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teil
 | 21 | Nachprüfung Kategorie „Realismus & Welt" komplett, 17/17 (kein Neufund) | 0 | 17 | 0 | 3 (6 verifiziert, 8 teilgeprüft, 3 ungeprueft/404) | `data/catalog/runde-21.json` | folgt |
 | 22 | Nachprüfung Kategorie „Waffen & Kampf" komplett, letzte 2 (kein Neufund) | 0 | 2 | 0 | 0 (1 verifiziert, 1 teilgeprüft) | `data/catalog/runde-22.json` | folgt |
 | 23 | Nachprüfung Kategorie „Wirtschaft & Banking" komplett, 13/13 (kein Neufund) | 0 | 13 | 0 | 0 (3 verifiziert, 10 teilgeprüft) | `data/catalog/runde-23.json` | folgt |
-| 24 | Nachprüfung Kategorie „Admin & Sicherheit" komplett, 14/14 (kein Neufund) | 0 | 14 | 0 | 3 (9 verifiziert, 2 teilgeprüft, 3 ungeprueft) | `data/catalog/runde-24.json` | folgt |
+| 24 | Nachprüfung Kategorie „Admin & Sicherheit" komplett, 14/14 (kein Neufund) | 0 | 14 | 0 | 3 (9 verifiziert, 2 teilgeprüft, 3 ungeprueft) | `data/catalog/runde-24.json` | `83be0c9` |
+| 25 | Nachprüfung Kategorie „MLOs, Kleidung & Assets" komplett, 8/8 (kein Neufund) | 0 | 8 | 0 | 3 (1 verifiziert, 4 teilgeprüft, 3 ungeprueft/Bot-Schutz) | `data/catalog/runde-25.json` | folgt |
+| 25b | Letzte Streuverluste ohne `geprueft_am` (ui/staat/wohnen), Altbestand damit komplett durchgeprüft | 0 | 5 | 0 | 1 (4 verifiziert, 0 teilgeprüft, 1 ungeprueft/Bot-Schutz) | `data/catalog/runde-25b.json` | folgt |

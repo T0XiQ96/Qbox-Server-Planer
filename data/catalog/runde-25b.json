@@ -1,0 +1,99 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r25b",
+  "runde": null,
+  "thema": "Nachprüfung der letzten Streuverluste ohne geprueft_am (qb-inventory/ui, ps-mdt/staat, ps-housing+ps-realtor/wohnen) — Altbestand damit bis auf qs-inventory und die assets-Kategorie komplett durchgeprüft",
+  "erstellt": "2026-08-13",
+  "plugins": [],
+  "updates": [
+    {
+      "id": "qs-inventory",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "quasar-store.com ist wie die assets-Tebex-Shops dieser Runde bot-geschützt (403), kein Direktabruf möglich. Bestehende Katalogangaben (Preis 45 EUR einmalig, escrow, Konflikte mit ox_inventory/qb-inventory) nicht mit neuer Quelle belegbar, deshalb unverändert gelassen statt geraten — bleibt ungeprueft.",
+      "link_status": "gesperrt",
+      "link_geprueft_am": "2026-08-13",
+      "qualitaet": "ungeprueft",
+      "quelle": "https://quasar-store.com (403, Bot-Schutz)"
+    },
+    {
+      "id": "qb-inventory",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 31.05.2026, GPL-3.0. README bestätigt Dependencies qb-core und qb-weapons. Code-Stichprobe über alle 14 .lua-Dateien fand nur qb-core-Include und exports['qb-target'] — keine ox-Anbindung, bestätigt reinen alten qb-Stack ohne Qbox-Unterstützung.",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 31.05.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_only",
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt: reiner qb-core/qb-target-Stack ohne ox-Bridge, unter Qbox nicht der vorgesehene Weg.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/qbcore-framework/qb-inventory, https://raw.githubusercontent.com/qbcore-framework/qb-inventory/main/fxmanifest.lua"
+    },
+    {
+      "id": "ps-mdt",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo aktiv, nicht archiviert, letzter Push 16.07.2026. README bestätigt ausdrücklich: 'Works on QBCore and QBX through the ps_lib abstraction layer'. fxmanifest listet Dependencies ps_lib, oxmysql, ox_lib. Code-Stichprobe über 40 von 91 Dateien fand weder rote noch grüne Flagge (Bridge läuft über ps_lib, nicht direkt über Framework-Exports) — Qbox-Unterstützung ist damit textlich belegt, nicht nur vermutet.",
+      "version": "3.1.4",
+      "letztes_update": "Aktiv · letzter Push 16.07.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "abhaengigkeiten": ["ps_lib", "ox_lib", "oxmysql"],
+      "kompat_warnung": {
+        "text": "README bestätigt textlich Qbox-Unterstützung über die ps_lib-Abstraktionsschicht (nicht mehr nur Vermutung).",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Project-Sloth/ps-mdt, https://raw.githubusercontent.com/Project-Sloth/ps-mdt/main/fxmanifest.lua"
+    },
+    {
+      "id": "ps-housing",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Repo ARCHIVIERT (letzter Push 06.02.2026) — README-Ankündigung ausdrücklich: Project Sloth archiviert ältere Repos zugunsten von ps-mdt v3, 'This doesn't mean they're unmaintained forever' aber aktuell kein aktiver Support. Code-Stichprobe über alle 13 Dateien bestätigt echte Dual-Bridge (rot: qb-target/qb-inventory-Exports; grün: ox_lib/ox_inventory/ox_target-Exports) — Framework-Einordnung qbcore_bridge bleibt korrekt, nur Status ändert sich auf archiviert.",
+      "version": "2.0.8",
+      "letztes_update": "Archiviert seit 06.02.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "archiviert": {
+        "text": "Seit 06.02.2026 archiviert — Project-Sloth-Ankündigung: Fokus liegt jetzt auf ps-mdt v3, ps-housing gilt als nicht mehr aktiv weiterentwickelt.",
+        "nachfolger": ""
+      },
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Seit Februar 2026 archiviert (Project-Sloth-Fokus liegt jetzt auf ps-mdt v3), Code-Stichprobe bestätigt aber funktionierende ox_lib/ox_inventory/ox_target-Bridge neben dem alten qb-Pfad.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Project-Sloth/ps-housing, https://raw.githubusercontent.com/Project-Sloth/ps-housing/main/fxmanifest.lua, https://raw.githubusercontent.com/Project-Sloth/ps-housing/main/README.md"
+    },
+    {
+      "id": "ps-realtor",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "KORREKTUR: Katalog führte ps-realtor bisher als kostenpflichtig (escrow, 5 EUR/Monat) — das Repo ist tatsächlich ein öffentliches, quelloffenes GitHub-Repo ohne Escrow-Verschlüsselung (voller Quellcode einsehbar, fxmanifest zeigt reine .lua-Dateien ohne obfuskierte Assets). Zusätzlich ARCHIVIERT (letzter Push 06.02.2026, gleiche Project-Sloth-Ankündigung wie bei ps-housing). Code-Stichprobe bestätigt ox_lib-Nutzung.",
+      "version": "2.0.1",
+      "letztes_update": "Archiviert seit 06.02.2026",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "archiviert": {
+        "text": "Seit 06.02.2026 archiviert — gleiche Project-Sloth-Ankündigung wie ps-housing (Fokus liegt jetzt auf ps-mdt v3).",
+        "nachfolger": ""
+      },
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib", "ps-housing"],
+      "kompat_warnung": {
+        "text": "Katalog-Preisangabe (5 EUR/Monat, escrow) war falsch — Repo ist öffentlich und quelloffen. Zusätzlich seit 06.02.2026 archiviert.",
+        "sicherheit": "bestaetigt"
+      },
+      "qualitaet": "verifiziert",
+      "quelle": "https://github.com/Project-Sloth/ps-realtor, https://raw.githubusercontent.com/Project-Sloth/ps-realtor/main/fxmanifest.lua, https://raw.githubusercontent.com/Project-Sloth/ps-realtor/main/README.md"
+    }
+  ]
+}

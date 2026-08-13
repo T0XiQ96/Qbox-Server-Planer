@@ -17,6 +17,36 @@ Format je Eintrag:
 
 ---
 
+## [Runde 25b] – 13.08.2026
+
+**Geändert:** Letzte 5 Katalogeinträge ohne `geprueft_am` nachgeprüft (Streuverluste außerhalb
+„assets": `qb-inventory`/ui, `ps-mdt`/staat, `ps-housing`+`ps-realtor`/wohnen, `qs-inventory`/ui).
+**Korrigiert:** `ps-realtor` war fälschlich als kostenpflichtig geführt (escrow, 5 EUR/Monat) —
+tatsächlich öffentliches, quelloffenes Repo ohne Escrow, Preis auf `null` korrigiert.
+`ps-housing` und `ps-realtor` beide seit 06.02.2026 archiviert (Project-Sloth-Fokus auf
+ps-mdt v3). `ps-mdt` selbst weiterhin aktiv, Qbox-Support jetzt textlich per README belegt
+(vorher nur Vermutung).
+**Katalog:** 0 neu, 5 aktualisiert, 0 Duplikate übersprungen, 1 weiterhin ungeprueft
+(`qs-inventory`, Tebex-Bot-Schutz)
+**Meilenstein:** Kompletter Altbestand jetzt durchgeprüft — 0 Einträge mehr ohne `geprueft_am`.
+**Commit:** folgt
+
+## [Runde 25] – 13.08.2026
+
+**Geändert:** Kategorie „MLOs, Kleidung & Assets" komplett nachgeprüft, 8/8 Einträge (kein
+Neufund). `bob74_ipl` klar verifiziert; die restlichen 7 sind fremde Shop-/Forum-Seiten ohne
+GitHub-Repo (Tebex-Bot-Schutz bei `gabz`/`k4mb1`/`patoche`, reine Forum-Übersichten bei
+`cfx_free_mlos`/`eup`) — auf `teilgeprueft`/`ungeprueft` mit Websuche-Belegen eingeordnet, keine
+geratenen Preise/Lizenzen.
+**Neufund (Datenpflege, nicht Recherche):** `kingmaps_shop` ist ein bestätigtes Duplikat von
+`kingmaps` (identische URL) — noch nicht zusammengeführt, siehe PROGRESS.md „Bewusst
+verschoben". `patoche`-Link könnte veraltet sein (aktive Produktseiten unter
+`patoche-mapping.tebex.io` statt Katalog-Link `patoche-maps.tebex.io`), wegen Bot-Schutz nicht
+zweifelsfrei geklärt.
+**Katalog:** 0 neu, 8 aktualisiert, 0 Duplikate übersprungen, 6 weiterhin
+teilgeprueft/ungeprueft (Shop-/Forum-Seiten ohne einsehbaren Code)
+**Commit:** folgt
+
 ## [Runde 24] – 13.08.2026
 
 **Neu:**
