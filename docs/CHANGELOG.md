@@ -17,6 +17,34 @@ Format je Eintrag:
 
 ---
 
+## [Runde 33] Achte Neusuche-Runde – 13.08.2026
+
+**Neu:** 10 weitere Plugins: `lxs-stuntjumps`, `tb-mdt`, `w2f-garage`, `tb-multicharacter`,
+`blixt-scoreboard`, `distortionz_cad`, `blixt-liquidcourage`, `blixt-busking`, `capo_clearkeys`,
+`distortionz_police`.
+
+**Zwei Autoren-Cluster einzeln bewertet statt pauschal übernommen/verworfen:** Drei
+`blixt-*`-Scripts (`blixt-scoreboard`, `blixt-liquidcourage`, `blixt-busking`) desselben Autors —
+`blixt-liquidcourage` mit README und 10 sauber getrennten Bridge-Dateien auf `verifiziert`,
+die beiden kleineren ohne README auf `teilgeprueft`. Zwei `Distortionz_*`-Scripts —
+`distortionz_cad` ist ein eigenständiges CAD/MDT-Produkt, `distortionz_police` dagegen laut
+eigenem README ein **1:1-Fork von `qbx_policejob`** mit nur umbenannter NUI und einem
+Versions-Checker: als solcher ehrlich mit `neutral`-Hinweis eingeordnet ("wer bereits
+`qbx_policejob` nutzt, gewinnt inhaltlich nichts hinzu außer einem anderen Look"), keine
+Marketingsprache übernommen.
+
+**Vier mit Gruppenvergleich, alle an bestehende Gruppen angeschlossen:** `tb-mdt`↔`ox_mdt`
+(Gruppe `mdt`), `w2f-garage`↔`cd_garage` (Gruppe `garage`, sechster Anbieter),
+`tb-multicharacter`↔`qb_multicharacter` (Gruppe `multichar`, vierter Anbieter),
+`blixt-scoreboard`↔`pulse_scoreboard` (Gruppe `scoreboard`).
+
+**Katalog:** 10 neu, 4 aktualisiert (Gruppenvergleiche bei `ox_mdt`, `cd_garage`,
+`qb_multicharacter`, `pulse_scoreboard`), 0 Duplikate übersprungen, 0 ungeprüft (6 verifiziert,
+4 teilgeprüft)
+**Datei:** `data/catalog/runde-33.json` · **Commit:** folgt
+
+---
+
 ## [Runde 32] Siebte Neusuche-Runde – 13.08.2026
 
 **Neu:** 10 weitere Plugins: `solidcore_studios_police_mdt_with_dispatch`, `gs-app-finance-jg`,

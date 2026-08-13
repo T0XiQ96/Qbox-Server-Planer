@@ -1,0 +1,285 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r33",
+  "runde": 33,
+  "thema": "Neusuche (docs/RECHERCHE.md §7): 10 Kandidaten, 4 mit Gruppenvergleich (tb-mdt↔ox_mdt, w2f-garage↔cd_garage, tb-multicharacter↔qb_multicharacter, blixt-scoreboard↔pulse_scoreboard, alle bestehende Gruppen). distortionz_police kritisch als überwiegend kosmetischer Fork von qbx_policejob eingeordnet statt unkritisch mit Marketingsprache übernommen.",
+  "erstellt": "2026-08-13",
+  "plugins": [
+    {
+      "id": "lxs-stuntjumps",
+      "name": "lxs-stuntjumps",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Stunt-Jump-System im Stil des klassischen GTA-Modus: Spieler finden Sprungpunkte, fahren auf Zeit und Höhe und klettern in einer globalen Bestenliste.",
+      "link": "https://github.com/LuxStudioGH/lxs-stuntjumps",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-13",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Nutzt @ox_lib/init.lua und exports.ox_inventory (grüne Flaggen), aber auch @mysql-async/lib/MySQL.lua als Datenbank-Layer statt oxmysql — veraltete Basis, kein Framework-Bezug im fxmanifest erkennbar.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["Nutzt ox_lib und ox_inventory für Belohnungen", "Kompetitives Bestenlisten-System"],
+      "contra": ["Setzt auf mysql-async statt oxmysql (veraltete DB-Anbindung)", "Kein README im Repo — Framework-Einordnung nur aus fxmanifest/Repo-Beschreibung ableitbar"],
+      "quelle": "https://github.com/LuxStudioGH/lxs-stuntjumps, https://raw.githubusercontent.com/LuxStudioGH/lxs-stuntjumps/main/fxmanifest.lua"
+    },
+    {
+      "id": "tb-mdt",
+      "name": "tb-mdt",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "Polizei-MDT mit Vue-basiertem Dashboard: Bürger- und Fahrzeugsuche, Vorstrafenregister, Anklagen mit Bußgeld-/Haftstrafen-Reglern, Haftbefehle und Führerschein-Punktesystem mit automatischem Entzug.",
+      "link": "https://github.com/JamesUpped/tb-mdt",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "3.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-17",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["oxmysql", "ox_lib"],
+      "gruppe": "mdt",
+      "kompat_warnung": {
+        "text": "README bestätigt Framework-Autoerkennung (qbx_core oder qb-core, eines von beiden) sowie ox_lib als Pflichtabhängigkeit; Code-Stichprobe findet eine Framework-Autoerkennung in shared/framework.lua. Zusätzlich hängt es von der undokumentierten Ressource ps_lib ab (im fxmanifest als dependency gelistet, nicht im Katalog).",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["Modernes Vue3/Tailwind-UI mit Live-Dispatch", "Bußgeld-Abbuchung direkt vom Bankkonto samt Restschuld-Verwaltung", "Führerschein-Punktesystem mit automatischem Entzug", "Webhook-Protokoll für Anklagen/Haftbefehle/Waffen"],
+      "contra": ["Hängt zusätzlich von ps_lib ab (nicht katalogisiert, unklare Herkunft)", "Kein LICENSE-Hinweis im Repo trotz öffentlichem Quellcode", "Eigene Build-Pipeline nötig (npm run build vor Ingame-Test)"],
+      "quelle": "https://github.com/JamesUpped/tb-mdt, https://raw.githubusercontent.com/JamesUpped/tb-mdt/master/fxmanifest.lua"
+    },
+    {
+      "id": "w2f-garage",
+      "name": "w2f-garage",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "beschreibung": "Fahrzeug-Garagen-System mit eigener Framework-Bridge für QBCore, Qbox und ESX: Fahrzeuge abstellen, abrufen, abschleppen lassen und verwalten, ohne dass die Garagen-Logik direkt auf QBCore/ESX zugreift.",
+      "link": "https://github.com/Wayy2Flyyy/w2f-garage",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-09",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "gruppe": "garage",
+      "kompat_warnung": {
+        "text": "Eigene bridge/qbox.lua nutzt exports.qbx_core direkt, dazu getrennte bridge/esx.lua und bridge/-Dateien für Inventar (ox_inventory) und Target (ox_target) — echte Framework-Abstraktion statt harter Qb-Core-Kopplung. Kein Code-Fund für qb-inventory/qb-target.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["Explizite Qbox-Bridge (bridge/qbox.lua mit qbx_core-Exports)", "Keine direkten QBCore/ESX-Aufrufe in der Garagen-Logik laut README", "ox_target-Unterstützung für Fahrzeuginteraktion"],
+      "contra": ["Deutlich jünger/kleiner als der etablierte Platzhirsch cd_garage — Vergleichsdaten unten"],
+      "quelle": "https://github.com/Wayy2Flyyy/w2f-garage, https://raw.githubusercontent.com/Wayy2Flyyy/w2f-garage/main/fxmanifest.lua"
+    },
+    {
+      "id": "tb-multicharacter",
+      "name": "tb-multicharacter",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Charakterauswahl-Bildschirm als Qbox-Port des op-multicharacter-Scripts mit NUI-Build und Locale-Fixes.",
+      "link": "https://github.com/JamesUpped/tb-multicharacter",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "gruppe": "multichar",
+      "kompat_warnung": {
+        "text": "Code-Stichprobe findet getrennte framework/client/qbox.lua bzw. framework/server/qbox.lua mit exports.qbx_core sowie eine eigene esx.lua-Bridge — Mehrfach-Framework-Unterstützung, kein Zugriff auf qb-inventory/qb-target gefunden.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["Dedizierte Qbox-Bridge-Dateien (qbx_core-Exports)", "NUI-Build und Locale-Fixes gegenüber dem Original op-multicharacter laut Repo-Beschreibung"],
+      "contra": ["Kein README im Repo — Beschreibung nur aus fxmanifest/Repo-Beschreibung ableitbar", "Kleines Nischenprojekt eines einzelnen Autors (Toybox Dev)"],
+      "quelle": "https://github.com/JamesUpped/tb-multicharacter, https://raw.githubusercontent.com/JamesUpped/tb-multicharacter/master/fxmanifest.lua"
+    },
+    {
+      "id": "blixt-scoreboard",
+      "name": "blixt-scoreboard",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Konfigurierbares Scoreboard mit eigenen Logos/Farben, zeigt bis zu vier Unternehmen sowie PD/EMS mit Dienststatus und Polizei-Rängen an, wenn diese online bzw. geöffnet sind.",
+      "link": "https://github.com/blixtdevelopments/blixt-scoreboard",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib"],
+      "gruppe": "scoreboard",
+      "kompat_warnung": {
+        "text": "server.lua nutzt exports.qbx_core sowie eine Framework-Autoerkennung (server.lua:2), zusätzlich @ox_lib/init.lua eingebunden — grüne Flaggen. Sehr kleines Script (nur 4 Lua-Dateien), Funktionsumfang entsprechend begrenzt.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["qbx_core-Export direkt genutzt", "Zeigt Firmen- sowie PD/EMS-Status inkl. Polizei-Rängen"],
+      "contra": ["Sehr kleines Script (4 Lua-Dateien) — begrenzter Funktionsumfang gegenüber pulse_scoreboard", "Kein README im Repo", "Lizenz im Repo als NOASSERTION markiert (kein SPDX-Tag)"],
+      "quelle": "https://github.com/blixtdevelopments/blixt-scoreboard, https://raw.githubusercontent.com/blixtdevelopments/blixt-scoreboard/main/fxmanifest.lua"
+    },
+    {
+      "id": "distortionz_cad",
+      "name": "Distortionz_CAD",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "Computer-Aided-Dispatch/MDT für Qbox mit Bürger- und Fahrzeugsuche, Vorstrafenregister, Haftbefehlen, Fahndungen (BOLOs) und Vorfallsberichten sowie Live-Dispatch mit Einheitenstatus; zentrale Anlaufstelle, in die andere Scripts Alarme einspeisen können.",
+      "link": "https://github.com/Distortionzz/Distortionz_CAD",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.6.1",
+      "letztes_update": "Aktiv · letzter Push 2026-05-16",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "oxmysql"],
+      "kompat_warnung": {
+        "text": "Harte qbx_core-Abhängigkeit im fxmanifest und README (Zugriff auf LEO-Jobtyp über qbx_core), Framework-Autoerkennung und qbx_core-Export in server.lua bestätigt. Bridge zu qbx_police's police:server:policeAlert-Event laut README automatisch.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["Explizit für Qbox gebaut (qbx_core Pflicht), keine QBCore/ESX-Nebenpfade", "MIT-Lizenz mit einsehbarem Code", "Auto-Bridge zu qbx_policejob-Alarmen laut README", "Zentraler Alarm-Hub für andere Scripts"],
+      "contra": ["Nur für Qbox nutzbar, kein QBCore/ESX-Fallback"],
+      "quelle": "https://github.com/Distortionzz/Distortionz_CAD, https://raw.githubusercontent.com/Distortionzz/Distortionz_CAD/main/fxmanifest.lua"
+    },
+    {
+      "id": "blixt-liquidcourage",
+      "name": "blixt-liquidcourage",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Alkohol-/Betrunkenheitssystem mit Alkoholtest (Breathalyser) für die Polizei und Trunkenheitsfahrt-Effekten, mit Framework- und Inventar-Bridges konfigurierbar.",
+      "link": "https://github.com/blixtdevelopments/blixt-liquidcourage",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "3.3.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "bridge/framework.lua und bridge/notify.lua nutzen exports.qbx_core, bridge/target.lua unterstützt sowohl ox_target als auch exports['qb-target'] (rote Flagge, aber als Fallback hinter einer Bridge-Abstraktion, nicht hart verdrahtet). Ebenso exports.ox_inventory in bridge/inventory.lua. README nennt aktuell nur QB-Core/Qbox-Support, weitere Frameworks 'in später updates'.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["qbx_core-Export direkt genutzt", "ox_target- und ox_inventory-Bridges vorhanden", "10 Lua-Dateien mit klarer Bridge-Struktur (Notify/Target/Inventory/Framework getrennt)"],
+      "contra": ["bridge/target.lua enthält weiterhin einen exports['qb-target']-Pfad — bei reinem Qbox-Setup ungenutzt, aber Altlast im Code", "Lizenz im Repo als NOASSERTION markiert (kein SPDX-Tag)", "README deckt nur QB-Core/Qbox ab, weitere Frameworks laut Autor erst später"],
+      "quelle": "https://github.com/blixtdevelopments/blixt-liquidcourage, https://raw.githubusercontent.com/blixtdevelopments/blixt-liquidcourage/main/fxmanifest.lua"
+    },
+    {
+      "id": "blixt-busking",
+      "name": "blixt-busking",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Straßenmusik-Job: Spieler treten für NPCs auf und erhalten Trinkgeld, benötigt x-sound für die Musikwiedergabe.",
+      "link": "https://github.com/blixtdevelopments/blixt-busking",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.2",
+      "letztes_update": "Aktiv · letzter Push 2026-06-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["xsound", "oxmysql"],
+      "kompat_warnung": {
+        "text": "server.lua nutzt exports.qbx_core sowie eine Framework-Autoerkennung (server.lua:38), exports.ox_inventory für Trinkgeld/Auszahlung, exports.ox_target für die Interaktion — grüne Flaggen, kein Fund von qb-inventory/qb-target.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["qbx_core-Export direkt genutzt", "ox_target- und ox_inventory-Integration", "Klare Zusatzabhängigkeit (x-sound) statt eigenem Soundsystem"],
+      "contra": ["Kein README im Repo", "Sehr kleines Script (7 Lua-Dateien), begrenzter Funktionsumfang", "Lizenz im Repo als NOASSERTION markiert (kein SPDX-Tag)"],
+      "quelle": "https://github.com/blixtdevelopments/blixt-busking, https://raw.githubusercontent.com/blixtdevelopments/blixt-busking/main/fxmanifest.lua"
+    },
+    {
+      "id": "capo_clearkeys",
+      "name": "capo_clearkeys",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "beschreibung": "Entfernt überzählige Fahrzeugschlüssel-Items aus dem Spieler-Inventar auf sichere, konfigurierbare Weise, damit Schlüssel-Spam vermieden wird, ohne benötigte Schlüssel zu verlieren.",
+      "link": "https://github.com/creationsoftre/capo_clearkeys",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.3.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-30",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "README bestätigt Framework-Autoerkennung für QBCore, QBX und ESX sowie Inventar-Autoerkennung (ox_inventory, qs-inventory, qb-inventory, ps-inventory, ESX-Inventar). Code-Stichprobe bestätigt shared/framework.lua (Autoerkennung), exports.ox_inventory und optionalen exports.ox_target.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["Framework- und Inventar-Autoerkennung laut README (QBCore/QBX/ESX, mehrere Inventarsysteme)", "Optionale ox_target-Integration statt Zwangsabhängigkeit", "MIT-Lizenz, vollständig einsehbarer Code"],
+      "contra": ["Sehr kleines Nischen-Tool (7 Lua-Dateien), löst nur ein einzelnes Detailproblem"],
+      "quelle": "https://github.com/creationsoftre/capo_clearkeys, https://raw.githubusercontent.com/creationsoftre/capo_clearkeys/main/fxmanifest.lua"
+    },
+    {
+      "id": "distortionz_police",
+      "name": "Distortionz_Police",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "1:1-Fork von qbx_policejob mit umbenannter NUI, Distortionz-eigenem Versions-Checker sowie Kopf-Tracking bei Wachposten-Peds; alle police:*/qbx_police*-Events und -Callbacks bleiben unverändert erhalten, damit abhängige Ressourcen weiterlaufen.",
+      "link": "https://github.com/Distortionzz/Distortionz_Police",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.3.9",
+      "letztes_update": "Aktiv · letzter Push 2026-05-16",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "oxmysql"],
+      "neutral": ["Laut README ist dies ausdrücklich ein 1:1-Fork von qbx_policejob — die einzigen Code-Änderungen sind ein umbenanntes NUI und ein Versions-Checker, keine funktionalen Erweiterungen. Wer bereits qbx_policejob nutzt, gewinnt inhaltlich nichts hinzu außer einem anderen Look."],
+      "kompat_warnung": {
+        "text": "Ersetzt qbx_policejob vollständig (README: 'qbx_police MUST be stopped'), behält aber alle police:*/qbx_police*-Events bei, sodass laut README rund 18 abhängige Ressourcen (u.a. qbx_ambulancejob, qbx_drugs, qbx_medical) unverändert weiterlaufen. Nutzt qbx_core-Exports, ox_inventory und ox_target direkt.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": ["Vollständiger Drop-in-Ersatz für qbx_policejob, alle abhängigen Ressourcen laut README unverändert kompatibel", "MIT-Lizenz, vollständig einsehbarer Code", "Eigener GitHub-Versions-Checker"],
+      "contra": ["Primär ein Reskin/Rebrand des offiziellen qbx_policejob ohne dokumentierte Funktionserweiterungen — der Mehrwert liegt laut Autor selbst überwiegend im Aussehen und im Versions-Checker", "Ersetzt qbx_policejob komplett, kein Nebeneinander-Betrieb möglich"],
+      "quelle": "https://github.com/Distortionzz/Distortionz_Police, https://raw.githubusercontent.com/Distortionzz/Distortionz_Police/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "ox_mdt",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Konkurrenzprodukt tb-mdt derselben Funktionsgruppe (mdt) gefunden und aufgenommen (Runde 33) — Vergleichsdaten ergänzt.",
+      "neutral": ["Alternative tb-mdt (gleiche Gruppe) läuft laut eigenem README auf qbx_core ODER qb-core und ist damit auf Qbox lauffähig — ox_mdt selbst bleibt wegen der ox_core-Pflicht inkompatibel."],
+      "contra": ["ox_core-Pflicht = inkompatibel mit Qbox", "tb-mdt bietet als einziges der beiden ein modernes Vue3-UI mit Bußgeld-Abbuchung, Punktesystem und Webhook-Protokoll — allerdings mit nur teilweise dokumentierter Zusatzabhängigkeit (ps_lib)"]
+    },
+    {
+      "id": "cd_garage",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Kostenloses Konkurrenzprodukt w2f-garage derselben Funktionsgruppe (garage) gefunden und aufgenommen (Runde 33) — Vergleichsdaten ergänzt.",
+      "contra": [
+        "💰 Kostenpflichtig",
+        "🔒 Escrow",
+        "Kostenlose, quelloffene Alternative w2f-garage verfügbar mit eigener Qbox/QBCore/ESX-Bridge — allerdings ohne dokumentierte Fahrzeug-Vorschau, geteilte Garagen oder Valet"
+      ]
+    },
+    {
+      "id": "qb_multicharacter",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Konkurrenzprodukt tb-multicharacter derselben Funktionsgruppe (multichar) gefunden und aufgenommen (Runde 33) — Vergleichsdaten ergänzt.",
+      "neutral": ["Alternative tb-multicharacter (gleiche Gruppe) ist ein Qbox-Port von op-multicharacter mit dedizierten qbx_core-Bridge-Dateien, während qb_multicharacter selbst nur über die QBCore-Bridge auf Qbox läuft."]
+    },
+    {
+      "id": "pulse_scoreboard",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Konkurrenzprodukt blixt-scoreboard derselben Funktionsgruppe (scoreboard) gefunden und aufgenommen (Runde 33) — Vergleichsdaten ergänzt.",
+      "neutral": ["Alternative blixt-scoreboard (gleiche Gruppe) ist deutlich kleiner (4 Lua-Dateien) und zeigt zusätzlich bis zu vier konfigurierbare Unternehmen sowie PD/EMS-Status mit Polizei-Rängen an — pulse_scoreboard selbst ist umfangreicher und aktiv gepflegt."]
+    }
+  ]
+}
