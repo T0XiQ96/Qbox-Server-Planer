@@ -17,6 +17,37 @@ Format je Eintrag:
 
 ---
 
+## [Sparmaßnahmen] Briefing- und Doku-Diät – 13.08.2026
+
+Nach dem Discover-Bau gezielt nach weiteren Einsparungen gesucht, **ohne Genauigkeitsverlust**.
+Drei Stellen gefunden, alle gemessen statt geschätzt:
+
+**1. fxmanifest-Dateilisten zusammenfassen.** Messung: bei `bob74_ipl` waren **52 von 60**
+Briefing-Zeilen reine Dateipfade (`"gtav/ammunations.lua"`). Solche Zeilen können ein
+Framework-Urteil nicht beeinflussen — entscheidend sind `@resource/`-Includes, `dependencies`
+und Metafelder. Läufe ab 3 solchen Zeilen werden jetzt zu `… N weitere Dateizeilen ohne
+@-Include …` gefaltet; alles mit `@` bleibt wörtlich. Ergebnis: Briefing 5,2 KB → **1,9 KB
+(−63 %)**. **Zusätzlich ein Genauigkeitsgewinn:** vorher schnitt die 60-Zeilen-Grenze das Ende
+langer Manifeste ab — genau dort stehen `dependencies` und `provide`. Jetzt ist die vollständige
+Struktur sichtbar.
+
+**2. Lizenz-Fließtext im README nur einmal.** GPL-READMEs drucken 5–10 wortgleiche Zeilen ab
+(„Free Software Foundation", „WITHOUT ANY WARRANTY", …). Die erste bleibt als Lizenzbeleg, der
+Rest entfällt.
+
+**3. `docs/PROGRESS.md` von 313 auf 254 Zeilen.** Die Datei wird laut CLAUDE.md §0 bei **jedem**
+Session-Start gelesen — Verdopplung kostet dort jedes Mal. Entfernt: 12 „wichtigster
+Fund"-Absätze der Runden 4–15, die den CHANGELOG wortgleich verdoppelten, und ein veralteter
+Sonnet-Test-Block (Runden 7–9), der vom späteren 7–15-Block überholt war. An ihre Stelle tritt
+eine Destillat-Liste der **sieben wiederkehrenden Fehlermuster** — das ist der übertragbare Teil,
+den eine neue Session tatsächlich braucht. Die Einzelfunde bleiben vollständig im CHANGELOG.
+
+**Ebenfalls verbessert (Genauigkeit, kostenneutral):** Die Code-Stichprobe nimmt bei Repos mit
+mehr als 40 `.lua`-Dateien nicht mehr die alphabetisch ersten, sondern priorisiert
+`bridge/framework/compat` vor `client|server|shared` vor dem Rest, und stellt `locales/`,
+`config/`, `stream/` hinten an. Vorher konnte bei großen Repos die Stichprobe komplett aus
+Sprachdateien bestehen, während die Framework-Aufrufe in `server/` ungeprüft blieben.
+
 ## [Werkzeug] Discover — Neusuche als Script – 13.08.2026
 
 **Neu:** `npm run discover` (`scripts/discover.mjs`). Findet Kandidaten für **neue**

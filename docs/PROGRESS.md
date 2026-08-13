@@ -57,21 +57,6 @@ vielen gleichzeitigen Kompatibilitätsurteilen oder Neufund-Suche würde ich vor
 auf medium wechseln, wie in CLAUDE.md §1 vorgesehen — das wurde in diesen 9 Runden aber nicht
 getestet, da es sich durchgehend um reine Nachprüfung handelte.
 
-**Sonnet-5/low-Test abgeschlossen (Runden 7–9, Nutzerwunsch statt der in CLAUDE.md §1
-vorgegebenen medium-Einstellung für Datenrunden):** Ergebnisqualität bei erfolgreichem
-Rundenabschluss wirkte über alle drei Runden unverändert zu medium — jede Runde lieferte
-mindestens einen konkreten, gut belegten Sach-/Link-Fehlerfund (Runde 7: `jim_mechanic`
-kostenpflichtig geworden; Runde 8: `ox_fuel`-Fork tot + Original fälschlich als archiviert
-geführt, `ps_fuel` tatsächlich archiviert, `qb_customs` komplett verschwunden; Runde 9:
-`renewed_vehicleshops` verschwunden, `wasabi_carlock` Link-Schreibfehler + Org-Umzug). Der einzige
-klare Unterschied zu medium: in Runde 8 brach der erste Recherche-Subagent nach nur 2
-Tool-Aufrufen mit einer ungültigen „ich melde mich später"-Antwort ab (Kategoriefehler — Subagents
-laufen synchron). Mit einer expliziten Klarstellung im Prompt neu gestartet, danach fehlerfrei;
-das Muster trat in Runde 7 und 9 nicht auf. Einschätzung: low ist für reine Nachprüfungs-Recherche
-offenbar brauchbar, aber weniger robust gegen dieses eine Abbruch-Verhalten — bei neuen,
-komplexeren Aufgaben (Neusuche, viele Kompatibilitätsurteile) würde ich vorsichtshalber wieder auf
-medium wechseln, wie in CLAUDE.md §1 vorgesehen.
-
 ---
 
 ## Phase
@@ -183,77 +168,33 @@ Token läuft es dank Owner-Bündelung auch, wird aber bei mehreren Runden hinter
 falls Läufe mit `api-fehler` enden, ist das die Ursache (nicht mit `owner-weg` verwechseln, das
 ist ein echter Befund).
 
-**Runde 15 — wichtigster Fund:** `qbx_hotdogjob` hatte einen falschen Katalog-Pfad (Unterstrich
-statt Bindestrich, korrekt `qbx-hotdogjob`) und ist zudem als „Unmaintained" markiert — bisher
-nicht erfasst. Drei weitere `jim_*`-Einträge (`jim_tequilala`, `jim_upnatom`,
-`jim_vanillaunicorn`) bestätigen das Runde-14-Muster (fälschlich als Open-Source geführt,
-tatsächlich Tebex-Paid), `jim_recycle` ist dagegen eine echte Ausnahme mit funktionierendem Repo.
+## Fehlermuster aus 25 Runden — worauf sich das Suchen lohnt
 
-**Runde 14 — wichtigster Fund:** 8 von 9 geprüften `jim_*`-Jobs waren im Katalog fälschlich als
-kostenlose Open-Source-Repos geführt — die verlinkten GitHub-Repos existieren nicht (404), es
-sind tatsächlich kostenpflichtige Closed-Source-Produkte über Tebex. `lizenz` bei allen acht auf
-`escrow` korrigiert. Nur `jim_mining` hat ein echtes öffentliches Repo.
+Die Einzelfunde jeder Runde stehen im `docs/CHANGELOG.md` (dort ist der Platz dafür, CLAUDE.md
+§2.5) und werden hier **nicht** wiederholt — diese Datei wird bei jedem Session-Start gelesen,
+Verdopplung kostet also jedes Mal. Übertragbar ist nur, was sich als *Muster* wiederholt hat:
 
-**Runde 13 — wichtigster Fund:** `randolio_grandma` und `wk_wars2x` hatten beide Tippfehler in
-den Katalog-Links (falscher Repo-Slug bzw. falsche Owner-Schreibweise), vermutlich nie tatsächlich
-verifiziert. `sonoran_cad`-Preis (~$20/Monat) ließ sich nicht bestätigen — bewusst auf `null`
-gesetzt statt eines möglicherweise falschen Betrags.
-
-**Runde 12 — wichtigster Fund:** `qbx_policejob` (essenziell!) wurde zu `qbx_police` umbenannt
-(GitHub-Redirect bestätigt), Link korrigiert, ID zur Wahrung der Querverweise unverändert
-gelassen. `qbx_prison` frisch archiviert seit 09.07.2026. `qb_gangmenu` komplett aus der
-qbcore-framework-Org entfernt. Offene Beziehungsfrage `qbx_medical`↔`qbx_ambulancejob` geklärt:
-Pflicht-Ergänzung per fxmanifest-Beleg, kein alternatives Modul.
-
-**Runde 11 — wichtigster Fund:** `ox_mdt` war entgegen der Katalog-Annahme NICHT archiviert
-(weiterhin aktiv gepflegt) — die `ox_core`-Abhängigkeit und damit Qbox-Inkompatibilität bleibt
-aber bestätigt, reine Statuskorrektur. `mythic_hospital`-Quelle ist komplett verschwunden (404
-statt nur „ungepflegt"). `origen_police`: Qbox-Support-Verifizierung ergab negativ — kein Nachweis
-gefunden, nur QBCore/ESX offiziell genannt.
-
-**Runde 10 — wichtigster Fund:** `qbx_houses` und `qbx_apartments` (beide offizielle Qbox-Repos)
-wurden am 09.07.2026 archiviert und offiziell als unmaintained markiert — `qbx_properties` ist
-der bestätigte alleinige Nachfolger (Migrationsanleitung fordert das Entfernen der alten Module).
-`ps_housing`/`ps_realtor` sind ebenfalls archiviert (vierte Project-Sloth-Welle nach
-ps-inventory/ps-hud/ps-fuel).
-
-**Runde 9 — wichtigster Fund:** `renewed_vehicleshops` ist komplett verschwunden — Katalog-Link
-404, die Org hat kein passendes Repo mehr, kein Ersatz auffindbar, bewusst auf `ungeprueft`
-herabgestuft statt eines geratenen Links. `wasabi_carlock` hatte denselben Fehlertyp wie
-`wasabi_backpack` in Runde 6 (falsche Schreibweise) plus einen Org-Umzug zu `wasabi-versions`.
-
-**Runde 8 — wichtigster Fund:** `ox_fuel` (essenziell!) verlinkte auf einen toten Fork
-(`TheOrderFivem/ox_fuel`, 404) — das Original `overextended/ox_fuel` ist entgegen der bisherigen
-Katalog-Annahme NICHT archiviert, sondern aktiv gepflegt. Link zurückkorrigiert. `ps_fuel` ist
-dagegen tatsächlich archiviert (dritter Project-Sloth-Fund nach ps-inventory/ps-hud). `qb_customs`
-existiert nicht mehr (404, aus der qbcore-framework-Org entfernt), kein offizieller Nachfolger.
-
-**Runde 7 — wichtigster Fund:** `jim_mechanic` ist inzwischen kostenpflichtig (v3.6, primär über
-Tebex), nicht mehr das im Katalog beschriebene kostenlose Open-Source-System — `lizenz` auf
-`escrow` korrigiert. `legacyfuel` hatte einen Link-Bug (`legacy_fuel` Kleinschreibung → 404,
-korrekt `LegacyFuel`).
-
-**Runde 6 — wichtigster Fund:** `wasabi_backpack` — der Katalog-Link war schlicht falsch
-geschrieben (`Wasabi-Backpack` statt `wasabi_backpack`), führte zu 404 und wurde deshalb bisher
-nie wirklich geöffnet („bot-geschützt, manuell prüfen"-Vermerk war eine Fehldiagnose). Jetzt
-korrigiert; Repo lange inaktiv (Commit 02/2023) aber nicht archiviert. `qs_hud`/`qs_inventory`:
-konkrete Quasar-Store-Produktseiten statt nur der Startseite gefunden, Qbox-Support jetzt
-bestätigt statt vermutet — Preise bleiben unverifiziert (JS-Rendering im Shop).
-
-**Runde 5 — wichtigster Fund:** `qbx_loading` (offizielles Qbox-Repo!) wurde am 09.07.2026
-archiviert, kein Nachfolger genannt. `ps_hud` ist ebenfalls archiviert (06.02.2026, gleiches
-Project-Sloth-Team wie `ps-inventory` in Runde 4) — Muster „Project-Sloth archiviert reihenweise
-ps-*-Repos" jetzt zweimal bestätigt, in Runde 6/Folgerunden aktiv nach weiteren ps-*-Einträgen
-Ausschau halten. `pulse_scoreboard` hatte wieder nur die Topic-Seite als Link — diesmal durch
-`ac_scoreboard` ersetzt (echtes, aktives Repo mit Framework-Autoerkennung), zugleich `qbx_scoreboard`
-in dieselbe Vergleichsgruppe gesetzt.
-
-**Runde 4 — wichtigster Fund:** `lj_inventory` — auch der als „gepflegt" katalogisierte
-`ps-inventory`-Fork (Project-Sloth) wurde am 06.02.2026 archiviert, kein Nachfolger genannt. Zwei
-weitere Topic-Seiten-Links korrigiert (`interaction_menu_mod`, `mtc_loadingscreen` — echte Repos
-gefunden). Zwei „mythic_*"-Legacy-Links waren schlicht tot (nicht nur archiviert): `mythic_notify`
-komplett verschwunden (kein verlässlicher Nachfolge-Link gefunden, bleibt `teilgeprueft`),
-`mythic_progbar`-Link falsch, funktionierender Fork bei `wasabirobby/mythic_progbar` gefunden.
+1. **Falsch geschriebene Katalog-Links sind der häufigste Einzelfehler.** Großschreibung,
+   Unterstrich statt Bindestrich, falscher Owner (`wasabi_backpack`, `legacyfuel`,
+   `randolio_grandma`, `wk_wars2x`, `qbx_hotdogjob`, `wasabi_carlock`). Ein 404 heißt deshalb
+   zuerst „Schreibweise prüfen", nicht „Repo ist weg". Das Prefetch-Briefing listet dafür die
+   ähnlichsten Repo-Namen desselben Owners.
+2. **Fälschlich als archiviert geführt — besonders im `ox`-Ökosystem.** `ox_fuel`, `ox_mdt`,
+   `oxmysql`, `awesome_ox`, `ox_core` waren alle aktiv, obwohl der Katalog sie als tot führte.
+   Die kimi-Übernahmen zum ox-Stack sind generell mit Vorsicht zu lesen.
+3. **Project-Sloth archiviert reihenweise `ps-*`-Repos** (ps-inventory, ps-hud, ps-fuel,
+   ps-housing, ps-realtor — alle 06.02.2026, Fokus liegt jetzt auf ps-mdt v3).
+4. **Offizielle Qbox-Repos wurden am 09.07.2026 gebündelt archiviert** (`qbx_houses`,
+   `qbx_apartments`, `qbx_loading`, `qbx_prison`). Bei weiteren `qbx_*`-Einträgen mit altem
+   Prüfdatum lohnt ein Blick.
+5. **`jim_*` ist fast durchgehend Tebex-Paid, nicht Open-Source** — 11 Einträge waren falsch
+   als quelloffen geführt, die verlinkten Repos existieren nicht. Ausnahmen mit echtem Repo:
+   `jim_mining`, `jim_recycle`, `jim_bridge`.
+6. **Topic-Seiten als Link** (`github.com/topics/qbox`) statt eines echten Repos — Altlast der
+   Konvertierung, tauchte in mehreren Kategorien auf.
+7. **Preise lieber `null` als geraten.** Mehrfach ließ sich ein im Katalog stehender Betrag nicht
+   belegen (`sonoran_cad`, `qs_*`); bewusst geleert statt einen plausiblen Wert zu behalten.
+   Umgekehrt war `ps-realtor` fälschlich als kostenpflichtig geführt.
 
 ## Offene Punkte / Rückfragen an den Nutzer
 

@@ -164,23 +164,66 @@ function kandidaten(bestand, gesucht) {
     .slice(0, 6);
 }
 
+/**
+ * Eine Zeile, die nur einen Dateipfad auflistet — z.B. `, "gtav/ammunations.lua"`.
+ *
+ * Solche Zeilen können ein Framework-Urteil nicht beeinflussen: entscheidend sind die
+ * `@resource/`-Includes (die kommen hier nie durch, weil `@` ausgeschlossen ist), die
+ * `dependencies` und die Metafelder. `bob74_ipl` bestand zu 52 von 60 Briefing-Zeilen aus
+ * genau solchen Pfaden — das ist reiner Kontextverbrauch ohne Erkenntnis.
+ */
+const nurDateipfad = (z) => /^[\s,]*['"][^'"@]+\.(lua|js|css|html|json|png|jpg|svg|ttf|woff2?|ytyp|ydr|xml)['"]\s*,?\s*$/i.test(z)
+  || /^[\s,]*['"][^'"@]*\*[^'"@]*['"]\s*,?\s*$/.test(z);   // Platzhalter wie 'locales/*.lua'
+
 /** fxmanifest wörtlich (ohne Leerzeilen/Kommentare), plus abgeleitete Kurzfassung. */
 function fxAuswerten(text) {
-  const zeilen = text.split(/\r?\n/).map((z) => z.trimEnd())
+  const roh = text.split(/\r?\n/).map((z) => z.trimEnd())
     .filter((z) => z.trim() && !z.trim().startsWith('--'));
+
+  // Läufe reiner Dateipfade zusammenfassen. Ab 3 Zeilen lohnt es; darunter bleibt alles stehen,
+  // damit kurze Manifeste unverändert wörtlich sind.
+  const zeilen = [];
+  let lauf = [];
+  const lauf_abschliessen = () => {
+    if (lauf.length >= 3) zeilen.push(`    … ${lauf.length} weitere Dateizeilen ohne @-Include …`);
+    else zeilen.push(...lauf);
+    lauf = [];
+  };
+  for (const z of roh) {
+    if (nurDateipfad(z)) lauf.push(z);
+    else { lauf_abschliessen(); zeilen.push(z); }
+  }
+  lauf_abschliessen();
+
   // Zeilenanfang-gebunden, sonst greift die Suche auf "fx_version 'cerulean'" zu.
   const version = /^[ \t]*version\s+['"]([^'"]+)['"]/m.exec(text)?.[1] || '';
   const deps = [...text.matchAll(/dependenc(?:y|ies)\s*[{(]?\s*([^}\)]*)/gi)]
     .flatMap((m) => [...m[1].matchAll(/['"]([^'"]+)['"]/g)].map((x) => x[1]));
-  return { zeilen: zeilen.slice(0, 60), gekuerzt: zeilen.length > 60, version, deps: [...new Set(deps)] };
+  return {
+    zeilen: zeilen.slice(0, 60),
+    gekuerzt: zeilen.length > 60,
+    gefaltet: roh.length - zeilen.length,
+    version,
+    deps: [...new Set(deps)]
+  };
 }
+
+/**
+ * Standardtext einer Lizenz — GPL/MIT-Boilerplate, die viele READMEs vollständig abdrucken.
+ * Die Lizenz selbst ist eine Pflichtangabe, aber dafür reicht EINE Zeile; die restlichen fünf
+ * bis zehn sind in jedem GPL-Repo wortgleich und tragen nichts bei.
+ */
+const LIZENZ_FLIESSTEXT = /free software foundation|without any warranty|along with this program|merchantability|either version \d|www\.gnu\.org\/licenses|see <http|implied warranty|PARTICULAR PURPOSE/i;
 
 function readmeBelege(text) {
   const treffer = [];
   const zeilen = text.split(/\r?\n/);
+  let lizenzGesehen = 0;
   for (let i = 0; i < zeilen.length && treffer.length < 18; i++) {
     const z = zeilen[i].trim();
     if (z.length < 4 || !README_BEGRIFFE.test(z)) continue;
+    // Erste Lizenz-Fließtextzeile bleibt als Beleg, alle weiteren fallen weg.
+    if (LIZENZ_FLIESSTEXT.test(z) && ++lizenzGesehen > 1) continue;
     treffer.push({ nr: i + 1, text: z.length > 160 ? z.slice(0, 160) + '…' : z });
   }
   return { treffer, gesamt: zeilen.length };
@@ -195,7 +238,18 @@ async function codeStichprobe(owner, repo, branch) {
     .filter((e) => e.type === 'blob' && /\.lua$/i.test(e.path) && (e.size || 0) < MAX_DATEI_BYTES)
     .map((e) => e.path);
 
-  const auswahl = luas.slice(0, MAX_LUA);
+  // Bei Repos mit mehr als MAX_LUA Dateien entscheidet die Reihenfolge, was geprüft wird.
+  // Baumreihenfolge ist alphabetisch — dann landen `config/` und `locales/` in der Stichprobe
+  // und `server/` fällt heraus, obwohl dort die Framework-Aufrufe stehen. Deshalb erst das,
+  // wo Framework-Zugriffe tatsächlich vorkommen.
+  const rang = (weg) => {
+    const w = weg.toLowerCase();
+    if (/bridge|framework|compat|adapter/.test(w)) return 0;   // die eigentliche Beweisstelle
+    if (/^(client|server|shared)\/|main\.lua$/.test(w)) return 1;
+    if (/locale|translation|lang\/|config|data\/|stream\//.test(w)) return 3;  // fast nie aussagekräftig
+    return 2;
+  };
+  const auswahl = [...luas].sort((a, b) => rang(a) - rang(b)).slice(0, MAX_LUA);
   const funde = new Map();
 
   await parallel(auswahl, PARALLEL, async (weg) => {
@@ -550,7 +604,8 @@ for (const e of ergebnisse) {
   }
 
   if (e.fx) {
-    zeilen.push(`- **fxmanifest.lua** (wörtlich${e.fx.gekuerzt ? ', gekürzt auf 60 Zeilen' : ''}):`);
+    zeilen.push(`- **fxmanifest.lua** (wörtlich${e.fx.gekuerzt ? ', gekürzt auf 60 Zeilen' : ''}`
+      + `${e.fx.gefaltet > 0 ? `, ${e.fx.gefaltet} reine Dateipfad-Zeilen zusammengefasst` : ''}):`);
     zeilen.push('```lua');
     zeilen.push(...e.fx.zeilen);
     zeilen.push('```');
