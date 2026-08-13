@@ -16,6 +16,7 @@ Bei jedem neuen Chat führst du diese Schritte aus, bevor du irgendetwas anderes
    - `docs/DECISIONS.md`  → getroffene Entscheidungen (nicht still umwerfen)
    - `docs/MODELS.md`     → welches Modell für diese Art Aufgabe richtig ist
    - `docs/RECHERCHE.md`  → wie ein Katalogeintrag entsteht (nur vor Recherche-Runden nötig)
+   - `docs/SUBAGENT-VORLAGE.md` → fertiger Subagent-Prompt (nur vor Recherche-Runden nötig)
 2. Führe `git log --oneline -10` aus, um den letzten echten Stand zu sehen.
 3. Führe `npm run validate` aus. Ist es rot, ist Reparieren die erste Aufgabe — egal was ich sonst schreibe.
 4. Prüfe den in `docs/MODELS.md` hinterlegten Modell-Check (Punkt 1 unten). Passt das aktive Modell
@@ -56,9 +57,24 @@ Umgekehrt bei einer reinen Datenrunde auf Opus: weise auf den unnötigen Aufwand
    `link_status: "ungeprueft"`. Lieber ein Feld leer als falsch.
 5. **Nach jedem Arbeitsschritt:** `docs/PROGRESS.md` und `docs/CHANGELOG.md` fortschreiben,
    dann `git commit` mit aussagekräftiger Message.
+   **Wurde dabei `npm run build` ausgeführt, gehört das Ergebnis als GitHub-Release hinterher**
+   — siehe Punkt 8.
 6. **Nichts löschen, was ich schon habe.** Alte qb-Stacks, Legacy-Scripts und archivierte Repos
    bleiben im Katalog und werden über `stack_hinweis` / `archiviert` eingeordnet, nicht entfernt.
 7. **Kein Rebuild der App bei Datenzuwachs.** Datenrunden ändern nur `data/`.
+8. **Jeder Build wird zu einem GitHub-Release.** `dist/` ist gitignored (reine Ableitung), also
+   ist das Release der einzige Ort, an dem die fertige Datei liegt. Nach einem `npm run build`,
+   das committet wird:
+
+   ```
+   gh release create v<catalogVersion> dist/qbox-planer.html \
+     --title "Qbox Server-Planer v<catalogVersion>" --notes "<kurz: was neu ist>"
+   ```
+
+   Die Version ist die `catalogVersion` aus dem Build-Ergebnis, z.B. `v3.0-r25b`. Sie steht in
+   der Ausgabe von `npm run build` und in der zuletzt geschriebenen Katalogdatei. Ein Release
+   pro Build-Stand — nicht pro Commit, und nicht für reine Datenrunden ohne Rebuild.
+   Ist `gh` nicht im PATH: `"/c/Program Files/GitHub CLI/gh.exe"`.
 
 ---
 
