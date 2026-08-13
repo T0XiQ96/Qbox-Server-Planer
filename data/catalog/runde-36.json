@@ -1,0 +1,313 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r36",
+  "runde": 36,
+  "thema": "Neusuche (docs/RECHERCHE.md §7): 10 populäre Kandidaten (10–34 GitHub-Sterne). 3 mit Gruppenvergleich: it-crafting↔keep_crafting (Gruppe 'crafting', bestand schon), betterxsound↔xsound (neue Gruppe 'audiolib'), mbt_minigames↔qb_minigames (neue Gruppe 'minigames'). lone_radio bewusst NICHT der radio-Gruppe zugeordnet (Auto-Musikradio vs. Sprechfunk-Systeme, funktional nicht vergleichbar).",
+  "erstellt": "2026-08-13",
+  "plugins": [
+    {
+      "id": "dynamic-sit",
+      "name": "dynamic-sit",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Raycast-basiertes Sit-Anywhere-System: erkennt Oberflächen wie Bänke, Mauern, Kanten und kleine Objekte und lässt Spieler dort realistisch sitzen.",
+      "link": "https://github.com/invalid0190/dynamic-sit",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "",
+      "letztes_update": "Aktiv · letzter Push 2026-07-02",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "pro": [
+        "Raycast-basierte, präzise Oberflächenerkennung (Bänke, Mauern, Objekte)",
+        "Keine Abhängigkeiten",
+        "Läuft unter Qbox, QBCore und Standalone"
+      ],
+      "contra": [
+        "Code-Stichprobe fand keinerlei Framework-Anbindung — reines Client-Feature ohne Server-Logik"
+      ],
+      "quelle": "https://github.com/invalid0190/dynamic-sit, https://raw.githubusercontent.com/invalid0190/dynamic-sit/main/fxmanifest.lua"
+    },
+    {
+      "id": "it-crafting",
+      "name": "it-crafting",
+      "kategorie": "wirtschaft",
+      "essenziell": false,
+      "beschreibung": "Crafting-System mit eigener Bridge-Schicht für ESX, QBCore und Qbox sowie Unterstützung für ox_inventory, qb-inventory und mInventory.",
+      "link": "https://github.com/it-scripts/it-crafting",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "v1.0.1",
+      "letztes_update": "Aktiv · letzter Push 2025-06-03",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "gruppe": "crafting",
+      "pro": [
+        "Unterstützt ESX, QBCore und Qbox über eigene Bridge (Framework-Autoerkennung in bridge/init.lua)",
+        "ox_inventory- und ox_target-Support bestätigt im Code",
+        "Aktiv gepflegt (Stand 06/2025), im Gegensatz zum archivierten keep_crafting"
+      ],
+      "contra": [
+        "README nennt explizit: funktioniert aktuell NICHT mit qb-target",
+        "GPL-3.0 — Weitergabe abgeleiteter Werke muss ebenfalls GPL-3.0 sein"
+      ],
+      "quelle": "https://github.com/it-scripts/it-crafting, https://raw.githubusercontent.com/it-scripts/it-crafting/main/fxmanifest.lua, https://raw.githubusercontent.com/it-scripts/it-crafting/main/README.md"
+    },
+    {
+      "id": "mbt_emote_menu",
+      "name": "mbt_emote_menu",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Premium-NUI-Emote-Menü als Oberflächen-Ersatz für rpemotes-reborn mit über 1800 Emotes, Favoriten, Emote-Rad, Schnellzugriffen, Playlists und Fotomodus. Erkennt automatisch ESX, QBox oder QBCore.",
+      "link": "https://github.com/MalibuTechTeam/mbt_emote_menu",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.7.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-06",
+      "lizenz": "escrow",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "emotes",
+      "kompat_warnung": {
+        "text": "Kein reines Emote-System: Nutzt exports.qbx_core direkt und Framework-Autoerkennung (esx/qbox/qbcore), ist aber laut README nur eine UI-Ersatzoberfläche für rpemotes-reborn und ohne dieses funktionslos.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "1800+ Emotes, Favoriten, Emote-Rad, Schnellzugriffe, Playlists, Fotomodus",
+        "Automatische Framework-Erkennung ESX/QBox/QBCore, native qbx_core-Exports",
+        "Aktiv gepflegt (letzter Push 08/2026)"
+      ],
+      "contra": [
+        "Zwingende Abhängigkeit von rpemotes-reborn (nicht katalogisiert) — reine UI-Oberfläche, keine eigene Animationslogik",
+        "Lizenz PolyForm Noncommercial 1.0.0 — Quellcode einsehbar, aber keine freie/kommerzielle Nutzung ohne Genehmigung"
+      ],
+      "quelle": "https://github.com/MalibuTechTeam/mbt_emote_menu, https://raw.githubusercontent.com/MalibuTechTeam/mbt_emote_menu/main/fxmanifest.lua, https://raw.githubusercontent.com/MalibuTechTeam/mbt_emote_menu/main/README.md"
+    },
+    {
+      "id": "lone_radio",
+      "name": "Lone_radio",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "beschreibung": "Auto-Radio, das echte Live-Radio-Streams über die eigene oliSound-Audio-Engine (Web Audio API) im Fahrzeug abspielt. Framework-unabhängig.",
+      "link": "https://github.com/lone17k/Lone_radio",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.1",
+      "letztes_update": "Aktiv · letzter Push 2026-06-20",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "pro": [
+        "Keine Framework-Bindung, läuft unter QBCore, ESX oder Standalone",
+        "Live-Radio-Streams statt statischer Dateien",
+        "Web-Audio-Engine mit geringer Latenz laut README"
+      ],
+      "contra": [
+        "Zwingende Abhängigkeit auf das separate Repo olisound (nicht katalogisiert)",
+        "Ist ein Fahrzeug-Musikradio, keine Sprechfunk-Lösung — nicht mit mm_radio/ac_radio (Voice-Funkgeräten) vergleichbar, deshalb keine gemeinsame gruppe"
+      ],
+      "quelle": "https://github.com/lone17k/Lone_radio, https://raw.githubusercontent.com/lone17k/Lone_radio/main/fxmanifest.lua, https://raw.githubusercontent.com/lone17k/Lone_radio/main/README.md"
+    },
+    {
+      "id": "kifflom_log",
+      "name": "kifflom_log",
+      "kategorie": "admin",
+      "essenziell": false,
+      "beschreibung": "Logging-Ressource, die Netzwerk-Events und Exports serverseitig protokolliert und an Grafana Loki sendet. Reichert Log-Einträge optional um die Citizen-ID an, wenn Qbox Core läuft.",
+      "link": "https://github.com/LordChunk/kifflom_log",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-03",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "neutral": [
+        "Erkennt Qbox optional für Citizen-ID-Anreicherung — Kernfunktion (Event-/Export-Logging) läuft framework-unabhängig"
+      ],
+      "pro": [
+        "Detaillierter Kontext: Spieler-ID, Citizen-ID (Qbox), auslösende Ressource, Argumente",
+        "Grafana-Loki-Anbindung eingebaut"
+      ],
+      "contra": [
+        "Setzt eine eigene Grafana-Loki-Instanz voraus (externe Infrastruktur, kein FiveM-Plugin)"
+      ],
+      "quelle": "https://github.com/LordChunk/kifflom_log, https://raw.githubusercontent.com/LordChunk/kifflom_log/main/fxmanifest.lua, https://raw.githubusercontent.com/LordChunk/kifflom_log/main/README.md"
+    },
+    {
+      "id": "betterxsound",
+      "name": "betterxSound",
+      "kategorie": "kommunikation",
+      "essenziell": false,
+      "beschreibung": "Drop-in-Ersatz für xSound mit behobenem YouTube-Memory-Leak und gegen Missbrauch abgesicherten Sound-Trigger-Events.",
+      "link": "https://github.com/WhereiamL/betterxSound",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.2",
+      "letztes_update": "Aktiv · letzter Push 2026-06-23",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "gruppe": "audiolib",
+      "pro": [
+        "Drop-in-Ersatz für xsound — keine Config-/Code-Anpassung nötig laut Repo-Beschreibung",
+        "Behebt den bekannten YouTube-Memory-Leak von xsound",
+        "Sound-Trigger-Events zusätzlich gegen Missbrauch abgesichert"
+      ],
+      "contra": [
+        "Kein README im Repo — Zweck nur aus fxmanifest und Repo-Beschreibung belegt",
+        "Neuer und weniger community-erprobt als das Original xsound"
+      ],
+      "quelle": "https://github.com/WhereiamL/betterxSound, https://raw.githubusercontent.com/WhereiamL/betterxSound/main/fxmanifest.lua"
+    },
+    {
+      "id": "ved-demise",
+      "name": "ved-demise",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Anpassbares End-of-Life-Script: Spieler können ihren Charakter unter sicheren Bedingungen mit einer Pistole beenden. Unterstützt QBCore, ESX und Qbox, optional mit ox_lib.",
+      "link": "https://github.com/vedrion/ved-demise",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2025-05-28",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "neutral": [
+        "ox_lib ist nur optional (Config.UseOxLib), keine Pflichtabhängigkeit"
+      ],
+      "pro": [
+        "Unterstützt QBCore, ESX und Qbox",
+        "Konfigurierbar (Pistole als Vorbedingung, Fortschrittsbalken)"
+      ],
+      "contra": [
+        "ESX-Nutzer müssen bei eigener Progress-Bar manuell einen zusätzlichen Export ergänzen"
+      ],
+      "quelle": "https://github.com/vedrion/ved-demise, https://raw.githubusercontent.com/vedrion/ved-demise/main/fxmanifest.lua, https://raw.githubusercontent.com/vedrion/ved-demise/main/README.md"
+    },
+    {
+      "id": "ved-emotivereactions",
+      "name": "ved-emotivereactions",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Löst NPC-Reaktionen auf Emotes des Spielers aus. Läuft komplett standalone, optional mit ox_lib-Benachrichtigungen.",
+      "link": "https://github.com/vedrion/ved-emotivereactions",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-05-27",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "pro": [
+        "Komplett standalone, README bestätigt keine Framework-Abhängigkeit",
+        "Optionale ox_lib-Benachrichtigungen zuschaltbar"
+      ],
+      "contra": [
+        "Kleines, sehr fokussiertes Script — nur NPC-Emote-Reaktionen, keine weiteren Funktionen"
+      ],
+      "quelle": "https://github.com/vedrion/ved-emotivereactions, https://raw.githubusercontent.com/vedrion/ved-emotivereactions/main/fxmanifest.lua, https://raw.githubusercontent.com/vedrion/ved-emotivereactions/main/README.md"
+    },
+    {
+      "id": "mbt_minigames",
+      "name": "mbt_minigames",
+      "kategorie": "crime",
+      "essenziell": false,
+      "beschreibung": "Vier geschicklichkeitsbasierte Minispiele als Ersatz für repetitive Progress-Bars, gedacht als gemeinsame Abhängigkeit für andere MalibuTech-Skripte.",
+      "link": "https://github.com/MalibuTechTeam/mbt_minigames",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "2.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-06",
+      "lizenz": "escrow",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "gruppe": "minigames",
+      "pro": [
+        "Vier geschicklichkeitsbasierte Minispiele statt simpler Progress-Bar-Klicks",
+        "Als eigenständige Ressource wiederverwendbar für andere Skripte"
+      ],
+      "contra": [
+        "Lizenz PolyForm Noncommercial 1.0.0 — Quellcode einsehbar, aber keine freie/kommerzielle Nutzung ohne Genehmigung",
+        "Muss vor allen anderen MalibuTech-Ressourcen gestartet werden (Pflicht-Dependency laut README)"
+      ],
+      "quelle": "https://github.com/MalibuTechTeam/mbt_minigames, https://raw.githubusercontent.com/MalibuTechTeam/mbt_minigames/main/fxmanifest.lua, https://raw.githubusercontent.com/MalibuTechTeam/mbt_minigames/main/README.md"
+    },
+    {
+      "id": "flight-buyers",
+      "name": "flight-buyers",
+      "kategorie": "wirtschaft",
+      "essenziell": false,
+      "beschreibung": "Konfigurierbares Ped-Verkaufsscript: Spieler können festgelegte Items an einen Ped verkaufen. Unterstützt QBCore, Qbox und ESX.",
+      "link": "https://github.com/flightdevco/flight-buyers",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "",
+      "letztes_update": "Letzter Push 2024-11-23 — seit über 1 Jahr keine Aktivität",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Code enthält sowohl exports['qb-target'] (client.lua:34) als auch exports.ox_target (client.lua:20) — vermutlich per Config umschaltbar. Unter Qbox muss das Target-System in der Config auf ox_target gestellt werden, sonst droht ein Fehler.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Kostenlos, konfigurierbar",
+        "Nutzt exports.qbx_core und ox_inventory direkt im Code",
+        "Unterstützt ox_target zusätzlich zu qb-target"
+      ],
+      "contra": [
+        "Seit über 1 Jahr kein Update mehr (letzter Push 11/2024)",
+        "qb-target-Pfad im Code vorhanden — Config-Umstellung unter Qbox nötig"
+      ],
+      "quelle": "https://github.com/flightdevco/flight-buyers, https://raw.githubusercontent.com/flightdevco/flight-buyers/main/fxmanifest.lua, https://raw.githubusercontent.com/flightdevco/flight-buyers/main/README.md"
+    }
+  ],
+  "updates": [
+    {
+      "id": "keep_crafting",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Gruppen-Konkurrent it-crafting (Runde 36) gefunden — aktiv gepflegt, unterstützt zusätzlich Qbox nativ und ox_inventory/ox_target. Vergleichsdaten der Gruppe 'crafting' aktualisiert.",
+      "contra": [
+        "🪦 Archiviert seit 2023",
+        "Harte qb-core-Abhängigkeit laut fxmanifest",
+        "Aktive Alternative it-crafting unterstützt zusätzlich Qbox/ox_inventory/ox_target und wird weiterhin gepflegt (Stand 06/2025)"
+      ]
+    },
+    {
+      "id": "xsound",
+      "geprueft_am": "2026-08-13",
+      "gruppe": "audiolib",
+      "update_grund": "Neuer Gruppen-Konkurrent betterxsound (Runde 36) gefunden — Drop-in-Ersatz, behebt bekannten YouTube-Memory-Leak. Neue gruppe 'audiolib' vergeben (Kollisionscheck durchgeführt, Name war frei).",
+      "contra": [
+        "YouTube-API bricht gelegentlich",
+        "Aktive Alternative betterxsound behebt diesen bekannten YouTube-Memory-Leak per Fork, ist aber neuer, ohne README und nur teilgeprueft"
+      ]
+    },
+    {
+      "id": "qb_minigames",
+      "geprueft_am": "2026-08-13",
+      "gruppe": "minigames",
+      "update_grund": "Neuer Gruppen-Konkurrent mbt_minigames (Runde 36) gefunden — vier geschicklichkeitsbasierte Minispiele statt einfacher Klick-Progress-Bars, aber Escrow-Lizenz. Neue gruppe 'minigames' vergeben (Kollisionscheck durchgeführt, Name war frei — Bestandseintrag hatte zuvor gruppe: null).",
+      "contra": [
+        "Alt aber funktional",
+        "Aktive Alternative mbt_minigames bietet geschicklichkeitsbasierte Minispiele statt einfacher Klick-Progress-Bars, ist aber PolyForm-Noncommercial-lizenziert (nicht frei)"
+      ]
+    }
+  ]
+}

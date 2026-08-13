@@ -4,17 +4,16 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 13.08.2026
-**Letzter Commit:** `e5f6817` (Runde 34). Runde 35 ist fertig und wird mit diesem Schritt
-committet — noch nicht gepusht (Nutzer hat Push für Runden 26–34 bewusst zurückgestellt, Repo auf
+**Letzter Commit:** `be92716` (Runde 35). Runde 36 ist fertig und wird mit diesem Schritt
+committet — noch nicht gepusht (Nutzer hat Push für Runden 26–35 bewusst zurückgestellt, Repo auf
 GitHub liegt entsprechend mehrere Commits zurück).
-**Validate-Status:** grün (38 Katalogdateien inkl. `runde-35.json` · 363 Plugins gesamt · 22
-harmlose „nur ein Mitglied"-Warnungen — unverändert, die `blackmarket`-Gruppe hat jetzt 3
-Mitglieder (keine neue Einzelwarnung)).
-**Katalogstand:** 363 gesamt (262 Altbestand + 11/10/10/10/10/10/10/10/10/10 aus Runde 26–35),
-**0 Einträge ohne `geprueft_am`.**
+**Validate-Status:** grün (39 Katalogdateien inkl. `runde-36.json` · 373 Plugins gesamt · 24
+harmlose „nur ein Mitglied"-Warnungen — 2 neu (`audiolib`, `minigames`, beide erwartet).
+**Katalogstand:** 373 gesamt (262 Altbestand + elf Runden à 10–11 aus Runde 26–36), **0 Einträge
+ohne `geprueft_am`.**
 
-**Runden 26–35 — Neusuche-Serie, Kurzfassung (Einzelfunde vollständig im CHANGELOG):**
-Zehn Runden à 10–11 neue Plugins über `npm run discover`/`prefetch --kandidaten`, macht 101
+**Runden 26–36 — Neusuche-Serie, Kurzfassung (Einzelfunde vollständig im CHANGELOG):**
+Elf Runden à 10–11 neue Plugins über `npm run discover`/`prefetch --kandidaten`, macht 111
 neue Einträge seit dem Ende der Altbestand-Nachprüfung. Runden 30–32 brachten insgesamt acht
 bislang übersehene offizielle Qbox-project-Repos (`qbx_seatbelt`, `qbx_scrapyard`,
 `qbx_streetraces`, `qbx_npwd`, `qbx_binoculars`, `qbx_divegear`, `qbx_gearbox`, `qbx_evidence`
@@ -156,26 +155,26 @@ nach jedem `npm run build`, das committet wird, ein Release mit der `catalogVers
 
 ## Nächster Schritt
 
-**Runden 26–35 sind fertig, Neusuche läuft weiter.** 101 Kandidaten sind jetzt im Katalog
-(363 gesamt). `data/.prefetch/kandidaten-35.md` enthält noch **~20 unbearbeitete Kandidaten**
+**Runden 26–36 sind fertig, Neusuche läuft weiter.** 111 Kandidaten sind jetzt im Katalog
+(373 gesamt). `data/.prefetch/kandidaten-36.md` enthält noch **~20 unbearbeitete Kandidaten**
 aus der letzten Vollsuche, u. a. `pl_lib`↔`ox_lib` (wirkt wie eine Fehlzuordnung des
 Discover-Scripts, vor Übernahme prüfen), `qbx_manual`/`qbx_manual_gearbox` (Bevrick, vermutlich
 reine Doku- bzw. Variantenressource zu `qbx_gearbox` — prüfen ob überhaupt katalogwürdig oder
 Duplikat), `npwd_qbx_garages` (leere Beschreibung, wirkt wie eine dünne Kompatibilitäts-Bridge —
 vor Aufnahme klären ob eigenständiger Eintrag sinnvoll ist) sowie diverse 0-Stern-Funde vom Ende
-der Liste. Für Runde 36 lohnt sich ein erneuter Blick in diese Datei, bevor ein neuer
+der Liste. Für Runde 37 lohnt sich ein erneuter Blick in diese Datei, bevor ein neuer
 `discover`-Lauf gestartet wird.
 
-**Runde 36 (nächste Neusuche) so starten:**
+**Runde 37 (nächste Neusuche) so starten:**
 
 ```
-npm run discover -- --seit-letztem-lauf --runde 36   # meist wenig/nichts Neues am selben Tag
-npm run newround 36
-npm run prefetch -- --kandidaten --max 10 --runde 36
+npm run discover -- --seit-letztem-lauf --runde 37   # meist wenig/nichts Neues am selben Tag
+npm run newround 37
+npm run prefetch -- --kandidaten --max 10 --runde 37
 ```
 
 Liefert `--seit-letztem-lauf` 0 Kandidaten (wie in Runde 28–32 durchgehend passiert), stattdessen
-`npm run discover -- --runde 36` ohne das Flag laufen lassen — filtert bereits Katalogisiertes
+`npm run discover -- --runde 37` ohne das Flag laufen lassen — filtert bereits Katalogisiertes
 automatisch raus. Vor dem `prefetch`-Aufruf `data/.kandidaten.json` per Node-Skript auf eine
 kuratierte Teilmenge kürzen (Indizes der gewünschten Kandidaten wählen, Array neu schreiben),
 priorisiert nach Sternen/Aktivität — hat sich seit Runde 28 bewährt. 10 Kandidaten pro Runde ist
@@ -321,3 +320,4 @@ Verdopplung kostet also jedes Mal. Übertragbar ist nur, was sich als *Muster* w
 | 33 | Achte Neusuche-Runde: 10 neue Plugins, 2 Autoren-Cluster einzeln bewertet, `distortionz_police` als kosmetischer qbx_policejob-Fork ehrlich eingeordnet, 4 mit Gruppenvergleich | 10 | 4 (Gruppenvergleiche bei `ox_mdt`, `cd_garage`, `qb_multicharacter`, `pulse_scoreboard`) | 0 | 0 (6 verifiziert, 4 teilgeprüft) | `data/catalog/runde-33.json` | folgt |
 | 34 | Neunte Neusuche-Runde: 10 neue Plugins, `distortionz_robped` als eigenständig abgegrenzt, `pigeon-dice`-Lizenz auf escrow korrigiert, 1 mit Gruppenvergleich | 10 | 1 (Gruppenvergleich bei `leo_lockbox`, neue Gruppe `vehicle_lockbox`) | 0 | 0 (9 verifiziert, 1 teilgeprüft) | `data/catalog/runde-34.json` | folgt |
 | 35 | Zehnte Neusuche-Runde: 10 neue Plugins, 2 neue blackmarket-Konkurrenten, 2 Lizenz-Fehleinstufungen (escrow→open_source) vor Commit korrigiert | 10 | 1 (blackmarket_script mit 2 neuen Vergleichspunkten) | 0 | 0 (6 verifiziert, 4 teilgeprüft) | `data/catalog/runde-35.json` | folgt |
+| 36 | Elfte Neusuche-Runde: 10 populäre Plugins (10–34⭐), lone_radio bewusst nicht der radio-Gruppe zugeordnet, 3 mit Gruppenvergleich | 10 | 3 (Gruppenvergleiche bei `keep_crafting`, `xsound`, `qb_minigames`) | 0 | 0 (9 verifiziert, 1 teilgeprüft) | `data/catalog/runde-36.json` | folgt |

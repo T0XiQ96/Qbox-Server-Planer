@@ -17,6 +17,34 @@ Format je Eintrag:
 
 ---
 
+## [Runde 36] Elfte Neusuche-Runde – 13.08.2026
+
+**Neu:** 10 spürbar populärere Plugins (10–34 ⭐ statt zuletzt meist 0–5): `dynamic-sit`,
+`it-crafting`, `mbt_emote_menu`, `lone_radio`, `kifflom_log`, `betterxsound`, `ved-demise`,
+`ved-emotivereactions`, `mbt_minigames`, `flight-buyers`.
+
+**Drei mit Gruppenvergleich:** `it-crafting`↔`keep_crafting` (Gruppe `crafting`, bestand schon —
+`keep_crafting` ist seit 2023 archiviert, `it-crafting` aktiv und zusätzlich Qbox-nativ),
+`betterxsound`↔`xsound` (**neue Gruppe `audiolib`**, `betterxsound` als Drop-in-Fix für einen
+bekannten YouTube-Memory-Leak eingeordnet, nicht als Konkurrenzprodukt), `mbt_minigames`↔
+`qb_minigames` (**neue Gruppe `minigames`**).
+
+**`lone_radio` bewusst NICHT der `radio`-Gruppe zugeordnet:** Auto-Musikradio (Live-Streams über
+eigene Audio-Engine) ist funktional nicht vergleichbar mit den bestehenden `radio`-Mitgliedern
+(`mm_radio`, `ac_radio` — Sprechfunk-Systeme). Vor der Gruppenzuweisung aktiv geprüft statt
+blind übernommen.
+
+**Zwei Lizenzfunde mit zitierter Einschränkung:** `mbt_emote_menu` und `mbt_minigames` (beide
+MalibuTechTeam) nennen explizit „PolyForm Noncommercial License 1.0.0" — als `escrow`
+eingestuft, weil eine konkrete einschränkende Lizenz vorliegt (nicht nur ein fehlendes
+SPDX-Tag wie beim Standardfall `open_source`).
+
+**Katalog:** 10 neu, 3 aktualisiert (Gruppenvergleiche bei `keep_crafting`, `xsound`,
+`qb_minigames`), 0 Duplikate übersprungen, 0 ungeprüft (9 verifiziert, 1 teilgeprüft)
+**Datei:** `data/catalog/runde-36.json` · **Commit:** folgt
+
+---
+
 ## [Runde 35] Zehnte Neusuche-Runde – 13.08.2026
 
 **Neu:** 10 weitere Plugins: `murderface-skate`, `bsm_weapon_control`, `gs-blackmarket`,
