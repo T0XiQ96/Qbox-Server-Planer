@@ -17,6 +17,33 @@ Format je Eintrag:
 
 ---
 
+## [Runde 29] Vierte Neusuche-Runde – 13.08.2026
+
+**Neu:** 10 weitere Plugins aus der offenen Restliste von Runde 28 (`data/.prefetch/kandidaten-28.md`/-29.md, 9–52 ⭐):
+`jraxion_megaphone`, `murderface-appearance`, `pl-voting`, `bs_laymo`, `ap_pet`, `v-phone-fivem`,
+`ers-integration`, `keep-progressbar`, `whereiaml_vehicleshop`, `y_camera`.
+
+**Drei mit Gruppenvergleich:** `murderface-appearance`↔`fivem_appearance`/`illenium_appearance`
+(Gruppe `appearance`, bestand schon), `whereiaml_vehicleshop`↔`qbx_vehicleshop` (Gruppe
+`dealership`, bestand schon), `y_camera`↔`polaroid_camera` (neue Gruppe `camera` — vor dem
+Schreiben per Grep über alle `data/catalog/*.json` auf Kollision geprüft, siehe Lehre aus Runde
+28; diesmal keine Kollision).
+
+**Mehrere Framework-Korrekturen gegenüber dem Prefetch-Vorschlag**, alle mit Codebeleg: `bs_laymo`
+und `v-phone-fivem` zeigen zusätzlich zu bestätigten `qbx_core`-Exporten auch `ox_core`-Zugriffe
+im Code — als informativer Hinweis in `contra` aufgenommen, ohne das framework-Urteil zu
+verwässern (beide bleiben bei `qbcore_bridge`, da echte Multi-Framework-Bridges vorliegen).
+`keep-progressbar` und `jraxion_megaphone` laufen komplett ohne Framework-Bezug im Code →
+`standalone`. `pl-voting` bindet sich nur über die fremde `pl_lib`-Bridge an, kein direkter
+`qbx_core`-Export im eigenen Code — als `contra`-Punkt dokumentiert statt verschwiegen.
+
+**Katalog:** 10 neu, 4 aktualisiert (Gruppenvergleiche bei `fivem_appearance`,
+`illenium_appearance`, `qbx_vehicleshop`, `polaroid_camera`), 0 Duplikate übersprungen,
+0 ungeprüft (alle 10 `verifiziert`)
+**Datei:** `data/catalog/runde-29.json` · **Commit:** folgt
+
+---
+
 ## [Runde 28] Dritte Neusuche-Runde – 13.08.2026
 
 **Neu:** 10 weitere Plugins über `npm run discover` gefunden (Vollsuche statt

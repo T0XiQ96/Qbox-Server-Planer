@@ -1,0 +1,353 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r29",
+  "runde": 29,
+  "thema": "Neusuche (docs/RECHERCHE.md §7): 10 Kandidaten (9–52 GitHub-Sterne) aus der offenen Restliste von Runde 28. 3 mit Gruppenvergleich: murderface-appearance↔fivem_appearance/illenium_appearance (Gruppe 'appearance', bestand schon), whereiaml_vehicleshop↔qbx_vehicleshop (Gruppe 'dealership', bestand schon), y_camera↔polaroid_camera (neue Gruppe 'camera', Kollisionscheck gegen alle Katalogdateien vorher durchgeführt).",
+  "erstellt": "2026-08-13",
+  "plugins": [
+    {
+      "id": "jraxion_megaphone",
+      "name": "jraxion_megaphone",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Item-basiertes Megafon, das die Sprachreichweite über pma-voice erweitert. Framework-unabhängig nutzbar (QBCore, ESX, Qbox) über die eigene jraxion_lib-Bridge, Inventar frei wählbar.",
+      "link": "https://github.com/JRaxion-Development/jraxion_megaphone",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.2",
+      "letztes_update": "Aktiv · letzter Push 2026-07-28",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "pro": [
+        "Kostenlos",
+        "Framework-unabhängig (QBCore/ESX/Qbox über jraxion_lib)",
+        "Itembasiert, jedes Inventarsystem nutzbar"
+      ],
+      "contra": [
+        "Erfordert zusätzlich jraxion_lib als Bridge (nicht separat katalogisiert)",
+        "Keine SPDX-Lizenzangabe im Repo"
+      ],
+      "quelle": "https://github.com/JRaxion-Development/jraxion_megaphone, https://raw.githubusercontent.com/JRaxion-Development/jraxion_megaphone/main/fxmanifest.lua"
+    },
+    {
+      "id": "murderface-appearance",
+      "name": "murderface-appearance",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Modernes Svelte-5-Interface als Ersatz für illenium-appearance mit Glassmorphism-Design, Kleidungs-Vorschaubildern und Framework-Autoerkennung (QBX/QBCore/ESX/ox_core).",
+      "link": "https://github.com/fruitmob/murderface-appearance",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "2.2.0",
+      "letztes_update": "Aktiv · letzter Push 2026-04-02",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "appearance",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Enthält im Client-Target-Code noch einen qb-target-Pfad (client/target/qb.lua) neben dem nativen ox_target-Pfad (client/target/ox.lua); unter Qbox greift die Autoerkennung auf ox_target/ox_inventory zu, der qb-target-Pfad ist reiner Legacy-Fallback.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "provide 'illenium-appearance' → Drop-in-Ersatz, andere Ressourcen mit illenium-appearance-Abhängigkeit funktionieren weiter",
+        "Nutzt ox_target/ox_inventory nativ unter Qbox (server/framework/ox/main.lua, client/target/ox.lua)",
+        "Framework-Autoerkennung (QBX/QBCore/ESX/ox_core)",
+        "MIT-Lizenz, aktiv gepflegt"
+      ],
+      "contra": [
+        "Kein offizieller Bestandteil des Qbox-Recipes (anders als illenium-appearance)",
+        "Kleinere Community, weniger battle-tested als illenium-appearance",
+        "README nennt qbx_properties/qs-housing-Wardrobe-Integrationen, die separat geprüft werden müssen"
+      ],
+      "quelle": "https://github.com/fruitmob/murderface-appearance, https://raw.githubusercontent.com/fruitmob/murderface-appearance/main/fxmanifest.lua"
+    },
+    {
+      "id": "pl-voting",
+      "name": "pl-voting",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "Wahl-/Abstimmungssystem für den Server (z.B. Bürgermeisterwahlen), mit automatischer Framework-, TextUI- und Benachrichtigungs-Erkennung über pl_lib. Unterstützt QBox, QBCore und ESX.",
+      "link": "https://github.com/pulsepk/pl-voting",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-04",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "Nennt QBox (qbx_core) explizit als unterstütztes Framework im README",
+        "Framework/TextUI/Notify werden automatisch über pl_lib erkannt, keine manuelle Config nötig",
+        "UI läuft ohne externe CDNs (axios/FontAwesome entfernt, alles lokal)"
+      ],
+      "contra": [
+        "Erfordert zusätzlich pl_lib (PulseLib-Bridge, nicht separat katalogisiert)",
+        "Code-Stichprobe fand nur ox_lib-Muster, keinen direkten qbx_core-Export – Framework-Anbindung läuft komplett über pl_lib"
+      ],
+      "quelle": "https://github.com/pulsepk/pl-voting, https://raw.githubusercontent.com/pulsepk/pl-voting/main/fxmanifest.lua"
+    },
+    {
+      "id": "bs_laymo",
+      "name": "bs_laymo",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Autonomer Fahrdienst (Waymo/Uber-Stil) als Smartphone-App für lb-phone oder CodeM Phone, mit voller qbx_core-Integration und eigenem Qbox-Bridge-Convar zur Steuerung des Kompatibilitätsmodus.",
+      "link": "https://github.com/BeetleStudios/bs_laymo",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-27",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_lib"],
+      "kompat_warnung": {
+        "text": "README dokumentiert explizit den Convar qbx:enableBridge: 'true', wenn andere Ressourcen noch die QB-Core-Bridge brauchen, sonst kann 'false' für reine Qbox-Setups genutzt werden. Läuft laut Autor ohne QB-Core-Bridge-Client-Events.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Volle qbx_core-Integration, in README dokumentiert (\"Full compatibility with qbx_core framework\")",
+        "Läuft laut Autor auch ohne QB-Core-Bridge (native Qbox-Setups)",
+        "Framework-Autoerkennung (QBX/QB/ESX/ox_core) im Code"
+      ],
+      "contra": [
+        "Erfordert zusätzlich lb-phone oder CodeM Phone (nicht separat katalogisiert)",
+        "Code-Stichprobe fand auch ox_core-Zugriffe (server/main.lua:25, client/main.lua:42) – zusätzlich zu den bestätigten qbx_core-Exports vorhanden",
+        "Keine SPDX-Lizenzangabe im Repo"
+      ],
+      "quelle": "https://github.com/BeetleStudios/bs_laymo, https://raw.githubusercontent.com/BeetleStudios/bs_laymo/main/fxmanifest.lua"
+    },
+    {
+      "id": "ap_pet",
+      "name": "ap_pet",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Haustiersystem mit Fütter-/Pflegebedürfnissen sowie einem K9-Modul für die Polizei (Drogen-/Angriffshund). Unterstützt QBCore, Qbox und ESX sowie ox_target und qb-target.",
+      "link": "https://github.com/anya-project/ap_pet",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-02-26",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "pro": [
+        "Zwei Systeme in einem: Haustiere für Spieler + Polizei-K9",
+        "Framework-Autoerkennung (client/ui_bridge.lua) für QBCore/Qbox/ESX",
+        "Unterstützt sowohl ox_target als auch qb-target",
+        "MIT-Lizenz"
+      ],
+      "contra": [
+        "Items müssen manuell in qb-core/ox_inventory ergänzt werden (kein automatischer Import)",
+        "Code enthält weiterhin einen qb-target-Pfad (client/interaction.lua, client/main.lua) als Legacy-Fallback neben ox_target"
+      ],
+      "quelle": "https://github.com/anya-project/ap_pet, https://raw.githubusercontent.com/anya-project/ap_pet/main/fxmanifest.lua"
+    },
+    {
+      "id": "v-phone-fivem",
+      "name": "v-phone",
+      "kategorie": "kommunikation",
+      "essenziell": false,
+      "beschreibung": "Komplettes Smartphone (iFruit/FruitOS-Stil) mit 37 Apps, framework-unabhängig für qb-core, qbx_core, ox_core, ESX oder standalone. Erkennt automatisch Framework, Inventar, Banking und Housing und bindet sich per Bridge daran an.",
+      "link": "https://github.com/laforetbrut/v-phone-fivem",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.6.4",
+      "letztes_update": "Aktiv · letzter Push 2026-08-06",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["oxmysql"],
+      "pro": [
+        "Bestätigte qbx_core-Exports in der Bridge (bridge/server/integrations.lua, bridge/server/framework.lua)",
+        "37 Apps, sehr großer Funktionsumfang, aktiv gepflegt (letzter Push 08/2026)",
+        "COMPATIBILITY.md dokumentiert pro App, was auf qb/ox/ESX/Quasar genutzt wird",
+        "Standalone-Modus funktioniert auch ganz ohne Framework"
+      ],
+      "contra": [
+        "Sehr großes Script (65+ Lua-Dateien) – entsprechend höherer Konfigurationsaufwand",
+        "Bridge greift stellenweise auch auf ox_core zu (bridge/server/integrations.lua:449, bridge/server/framework.lua:161); zusätzlich zu den bestätigten qbx_core-Exports vorhanden"
+      ],
+      "quelle": "https://github.com/laforetbrut/v-phone-fivem, https://raw.githubusercontent.com/laforetbrut/v-phone-fivem/main/fxmanifest.lua"
+    },
+    {
+      "id": "ers-integration",
+      "name": "ERS-Integration",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "Integriert den Emergency Response Simulator (ERS) in FiveM über ps-dispatch und ein Radialmenü (qbx-radialmenu oder qb-radialmenu), inklusive Peds-/Fahrzeug-Datenbank-Kontextmenü und Item-Support für qb_inventory/ox_inventory.",
+      "link": "https://github.com/DrSnyder86/ERS-Integration",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "",
+      "letztes_update": "Aktiv · letzter Push 2026-05-21",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ps_dispatch", "oxmysql"],
+      "kompat_warnung": {
+        "text": "fxmanifest listet 'qb-core' als harte Abhängigkeit und lädt @qb-core/shared/locale.lua direkt (fxmanifest.lua:38); unter reinem Qbox muss dafür weiterhin die QBCore-Bridge/qb-core-Ressource mitlaufen. Zusätzlich nutzt client/ers_targets_client.lua:51 exports['qb-target'] als Fallback neben dem nativen ox_target-Pfad (Zeile 32) und qbx_core-Export (client/ers_menu_client.lua:211).",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "README bestätigt explizit QBCore- und QBox-Kompatibilität",
+        "Unterstützt sowohl qb-radialmenu als auch qbx-radialmenu",
+        "Item-Support für qb_inventory und ox_inventory",
+        "Nutzt qbx_core-Export direkt (client/ers_menu_client.lua:211)"
+      ],
+      "contra": [
+        "Harte Abhängigkeit auf 'qb-core' im fxmanifest – unter reinem Qbox-Setup ohne QBCore-Bridge-Ressource ggf. nicht startfähig",
+        "Erfordert zusätzlich den Emergency Response Simulator (ERS) selbst sowie qbx-radialmenu/qb-radialmenu",
+        "Keine SPDX-Lizenzangabe (license '' im fxmanifest, NOASSERTION auf GitHub)"
+      ],
+      "quelle": "https://github.com/DrSnyder86/ERS-Integration, https://raw.githubusercontent.com/DrSnyder86/ERS-Integration/main/fxmanifest.lua"
+    },
+    {
+      "id": "keep-progressbar",
+      "name": "keep-progressbar",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Leichtgewichtiges, anpassbares Progressbar-Script als Ersatz für progressbar (QBCore) bzw. esx_progressbar (ESX), mit zusätzlichem Export für ox_lib-Progress-Aufrufe (ox_lib_progressBar/cancelProgress/progressActive).",
+      "link": "https://github.com/swkeep/keep-progressbar",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-09-25",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "pro": [
+        "provide 'progressbar' und provide 'esx_progressbar' → direkter Drop-in-Ersatz für die Standard-Progressbars von QBCore und ESX",
+        "Bietet zusätzlich exportierte Funktionen für ox_lib-Progress-Aufrufe",
+        "Kein hartes Framework-Dependency im fxmanifest, dadurch framework-unabhängig einsetzbar"
+      ],
+      "contra": [
+        "README-Anleitung ist auf manuelles Ersetzen von progressbar/esx_progressbar ausgelegt, keine automatische Migration",
+        "Muss laut README vor ox_lib geladen werden, sonst funktionieren die ox_lib-Exporte nicht"
+      ],
+      "neutral": [
+        "Reine UI-Komponente, keine eigene Framework-Anbindung nötig"
+      ],
+      "quelle": "https://github.com/swkeep/keep-progressbar, https://raw.githubusercontent.com/swkeep/keep-progressbar/main/fxmanifest.lua"
+    },
+    {
+      "id": "whereiaml_vehicleshop",
+      "name": "whereiaml_vehicleshop",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "beschreibung": "Standalone-Autohaus mit 3D-Live-Showroom, Farbauswahl, Probefahrt und Finanzierung (Anzahlung + Raten über ox_lib), für QBox und ESX über eine einzelne Bridge-Datei.",
+      "link": "https://github.com/WhereiamL/whereiaml_vehicleshop",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-24",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": "dealership",
+      "abhaengigkeiten": ["ox_lib", "oxmysql", "ox_target"],
+      "pro": [
+        "Bestätigte qbx_core-Exports (bridge/framework.lua:20, config/shared.lua:26)",
+        "Testfahrt-Funktion, die qbx_vehicleshop nicht bietet",
+        "Farb-/Lackierungsauswahl direkt im Kauf-UI",
+        "Auch unter ESX nutzbar (Bridge-Datei)"
+      ],
+      "contra": [
+        "Harte ox_target-Abhängigkeit (im Gegensatz zu qbx_vehicleshop, das ohne auskommt)",
+        "Kleinere Community/weniger verbreitet als das offizielle qbx_vehicleshop",
+        "Keine SPDX-Lizenzangabe (NOASSERTION), nur eigene LICENSE-Datei"
+      ],
+      "neutral": [
+        "Ein-Händler-Ansatz wie qbx_vehicleshop (kein Multi-Dealer-System)"
+      ],
+      "quelle": "https://github.com/WhereiamL/whereiaml_vehicleshop, https://raw.githubusercontent.com/WhereiamL/whereiaml_vehicleshop/master/fxmanifest.lua"
+    },
+    {
+      "id": "y_camera",
+      "name": "y_camera",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Kamera-Script für das Qbox-Framework: Fotos werden über fivemanage gehostet, direkte qbx_core- und ox_inventory-Integration.",
+      "link": "https://github.com/TonybynMp4/y_camera",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.4",
+      "letztes_update": "letzter Push 2025-06-03 – länger kein Update",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": "camera",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_inventory"],
+      "pro": [
+        "Bestätigte qbx_core-Exports (fxmanifest.lua:12, server/main.lua:11)",
+        "Direkte ox_inventory-Integration (server/main.lua:24, client/main.lua:257)",
+        "Nutzt fivemanage zum Hosten der Fotos statt eigener Speicherlösung"
+      ],
+      "contra": [
+        "Erfordert zusätzlich fmsdk (im fxmanifest als dependency 'fmsdk' gelistet, nicht separat katalogisiert)",
+        "Letzter Push 06/2025 – seit über einem Jahr ohne sichtbares Update",
+        "Ausschließlich für Qbox/ox_inventory ausgelegt, kein ESX/QBCore-Support wie polaroid_camera"
+      ],
+      "quelle": "https://github.com/TonybynMp4/y_camera, https://raw.githubusercontent.com/TonybynMp4/y_camera/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "fivem_appearance",
+      "geprueft_am": "2026-08-13",
+      "neutral": [
+        "Weitere Alternative in der Gruppe: murderface-appearance (Svelte-5-UI, Drop-in-Ersatz für illenium-appearance)"
+      ],
+      "update_grund": "Runde 29: neuer Gruppen-Kandidat murderface-appearance gefunden, Vergleichsdaten der Gruppe ergänzt (RECHERCHE.md §5)."
+    },
+    {
+      "id": "illenium_appearance",
+      "geprueft_am": "2026-08-13",
+      "neutral": [
+        "Ersetzt fivem-appearance/qb-clothing",
+        "Alternative moderne UI verfügbar: murderface-appearance (Svelte 5, provide 'illenium-appearance' → drop-in-tauschbar, aber ohne offiziellen Qbox-Recipe-Status)"
+      ],
+      "update_grund": "Runde 29: murderface-appearance nutzt provide 'illenium-appearance' und ist damit ein direkter UI-Ersatzkandidat; Vergleichsdaten der Gruppe ergänzt (RECHERCHE.md §5)."
+    },
+    {
+      "id": "qbx_vehicleshop",
+      "geprueft_am": "2026-08-13",
+      "contra": [
+        "Ein Händler-Typ",
+        "Keine Testfahrt-Funktion (im Gegensatz zu whereiaml_vehicleshop)"
+      ],
+      "neutral": [
+        "Preise in vehicles-Tabelle",
+        "Alternative mit Testfahrt/Lackierungs-Konfigurator: whereiaml_vehicleshop (zusätzlich ESX-fähig)"
+      ],
+      "update_grund": "Runde 29: neuer Gruppen-Kandidat whereiaml_vehicleshop gefunden, Vergleichsdaten der Gruppe ergänzt (RECHERCHE.md §5)."
+    },
+    {
+      "id": "polaroid_camera",
+      "geprueft_am": "2026-08-13",
+      "gruppe": "camera",
+      "contra": [
+        "Link zu ermitteln",
+        "Deutlich weniger konkret belegt als y_camera (kein verifiziertes Repo, nur Qbox-Topic-Verweis)"
+      ],
+      "neutral": [
+        "Alternative mit verifiziertem Repo und fivemanage-Hosting: y_camera (ausschließlich Qbox/ox_inventory, dafür seit 06/2025 ohne Update)"
+      ],
+      "update_grund": "Runde 29: y_camera als Gruppen-Kandidat gefunden, neue gruppe 'camera' vergeben (Bestandseintrag hatte bislang keine gruppe), Vergleichsdaten ergänzt (RECHERCHE.md §5)."
+    }
+  ]
+}
