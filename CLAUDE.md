@@ -104,9 +104,28 @@ npm run build      # dist/qbox-planer.html bauen
 npm run stats      # Anzahl je Kategorie / Qualität / Status
 npm run find <q>   # Plugin im Katalog suchen, ohne den Katalog zu laden
 npm run linkcheck  # HTTP-Status aller Links → link_status + link_geprueft_am
+npm run discover   # NEUE Plugins auf GitHub finden, Bekanntes automatisch aussortieren
 npm run prefetch   # Recherche-Briefing für die Subagents vorab erzeugen
 npm run newround N # Gerüst für data/catalog/runde-N.json anlegen
+npm run selftest   # prüft die Prüfer (Validator-Meldungen, Dublettenlogik)
 ```
+
+**Bei Neusuche-Runden läuft `discover` vor `prefetch`** (Details in `docs/RECHERCHE.md` §7):
+
+```
+npm run discover -- --runde 26                 # oder: --seit-letztem-lauf
+npm run prefetch -- --kandidaten --max 12 --runde 26
+```
+
+`discover` fragt mehrere GitHub-Suchen ab, wirft alles raus, was schon im Katalog steht (ID **oder**
+Link-Ziel), trennt Umbenennungen von Konkurrenzprodukten und verwirft Repos ohne `fxmanifest.lua`.
+Erst der Rest geht in `prefetch`. Wichtig: **ein Konkurrenzprodukt ist keine Dublette** —
+`ac_radio` und `mm_radio` sind zwei Einträge derselben `gruppe`. Diese Unterscheidung ist in
+`npm run selftest` festgenagelt, weil ein Fehler dort echte Funde verschluckt.
+
+`prefetch --kandidaten` liefert zusätzlich pro Kandidat einen **Feldvorschlag**: alles Ablesbare
+ist gefüllt, alles Urteilsabhängige steht als `<...>`-Platzhalter drin — die sind schema-ungültig,
+`npm run validate` fängt sie also ab, falls sie stehen bleiben.
 
 **`prefetch` läuft immer vor einer Recherche-Runde**, sonst arbeiten die Subagents unnötig teuer:
 

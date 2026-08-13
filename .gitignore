@@ -9,6 +9,12 @@ data/.linkcache.json
 data/.prefetchcache.json
 data/.prefetch/
 
+# Discover (Neusuche): Cache, Kandidatenliste und Lauf-Datum.
+# Ebenfalls reine Ableitung, jederzeit per "npm run discover" neu erzeugbar.
+data/.discovercache.json
+data/.kandidaten.json
+data/.discover-lauf.json
+
 # Wird von "npm run validate" erzeugt, reine Ableitung aus data/catalog/
 data/_ids.txt
 

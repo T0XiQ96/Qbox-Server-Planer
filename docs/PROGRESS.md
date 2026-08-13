@@ -122,19 +122,30 @@ Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drau
 
 ## Nächster Schritt
 
-**Altbestand ist jetzt vollständig durchgeprüft (0 Einträge ohne `geprueft_am`).** Phase 3
-„Nachprüfung" ist damit abgeschlossen. Zwei kleine Aufräumpunkte aus Runde 25 sind noch offen
-(siehe „Bewusst verschoben" unten: `kingmaps_shop`-Duplikat, `patoche`-Linkverdacht) — klein
-genug, um sie beiläufig in einer künftigen Runde mitzuerledigen statt eine eigene Runde dafür zu
-verwenden.
+**Altbestand ist vollständig durchgeprüft (0 Einträge ohne `geprueft_am`).** Phase 3
+„Nachprüfung" ist abgeschlossen. **Das Werkzeug für die Neusuche steht ebenfalls** (siehe
+CHANGELOG „[Werkzeug] Discover"), `docs/RECHERCHE.md` §7 beschreibt den Ablauf.
 
-**Als Nächstes: Beginn der Suche nach neuen Plugins** (Katalogziel 500–1000+, aktuell 262).
-Vorher mit dem Nutzer klären, ob `docs/RECHERCHE.md` für Neusuche-Runden noch Ergänzungen
-braucht — das Dokument ist bisher ausschließlich auf Nachprüfung bestehender Katalogeinträge
-zugeschnitten (Repo-Status/fxmanifest/README eines bekannten Links prüfen), nicht auf das
-Finden neuer, bisher unbekannter Plugins (andere Suchstrategie: GitHub-Topic-Suche, Cfx-Forum
-„Releases", Tebex-Kategorien, Community-Empfehlungen). Erst danach `npm run newround 26`
-starten.
+**Runde 26 kann direkt starten — Neusuche, erste Runde:**
+
+```
+npm run discover -- --runde 26                          # Kandidaten (schon einmal gelaufen)
+npm run newround 26
+npm run prefetch -- --kandidaten --max 12 --runde 26
+```
+
+Der erste `discover`-Lauf vom 13.08.2026 liegt bereits vor: 687 Rohtreffer → rund 200 echte
+Kandidaten, Bekanntes/Umbenennungen/Nicht-Ressourcen automatisch aussortiert. Die Top-25 stehen
+in `data/.prefetch/kandidaten-26.md`, `data/.kandidaten.json` ist die Eingabe für `prefetch`.
+Beide Dateien sind gitignored (reine Ableitung) — bei einem frischen Klon einfach neu erzeugen.
+
+**Offene Entscheidung vor Runde 26:** Wie viele Kandidaten pro Runde? Der Katalog soll auf
+500–1000+ wachsen (aktuell 262), aber jeder Eintrag braucht `kategorie`, deutsche `beschreibung`
+und bei Gruppenzugehörigkeit die Vergleichsdaten **beider** Seiten (RECHERCHE.md §5). 10–12
+Kandidaten pro Runde wie bei der Nachprüfung ist der naheliegende Startwert.
+
+Zwei kleine Aufräumpunkte aus Runde 25 sind noch offen (siehe „Bewusst verschoben" unten:
+`kingmaps_shop`-Duplikat, `patoche`-Linkverdacht) — beiläufig in einer künftigen Runde mitnehmen.
 
 **Bewährtes Muster aus Runden 19–24 (Prefetch + ganze Kategorien pro Runde):** Bei jeder Runde
 schreibt die Hauptsession die sauberen Treffer aus dem Briefing (vollständige Code-Stichprobe,

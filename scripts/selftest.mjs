@@ -16,6 +16,7 @@ import { parseJson, fehlerText } from '../src/lib/jsonfehler.js';
 import { mitStandard, badgesVon } from '../src/app/defaults.js';
 import { pruefe } from '../src/lib/schema.js';
 import { pfad, rot, gruen, grau, fett } from './lib/katalog.mjs';
+import { baueBestand, pruefeDublette, idAusName } from './lib/dubletten.mjs';
 
 let gelaufen = 0;
 let gescheitert = 0;
@@ -242,6 +243,70 @@ const erwarteteMeldungen = [
 for (const [name, teil] of erwarteteMeldungen) {
   pruefung(name, () => enthaelt(kaputt.text, teil, 'Meldung fehlt in der Ausgabe von validate'));
 }
+
+/* ============================================================================
+   Dublettenprüfung der Neusuche (scripts/lib/dubletten.mjs)
+   ============================================================================
+
+   Der genauigkeitskritische Teil von `npm run discover`: Was hier falsch einsortiert wird,
+   landet entweder doppelt im Katalog (Dublette übersehen) oder gar nicht (Neufund fälschlich
+   als bekannt verworfen). Beides fällt sonst erst Runden später auf.
+*/
+
+console.log(fett('\nDublettenprüfung der Neusuche'));
+
+const bestandTest = baueBestand([
+  { id: 'qbx_cityhall', link: 'https://github.com/Qbox-project/qbx_cityhall', gruppe: 'cityhall' },
+  { id: 'mm_radio', link: 'https://github.com/Qbox-project/mm_radio', gruppe: 'radio' },
+  { id: 'wasabi_backpack', link: 'https://github.com/wasabi-versions/wasabi_backpack', gruppe: null },
+  { id: 'ox_lib', link: 'https://github.com/overextended/ox_lib', gruppe: null }
+]);
+
+const art = (k) => pruefeDublette(bestandTest, k)?.art ?? null;
+
+pruefung('identische ID → Dublette', () => {
+  gleich(art({ id: 'ox_lib', link: 'https://github.com/irgendwer/ox_lib' }), 'id', 'ID-Treffer nicht erkannt');
+});
+
+pruefung('gleiches Link-Ziel trotz anderem Namen → Dublette', () => {
+  gleich(art({ id: 'ox-library', link: 'https://github.com/overextended/ox_lib' }), 'link', 'Link-Treffer nicht erkannt');
+});
+
+pruefung('Link-Vergleich ignoriert .git, www und Groß/Klein', () => {
+  gleich(art({ id: 'voellig_anders', link: 'https://WWW.github.com/OverExtended/OX_LIB.git' }), 'link',
+    'Link-Normalisierung greift nicht');
+});
+
+pruefung('gleicher Anbieter, anderer Name → Umbenennung', () => {
+  gleich(art({ id: 'wasabi-backpacks', link: 'https://github.com/wasabi-versions/wasabi-backpacks' }), 'umbenannt',
+    'Umbenennung nicht als solche erkannt');
+});
+
+pruefung('anderer Anbieter, gleiche Funktion → Gruppen-Kandidat, KEINE Dublette', () => {
+  gleich(art({ id: 'mtc-cityhall', link: 'https://github.com/morethancodenl/mtc-cityhall' }), 'gruppe',
+    'Konkurrenzprodukt fälschlich als Dublette einsortiert — so geht ein echter Neufund verloren');
+  gleich(art({ id: 'ac_radio', link: 'https://github.com/acscripts/ac_radio' }), 'gruppe',
+    'Konkurrenzprodukt fälschlich als Dublette einsortiert');
+});
+
+pruefung('Gruppen-Kandidat nennt den Bestandseintrag zum Übernehmen', () => {
+  const t = pruefeDublette(bestandTest, { id: 'ac_radio', link: 'https://github.com/acscripts/ac_radio' });
+  gleich(t.plugin.gruppe, 'radio', 'falscher oder fehlender Gruppenbezug');
+});
+
+pruefung('unbekanntes Plugin → kein Treffer', () => {
+  gleich(art({ id: 'bs_garbagejob', link: 'https://github.com/BeetleStudios/bs_garbagejob' }), null,
+    'echter Neufund fälschlich als bekannt verworfen');
+});
+
+pruefung('Repo-Name → gültige Katalog-ID', () => {
+  gleich(idAusName('Qbox_Car_Starterpack'), 'qbox_car_starterpack', 'Großschreibung nicht normalisiert');
+  gleich(idAusName('cipher-mdt'), 'cipher-mdt', 'erlaubte Bindestriche verändert');
+  gleich(idAusName('-weird.name!'), 'weird_name', 'ungültige Zeichen nicht ersetzt');
+  if (!/^[a-z0-9][a-z0-9_-]*$/.test(idAusName('99 Problems!'))) {
+    throw new Error('erzeugte ID passt nicht auf das Schema-Muster');
+  }
+});
 
 /* ============================================================================ */
 

@@ -221,3 +221,89 @@ Update-Mechanik da — der Katalog altert sonst still vor sich hin.
 
 Jede Runde enthält deshalb neben der Suche nach neuen Plugins auch eine **Nachprüfung** der
 ältesten Einträge im Bestand (die 20 mit dem ältesten `geprueft_am`).
+
+---
+
+## 7. Neusuche — wie ein bisher unbekanntes Plugin in den Katalog kommt
+
+Die Abschnitte 1–6 setzen voraus, dass der Link schon im Katalog steht. Ab Runde 26 geht es um
+Plugins, die wir noch gar nicht kennen. Das ist eine andere Aufgabe: nicht „stimmt das noch?",
+sondern „gibt es das überhaupt, und gehört es hier hinein?".
+
+Die Versuchung ist, einen Subagent einfach suchen zu lassen. Das ist der teuerste denkbare Weg:
+Trefferlisten sind Rohtext, und die Hälfte davon ist Zeug, das wir längst haben. **Deshalb läuft
+die Neusuche in zwei getrennten Phasen**, und die erste kostet kein Modell.
+
+### 7a. Phase 1 — Kandidaten finden (`npm run discover`)
+
+```
+npm run discover -- --runde 26
+npm run discover -- --seit-letztem-lauf     (nur, was seit dem letzten Durchlauf dazukam)
+```
+
+Das Script fragt mehrere GitHub-Suchen gleichzeitig ab (`topic:qbox`, `topic:qbx`, `qbx_ in:name`,
+`qbox in:description`, …), führt die Treffer zusammen und **sortiert deterministisch aus**:
+
+| Schritt | Was passiert | Warum das kein Modell braucht |
+|---|---|---|
+| Bekannt | Treffer, deren ID **oder Link-Ziel** schon im Katalog steht, fliegen raus | Zeichenvergleich |
+| Umbenannt | Gleicher Anbieter, anderer Name (`wasabi_backpack` ↔ `wasabi-backpacks`) → eigene Liste | Präfix-Vergleich |
+| Gruppe | **Anderer** Anbieter, gleiche Funktion (`ac_radio` ↔ `mm_radio`) → bleibt Kandidat, aber mit fertiger `gruppe`-Zuordnung | Präfix-Vergleich |
+| Keine Ressource | Kein `fxmanifest.lua`/`__resource.lua` im Repo → raus | HTTP-Abruf |
+| Reihung | Nach Aktivität, Sternen und Framework-Signalen aus dem fxmanifest | Rechnen |
+
+Der letzte Punkt der Gruppen-Zeile ist der wichtigste und leicht zu übersehen: **Ein
+Konkurrenzprodukt ist keine Dublette.** `mtc-cityhall` und `qbx_cityhall` sind zwei Einträge in
+derselben `gruppe` — wer das als Dublette verwirft, verliert genau die Vergleichsdaten, für die
+Abschnitt 5 existiert. Die Unterscheidung ist mechanisch (gleicher Anbieter = Umbenennung,
+anderer Anbieter = Konkurrenz) und in `npm run selftest` festgenagelt.
+
+Ergebnis ist `data/.prefetch/kandidaten-N.md` — eine Tabelle, keine Prosa. Aus ihr wird
+**entschieden**, welche Kandidaten in den Katalog sollen. Das ist Nachdenken, kein Abrufen.
+
+Zur Größenordnung aus dem ersten Lauf (13.08.2026): 687 Rohtreffer aus 6 Abfragen, **11
+API-Aufrufe**, davon 74 bereits im Katalog, 24 vermutliche Umbenennungen, 323 ohne fxmanifest —
+übrig blieben rund 200 echte Kandidaten. Kein Modell hat dafür eine Zeile gelesen.
+
+### 7b. Phase 2 — Ausgewählte Kandidaten vertiefen (`npm run prefetch -- --kandidaten`)
+
+```
+npm run prefetch -- --kandidaten --max 12 --runde 26
+```
+
+Ab hier ist der Ablauf identisch zur Nachprüfung: fxmanifest wörtlich, README-Belegzeilen,
+Code-Stichprobe über alle `.lua`-Dateien nach Abschnitt 3. Zusätzlich enthält das Briefing
+(`data/.prefetch/neu-runde-N.md`) pro Kandidat einen **Feldvorschlag**: das Gerüst eines
+Katalogeintrags, in dem alles gefüllt ist, was aus den Fakten ablesbar ist — `version`,
+`letztes_update`, `lizenz`, `abhaengigkeiten`, `archiviert`, `quelle`, ein begründeter
+`framework`-Vorschlag und die `gruppe`, falls Phase 1 eine erkannt hat.
+
+Was **nicht** gefüllt ist, steht als `<...>`-Platzhalter drin: `kategorie`, `beschreibung`, und
+alles, was Urteil verlangt. Diese Platzhalter sind für das Schema ungültige Werte — wer sie stehen
+lässt, fliegt bei `npm run validate` auf. Das ist Absicht.
+
+**Der Feldvorschlag ist ein Vorschlag, kein Eintrag.** Er wird gegengelesen, nicht übernommen.
+Insbesondere `framework` ist aus Code-Mustern geschlossen und muss gegen das README geprüft
+werden; `lizenz: open_source` steht dort, weil GitHub eine SPDX-Lizenz meldet — dass ein Repo
+öffentlich ist, sagt nichts über ein zusätzliches Tebex-Escrow-Produkt desselben Autors
+(siehe die `jim_*`-Funde aus Runde 14/15).
+
+### 7c. Was ein Kandidat erfüllen muss, um Katalogeintrag zu werden
+
+- **Es ist eine FiveM-Ressource.** `fxmanifest.lua` vorhanden (prüft Phase 1 automatisch).
+- **Es ist nicht schon drin.** Weder als ID, noch als Link-Ziel, noch als Umbenennung.
+- **Es ist einordbar.** Eine der Kategorien aus `data/kategorien.json` passt. Wenn nicht,
+  ist das eine Entscheidung für den Nutzer, kein Grund, eine Kategorie zu erfinden.
+- **Es ist belegbar beschreibbar.** Die `beschreibung` muss aus README/Shop-Seite hervorgehen.
+  Ein Repo ohne README und ohne Beschreibung bekommt keinen erfundenen Zweck — dann lieber
+  `qualitaet: "ungeprueft"` mit dem, was das fxmanifest hergibt.
+
+Ein toter oder unbelegbarer Kandidat wird **nicht** aufgenommen. Der Katalog wächst über echte
+Funde, nicht über Zeilenzahl — das Ziel „500–1000+" ist eine Erwartung, keine Quote.
+
+### 7d. Was die Neusuche NICHT ändert
+
+Alles aus Abschnitt 2–5 gilt unverändert: dieselben Pflichtfelder, derselbe Kompatibilitäts-Check,
+derselbe Beleggrad, dieselbe Vergleichspflicht innerhalb einer `gruppe`. Ein neuer Eintrag ist
+kein Eintrag zweiter Klasse — er durchläuft dieselbe Prüfung wie eine Nachkontrolle, nur dass
+Phase 1 die Vorauswahl übernommen hat.

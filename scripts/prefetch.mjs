@@ -20,14 +20,23 @@
  *   · GITHUB_TOKEN oder GH_TOKEN aus der Umgebung wird genutzt, wenn vorhanden (60 → 5000 Anfragen/h)
  *   · Shops mit Bot-Schutz werden gar nicht erst angefragt, sondern als Handarbeit ausgewiesen
  *
+ * Seit Runde 26 arbeitet es außerdem für Plugins, die noch NICHT im Katalog stehen
+ * (`--kandidaten`, gefüttert von scripts/discover.mjs). Der Ablauf ist derselbe; zusätzlich
+ * entsteht pro Kandidat ein Feldvorschlag aus den deterministischen Angaben, damit die
+ * Hauptsession nur noch das schreiben muss, was wirklich Urteil verlangt.
+ *
  * Aufruf: npm run prefetch -- --kategorie crime --offen --max 11
  *         npm run prefetch -- --ids qbx_lockpick,qbx_pawnshop --runde 19
  *         npm run prefetch -- --kategorie crime --offen --neu       (Cache ignorieren)
  *         npm run prefetch -- --ids ox_lib --schnell                (ohne Code-Stichprobe)
+ *         npm run prefetch -- --kandidaten --runde 26               (neue Plugins aus discover)
+ *         npm run prefetch -- --urls https://github.com/a/b         (einzelner neuer Kandidat)
  */
 
 import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'node:fs';
 import { ladeKatalog, pfad, relPfad, rot, gruen, gelb, blau, grau, fett } from './lib/katalog.mjs';
+import { macheNetz, parallel, TOKEN } from './lib/netz.mjs';
+import { baueBestand, pruefeDublette, githubTeile, namensNaehe, idAusName } from './lib/dubletten.mjs';
 
 const args = process.argv.slice(2).filter((a) => a !== '--');
 const flag = (name) => { const i = args.indexOf('--' + name); return i >= 0 ? args[i + 1] : null; };
@@ -36,9 +45,11 @@ const hat = (name) => args.includes('--' + name);
 const NUR_OFFEN = hat('offen');
 const NEU = hat('neu');
 const SCHNELL = hat('schnell');
+const KANDIDATEN = hat('kandidaten');
 const MAX = Number(flag('max') || 12);
 const RUNDE = flag('runde');
 const IDS = (flag('ids') || '').split(',').map((s) => s.trim()).filter(Boolean);
+const URLS = (flag('urls') || '').split(',').map((s) => s.trim()).filter(Boolean);
 const KATEGORIE = flag('kategorie');
 
 const PARALLEL = 6;          // reine Netzwerk-Wartezeit, deshalb etwas höher als linkcheck
@@ -46,8 +57,6 @@ const CACHE_TAGE = 7;
 const TIMEOUT_MS = 15000;
 const MAX_LUA = 40;          // Code-Stichprobe: so viele .lua-Dateien je Repo, dann reicht es
 const MAX_DATEI_BYTES = 150_000;
-
-const TOKEN = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '';
 
 /** Übernommen aus linkcheck.mjs — eine Anfrage bringt hier nur einen 403. */
 const BOT_SCHUTZ = [
@@ -59,9 +68,15 @@ const BOT_SCHUTZ = [
 /** Links, die gar kein Repo bezeichnen — Altbestand-Platzhalter aus der Konvertierung. */
 const PLATZHALTER = ['github.com/topics/', 'github.com/search'];
 
-const heute = new Date().toISOString().slice(0, 10);
-const cachePfad = pfad('data', '.prefetchcache.json');
-const cache = existsSync(cachePfad) && !NEU ? JSON.parse(readFileSync(cachePfad, 'utf8')) : {};
+const netz = macheNetz({
+  cachePfad: pfad('data', '.prefetchcache.json'),
+  cacheTage: CACHE_TAGE,
+  timeoutMs: TIMEOUT_MS,
+  maxBytes: MAX_DATEI_BYTES,
+  frisch: NEU,
+  kennung: 'qbox-server-planer/3.0 (Prefetch)'
+});
+const { holeApi, holeRoh, zaehler, heute } = netz;
 
 /* ------------------------- Kompatibilitäts-Muster ------------------------- */
 /* Direkt aus docs/RECHERCHE.md §3. Das Script belegt die Fundstelle, das Urteil bleibt beim Agent. */
@@ -87,90 +102,6 @@ const MUSTER = [
 
 /** Begriffe, die eine README-Zeile für die Einordnung interessant machen. */
 const README_BEGRIFFE = /qbox|qbx|esx|qbcore|qb-core|ox_lib|ox_target|ox_inventory|ox_core|escrow|tebex|licen[sc]e|depend|require|framework|bridge|standalone|archiv|deprecat|unmaintain|no longer/i;
-
-/* --------------------------------- Holen --------------------------------- */
-
-const zaehler = { api: 0, roh: 0, cache: 0, fehler: 0 };
-
-async function hole(url, kopf = {}) {
-  const abbruch = new AbortController();
-  const uhr = setTimeout(() => abbruch.abort(), TIMEOUT_MS);
-  try {
-    return await fetch(url, {
-      redirect: 'follow',
-      signal: abbruch.signal,
-      headers: { 'User-Agent': 'qbox-server-planer/3.0 (Prefetch)', ...kopf }
-    });
-  } finally {
-    clearTimeout(uhr);
-  }
-}
-
-/** GitHub-API mit Token, falls vorhanden. Gibt {ok, daten, status} zurück. */
-async function holeApi(url) {
-  const merker = 'api:' + url;
-  const zwischen = ausCache(merker);
-  if (zwischen) { zaehler.cache++; return zwischen; }
-
-  const kopf = { Accept: 'application/vnd.github+json' };
-  if (TOKEN) kopf.Authorization = 'Bearer ' + TOKEN;
-
-  let erg;
-  try {
-    const res = await hole(url, kopf);
-    zaehler.api++;
-    if (res.status === 403 || res.status === 429) {
-      const rest = res.headers.get('x-ratelimit-remaining');
-      erg = { ok: false, status: res.status, grund: rest === '0' ? 'API-Limit erschöpft' : 'blockt (403)' };
-    } else if (!res.ok) {
-      erg = { ok: false, status: res.status, grund: 'HTTP ' + res.status };
-    } else {
-      erg = { ok: true, status: res.status, daten: await res.json() };
-    }
-  } catch (e) {
-    zaehler.fehler++;
-    erg = { ok: false, status: 0, grund: e.name === 'AbortError' ? 'Zeitüberschreitung' : String(e.cause?.code || e.message) };
-  }
-  // Fehlschläge wegen Limit nicht cachen — die sollen beim nächsten Lauf neu versucht werden.
-  if (erg.ok || erg.status === 404) inCache(merker, erg);
-  return erg;
-}
-
-/** Rohdatei von raw.githubusercontent.com. Hängt nicht am API-Limit. */
-async function holeRoh(url) {
-  const merker = 'roh:' + url;
-  const zwischen = ausCache(merker);
-  if (zwischen) { zaehler.cache++; return zwischen; }
-
-  let erg;
-  try {
-    const res = await hole(url);
-    zaehler.roh++;
-    if (!res.ok) erg = { ok: false, status: res.status };
-    else {
-      const text = await res.text();
-      erg = { ok: true, status: res.status, text: text.length > MAX_DATEI_BYTES ? text.slice(0, MAX_DATEI_BYTES) : text };
-    }
-  } catch (e) {
-    zaehler.fehler++;
-    erg = { ok: false, status: 0, grund: String(e.cause?.code || e.message) };
-  }
-  inCache(merker, erg);
-  return erg;
-}
-
-function ausCache(schluessel) {
-  const e = cache[schluessel];
-  if (!e) return null;
-  const alter = (Date.parse(heute) - Date.parse(e._geholt)) / 86400000;
-  if (alter > CACHE_TAGE) return null;
-  const { _geholt, ...rest } = e;
-  return rest;
-}
-
-function inCache(schluessel, wert) {
-  cache[schluessel] = { ...wert, _geholt: heute };
-}
 
 /* ---------------------- Repo-Bestand je Owner (1 Abruf) ---------------------- */
 
@@ -224,44 +155,6 @@ async function holeOwnerBestand(owner) {
 }
 
 /* ------------------------------ Auswertung ------------------------------ */
-
-const githubTeile = (url) => {
-  const m = /^https?:\/\/(?:www\.)?github\.com\/([^/#?]+)(?:\/([^/#?]+))?/i.exec(url || '');
-  if (!m) return null;
-  return { owner: m[1], repo: m[2] ? m[2].replace(/\.git$/, '') : null };
-};
-
-const normal = (s) => s.toLowerCase().replace(/[-_\s]/g, '');
-
-/** Roher Namensabgleich über die längste gemeinsame Teilzeichenkette. */
-function aehnlich(a, b) {
-  const x = normal(a), y = normal(b);
-  if (!x || !y) return 0;
-  if (x === y) return 1;
-  if (x.includes(y) || y.includes(x)) return 0.9;
-  let beste = 0;
-  for (let i = 0; i < x.length; i++) {
-    for (let j = i + beste + 1; j <= x.length; j++) {
-      if (y.includes(x.slice(i, j))) beste = Math.max(beste, j - i); else break;
-    }
-  }
-  return beste / Math.max(x.length, y.length);
-}
-
-/**
- * Der unterscheidende Teil eines Ressourcennamens: bei "randolio_busjob" ist das "busjob".
- * FiveM-Namen sind fast immer <autor>_<sache>, und der Autor ist beim Owner-Vergleich wertlos —
- * ohne diese Trennung landen alle randol_*-Repos gleichauf, weil sie sich das Präfix teilen.
- */
-const kern = (s) => {
-  const teile = s.split(/[-_]/).filter(Boolean);
-  return teile.length > 1 ? teile.slice(1).join('') : s;
-};
-
-/** Ähnlichkeit zweier Repo-Namen, Schwerpunkt auf dem unterscheidenden Teil. */
-function namensNaehe(a, b) {
-  return 0.75 * aehnlich(kern(a), kern(b)) + 0.25 * aehnlich(a, b);
-}
 
 function kandidaten(bestand, gesucht) {
   return bestand.liste
@@ -327,18 +220,13 @@ async function codeStichprobe(owner, repo, branch) {
   };
 }
 
-/** Warteschlange fester Breite — gleiche Form wie in linkcheck.mjs. */
-async function parallel(liste, breite, arbeit) {
-  let i = 0;
-  await Promise.all(Array.from({ length: Math.min(breite, liste.length || 1) }, async () => {
-    while (i < liste.length) await arbeit(liste[i++]);
-  }));
-}
-
 /* ------------------------- Ein Plugin durcharbeiten ------------------------- */
 
 async function bearbeite(p) {
-  const e = { id: p.id, name: p.name, link: p.link || '', kategorie: p.kategorie, qualitaet: p.qualitaet, offen: [] };
+  const e = {
+    id: p.id, name: p.name, link: p.link || '', kategorie: p.kategorie, qualitaet: p.qualitaet,
+    neu: !!p._neu, dublette: p._dublette || null, offen: []
+  };
   const url = e.link;
 
   if (!url) {
@@ -366,6 +254,7 @@ async function bearbeite(p) {
 
   const bestand = await holeOwnerBestand(teile.owner);
   e.owner = teile.owner;
+  e.repo = teile.repo;
   e.ownerAnzahl = bestand.liste.length;
   if (bestand.fehler && !bestand.liste.length) {
     // Ein 404 auf die Owner-Liste ist kein Abrufproblem, sondern ein Befund: den Account gibt es
@@ -422,13 +311,129 @@ async function bearbeite(p) {
   return e;
 }
 
+/* ------------------- Feldvorschlag für neue Katalogeinträge ------------------- */
+
+/**
+ * Baut aus den bereits abgerufenen Fakten das Gerüst eines Katalogeintrags.
+ *
+ * Bewusst KEIN fertiger Eintrag: Alles, was Urteil verlangt (Kategorie, Beschreibung,
+ * pro/contra, endgültiges Framework), bleibt als `<...>`-Platzhalter stehen. Diese
+ * Platzhalter sind für das Schema ungültige Werte — wer sie stehen lässt, fliegt bei
+ * `npm run validate` auf. Das ist Absicht (CLAUDE.md §2.4: lieber ein Feld leer als falsch).
+ *
+ * Gefüllt wird nur, was aus fxmanifest, Repo-Metadaten und Code-Stichprobe ABLESBAR ist.
+ */
+function feldVorschlag(e) {
+  if (!e.meta) return null;
+
+  const rote = (e.code?.funde || []).filter((f) => f.art === 'rot').map((f) => f.name);
+  const gruene = (e.code?.funde || []).filter((f) => f.art === 'gruen').map((f) => f.name);
+  const hatQbx = gruene.some((n) => n.includes('qbx_core'));
+  const hatOx = gruene.some((n) => /ox_lib|ox_target|ox_inventory|bridge/.test(n));
+  const hatQb = rote.some((n) => /qb-core|qb-inventory|qb-target|QBCore/.test(n));
+
+  let framework, frameworkGrund;
+  if (hatQbx) {
+    framework = 'qbox_nativ';
+    frameworkGrund = 'Code nutzt qbx_core-Exports direkt.';
+  } else if (hatQb && hatOx) {
+    framework = 'qbcore_bridge';
+    frameworkGrund = 'Code hat sowohl qb- als auch ox-Pfade — typische Bridge/Autoerkennung.';
+  } else if (hatQb) {
+    framework = 'qbcore_only';
+    frameworkGrund = 'Code greift nur auf qb-Exports zu, kein ox-Pfad gefunden.';
+  } else if (hatOx) {
+    framework = 'qbcore_bridge';
+    frameworkGrund = 'Nur ox-Muster gefunden, kein qbx_core — README entscheidet, ob eher standalone.';
+  } else {
+    framework = 'standalone';
+    frameworkGrund = 'Code-Stichprobe fand kein Framework-Muster.';
+  }
+
+  // Vollständigkeit entscheidet über die Prüftiefe (RECHERCHE.md §4).
+  const vollstaendig = e.fx && e.readme && e.code && !e.code.fehler;
+  const qualitaet = vollstaendig ? 'verifiziert' : 'teilgeprueft';
+
+  const deps = (e.fx?.deps || [])
+    .map((d) => d.toLowerCase().trim())
+    .filter((d) => /^[a-z0-9][a-z0-9_-]*$/.test(d));
+
+  const eintrag = {
+    id: e.id,
+    name: e.name,
+    kategorie: '<PFLICHT: eine ID aus data/kategorien.json>',
+    beschreibung: '<PFLICHT: 1–2 Sätze auf Deutsch, aus dem README belegt, keine Marketingsprache>',
+    link: e.link,
+    link_status: 'ok',
+    link_geprueft_am: heute,
+    geprueft_am: heute,
+    version: e.fx?.version || null,
+    letztes_update: e.meta.archiviert
+      ? `Archiviert · letzter Push ${e.meta.push}`
+      : `Aktiv · letzter Push ${e.meta.push}`,
+    lizenz: e.meta.lizenz && e.meta.lizenz !== 'NOASSERTION'
+      ? 'open_source'
+      : '<PRUEFEN: open_source oder escrow — Repo nennt keine SPDX-Lizenz>',
+    framework,
+    qualitaet
+  };
+
+  if (deps.length) eintrag.abhaengigkeiten = deps;
+
+  // Gehört der Kandidat erkennbar zu einer bestehenden Vergleichsgruppe, wird deren Name
+  // übernommen — sonst entstehen zwei Gruppen für dieselbe Funktion.
+  if (e.dublette?.art === 'gruppe') {
+    const g = e.dublette.plugin;
+    eintrag.gruppe = g.gruppe || `<PRUEFEN: "${g.id}" hat noch keine gruppe — für beide eine anlegen>`;
+  }
+
+  if (e.meta.archiviert) {
+    eintrag.archiviert = { text: `Repo auf GitHub archiviert, letzter Push ${e.meta.push}.`, nachfolger: '' };
+  }
+  eintrag.quelle = [
+    e.link,
+    e.fx ? `https://raw.githubusercontent.com/${e.owner}/${e.repo}/${e.meta.branch}/fxmanifest.lua` : null
+  ].filter(Boolean).join(', ');
+
+  return { eintrag, frameworkGrund, vollstaendig };
+}
+
 /* --------------------------- Plugins auswählen --------------------------- */
 
 const { plugins, fehler } = ladeKatalog();
 if (fehler.length) fehler.forEach((f) => console.log(rot(f) + '\n'));
 
+/** Neuer Kandidat → dieselbe Form wie ein Katalogeintrag, damit bearbeite() nichts merkt. */
+const alsPlugin = (k) => ({
+  id: k.id || idAusName(k.name),
+  name: k.name || k.id,
+  link: k.link,
+  kategorie: '— noch keine —',
+  qualitaet: '— noch nicht im Katalog —',
+  _neu: true
+});
+
 let ziel = plugins;
-if (IDS.length) {
+let modus = 'nachpruefung';
+
+if (KANDIDATEN || URLS.length) {
+  modus = 'neusuche';
+  let roh = [];
+  if (URLS.length) {
+    roh = URLS.map((u) => {
+      const t = githubTeile(u);
+      return { id: idAusName(t?.repo || u), name: t?.repo || u, link: u };
+    });
+  } else {
+    const kPfad = pfad('data', '.kandidaten.json');
+    if (!existsSync(kPfad)) {
+      console.log(rot('\n✖ data/.kandidaten.json fehlt.') + grau('  Erst `npm run discover` laufen lassen.\n'));
+      process.exit(1);
+    }
+    roh = JSON.parse(readFileSync(kPfad, 'utf8')).kandidaten || [];
+  }
+  ziel = roh.slice(0, MAX).map(alsPlugin);
+} else if (IDS.length) {
   ziel = IDS.map((id) => plugins.find((p) => p.id === id)).filter(Boolean);
   const fehlend = IDS.filter((id) => !plugins.some((p) => p.id === id));
   if (fehlend.length) console.log(rot('✖ Unbekannte IDs: ') + fehlend.join(', ') + '\n');
@@ -443,7 +448,15 @@ if (!ziel.length) {
   process.exit(0);
 }
 
-console.log(fett('\nnpm run prefetch') + grau(`  ·  ${ziel.length} Plugins, ${PARALLEL} parallel`));
+// Bei der Neusuche wird JEDER Kandidat noch einmal gegen den Bestand gehalten. discover hat das
+// zwar schon getan, aber zwischen beiden Läufen können Runden geschrieben worden sein — und eine
+// doppelte Recherche ist teurer als ein Vergleich über 262 Einträge im Speicher.
+const bestand = baueBestand(plugins);
+if (modus === 'neusuche') {
+  for (const p of ziel) p._dublette = pruefeDublette(bestand, p);
+}
+
+console.log(fett('\nnpm run prefetch') + grau(`  ·  ${ziel.length} ${modus === 'neusuche' ? 'Kandidaten (Neusuche)' : 'Plugins'}, ${PARALLEL} parallel`));
 console.log(TOKEN
   ? grau('  GitHub-Token gefunden — 5000 Anfragen/h.\n')
   : gelb('  Kein GITHUB_TOKEN/GH_TOKEN gesetzt — 60 Anfragen/h.') + grau(' Reicht dank Owner-Bündelung meist, aber ein Token ist robuster.\n'));
@@ -469,9 +482,9 @@ const zeichenLage = {
 };
 
 const zeilen = [];
-zeilen.push(`# Prefetch-Briefing${RUNDE ? ` — Runde ${RUNDE}` : ''}`);
+zeilen.push(`# Prefetch-Briefing${RUNDE ? ` — Runde ${RUNDE}` : ''}${modus === 'neusuche' ? ' (Neusuche)' : ''}`);
 zeilen.push('');
-zeilen.push(`Erstellt: ${heute} · ${ziel.length} Plugins · erzeugt von \`scripts/prefetch.mjs\``);
+zeilen.push(`Erstellt: ${heute} · ${ziel.length} ${modus === 'neusuche' ? 'Kandidaten' : 'Plugins'} · erzeugt von \`scripts/prefetch.mjs\``);
 zeilen.push('');
 zeilen.push('**Wie du das hier benutzt:** Alle Angaben unten sind bereits abgerufen und wörtlich');
 zeilen.push('übernommen — du musst sie **nicht** nachholen. Sie decken docs/RECHERCHE.md Abschnitt 1a');
@@ -479,6 +492,18 @@ zeilen.push('(Repo-Status, fxmanifest, README-Belege) und §3 (Code-Stichprobe) 
 zeilen.push('Einordnung: Framework-Urteil, Beleggrad, `update_grund` schreiben. Was pro Eintrag noch offen');
 zeilen.push('ist, steht jeweils unter „Offen für dich" — inklusive Abruf-Budget. Halte dich daran: bei');
 zeilen.push('einem toten Link ist „nicht auffindbar" ein vollwertiges Ergebnis, kein Grund weiterzusuchen.');
+if (modus === 'neusuche') {
+  zeilen.push('');
+  zeilen.push('**Neusuche-Runde.** Diese Einträge stehen noch NICHT im Katalog. Zu jedem gibt es unten');
+  zeilen.push('einen **Feldvorschlag** — das Gerüst eines Katalogeintrags, gefüllt mit allem, was aus');
+  zeilen.push('fxmanifest und Repo-Metadaten ablesbar ist. Was Urteil verlangt, steht dort als');
+  zeilen.push('`<...>`-Platzhalter. Deine Arbeit ist genau das: Kategorie wählen, Beschreibung auf Deutsch');
+  zeilen.push('aus dem README belegen, das Framework-Urteil bestätigen oder korrigieren, `pro`/`contra`');
+  zeilen.push('ergänzen. Die bereits gefüllten Felder nicht neu recherchieren.');
+  zeilen.push('');
+  zeilen.push('Jeder Kandidat wurde gegen den Bestand geprüft. Steht dort **keine** Dubletten-Warnung,');
+  zeilen.push('ist er nachweislich neu — das nicht noch einmal selbst prüfen.');
+}
 zeilen.push('');
 zeilen.push('---');
 
@@ -486,8 +511,27 @@ for (const e of ergebnisse) {
   zeilen.push('');
   zeilen.push(`## ${zeichenLage[e.lage] || '·'} ${e.id}`);
   zeilen.push('');
-  zeilen.push(`- Katalog-Link: ${e.link || '_keiner_'}`);
-  zeilen.push(`- Bisher im Katalog: \`qualitaet: ${e.qualitaet}\` · Kategorie \`${e.kategorie}\``);
+  zeilen.push(`- ${e.neu ? 'Link' : 'Katalog-Link'}: ${e.link || '_keiner_'}`);
+  if (e.neu) {
+    const d = e.dublette;
+    if (d && d.art === 'gruppe') {
+      // Keine Dublette, sondern ein Konkurrenzprodukt — und damit die halbe Gruppenarbeit erledigt.
+      zeilen.push(`- 🔗 **Gruppen-Kandidat:** gleiche Funktion wie \`${d.plugin.id}\` (${d.plugin.link || 'kein Link'}), aber anderer Anbieter (Namensnähe ${d.punkte.toFixed(2)}).`);
+      zeilen.push(`    Das ist ein **eigener** Eintrag. \`gruppe\` von \`${d.plugin.id}\` übernehmen und nach RECHERCHE.md §5`);
+      zeilen.push('    die Vergleichsdaten **beider** Seiten pflegen: gemeinsame Funktionen, was nur eines kann, `pro`/`contra` für beide.');
+    } else if (d && d.art === 'umbenannt') {
+      zeilen.push(`- ⚠️ **Vermutlich Umbenennung** (gleicher Anbieter, Namensnähe ${d.punkte.toFixed(2)}): Katalog hat bereits \`${d.plugin.id}\` → ${d.plugin.link || 'kein Link'}`);
+      zeilen.push('    Beide Links vergleichen. Wenn dasselbe Repo: **nicht** neu anlegen, sondern den vorhandenen Eintrag per `updates` korrigieren.');
+    } else if (d) {
+      const wie = d.art === 'id' ? 'gleiche ID' : 'gleiches Link-Ziel';
+      zeilen.push(`- ⚠️ **Dublette** (${wie}): Katalog hat bereits \`${d.plugin.id}\` → ${d.plugin.link || 'kein Link'}`);
+      zeilen.push('    Derselbe Eintrag — **nicht** neu anlegen, sondern den vorhandenen aktualisieren.');
+    } else {
+      zeilen.push('- Dublettenprüfung: **kein Treffer im Bestand** (ID, Link-Ziel und Namensnähe geprüft) — der Eintrag ist neu.');
+    }
+  } else {
+    zeilen.push(`- Bisher im Katalog: \`qualitaet: ${e.qualitaet}\` · Kategorie \`${e.kategorie}\``);
+  }
 
   if (e.meta) {
     const m = e.meta;
@@ -535,6 +579,22 @@ for (const e of ergebnisse) {
   }
 
   zeilen.push(`- **Offen für dich:** ${e.offen.join(' ')}`);
+
+  if (e.neu) {
+    const v = feldVorschlag(e);
+    if (v) {
+      zeilen.push('- **Feldvorschlag** (nur Ablesbares gefüllt, `<...>` = deine Arbeit):');
+      zeilen.push('```json');
+      zeilen.push(...JSON.stringify(v.eintrag, null, 2).split('\n').map((z) => z));
+      zeilen.push('```');
+      zeilen.push(`    _\`framework\` ist ein Vorschlag:_ ${v.frameworkGrund} Gegen das README prüfen.`);
+      if (!v.vollstaendig) {
+        zeilen.push('    _`qualitaet` steht auf `teilgeprueft`, weil fxmanifest, README oder Code-Stichprobe fehlt._');
+      }
+    } else {
+      zeilen.push('- **Feldvorschlag:** keiner — ohne lesbares Repo gibt es nichts Ablesbares zu übernehmen.');
+    }
+  }
 }
 
 zeilen.push('');
@@ -546,9 +606,10 @@ zeilen.push('');
 
 const ordner = pfad('data', '.prefetch');
 mkdirSync(ordner, { recursive: true });
-const zielPfad = pfad('data', '.prefetch', RUNDE ? `runde-${RUNDE}.md` : 'prefetch.md');
+const zielPfad = pfad('data', '.prefetch',
+  RUNDE ? `${modus === 'neusuche' ? 'neu-' : ''}runde-${RUNDE}.md` : 'prefetch.md');
 writeFileSync(zielPfad, zeilen.join('\n'), 'utf8');
-writeFileSync(cachePfad, JSON.stringify(cache, null, 2), 'utf8');
+netz.speichere();
 
 /* ------------------------------ Ergebnis ------------------------------ */
 

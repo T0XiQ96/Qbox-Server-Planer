@@ -17,6 +17,41 @@ Format je Eintrag:
 
 ---
 
+## [Werkzeug] Discover — Neusuche als Script – 13.08.2026
+
+**Neu:** `npm run discover` (`scripts/discover.mjs`). Findet Kandidaten für **neue**
+Katalogeinträge über mehrere GitHub-Suchen gleichzeitig und sortiert deterministisch aus, was
+kein Modell sehen muss: bereits im Katalog vorhandene Treffer (nach ID **und** Link-Ziel),
+vermutliche Umbenennungen, und Repos ohne `fxmanifest.lua` (= keine FiveM-Ressource). Erster
+Lauf: 687 Rohtreffer aus 6 Abfragen bei **11 API-Aufrufen** → 74 bekannt, 24 Umbenennungen,
+323 ohne Manifest, Rest echte Kandidaten. Dafür wurde bisher ein Subagent bezahlt.
+
+**Neu:** `npm run prefetch -- --kandidaten` arbeitet jetzt auch für Plugins, die noch nicht im
+Katalog stehen. Zusätzlich zum bisherigen Briefing entsteht pro Kandidat ein **Feldvorschlag** —
+ein Katalogeintrag-Gerüst, in dem alles Ablesbare gefüllt ist (`version`, `letztes_update`,
+`lizenz`, `abhaengigkeiten`, `archiviert`, `quelle`, begründeter `framework`-Vorschlag, `gruppe`).
+Alles Urteilsabhängige steht als `<...>`-Platzhalter drin; die sind schema-ungültig, `validate`
+fängt sie also ab, falls sie stehen bleiben.
+
+**Wichtigste Design-Entscheidung:** Ein Konkurrenzprodukt ist **keine** Dublette. Der erste
+Entwurf warf `mtc-cityhall` (gleicher Zweck wie `qbx_cityhall`, anderer Anbieter) als Duplikat
+weg — das hätte reihenweise echte Funde verschluckt und genau die Vergleichsdaten gekostet, für
+die RECHERCHE.md §5 existiert. Jetzt trennt `scripts/lib/dubletten.mjs` vier Fälle: `id` und
+`link` (echte Dublette), `umbenannt` (gleicher Anbieter → Bestandseintrag aktualisieren) und
+`gruppe` (anderer Anbieter → eigener Eintrag, `gruppe` wird gleich mitgeliefert). Das senkte die
+Zahl der von Hand zu klärenden Fälle von 117 auf 24 und lieferte die Gruppenzuordnung gratis mit.
+
+**Geändert:** HTTP-Schicht (Timeout, Cache, Token, Parallelität) aus `prefetch.mjs` nach
+`scripts/lib/netz.mjs` gezogen, Namens-/Dublettenlogik nach `scripts/lib/dubletten.mjs`. Beide
+Scripts laufen über die IP des Nutzers — die Höflichkeitsregeln stehen jetzt an einer Stelle,
+statt dass ein zweites Werkzeug versehentlich aggressiver wird als das erste.
+
+**Neu:** `docs/RECHERCHE.md` §7 beschreibt den Zwei-Phasen-Ablauf einer Neusuche-Runde
+(Kandidaten finden → Ausgewählte vertiefen) und die Aufnahmekriterien.
+
+**Tests:** `npm run selftest` 37 → 45 Prüfungen. Die acht neuen decken die Dublettenlogik ab,
+inklusive der Fälle, an denen der erste Entwurf gescheitert wäre.
+
 ## [Runde 25b] – 13.08.2026
 
 **Geändert:** Letzte 5 Katalogeinträge ohne `geprueft_am` nachgeprüft (Streuverluste außerhalb
