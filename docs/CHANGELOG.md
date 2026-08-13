@@ -17,6 +17,46 @@ Format je Eintrag:
 
 ---
 
+## [Runde 27] Zweite Neusuche-Runde – 13.08.2026
+
+**Neu:** 10 weitere Plugins über `npm run discover -- --seit-letztem-lauf` gefunden (20
+Rohtreffer seit dem Runde-26-Lauf, 10 Kandidaten nach Dublettenfilter) und ausgearbeitet:
+`cipher-admin`, `cipher`, `cipher-trucking`, `slrn_multijob`, `reo_wrap`, `ms_playersteal`,
+`slrn_groups`, `cipher-dispatch`, `cipher-multicharacter`, `pxcommands`.
+
+**Fünf der zehn Kandidaten (`cipher-admin`, `cipher`, `cipher-trucking`, `cipher-dispatch`,
+`cipher-multicharacter`) stammen vom selben neuen GitHub-Account `XyraL`, alle 0 Sterne, alle am
+selben Tag gepusht** — ein klassisches Wegwerf-Account-Muster. Statt sie pauschal zu verwerfen
+oder unkritisch zu übernehmen, wurde jedes einzeln anhand von README-Umfang und Code-Stichprobe
+bewertet: alle fünf zeigen echten Funktionsumfang und funktionierenden Code, bleiben also im
+Katalog — `cipher-admin` bekam wegen eines gefundenen `exports['qb-inventory']`-Aufrufs neben der
+ox_inventory-Anbindung aber `qualitaet: teilgeprueft` statt `verifiziert` (echte Bruchstelle auf
+reinem Qbox-Stack, per `kompat_warnung` dokumentiert). Alle fünf tragen zusätzlich den Hinweis
+„Lizenz untersagt laut README Weiterverbreitung/Wiederverkauf" in `contra`, obwohl der Code
+öffentlich einsehbar ist.
+
+**`pxcommands`** behauptet im README Qbox/QBCore-Kompatibilität, die Code-Stichprobe über alle
+11 Lua-Dateien fand aber kein einziges Framework-spezifisches Muster — als `standalone`
+eingeordnet, `qualitaet: teilgeprueft`, `kompat_warnung` mit `sicherheit: vermutung`, da die
+Behauptung unbelegt bleibt.
+
+**Zwei Gruppenzuordnungen wiederverwendet statt neu angelegt:** `cipher-dispatch` übernimmt die
+bereits bestehende `gruppe: "dispatch"` von `cd_dispatch` (Escrow-Alternative, Vergleichshinweis
+in `cd_dispatch.contra` ergänzt). `cipher-multicharacter` übernimmt `gruppe: "multichar"` und
+wird damit dritter Anbieter neben `qb_multicharacter` und `w2f-multicharacter` (Runde 26) —
+Vergleichshinweis in `w2f-multicharacter.contra` ergänzt.
+
+**Muster bestätigt:** Subagent hat diesmal ausschließlich JSON zurückgeliefert statt selbst in
+`data/catalog/runde-27.json` zu schreiben (anders als Runde 26) — die Hauptsession hat
+geschrieben und gegen `data/_ids.txt`/bestehende Einträge geprüft, `npm run validate` grün ohne
+Korrekturbedarf.
+
+**Katalog:** 10 neu, 2 aktualisiert (Gruppenvergleiche bei `cd_dispatch`, `w2f-multicharacter`),
+0 Duplikate übersprungen, 0 ungeprüft (2 auf `teilgeprueft` wegen dokumentierter Vorbehalte)
+**Datei:** `data/catalog/runde-27.json` · **Commit:** folgt
+
+---
+
 ## [Runde 26] Erste Neusuche-Runde – 13.08.2026
 
 **Neu:** 11 bisher unbekannte Plugins in den Katalog aufgenommen — gefunden über

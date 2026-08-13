@@ -1,0 +1,311 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r27",
+  "runde": 27,
+  "thema": "Neusuche (docs/RECHERCHE.md §7): 10 Kandidaten aus npm run discover --seit-letztem-lauf, davon 5 vom selben Autor (XyraL/cipher-*) einzeln auf Substanz geprüft, 2 mit Gruppenvergleich (cipher-dispatch↔cd_dispatch, cipher-multicharacter↔multichar-Gruppe).",
+  "erstellt": "2026-08-13",
+  "plugins": [
+    {
+      "id": "cipher-admin",
+      "name": "cipher-admin",
+      "kategorie": "admin",
+      "essenziell": false,
+      "beschreibung": "Admin-Suite für QBox und QBCore mit NUI-Oberfläche: Spielerverwaltung, Bann-System, Inventar-Bearbeitung und Entity-Inspector.",
+      "link": "https://github.com/XyraL/cipher-admin",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.3",
+      "letztes_update": "Aktiv · letzter Push 2026-08-04",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "kompat_warnung": {
+        "text": "Nutzt neben exports.qbx_core auch direkt exports['qb-inventory'] im Code (server/inventory.lua:109) — auf einem reinen Qbox-Server ohne qb-inventory-Kompatibilitätsschicht ist diese Codepassage ein möglicher Bruchpunkt.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "NUI-Admin-Panel mit Spielerverwaltung, Bann-System, Inventar-Editor und Entity-Inspector",
+        "Framework-Bridge erkennt Qbox/QBCore automatisch (bridge/framework.lua)",
+        "Nutzt ox_target/ox_inventory für Inventar-Bearbeitung"
+      ],
+      "contra": [
+        "Direkter exports['qb-inventory']-Aufruf im Code neben der ox_inventory-Anbindung — siehe kompat_warnung",
+        "Lizenz untersagt laut README Weiterverbreitung/Wiederverkauf, trotz offen einsehbarem Code",
+        "0 Sterne, neuer Account ohne Community-Historie"
+      ],
+      "quelle": "https://github.com/XyraL/cipher-admin, https://raw.githubusercontent.com/XyraL/cipher-admin/master/fxmanifest.lua"
+    },
+    {
+      "id": "cipher",
+      "name": "cipher",
+      "kategorie": "crime",
+      "essenziell": false,
+      "beschreibung": "Modulares, verschlüsseltes Kriminalitäts-Tablet für QBox und QBCore: Gang-Operationen, Schwarzmarkt, Boosting und Crafting in einer App, mit Drogen-Wirtschaft als erweiterbarem System.",
+      "link": "https://github.com/XyraL/cipher",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "0.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-04",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql", "ox_inventory"],
+      "pro": [
+        "Umfangreiches Feature-Set (Gang Ops, Schwarzmarkt, Boosting, Crafting, Drogen-Wirtschaft) in einer App",
+        "Sauberer Framework-Bridge mit Auto-Erkennung (qbx_core/qb-core), keine roten Flaggen in der Code-Stichprobe",
+        "Durchgehend ox_target/ox_inventory/ox_lib genutzt"
+      ],
+      "contra": [
+        "Sehr frühe Versionsnummer (0.1.0)",
+        "Lizenz untersagt laut README Weiterverbreitung/Wiederverkauf",
+        "0 Sterne, neuer Account ohne Community-Historie"
+      ],
+      "neutral": [
+        "Teil einer zusammenhängenden Cipher-Produktfamilie desselben Autors (cipher-admin, cipher-dispatch, cipher-trucking, cipher-multicharacter, cipher-mdt)"
+      ],
+      "quelle": "https://github.com/XyraL/cipher, https://raw.githubusercontent.com/XyraL/cipher/master/fxmanifest.lua"
+    },
+    {
+      "id": "cipher-trucking",
+      "name": "cipher-trucking",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Ziviler Trucking-Job für QBox und QBCore mit Live-Routenkarte, Firmenverwaltung, Kraftstoff- und Wartungssystem sowie eigenem Garage-System und Admin-Live-Tuning-Konsole.",
+      "link": "https://github.com/XyraL/cipher-trucking",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "2.1.1",
+      "letztes_update": "Aktiv · letzter Push 2026-08-04",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_target", "oxmysql"],
+      "pro": [
+        "Zehn-Tab-Dashboard mit Live-Routenkarte, Firmen-System, Kraftstoff-/Wartungslogik und Admin-Live-Tuning",
+        "Eigenständiges Garage-System ohne Abhängigkeit von qb-garage/ox-garage",
+        "ox_target als Pflichtabhängigkeit sauber im Code umgesetzt"
+      ],
+      "contra": [
+        "Lizenz untersagt laut README Weiterverbreitung/Wiederverkauf",
+        "0 Sterne, neuer Account ohne Community-Historie"
+      ],
+      "quelle": "https://github.com/XyraL/cipher-trucking, https://raw.githubusercontent.com/XyraL/cipher-trucking/master/fxmanifest.lua"
+    },
+    {
+      "id": "slrn_multijob",
+      "name": "slrn_multijob",
+      "kategorie": "kommunikation",
+      "essenziell": false,
+      "beschreibung": "LB-Phone-App zur Verwaltung von nativen qbx_core-Multijob-Positionen, mit optionaler LB-Phone-Integration und eigenständigem Standalone-Modus.",
+      "link": "https://github.com/solareon/slrn_multijob",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-04-12",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_lib"],
+      "pro": [
+        "Native qbx_core-Multijob-Verwaltung, nutzt @qbx_core/modules/playerdata.lua direkt",
+        "GPL-lizenziert, Quellcode vollständig einsehbar",
+        "Funktioniert standalone oder mit LB-Phone-Integration"
+      ],
+      "contra": [
+        "Reine Qbox-Version — für QBCore existiert ein separates Repo (slrn_qbmultijob) ohne gemeinsame Codebasis"
+      ],
+      "quelle": "https://github.com/solareon/slrn_multijob, https://raw.githubusercontent.com/solareon/slrn_multijob/main/fxmanifest.lua"
+    },
+    {
+      "id": "reo_wrap",
+      "name": "reo_wrap",
+      "kategorie": "crime",
+      "essenziell": false,
+      "beschreibung": "Rollenspiel-orientiertes WRAP-Fesselsystem für Qbox: Fesselung eines bereits gefesselten oder kampfunfähigen Spielers über ox_target, mit konfigurierbarer Pflicht zum vorherigen Fesseln/Niederschlagen.",
+      "link": "https://github.com/Reo94/reo_wrap",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory", "ox_target", "qbx_core"],
+      "pro": [
+        "Klar abgegrenzter Zweck, dokumentierte Config-Option zum Deaktivieren der Fesselpflicht für Troubleshooting",
+        "Nutzt ox_target/ox_lib/ox_inventory/qbx_core direkt ohne rote Flaggen in der Code-Stichprobe"
+      ],
+      "contra": [
+        "Erfordert laut README einen replizierten State Bag für den Fesselstatus — bei anderen Restraint-Ressourcen ohne dieses Signal ist zusätzliche Integrationsarbeit nötig"
+      ],
+      "quelle": "https://github.com/Reo94/reo_wrap, https://raw.githubusercontent.com/Reo94/reo_wrap/main/fxmanifest.lua"
+    },
+    {
+      "id": "ms_playersteal",
+      "name": "ms_playersteal",
+      "kategorie": "crime",
+      "essenziell": false,
+      "beschreibung": "Spieler-Raubscript für ESX, QBCore und Qbox über ox_target/ox_lib/ox_inventory mit automatischer Framework-Erkennung; Tod/Kampfunfähigkeit des Opfers wird über wasabi_ambulance ausgelesen statt über generische Framework-Prüfungen.",
+      "link": "https://github.com/msrcusscripts/ms_playersteal",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.6.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_target", "ox_inventory", "wasabi_ambulance"],
+      "pro": [
+        "Multi-Framework-Autoerkennung (ESX/QBCore/Qbox) ohne Konfiguration",
+        "Cooldowns pro Räuber/Opfer überstehen Reconnects (ESX-Identifier/QB-Citizenid-basiert)",
+        "MIT-lizenziert mit explizitem SPDX-Tag im Repo"
+      ],
+      "contra": [
+        "Zusätzliche Pflichtabhängigkeit auf wasabi_ambulance — ohne dieses Ambulance-System nicht einsetzbar",
+        "fxmanifest enthält escrow_ignore-Einträge, was auf einen zusätzlichen Escrow-Vertriebsweg über Tebex/Keymaster desselben Scripts hindeuten kann (Vermutung, nicht bestätigt)"
+      ],
+      "quelle": "https://github.com/msrcusscripts/ms_playersteal, https://raw.githubusercontent.com/msrcusscripts/ms_playersteal/main/fxmanifest.lua"
+    },
+    {
+      "id": "slrn_groups",
+      "name": "slrn_groups",
+      "kategorie": "kommunikation",
+      "essenziell": false,
+      "beschreibung": "LB-Phone-Gruppen-App mit eigener Framework-Bridge für Qbox, QBCore und ESX; bietet qb-phone-kompatible Gruppenverwaltung samt Benachrichtigungen über ox_lib.",
+      "link": "https://github.com/solareon/slrn_groups",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "2.2.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-30",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["lb_phone", "ox_lib"],
+      "pro": [
+        "Eigene Framework-Bridge-Dateien für Qbox, QBCore und ESX (bridge/qbx.lua, bridge/qb.lua, bridge/esx.lua)",
+        "qb-phone-kompatibel über das provide-Feld im fxmanifest",
+        "GPL-3.0-lizenziert, Quellcode vollständig einsehbar"
+      ],
+      "contra": [
+        "Zwingend abhängig von lb-phone als Trägerressource — ohne LB-Phone nicht einsetzbar"
+      ],
+      "quelle": "https://github.com/solareon/slrn_groups, https://raw.githubusercontent.com/solareon/slrn_groups/main/fxmanifest.lua"
+    },
+    {
+      "id": "cipher-dispatch",
+      "name": "cipher-dispatch",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "Live-Dispatch für mehrere Abteilungen (Polizei, EMS, Feuerwehr) für QBox/QBCore: eigene Job-Listen, Farben und Status je Abteilung, Einheiten-Tracking, CAD-Anrufe, Funkbetrieb und anbindbare MDT-/Handy-Integrationen.",
+      "link": "https://github.com/XyraL/cipher-dispatch",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "0.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-04",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "gruppe": "dispatch",
+      "pro": [
+        "Mehrere Abteilungen mit eigenen Job-Listen, Farben, Status und Map-Blips",
+        "Quellcode vollständig einsehbar — im Unterschied zu cd_dispatch",
+        "Provider-basierte MDT-/Handy-Integration konfigurierbar"
+      ],
+      "contra": [
+        "Sehr frühe Version (0.1.0)",
+        "Lizenz untersagt laut README Weiterverbreitung/Wiederverkauf",
+        "0 Sterne, neuer Account ohne Community-Historie"
+      ],
+      "quelle": "https://github.com/XyraL/cipher-dispatch, https://raw.githubusercontent.com/XyraL/cipher-dispatch/master/fxmanifest.lua"
+    },
+    {
+      "id": "cipher-multicharacter",
+      "name": "cipher-multicharacter",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Filmische Charakterauswahl- und Spawn-Flow für QBox und QBCore mit Identitäts-Dossiers, Erscheinungsbild-Vorschau und konfigurierbaren Slot-Limits.",
+      "link": "https://github.com/XyraL/cipher-multicharacter",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "2.1.2",
+      "letztes_update": "Aktiv · letzter Push 2026-08-04",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["oxmysql"],
+      "gruppe": "multichar",
+      "pro": [
+        "Identitäts-Dossiers und Erscheinungsbild-Vorschau bei der Charakterauswahl",
+        "Slot-Konfiguration über ACE, Lizenz-Overrides oder externe Ressource",
+        "Config-Validierung beim Start (erkennt doppelte Spawn-IDs, fehlende Koordinaten etc.)"
+      ],
+      "contra": [
+        "Muss den offiziellen Qbox-/QBCore-Charakterwähler ersetzen — README verlangt Deaktivierung von qb-multicharacter",
+        "Lizenz untersagt laut README Weiterverbreitung/Wiederverkauf",
+        "0 Sterne, neuer Account ohne Community-Historie"
+      ],
+      "quelle": "https://github.com/XyraL/cipher-multicharacter, https://raw.githubusercontent.com/XyraL/cipher-multicharacter/master/fxmanifest.lua"
+    },
+    {
+      "id": "pxcommands",
+      "name": "pxCommands",
+      "kategorie": "basis",
+      "essenziell": false,
+      "beschreibung": "Framework-unabhängiges System zum Erstellen und Verwalten von Chat-/Server-Commands, laut README kompatibel mit ESX, ESX Legacy, QBCore und Qbox.",
+      "link": "https://github.com/wckdbozo/pxCommands",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "0.2.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-13",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "kompat_warnung": {
+        "text": "README nennt Qbox/QBCore als unterstützte Frameworks, die Code-Stichprobe über alle 11 .lua-Dateien fand aber kein einziges Qbox-/QBCore-spezifisches Muster — das Zusammenspiel mit Qbox ist im Code nicht nachweisbar, nur behauptet.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Framework-unabhängiger Ansatz laut README, keine Anpassung an ESX/QBCore/Qbox nötig",
+        "GPL-3.0-lizenziert mit explizitem SPDX-Tag im fxmanifest"
+      ],
+      "contra": [
+        "Qbox-Kompatibilität ist nur Namensnennung im README, nicht im Code belegt — siehe kompat_warnung",
+        "README verlinkt zusätzlich gepackte Commands_px_1.9.zip-Dateien, deren Inhalt nicht separat geprüft wurde"
+      ],
+      "quelle": "https://github.com/wckdbozo/pxCommands, https://raw.githubusercontent.com/wckdbozo/pxCommands/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "cd_dispatch",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Gruppen-Konkurrent cipher-dispatch identifiziert (Runde 27, quelloffen statt Escrow) — Vergleichshinweis in contra ergänzt.",
+      "contra": [
+        "💰",
+        "🔒 Escrow",
+        "Cipher Dispatch (cipher-dispatch) bietet vergleichbaren Funktionsumfang (Mehrfach-Abteilungen, Einheiten-Tracking, CAD) quelloffen statt als Escrow-Produkt"
+      ]
+    },
+    {
+      "id": "w2f-multicharacter",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Dritter Anbieter in der Gruppe multichar (cipher-multicharacter, Runde 27) identifiziert — Vergleichshinweis ergänzt.",
+      "contra": [
+        "Zusätzliche Abhängigkeit auf illenium-appearance für neue Charaktere (bei ESX dient esx_skin als Fallback)",
+        "Cipher MultiCharacter (cipher-multicharacter) bietet zusätzlich Identitäts-Dossiers und ACE-basierte Slot-Overrides, unterstützt dafür anders als w2f-multicharacter kein ESX Legacy"
+      ]
+    }
+  ]
+}
