@@ -1,0 +1,317 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r37",
+  "runde": 37,
+  "thema": "Neusuche (docs/RECHERCHE.md §7): letzte 10 Kandidaten aus der aktuellen discover-Suchrunde. Zwei Autoren-Cluster (xLaugh: bagpick/metaldetector/pnj-racket; IEver3st: cortex-hud/cortex-polcam) einzeln geprüft. 2 mit Gruppenvergleich: cortex-hud↔qbx_hud (Gruppe 'hud', bestand schon), qx-fishing↔wasabi_fishing (Gruppe 'fishing', bestand schon).",
+  "erstellt": "2026-08-13",
+  "plugins": [
+    {
+      "id": "mrnewbpawn",
+      "name": "MrNewbPawn",
+      "kategorie": "wirtschaft",
+      "essenziell": false,
+      "beschreibung": "Pfandhaus-System: Spieler können Gegenstände verkaufen, einschmelzen und optional zurückkaufen. Läuft über Community Bridge mit Unterstützung für ESX, QBCore und Qbox/QBX.",
+      "link": "https://github.com/MrNewb/MrNewbPawn",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.4.0",
+      "letztes_update": "Aktiv · letzter Push 2026-01-16",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["community_bridge"],
+      "pro": [
+        "Unterstützt ESX, QBCore und Qbox über Community Bridge",
+        "Smelting- und optionale Buyback-Funktion",
+        "fxmanifest schließt alle .lua-Dateien per escrow_ignore von Verschlüsselung aus – Code bleibt trotz Tebex-Vertrieb einsehbar"
+      ],
+      "contra": [
+        "Zusätzliche Abhängigkeit von community_bridge nötig",
+        "Vertrieb zusätzlich über Tebex-Shop, konkreter Preis nicht ermittelbar"
+      ],
+      "neutral": [
+        "Keine SPDX-Lizenz im Repo genannt"
+      ],
+      "quelle": "https://github.com/MrNewb/MrNewbPawn, https://raw.githubusercontent.com/MrNewb/MrNewbPawn/master/fxmanifest.lua"
+    },
+    {
+      "id": "razed-cryptocrash",
+      "name": "razed-cryptocrash",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Crypto-Crash-Minispiel für ein Casino auf QBCore-Basis: Spieler setzen eine Krypto-Balance und müssen vor dem Crash aussteigen.",
+      "link": "https://github.com/planeklm/razed-cryptocrash",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0",
+      "letztes_update": "Seit 2023-09-23 kein Commit mehr",
+      "lizenz": "open_source",
+      "framework": "qbcore_only",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Nutzt exports['qb-target'] direkt im Code (client/client.lua:76) und listet qb-core sowie qb-crypto als Abhängigkeiten – keine Framework-Abstraktion, keine Qbox-Erwähnung im README.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Optionaler ox_target-Pfad im Code vorhanden (client/client.lua:89)",
+        "Nutzt ox_lib"
+      ],
+      "contra": [
+        "Seit September 2023 kein Update mehr, wirkt unverwaltet",
+        "Harte Abhängigkeit auf qb-target, qb-crypto, qb-core und interact-sound (keine dieser IDs im Katalog)",
+        "Keinerlei Qbox-Bezug in README oder Code"
+      ],
+      "quelle": "https://github.com/planeklm/razed-cryptocrash, https://raw.githubusercontent.com/planeklm/razed-cryptocrash/main/fxmanifest.lua"
+    },
+    {
+      "id": "bagpick",
+      "name": "bagpick",
+      "kategorie": "crime",
+      "essenziell": false,
+      "beschreibung": "Handtaschendiebstahl-Script mit automatischer Framework-Erkennung (ESX/QBCore/Qbox) über bridge/shared.lua. Verlangt eine konfigurierbare Mindestanzahl an Polizisten im Dienst und vergibt Geld oder Items (ox_inventory) als Beute.",
+      "link": "https://github.com/xLaugh/bagpick",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-08",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_inventory"],
+      "pro": [
+        "Automatische Framework-Erkennung (ESX/QBCore/Qbox) im Code bestätigt (bridge/shared.lua:9)",
+        "Nutzt qbx_core-Export direkt (bridge/shared.lua:29)",
+        "GPL-3.0-lizenziert, Code frei einsehbar"
+      ],
+      "contra": [
+        "README nur auf Französisch verfügbar"
+      ],
+      "quelle": "https://github.com/xLaugh/bagpick, https://raw.githubusercontent.com/xLaugh/bagpick/main/fxmanifest.lua"
+    },
+    {
+      "id": "xvis_shake_tune",
+      "name": "xVis_Shake_Tune",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "beschreibung": "Kamera-Shake-Effekte für Fahrzeug-Tuning, gesteuert über eigene Tuning-Items in ox_inventory und per Statebags übertragen.",
+      "link": "https://github.com/enzonami/xVis_Shake_Tune",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-03-26",
+      "lizenz": "open_source",
+      "framework": "qbcore_only",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql", "ox_inventory"],
+      "kompat_warnung": {
+        "text": "fxmanifest listet 'qb-core' als harte Abhängigkeit, im README oder in der Code-Stichprobe findet sich keine Framework-Abstraktion oder Qbox-Erwähnung.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Nutzt @ox_lib/init.lua",
+        "MIT-lizenziert"
+      ],
+      "contra": [
+        "Harte Abhängigkeit auf qb-core (nicht im Katalog, kein Qbox-Bezug belegt)",
+        "Kleines Repo, README ohne Framework-Detailangaben zur Qbox-Tauglichkeit"
+      ],
+      "quelle": "https://github.com/enzonami/xVis_Shake_Tune, https://raw.githubusercontent.com/enzonami/xVis_Shake_Tune/main/fxmanifest.lua"
+    },
+    {
+      "id": "metaldetector",
+      "name": "metaldetector",
+      "kategorie": "admin",
+      "essenziell": false,
+      "beschreibung": "Metalldetektor-Torbogen, der bei erkannten Waffen oder Munition (konfigurierbar) Alarm auslöst. Framework-Erkennung (ESX/QBCore/Qbox) über bridge/, benötigt ox_inventory.",
+      "link": "https://github.com/xLaugh/metaldetector",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-10",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_inventory"],
+      "pro": [
+        "Automatische Framework-Erkennung im Code bestätigt (bridge/client.lua:23)",
+        "Nutzt qbx_core-Export direkt (bridge/client.lua:27)",
+        "GPL-3.0-lizenziert"
+      ],
+      "contra": [
+        "README nur auf Französisch verfügbar"
+      ],
+      "quelle": "https://github.com/xLaugh/metaldetector, https://raw.githubusercontent.com/xLaugh/metaldetector/main/fxmanifest.lua"
+    },
+    {
+      "id": "pnj-racket",
+      "name": "pnj-racket",
+      "kategorie": "crime",
+      "essenziell": false,
+      "beschreibung": "NPC-Erpressungs-/Schutzgeld-Script mit automatischer Framework-Erkennung (ESX/QBCore/Qbox) über bridge/shared.lua, Belohnung über ox_inventory.",
+      "link": "https://github.com/xLaugh/pnj-racket",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-08",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_inventory"],
+      "pro": [
+        "Automatische Framework-Erkennung im Code bestätigt (bridge/shared.lua:9)",
+        "Nutzt qbx_core-Export direkt (bridge/shared.lua:29)",
+        "GPL-3.0-lizenziert"
+      ],
+      "contra": [
+        "README nur auf Französisch verfügbar"
+      ],
+      "quelle": "https://github.com/xLaugh/pnj-racket, https://raw.githubusercontent.com/xLaugh/pnj-racket/main/fxmanifest.lua"
+    },
+    {
+      "id": "cortex-hud",
+      "name": "cortex-hud",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Minimalistisches, individuell gestaltbares HUD mit Framework-Hooks für Standalone und Qbox/QBX sowie automatischer Erkennung diverser Fuel-Systeme (ox_fuel, ps-fuel, qb-fuel u.a.).",
+      "link": "https://github.com/IEver3st/cortex-hud",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.1",
+      "letztes_update": "Aktiv · letzter Push 2026-08-12",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": "hud",
+      "pro": [
+        "Nutzt qbx_core-Export direkt (modules/bridge/client.lua:67, modules/status/client.lua:336)",
+        "Automatische Erkennung vieler Fuel-Systeme",
+        "Mehrschichtige Sichtbarkeits-Logik (u.a. für Zeichenwahl/Spawn-Auswahl)",
+        "MIT-lizenziert"
+      ],
+      "contra": [
+        "Autor beschreibt es ausdrücklich als privates Projekt, \"never meant for public release\", kaum Pflege zu erwarten",
+        "Benötigt zusätzlich cortex-lib (nicht im Katalog), ohne die es nicht startet",
+        "Build-Schritt (bun run build) nötig bei Source-Checkout statt Release-Archiv",
+        "Unterstützt nur Standalone und Qbox/QBX, kein QBCore"
+      ],
+      "quelle": "https://github.com/IEver3st/cortex-hud, https://raw.githubusercontent.com/IEver3st/cortex-hud/main/fxmanifest.lua"
+    },
+    {
+      "id": "cortex-polcam",
+      "name": "cortex-polcam",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "Hubschrauber-Kamerasystem für die Polizei mit Zielverfolgung, Abseilfunktion und Debug-Menü. Framework-unabhängig, Kernlogik in Lua mit eigener NUI, Anbindung an ein Framework erfolgt über eigene Client-/Server-Exports.",
+      "link": "https://github.com/IEver3st/cortex-polcam",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.1",
+      "letztes_update": "Aktiv · letzter Push 2026-08-12",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "pro": [
+        "Explizit framework-unabhängig, README bestätigt: nicht an QBCore, Qbox oder ESX gebunden",
+        "Umfangreiche Client-/Server-Exports für Ziel-, Abseil- und Debug-Funktionen",
+        "MIT-lizenziert"
+      ],
+      "contra": [
+        "Benötigt zusätzlich cortex-lib (nicht im Katalog)",
+        "Laut Repo-Beschreibung vom Autor nicht mehr aktiv weiterentwickelt (\"I no longer have time to work on these projects\")",
+        "Framework-Integration muss selbst über die Exports gebaut werden"
+      ],
+      "quelle": "https://github.com/IEver3st/cortex-polcam, https://raw.githubusercontent.com/IEver3st/cortex-polcam/main/fxmanifest.lua"
+    },
+    {
+      "id": "qx-fishing",
+      "name": "qx-fishing",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Standalone-Angelsystem mit Zonen, Ködern, zeitgesteuertem Hook-Minispiel sowie Zug- und Spannungsmechanik. Unterstützt QBCore, Qbox und ESX über austauschbare Adapter in bridge/, ohne Pflichtabhängigkeiten.",
+      "link": "https://github.com/QuoraxisDev/qx-fishing",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-09",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "fishing",
+      "pro": [
+        "Keine Pflichtabhängigkeiten, README bestätigt: \"There are no mandatory third-party resource dependencies\"",
+        "Adaptergesteuert für QBCore, Qbox und ESX, inkl. qbx_core-Export (bridge/client/notify.lua:25, bridge/server/framework.lua:48)",
+        "Unterstützt sowohl ox_inventory als auch qb-inventory sowie ox_target und qb-target parallel",
+        "MIT-lizenziert, aktiv gepflegt"
+      ],
+      "contra": [
+        "Code enthält noch exports['qb-target'] und exports['qb-inventory'] direkt (bridge/client/target.lua:45, bridge/server/inventory.lua:65) – Legacy-Pfad unter reinem Qbox-Setup ungetestet"
+      ],
+      "neutral": [
+        "Vergleich zu wasabi_fishing: qx-fishing wirbt mit expliziter Adapterarchitektur und keinerlei Pflichtabhängigkeit, wasabi_fishing ist länger etabliert, aber nur mit ox_lib als bestätigter Abhängigkeit knapper dokumentiert"
+      ],
+      "quelle": "https://github.com/QuoraxisDev/qx-fishing, https://raw.githubusercontent.com/QuoraxisDev/qx-fishing/main/fxmanifest.lua"
+    },
+    {
+      "id": "naufal-customweightinventory",
+      "name": "naufal-customweightinventory",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Passt das Gewichtssystem von ox_inventory individuell pro Spieler an, mit wählbarem Framework (ESX/QBCore/Qbox) über eine Konfigurationsvariable.",
+      "link": "https://github.com/naufalmulyarizki/naufal-customweightinventory",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "",
+      "letztes_update": "Seit 2024-11-04 kein Commit mehr",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory"],
+      "kompat_warnung": {
+        "text": "fxmanifest bindet '@mysql-async/lib/MySQL.lua' direkt ein (fxmanifest.lua:33) statt oxmysql zu nutzen – veraltete Datenbank-Anbindung, unter Qbox nur lauffähig, wenn eine mysql-async-Kompatibilitätsschicht vorhanden ist.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Framework wählbar zwischen ESX, QBCore und Qbox (Config.Framework)",
+        "Nutzt qbx_core- und ox_inventory-Exports direkt (server/server.lua:45, server/server.lua:34)"
+      ],
+      "contra": [
+        "Bindet mysql-async statt oxmysql direkt ein – veraltete DB-Anbindung",
+        "Seit November 2024 kein Update mehr",
+        "Keine SPDX-Lizenz oder Lizenzhinweis im Repo"
+      ],
+      "quelle": "https://github.com/naufalmulyarizki/naufal-customweightinventory, https://raw.githubusercontent.com/naufalmulyarizki/naufal-customweightinventory/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "qbx_hud",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Gruppen-Konkurrent cortex-hud (Runde 37) gefunden — Vergleichsdaten der Gruppe 'hud' aktualisiert.",
+      "neutral": [
+        "Status aus qbx_smallresources",
+        "Community-Alternative cx-hud bietet dieselbe qbx_core-Anbindung, aber ohne README/Doku",
+        "Community-Alternative v-hud-fivem bietet Spieler-Konfigurierbarkeit (verschiebbare Elemente, 10 Tachos, 21 Kontrollleuchten, 5 Themes) und Multi-Framework-Support (qb-core/qbx_core/ESX/ox_core), dafür ohne native qbx_core-Exports",
+        "Community-Alternative cortex-hud bietet eine feingranulare Sichtbarkeits-Logik und breite Fuel-System-Erkennung, ist aber laut Autor ein privates, kaum gepflegtes Projekt ohne QBCore-Support"
+      ]
+    },
+    {
+      "id": "wasabi_fishing",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Gruppen-Konkurrent qx-fishing (Runde 37) gefunden — Vergleichsdaten der Gruppe 'fishing' aktualisiert.",
+      "neutral": [
+        "Community-Alternative qx-fishing wirbt mit expliziter Adapterarchitektur ohne jede Pflichtabhängigkeit und paralleler Unterstützung für ox_inventory/qb-inventory sowie ox_target/qb-target; wasabi_fishing ist länger etabliert, aber nur mit ox_lib als bestätigter Abhängigkeit knapper dokumentiert"
+      ]
+    }
+  ]
+}

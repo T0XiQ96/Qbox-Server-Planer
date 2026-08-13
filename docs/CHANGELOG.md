@@ -17,6 +17,37 @@ Format je Eintrag:
 
 ---
 
+## [Runde 37] Zwölfte Neusuche-Runde – 13.08.2026
+
+**Neu:** letzte 10 Kandidaten der aktuellen `discover`-Suchrunde: `mrnewbpawn`,
+`razed-cryptocrash`, `bagpick`, `xvis_shake_tune`, `metaldetector`, `pnj-racket`, `cortex-hud`,
+`cortex-polcam`, `qx-fishing`, `naufal-customweightinventory`.
+
+**Zwei Autoren-Cluster einzeln geprüft, beide vollständig übernommen:** Drei Funde vom Autor
+xLaugh (`bagpick`, `metaldetector`, `pnj-racket`) zeigen alle echte Framework-Autoerkennung und
+qbx_core-Exports im Code — übernommen trotz reinem Französisch-README. Zwei Funde vom Autor
+IEver3st (`cortex-hud`, `cortex-polcam`) beschreiben sich selbst als private, kaum gepflegte
+Projekte — mit entsprechend transparentem `contra`-Hinweis übernommen, keine Beschönigung.
+
+**Zwei mit Gruppenvergleich, beide an bestehende Gruppen angeschlossen:** `cortex-hud`↔`qbx_hud`
+(Gruppe `hud`, vierter Anbieter neben `matti-hud`/`cx-hud`/`v-hud-fivem`),
+`qx-fishing`↔`wasabi_fishing` (Gruppe `fishing`).
+
+**Zwei Framework-Korrekturen mit Codebeleg:** `razed-cryptocrash` und `xvis_shake_tune` zeigen
+harte `qb-core`-Abhängigkeiten ohne jede Framework-Abstraktion — auf `qbcore_only` korrigiert
+statt der optimistischeren Prefetch-Vorschläge.
+
+**Damit ist der aktuelle `discover`-Kandidatenpool (60 Funde aus der letzten Vollsuche)
+weitgehend abgearbeitet** — verbleibend sind überwiegend 0-Stern-Funde und bekannte
+Wiederholungsmuster (`mri-Qbox-Brasil`-Cluster, Distortionz-Restfunde). Für weiteres Wachstum
+lohnt sich ein neuer `discover`-Lauf mit anderen Suchbegriffen/Topics.
+
+**Katalog:** 10 neu, 2 aktualisiert (Gruppenvergleiche bei `qbx_hud`, `wasabi_fishing`),
+0 Duplikate übersprungen, 0 ungeprüft (alle 10 verifiziert)
+**Datei:** `data/catalog/runde-37.json` · **Commit:** folgt
+
+---
+
 ## [Runde 36] Elfte Neusuche-Runde – 13.08.2026
 
 **Neu:** 10 spürbar populärere Plugins (10–34 ⭐ statt zuletzt meist 0–5): `dynamic-sit`,
