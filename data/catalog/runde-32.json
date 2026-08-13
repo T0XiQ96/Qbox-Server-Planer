@@ -1,0 +1,313 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r32",
+  "runde": 32,
+  "thema": "Neusuche (docs/RECHERCHE.md §7): 10 Kandidaten, darunter ein bereits archiviertes offizielles Qbox-project-Repo (qbx_evidence, kein Nachfolger erkennbar) und zwei mit Gruppenvergleich: v-hud-fivem↔qbx_hud (Gruppe 'hud', bestand schon), ccn-notify↔t-notify (Gruppe 'notify', bestand schon).",
+  "erstellt": "2026-08-13",
+  "plugins": [
+    {
+      "id": "solidcore_studios_police_mdt_with_dispatch",
+      "name": "SolidCore_Studios_Police_MDT_with_Dispatch",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "Mobiles Datenterminal (MDT) mit Dispatch-Overlay für Polizei/Rettungskräfte: Bürger- und Fahrzeugakten, Berichte, Haftbefehle, Ausschreibungen (BOLOs), Beweismittelverwaltung und Discord-Webhook-Integration.",
+      "link": "https://github.com/SolidCoreStudios/SolidCore_Studios_Police_MDT_with_Dispatch",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1",
+      "letztes_update": "Aktiv · letzter Push 2026-06-21",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory", "ox_target"],
+      "pro": [
+        "Framework-Autoerkennung für ESX, QBCore und Qbox (server.lua:8), Code nutzt zusätzlich exports.qbx_core direkt (server.lua:25)",
+        "Nutzt ox_target für die Mugshot-Buchung und ox_inventory für Item-Prüfungen (client.lua:250/960, server.lua:1239)",
+        "SQL-Tabellen werden beim ersten Start automatisch angelegt, kein manueller Import nötig"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben"
+      ],
+      "quelle": "https://github.com/SolidCoreStudios/SolidCore_Studios_Police_MDT_with_Dispatch, https://raw.githubusercontent.com/SolidCoreStudios/SolidCore_Studios_Police_MDT_with_Dispatch/main/fxmanifest.lua"
+    },
+    {
+      "id": "gs-app-finance-jg",
+      "name": "gs-app-finance-jg (Giga Cred)",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "beschreibung": "Multi-Phone-App zur Fahrzeugfinanzierung, die auf dem Bezahlprodukt jg-dealerships v2 aufsetzt und Ratenzahlungen für Fahrzeuge über das Handy abwickelt.",
+      "link": "https://github.com/Giga-Scripts/gs-app-finance-jg",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "",
+      "letztes_update": "Aktiv · letzter Push 2026-06-18",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "MIT-lizenziert, Code selbst frei einsehbar (README-Badge + fxmanifest)",
+        "Framework-Autoerkennung für Qbox, QBCore und ESX (framework.lua:25, client.lua:13), nutzt zusätzlich exports.qbx_core (framework.lua:51)",
+        "Bridge-Architektur für mehrere Handy-Ressourcen: lb-phone, yseries, yphone, 17mov_Phone, gksphone"
+      ],
+      "contra": [
+        "Zwingend abhängig vom kostenpflichtigen Produkt jg-dealerships v2 (nicht im Katalog erfasst) — ohne dieses Script nicht funktionsfähig",
+        "Liest jg-dealerships-Laufzeitkonfiguration direkt aus; veraltete jg-dealerships-Versionen können laut README Framework-/Zahlungseinstellungen brechen"
+      ],
+      "quelle": "https://github.com/Giga-Scripts/gs-app-finance-jg, https://raw.githubusercontent.com/Giga-Scripts/gs-app-finance-jg/main/fxmanifest.lua"
+    },
+    {
+      "id": "stark_vehiclecloset",
+      "name": "stark_vehiclecloset",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "beschreibung": "Ermöglicht Spielern, am Fahrzeug die Kleidung/das Outfit zu wechseln, als Weiterentwicklung eines ursprünglich für QBCore gebauten Scripts.",
+      "link": "https://github.com/Stark-Development-Studios/stark_vehiclecloset",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "3.1.5",
+      "letztes_update": "Aktiv · letzter Push 2026-06-30",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Nutzt an einer Stelle exports['qb-target'] direkt (client/main.lua:734) statt ausschließlich über die Bridge zu gehen — unter Qbox ohne qb-target-Kompatibilitätsschicht potenziell ein Bruchpunkt, auch wenn ox_target als primärer Pfad im Code vorhanden ist (client/main.lua:7)",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "README nennt QBCore und Qbox explizit als unterstützte Frameworks, Framework-Autoerkennung im Code (server/main.lua:11)",
+        "ox_target- und qb-target-Pfad beide vorhanden (Fahrzeugschlüssel-Kompatibilität zu qb-vehiclekeys, qbx_vehiclekeys oder wasabi_carlock)",
+        "MIT-lizenziert"
+      ],
+      "contra": [
+        "Direkter exports['qb-target']-Aufruf im Code (client/main.lua:734), obwohl ox_target als Ziel genannt wird",
+        "Weitere optionale Abhängigkeiten (qb-menu, qb-clothing/illenium-appearance, interact-sound) nicht im Katalog erfasst"
+      ],
+      "quelle": "https://github.com/Stark-Development-Studios/stark_vehiclecloset, https://raw.githubusercontent.com/Stark-Development-Studios/stark_vehiclecloset/main/fxmanifest.lua"
+    },
+    {
+      "id": "v-sport-fivem",
+      "name": "v-sport",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Physisches Training über vorhandene Sport-Requisiten auf der Karte: ein Rhythmus-Minispiel trainiert Kraft, Lungenvolumen und Ausdauer, die bei Nichtnutzung wieder abnehmen. Läuft auf qb-core, qbx_core, ESX, ox_core oder standalone.",
+      "link": "https://github.com/laforetbrut/v-sport-fivem",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.3",
+      "letztes_update": "Aktiv · letzter Push 2026-08-07",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "kompat_warnung": {
+        "text": "Datenbankschicht nutzt mysql-async/ghmattimysql-Muster (server/database.lua:17) statt ausschließlich oxmysql — im fxmanifest selbst aber keine veraltete Abhängigkeit deklariert, daher Vermutung statt Bestätigung",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Framework wird zur Laufzeit automatisch erkannt (qb-core, qbx_core, ESX, ox_core), erzwingbar über Config.Compat.forceFramework",
+        "Nutzt ox_target und ox_inventory, wenn vorhanden (bridge/client/compat.lua:223, bridge/server/framework.lua:142)",
+        "Läuft ohne jedes Framework als Standalone, MIT-Lizenz mit Attribution-Pflicht"
+      ],
+      "contra": [
+        "Code-Stichprobe findet ein mysql-async/ghmattimysql-Muster in server/database.lua:17"
+      ],
+      "quelle": "https://github.com/laforetbrut/v-sport-fivem, https://raw.githubusercontent.com/laforetbrut/v-sport-fivem/main/fxmanifest.lua"
+    },
+    {
+      "id": "v-hud-fivem",
+      "name": "v-hud",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Vollständig anpassbares HUD mit frei verschieb- und umfärbbaren Elementen, zehn Tacho-Designs, 21 Armaturenbrett-Kontrollleuchten und fünf Themes. Läuft auf QBCore, qbx_core, ESX und ox_core.",
+      "link": "https://github.com/laforetbrut/v-hud-fivem",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.1",
+      "letztes_update": "Aktiv · letzter Push 2026-08-04",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "hud",
+      "konflikte": ["qbx_hud"],
+      "pro": [
+        "Framework-Autoerkennung für qb-core, qbx_core, ESX und ox_core, per Config.Compat.forceFramework überschreibbar",
+        "Vom selben Autor wie v-phone-fivem (Runde 29), gleiche Bridge-Architektur",
+        "Frei konfigurierbar durch Spieler: verschiebbare Elemente, 5 Themes, 10 Tachos, 21 Kontrollleuchten",
+        "Erkennt ox_inventory automatisch als Harness (bridge/client/compat.lua:560)"
+      ],
+      "contra": [
+        "Auf ESX kein Gang-System, Job-Grade ersetzt den Job-Typ; auf ox_core keine eigene Notification-Quelle, HUD nutzt dann eigene Toasts laut README",
+        "Keine SPDX-Lizenz im Repo angegeben"
+      ],
+      "quelle": "https://github.com/laforetbrut/v-hud-fivem, https://raw.githubusercontent.com/laforetbrut/v-hud-fivem/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_evidence",
+      "name": "qbx_evidence",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "Offizielles Beweismittelsystem des Qbox-Projekts für Polizei-Workflows, direkt an qbx_core und ox_inventory angebunden.",
+      "link": "https://github.com/Qbox-project/qbx_evidence",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Archiviert · letzter Push 2026-07-09",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory", "qbx_core"],
+      "archiviert": {
+        "text": "Offizielles Qbox-project-Repo, auf GitHub archiviert (Flag archived:true), letzter Push 2026-07-09. Kein Nachfolger im Repo, in der Repo-Beschreibung oder in der Qbox-Organisation erkennbar."
+      },
+      "pro": [
+        "Direkte Anbindung an exports.qbx_core und ox_inventory im Code (server/main.lua:43/23, client/main.lua:12)",
+        "Nutzt @ox_lib/init.lua und @qbx_core/modules/lib.lua"
+      ],
+      "contra": [
+        "Archiviert, kein README im Repo vorhanden — Funktionsumfang nur aus fxmanifest und Repo-Beschreibung ableitbar",
+        "Kein benannter Nachfolger"
+      ],
+      "quelle": "https://github.com/Qbox-project/qbx_evidence, https://raw.githubusercontent.com/Qbox-project/qbx_evidence/main/fxmanifest.lua"
+    },
+    {
+      "id": "snowflake_death",
+      "name": "snowflake_death",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Todesbildschirm im GTA-Stil mit Respawn an Einrichtungen, Chat im Totenzustand, Killer-Info und optionalem Discord-Logging. Enthält einen qbx_medical-Patch, der die Leiche liegen lässt statt aufstehen zu lassen.",
+      "link": "https://github.com/snowflake-studios/snowflake_death",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-21",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Bridge-Schicht enthält einen exports['qb-inventory']-Aufruf (bridge/server.lua:74) neben dem qbx_core/ox_inventory-Pfad — laut Framework-Autoerkennung (bridge/server.lua:3) nur im QBCore-Zweig relevant, unter Qbox greift der qbx_core/ox_inventory-Pfad",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "README nennt Qbox als primäres, vollständig getestetes Ziel; QBCore und ESX über Bridge unterstützt",
+        "Eigener Patch für qbx_medical behebt den bekannten \"Leiche steht wieder auf\"-Bug",
+        "MIT-lizenziert laut README-Badge",
+        "Lässt den framework-eigenen Revive-/Rettungsdienst-Ablauf unangetastet"
+      ],
+      "contra": [
+        "Bridge-Code enthält einen exports['qb-inventory']-Aufruf (bridge/server.lua:74)",
+        "Der Death-Pose-Patch erfordert manuelles Überschreiben einer Datei in qbx_medical"
+      ],
+      "quelle": "https://github.com/snowflake-studios/snowflake_death, https://raw.githubusercontent.com/snowflake-studios/snowflake_death/main/fxmanifest.lua"
+    },
+    {
+      "id": "security_ac",
+      "name": "security_ac",
+      "kategorie": "admin",
+      "essenziell": false,
+      "beschreibung": "Leichtgewichtiger, serverautoritativer Anti-Cheat gegen Speed- und Teleport-Hacks, speziell für Qbox (qbx_core) gebaut.",
+      "link": "https://github.com/heyowest/security_ac",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "v1.0.1",
+      "letztes_update": "Aktiv · letzter Push 2026-06-24",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "qbx_core"],
+      "pro": [
+        "Nur serverseitiger Code, kein Client-Script, dadurch laut README kein nennenswerter Performance-Aufwand",
+        "Direkte Anbindung an exports.qbx_core (server.lua:141) und QBCore:Server:OnPlayerLoaded",
+        "Kostenlos, ohne Attributionspflicht laut README"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben",
+        "Nur für Qbox gebaut, keine Unterstützung für andere Frameworks"
+      ],
+      "quelle": "https://github.com/heyowest/security_ac, https://raw.githubusercontent.com/heyowest/security_ac/main/fxmanifest.lua"
+    },
+    {
+      "id": "ccn-notify",
+      "name": "ccn-notify (CCN Notify)",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Leichtgewichtiges Qbox-Utility, das per Befehl die eigene Citizen-ID anzeigt und dabei automatisch das vorhandene Notification-System erkennt.",
+      "link": "https://github.com/convicttt/ccn-notify",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-24",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": "notify",
+      "abhaengigkeiten": ["ox_lib", "qbx_core"],
+      "pro": [
+        "Sehr kleiner Funktionsumfang, direkte exports.qbx_core-Anbindung (server/server.lua:2)",
+        "Erkennt automatisch das vorhandene Notification-System"
+      ],
+      "contra": [
+        "Nur für Qbox gebaut, keine QBCore/ESX-Unterstützung",
+        "Deutlich kleinerer Funktionsumfang als t-notify (nur Citizen-ID-Anzeige, keine allgemeine Notification-Library)",
+        "Keine SPDX-Lizenz im Repo angegeben"
+      ],
+      "quelle": "https://github.com/convicttt/ccn-notify, https://raw.githubusercontent.com/convicttt/ccn-notify/main/fxmanifest.lua"
+    },
+    {
+      "id": "lsv_traffic",
+      "name": "lsv_traffic",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Framework-unabhängiger Traffic-Manager, der Fußgänger-, Fahrzeug- und Parkfahrzeugdichte über ein ox_lib-Menü steuert, mit ACE-Berechtigungen und mehrsprachiger Oberfläche.",
+      "link": "https://github.com/CriziiTV/lsv_traffic",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.1",
+      "letztes_update": "Aktiv · letzter Push 2026-06-20",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "Läuft komplett ohne Framework, ACE-Permissions als primärer Berechtigungsweg mit Fallback auf Framework-Admin-Gruppen (QBCore/ESX/Qbox)",
+        "GPL-3.0-lizenziert",
+        "Framework-Autoerkennung im Code vorhanden (server.lua:12), falls kein ACE konfiguriert ist"
+      ],
+      "contra": [
+        "Framework-Anbindung nur als optionaler Fallback für Berechtigungen, keine tiefere Integration"
+      ],
+      "quelle": "https://github.com/CriziiTV/lsv_traffic, https://raw.githubusercontent.com/CriziiTV/lsv_traffic/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "qbx_hud",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Gruppen-Konkurrent v-hud-fivem (Runde 32) gefunden — framework-übergreifendes, spielerkonfigurierbares HUD desselben Autors wie v-phone-fivem. Vergleichsdaten der Gruppe 'hud' aktualisiert. qbx_hud selbst wurde in dieser Runde nicht neu gegen README/Code geprüft.",
+      "neutral": [
+        "Status aus qbx_smallresources",
+        "Community-Alternative cx-hud bietet dieselbe qbx_core-Anbindung, aber ohne README/Doku",
+        "Community-Alternative v-hud-fivem bietet Spieler-Konfigurierbarkeit (verschiebbare Elemente, 10 Tachos, 21 Kontrollleuchten, 5 Themes) und Multi-Framework-Support (qb-core/qbx_core/ESX/ox_core), dafür ohne native qbx_core-Exports"
+      ]
+    },
+    {
+      "id": "t-notify",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Neuer Gruppen-Konkurrent ccn-notify (Runde 32) gefunden — deutlich kleineres Qbox-only-Utility, das nur die Citizen-ID anzeigt. Vergleichsdaten der Gruppe 'notify' aktualisiert.",
+      "neutral": [
+        "Community-Alternative ccn-notify ist Qbox-only und beschränkt sich auf die Citizen-ID-Anzeige, dafür mit direkter qbx_core-Anbindung; t-notify ist eine allgemeine Notification-Library mit größerem Funktionsumfang, aber ohne aktiven Qbox-Bezug und seit 24.10.2024 ohne Commit"
+      ]
+    }
+  ]
+}

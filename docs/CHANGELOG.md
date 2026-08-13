@@ -17,6 +17,33 @@ Format je Eintrag:
 
 ---
 
+## [Runde 32] Siebte Neusuche-Runde – 13.08.2026
+
+**Neu:** 10 weitere Plugins: `solidcore_studios_police_mdt_with_dispatch`, `gs-app-finance-jg`,
+`stark_vehiclecloset`, `v-sport-fivem`, `v-hud-fivem`, `qbx_evidence`, `snowflake_death`,
+`security_ac`, `ccn-notify`, `lsv_traffic`.
+
+**Erstes archiviertes offizielles Qbox-Repo im Katalog:** `qbx_evidence` (Beweismittelsystem)
+ist auf GitHub archiviert, kein Nachfolger im Repo, in der Beschreibung oder in der
+Qbox-Organisation erkennbar — `archiviert.text` entsprechend dokumentiert, `nachfolger` bewusst
+weggelassen statt geraten (Schema erlaubt es optional).
+
+**Zwei mit Gruppenvergleich:** `v-hud-fivem`↔`qbx_hud` (Gruppe `hud`, bestand schon — dritter
+Anbieter neben `cx-hud`/`matti-hud`; `v-hud-fivem` stammt vom selben Autor wie `v-phone-fivem`
+aus Runde 29), `ccn-notify`↔`t-notify` (Gruppe `notify`, bestand schon).
+
+**Zwei Schema-Fehler beim Schreiben abgefangen:** `kompat_warnung` kam vom Subagent dreimal als
+Array statt als einzelnes Objekt (`[{...}]` statt `{...}`) — vor dem Commit auf Objektform
+korrigiert. `qbx_evidence.archiviert.nachfolger` kam als `null`, das Schema verlangt bei Angabe
+einen String (leer erlaubt) oder das Feld ganz weglassen — Feld entfernt statt `null` zu
+erzwingen.
+
+**Katalog:** 10 neu, 2 aktualisiert (Gruppenvergleiche bei `qbx_hud`, `t-notify`), 0 Duplikate
+übersprungen, 0 ungeprüft (9 verifiziert, 1 teilgeprüft)
+**Datei:** `data/catalog/runde-32.json` · **Commit:** folgt
+
+---
+
 ## [Runde 31] Sechste Neusuche-Runde – 13.08.2026
 
 **Neu:** 10 weitere Plugins, darunter drei weitere offizielle Qbox-project-Repos:
