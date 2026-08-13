@@ -17,6 +17,22 @@ Format je Eintrag:
 
 ---
 
+## [v3.0-r25b] Erstes GitHub-Release – 13.08.2026
+
+**Neu:** Repo `T0XiQ96/Qbox-Server-Planer` (privat) angelegt, kompletter Verlauf (33 Commits)
+gepusht. Erstes Release **v3.0-r25b** mit `dist/qbox-planer.html` als Anhang —
+428 KB, 262 Plugins, per Doppelklick über `file://` nutzbar.
+
+**Neu:** `docs/SUBAGENT-VORLAGE.md` — der feste Teil des Recherche-Prompts in zwei Varianten
+(Nachprüfung / Neusuche) plus die Pflichtschritte nach der Rückmeldung. Bisher wurde dieser
+Prompt in jeder Runde neu formuliert: 80 % Wiederholung, jedes Mal neu bezahlt, und in den
+Runden ohne den Schema-Block lieferte der Subagent regelmäßig `framework` als Array oder
+`lizenz: "MIT"` zurück. Der Block steht jetzt fest drin.
+
+**Neu:** CLAUDE.md §2.8 — jeder Build wird zu einem GitHub-Release mit der `catalogVersion` als
+Tag. `dist/` ist gitignored (reine Ableitung), das Release ist also der einzige Ort, an dem die
+fertige Datei liegt.
+
 ## [Sparmaßnahmen] Briefing- und Doku-Diät – 13.08.2026
 
 Nach dem Discover-Bau gezielt nach weiteren Einsparungen gesucht, **ohne Genauigkeitsverlust**.

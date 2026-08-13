@@ -105,6 +105,16 @@ Vorsicht zu lesen sind. `qbx_vehicles` und `qbx_npwd` (aus Runde 1) sind weiterh
 die erste Neusuche-Runde. Die Topic-Seiten-Links (`github.com/topics/qbox`) könnten in weiteren
 Kategorien öfter auftauchen — beim Recherchieren künftiger Runden aktiv drauf achten.
 
+## Veröffentlichung
+
+Repo: **https://github.com/T0XiQ96/Qbox-Server-Planer** (privat, Account T0XiQ96).
+Authentifizierung läuft über den `GITHUB_TOKEN` in der Umgebung (Scopes `repo`, `workflow`) —
+kein separater `gh`-Login gespeichert. `gh` liegt unter `/c/Program Files/GitHub CLI/gh.exe`
+und ist nicht im PATH.
+
+Letztes Release: **v3.0-r25b** mit `qbox-planer.html` als Anhang. Regel dazu in CLAUDE.md §2.8:
+nach jedem `npm run build`, das committet wird, ein Release mit der `catalogVersion` als Tag.
+
 ## Nächster Schritt
 
 **Altbestand ist vollständig durchgeprüft (0 Einträge ohne `geprueft_am`).** Phase 3
