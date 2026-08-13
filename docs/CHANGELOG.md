@@ -17,6 +17,30 @@ Format je Eintrag:
 
 ---
 
+## [Runde 30] Fünfte Neusuche-Runde – 13.08.2026
+
+**Neu:** 10 weitere Plugins, darunter erstmals vier **offizielle Qbox-project-Repos**, die bislang
+nicht im Katalog standen: `qbx_seatbelt`, `qbx_scrapyard`, `qbx_streetraces`, `qbx_npwd`. Dazu
+sechs Community-Funde: `lxs-scrapping`, `y_mechanic`, `rhd_garage`, `vl_eas`, `ls_trucking`,
+`mbt_malisling`.
+
+**Fünf mit Gruppenvergleich:** `qbx_npwd`↔`npwd` (Gruppe `phone`, bestand schon — `qbx_npwd` ist
+die fehlende Qbox-Bridge für `npwd`, kein Konkurrenzprodukt), `y_mechanic`↔`jg_mechanic` (Gruppe
+`mechanic`, bestand schon), `rhd_garage`↔`cd_garage` (Gruppe `garage`, bestand schon),
+`qbx_scrapyard`↔`lxs-scrapping` (**neue Gruppe `scrapping`** — musste diesmal selbst erkannt
+werden, das Discover-Briefing hatte keine Gruppenzuordnung vorgeschlagen), `ls_trucking`↔
+`cipher-trucking` (**neue Gruppe `trucking`**, Konkurrenzprodukt zum Runde-27-Fund).
+
+**Kollisionsprüfung für neue Gruppennamen hat sich diesmal ausgezahlt:** Der Subagent hat vor
+Vergabe von `scrapping` und `trucking` gezielt `grep -rn '"gruppe": "..."' data/catalog/*.json`
+laufen lassen (wie seit Runde 28 vorgeschrieben) — beide Namen waren frei, keine Korrektur nötig.
+
+**Katalog:** 10 neu, 4 aktualisiert (Gruppenvergleiche bei `npwd`, `jg_mechanic`, `cd_garage`,
+`cipher-trucking`), 0 Duplikate übersprungen, 0 ungeprüft (8 verifiziert, 2 teilgeprüft)
+**Datei:** `data/catalog/runde-30.json` · **Commit:** folgt
+
+---
+
 ## [Runde 29] Vierte Neusuche-Runde – 13.08.2026
 
 **Neu:** 10 weitere Plugins aus der offenen Restliste von Runde 28 (`data/.prefetch/kandidaten-28.md`/-29.md, 9–52 ⭐):

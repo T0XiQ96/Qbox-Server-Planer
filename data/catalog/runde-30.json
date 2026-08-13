@@ -1,0 +1,345 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r30",
+  "runde": 30,
+  "thema": "Neusuche (docs/RECHERCHE.md §7): 10 Kandidaten, davon 4 offizielle Qbox-project-Repos (qbx_seatbelt, qbx_scrapyard, qbx_streetraces, qbx_npwd). 5 mit Gruppenvergleich: qbx_npwd↔npwd (Gruppe 'phone', bestand schon), y_mechanic↔jg_mechanic (Gruppe 'mechanic', bestand schon), rhd_garage↔cd_garage (Gruppe 'garage', bestand schon), qbx_scrapyard↔lxs-scrapping (neue Gruppe 'scrapping', Kollisionscheck durchgeführt), ls_trucking↔cipher-trucking (neue Gruppe 'trucking', Kollisionscheck durchgeführt).",
+  "erstellt": "2026-08-13",
+  "plugins": [
+    {
+      "id": "qbx_seatbelt",
+      "name": "qbx_seatbelt",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Offizielles Qbox-Seatbelt-System: schnallt den Charakter per Tastendruck an, spielt eigene Anschnall-Sounds ab und reduziert Unfallschaden bei angelegtem Gurt.",
+      "link": "https://github.com/Qbox-project/qbx_seatbelt",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-16",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "pro": [
+        "Offizielles Qbox-project-Repo, direkt gegen qbx_core und ox_inventory geprüft",
+        "Eigene Sound-Assets (audiodirectory/dat54) statt generischer Sounds",
+        "Schlanker Code-Umfang, nur 4 Lua-Dateien"
+      ],
+      "contra": [
+        "Kein README über die Überschrift hinaus, keine Konfig-Doku"
+      ],
+      "quelle": "https://github.com/Qbox-project/qbx_seatbelt, https://raw.githubusercontent.com/Qbox-project/qbx_seatbelt/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_scrapyard",
+      "name": "qbx_scrapyard",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "gruppe": "scrapping",
+      "beschreibung": "Offizielles Qbox-Verschrottungssystem: Spieler bringen Fahrzeuge zum Schrottplatz und erhalten dafür über ox_inventory verkaufbare Teile/Materialien.",
+      "link": "https://github.com/Qbox-project/qbx_scrapyard",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-16",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_target", "oxmysql"],
+      "pro": [
+        "Offizielles Qbox-project-Repo, gegen qbx_core/ox_target/ox_inventory geprüft",
+        "provide 'qb-scrapyard' sorgt für Legacy-Kompatibilität zu qb-Ressourcen, die den alten Namen erwarten"
+      ],
+      "contra": [
+        "README nennt nur 'QB-Core' im Titel, keine ausführliche Feature-Doku"
+      ],
+      "neutral": [
+        "Funktional identisch zu lxs-scrapping (anderer Anbieter) — siehe Gruppenvergleich"
+      ],
+      "quelle": "https://github.com/Qbox-project/qbx_scrapyard, https://raw.githubusercontent.com/Qbox-project/qbx_scrapyard/main/fxmanifest.lua"
+    },
+    {
+      "id": "lxs-scrapping",
+      "name": "lxs-scrapping",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "gruppe": "scrapping",
+      "beschreibung": "Modulares Fahrzeug-Verschrottungssystem: Spieler nehmen Aufträge an, finden verlassene Wracks in San Andreas, bergen Teile per Skill-Check und verkaufen sie weiter.",
+      "link": "https://github.com/LuxStudioGH/lxs-scrapping",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-15",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib", "ox_target"],
+      "pro": [
+        "Auftrags-/Contract-System statt reinem Fahrzeug-Abliefern — mehr Spieltiefe als eine einfache Verschrottung",
+        "Skill-Check-basierte Bergung von Teilen"
+      ],
+      "contra": [
+        "Kein README im Repo — Zweck nur aus fxmanifest und GitHub-Beschreibung belegbar",
+        "Kein qbx_core-Export in der Code-Stichprobe gefunden, nur ox-Muster — Framework-Einordnung unsicher"
+      ],
+      "neutral": [
+        "Funktional identisch zu qbx_scrapyard (Qbox-project) — siehe Gruppenvergleich"
+      ],
+      "quelle": "https://github.com/LuxStudioGH/lxs-scrapping, https://raw.githubusercontent.com/LuxStudioGH/lxs-scrapping/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_streetraces",
+      "name": "qbx_streetraces",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Offizielles Qbox-Straßenrennen-System: Spieler starten und fahren Straßenrennen gegeneinander, direkt an qbx_core angebunden.",
+      "link": "https://github.com/Qbox-project/qbx_streetraces",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-16",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "pro": [
+        "Offizielles Qbox-project-Repo, gegen qbx_core geprüft",
+        "Schlanker Umfang, nur 3 Lua-Dateien — geringe Fehlerfläche"
+      ],
+      "contra": [
+        "README nur mit Titelzeile, keine ausführliche Feature-/Konfig-Doku"
+      ],
+      "quelle": "https://github.com/Qbox-project/qbx_streetraces, https://raw.githubusercontent.com/Qbox-project/qbx_streetraces/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_npwd",
+      "name": "qbx_npwd",
+      "kategorie": "kommunikation",
+      "essenziell": false,
+      "gruppe": "phone",
+      "beschreibung": "Offizielle Qbox-Kompatibilitätsschicht für npwd: bindet das framework-agnostische Handy-System npwd an qbx_core und ox_inventory an, damit Telefon-Items und Spielerdaten korrekt zusammenspielen.",
+      "link": "https://github.com/Qbox-project/qbx_npwd",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-16",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory", "oxmysql"],
+      "pro": [
+        "Offizielles Qbox-project-Repo, schließt genau die Lücke, die npwd selbst offen lässt (kein natives Qbox)",
+        "provide 'qb-npwd' für Legacy-Kompatibilität"
+      ],
+      "contra": [
+        "Reine Bridge ohne eigene Handy-Funktionen — npwd selbst muss zusätzlich installiert und vor dieser Ressource gestartet werden",
+        "Startreihenfolge ist strikt: nach qbx_core und ox_inventory, vor npwd"
+      ],
+      "neutral": [
+        "Kein Konkurrenzprodukt zu npwd, sondern die fehlende Qbox-Anbindung dafür — siehe Update an npwd"
+      ],
+      "quelle": "https://github.com/Qbox-project/qbx_npwd, https://raw.githubusercontent.com/Qbox-project/qbx_npwd/main/fxmanifest.lua"
+    },
+    {
+      "id": "y_mechanic",
+      "name": "y_mechanic",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "gruppe": "mechanic",
+      "beschreibung": "Mechaniker-Job mit Reparatur-Aktionen und Werkstatt-Items, laut Repo-Beschreibung für Ybox und aktuell auch Qbox ausgelegt.",
+      "link": "https://github.com/Ynot-Workshop/y_mechanic",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.3",
+      "letztes_update": "Letzter Push 2025-01-02 — seit über 1,5 Jahren keine neue Aktivität",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_target"],
+      "pro": [
+        "Kostenlos und quelloffen, direkt gegen qbx_core und ox_target geprüft",
+        "Kompakter Job-Umfang, leicht anpassbar"
+      ],
+      "contra": [
+        "Seit 01/2025 kein Commit mehr — Pflegestatus unklar",
+        "Kein UI-/Feature-Vergleich zu jg_mechanic möglich, README ohne Beleg-Zeilen"
+      ],
+      "neutral": [
+        "Repo-Beschreibung nennt primär 'Ybox' als Zielframework, Qbox nur als Zusatz ('for now')"
+      ],
+      "quelle": "https://github.com/Ynot-Workshop/y_mechanic, https://raw.githubusercontent.com/Ynot-Workshop/y_mechanic/main/fxmanifest.lua"
+    },
+    {
+      "id": "rhd_garage",
+      "name": "rhd_garage",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "gruppe": "garage",
+      "beschreibung": "Garage-System für ESX, QBox und QBCore mit eigener Qbox-Bridge (bridge/qbox), das Fahrzeuge zentral verwaltet und über eine Web-UI bedient wird.",
+      "link": "https://github.com/RHD-FiveM/rhd_garage",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Letzter Push 2025-06-25",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "pro": [
+        "Kostenlos und quelloffen (MIT), dedizierte Qbox-Bridge im Code nachweisbar",
+        "Eigene Web-UI (ui_page) statt reinem NUI-Text"
+      ],
+      "contra": [
+        "Kleinere Community/Autor als cd_garage, weniger Funktionsumfang laut README (keine geteilten Garagen/Valet erwähnt)",
+        "Seit 06/2025 keine neue Aktivität"
+      ],
+      "neutral": [
+        "Vergleich zu cd_garage: rhd_garage ist kostenlos und offen, cd_garage ist Premium/Escrow mit Vorschau-UI, geteilten Garagen und Valet"
+      ],
+      "quelle": "https://github.com/RHD-FiveM/rhd_garage, https://raw.githubusercontent.com/RHD-FiveM/rhd_garage/main/fxmanifest.lua"
+    },
+    {
+      "id": "vl_eas",
+      "name": "vl_eas",
+      "kategorie": "admin",
+      "essenziell": false,
+      "beschreibung": "Notfall-Warnsystem, das Spieler vor Server-Neustarts per Telefon-Benachrichtigung/E-Mail und Sound alarmiert.",
+      "link": "https://github.com/MriKNG/vl_eas",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-31",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["interact_sound", "qbx_core", "lb_phone"],
+      "pro": [
+        "Klar abgegrenzter Zweck: reine Neustart-Warnung, geringe Fehlerfläche",
+        "fxmanifest nennt qbx_core direkt als Abhängigkeit"
+      ],
+      "contra": [
+        "Kein README im Repo — Beschreibung nur aus fxmanifest/GitHub-Beschreibung ableitbar",
+        "fxmanifest listet zusätzlich qb-core, qb-phone und roadphone als Abhängigkeiten, die nicht im Katalog erfasst sind — Kompatibilität zu diesen ungeprüft",
+        "Code-Stichprobe fand kein eindeutiges Framework-Muster (weder rote noch grüne Flagge)"
+      ],
+      "quelle": "https://github.com/MriKNG/vl_eas, https://raw.githubusercontent.com/MriKNG/vl_eas/main/fxmanifest.lua"
+    },
+    {
+      "id": "ls_trucking",
+      "name": "ls_trucking",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "gruppe": "trucking",
+      "beschreibung": "Umfangreicher Trucker-Job (Los Santos Freight Co.) mit Paket-, Fracht- und Anhänger-Lieferungen, Firmenlizenzsystem und Live-Routenkarte, für QB-Core, Qbox, ESX, ND_Framework und Standalone.",
+      "link": "https://github.com/DrSnyder86/ls_trucking",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.3.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-11",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "Breiteste Framework-Abdeckung der Gruppe: QB-Core, Qbox, ESX, ND_Framework, ND_Core und Standalone per Auto-Erkennung",
+        "Privates-Vertrags-Lizenzsystem mit eigenen Fahrzeugen und rang-gestaffelten Staats-/Militär-Aufträgen",
+        "Kompatibilitäts-Bridges für Inventar, Tank, Schlüssel und Target (ox_target, qb-target oder ox_lib TextUI)"
+      ],
+      "contra": [
+        "Sehr große Ressource (57+ Dateien, 53 .lua-Dateien) — höherer Wartungs-/Update-Aufwand als cipher-trucking",
+        "Code-Stichprobe deckte nur 40 von 53 .lua-Dateien ab"
+      ],
+      "neutral": [
+        "Vergleich zu cipher-trucking: ls_trucking bietet mehr Frameworks und ein eigenes Lizenzsystem, cipher-trucking punktet mit eigenem Garage-System und Admin-Live-Tuning-Konsole in einem schlankeren Zehn-Tab-Dashboard"
+      ],
+      "quelle": "https://github.com/DrSnyder86/ls_trucking, https://raw.githubusercontent.com/DrSnyder86/ls_trucking/main/fxmanifest.lua"
+    },
+    {
+      "id": "mbt_malisling",
+      "name": "mbt_malisling",
+      "kategorie": "waffen",
+      "essenziell": false,
+      "beschreibung": "Waffen als physische Objekte auf Rücken/Hüfte: Sling- und Holster-Animationen, Seriennummern, Chain-of-Custody, Forensik-Spuren (Patronenhülsen) und ein Live-Admin-Dashboard, mit Bridges für ESX, QBCore, Qbox und OX.",
+      "link": "https://github.com/MalibuTechTeam/mbt_malisling",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "2.0.2",
+      "letztes_update": "Aktiv · letzter Push 2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Enthält neben der qbx_core-Bridge (modules/bridge/qbox) auch eine ox_core-Bridge (modules/bridge/ox) und eine qb-inventory-Bridge (modules/inventory/qb) — für Qbox-Betrieb ist ox_inventory die primäre und empfohlene Kombination, die qb-inventory-Bridge greift am ox-Stack vorbei.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Dedizierte qbox-Bridge im Code (modules/bridge/qbox), Framework-Autoerkennung für 4 Frameworks",
+        "ox_inventory als primäres Inventar mit vollständiger qb-inventory-Bridge als Alternative",
+        "Umfangreiches Feature-Set: Waffen-Jamming, Trunk-Waffenrack, Patronenhülsen-Sync, Forensik"
+      ],
+      "contra": [
+        "Lizenz PolyForm Noncommercial 1.0.0 laut README — keine kommerzielle Nutzung erlaubt, kein SPDX-Standardtag in GitHub-Metadaten",
+        "Code-Stichprobe deckte nur 40 von 78 .lua-Dateien ab",
+        "Nutzt zusätzlich ox_core-Muster, das laut RECHERCHE.md nicht automatisch Qbox-Kompatibilität bestätigt — hier aber durch eigene qbox-Bridge separat abgesichert"
+      ],
+      "quelle": "https://github.com/MalibuTechTeam/mbt_malisling, https://raw.githubusercontent.com/MalibuTechTeam/mbt_malisling/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "npwd",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Die Qbox-Bridge Qbox-project/qbx_npwd ist jetzt selbst als Katalogeintrag erfasst (Runde 30) — Verweis darauf ergänzt.",
+      "kompat_warnung": {
+        "text": "npwd ist framework-agnostisch und enthält keine eigene Qbox-Logik. Für Qbox wird die separate Bridge qbx_npwd benötigt, die jetzt ebenfalls im Katalog steht (gleiche Gruppe 'phone').",
+        "sicherheit": "bestaetigt"
+      },
+      "quelle": "https://github.com/project-error/npwd; https://github.com/Qbox-project/qbx_npwd (jetzt eigener Katalogeintrag)"
+    },
+    {
+      "id": "jg_mechanic",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Kostenloses Konkurrenzprodukt y_mechanic derselben Funktionsgruppe gefunden und aufgenommen (Runde 30) — Vergleichsdaten ergänzt.",
+      "contra": [
+        "💰 $81 einmalig (verifiziert) oder Abo",
+        "🔒 Escrow",
+        "Kostenlose Alternative y_mechanic verfügbar (gleicher Funktionsumfang: Reparaturen, Werkstatt-Items), aber seit 01/2025 ohne Aktivität"
+      ],
+      "quelle": "https://jgscripts.com/scripts/mechanic; https://github.com/Ynot-Workshop/y_mechanic (Vergleich)"
+    },
+    {
+      "id": "cd_garage",
+      "geprueft_am": "2026-08-13",
+      "update_grund": "Kostenloses Konkurrenzprodukt rhd_garage derselben Funktionsgruppe gefunden und aufgenommen (Runde 30) — Vergleichsdaten ergänzt.",
+      "contra": [
+        "💰 Kostenpflichtig",
+        "🔒 Escrow",
+        "Kostenlose Alternative rhd_garage verfügbar, allerdings mit weniger Funktionsumfang (keine geteilten Garagen/Valet dokumentiert)"
+      ],
+      "quelle": "https://codesign.pro/product/4206352; https://github.com/RHD-FiveM/rhd_garage (Vergleich)"
+    },
+    {
+      "id": "cipher-trucking",
+      "geprueft_am": "2026-08-13",
+      "gruppe": "trucking",
+      "update_grund": "Konkurrenzprodukt ls_trucking derselben Funktionsgruppe gefunden und aufgenommen (Runde 30) — neue gruppe 'trucking' vergeben (Kollisions-Check gegen alle Katalogdateien durchgeführt, Name war frei), Vergleichsdaten ergänzt.",
+      "contra": [
+        "Lizenz untersagt laut README Weiterverbreitung/Wiederverkauf",
+        "0 Sterne, neuer Account ohne Community-Historie",
+        "Weniger Frameworks unterstützt als ls_trucking (nur QBox/QBCore statt QB-Core/Qbox/ESX/ND/Standalone)"
+      ],
+      "neutral": [
+        "Vergleich zu ls_trucking: cipher-trucking punktet mit eigenem Garage-System und Admin-Live-Tuning-Konsole in einem schlankeren Zehn-Tab-Dashboard, ls_trucking mit breiterer Framework-Abdeckung und Lizenzsystem"
+      ],
+      "quelle": "https://github.com/XyraL/cipher-trucking; https://github.com/DrSnyder86/ls_trucking (Vergleich)"
+    }
+  ]
+}

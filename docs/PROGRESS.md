@@ -4,19 +4,22 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 13.08.2026
-**Letzter Commit:** `dab70ab` (Runde 28). Runde 29 ist fertig und wird mit diesem Schritt
-committet — noch nicht gepusht (Nutzer hat Push für Runden 26–28 bewusst zurückgestellt, Repo auf
+**Letzter Commit:** `bf4e209` (Runde 29). Runde 30 ist fertig und wird mit diesem Schritt
+committet — noch nicht gepusht (Nutzer hat Push für Runden 26–29 bewusst zurückgestellt, Repo auf
 GitHub liegt entsprechend mehrere Commits zurück).
-**Validate-Status:** grün (32 Katalogdateien inkl. `runde-29.json` · 303 Plugins gesamt · 19
-harmlose „nur ein Mitglied"-Warnungen — nur 1 neu (`camera`), die anderen zwei Gruppen dieser
-Runde (`appearance`, `dealership`) waren schon zweigliedrig).
-**Katalogstand:** 303 gesamt (262 Altbestand + 11/10/10/10 aus Runde 26–29), **0 Einträge ohne
-`geprueft_am`.**
+**Validate-Status:** grün (33 Katalogdateien inkl. `runde-30.json` · 313 Plugins gesamt · 20
+harmlose „nur ein Mitglied"-Warnungen — nur 1 neu (`trucking`), die vier anderen Gruppen dieser
+Runde (`phone`, `mechanic`, `garage`, `scrapping`) waren schon zweigliedrig oder wurden mit
+beiden Mitgliedern direkt in derselben Runde angelegt).
+**Katalogstand:** 313 gesamt (262 Altbestand + 11/10/10/10/10 aus Runde 26–30), **0 Einträge
+ohne `geprueft_am`.**
 
-**Runden 26–29 — Neusuche-Serie, Kurzfassung (Einzelfunde vollständig im CHANGELOG):**
-Vier Runden à 10–11 neue Plugins über `npm run discover`/`prefetch --kandidaten`, macht 41 neue
-Einträge seit dem Ende der Altbestand-Nachprüfung. Subagent liefert seit Runde 27 ausschließlich
-JSON zurück, die Hauptsession schreibt und prüft gegen — das hat sich bewährt und bleibt Standard.
+**Runden 26–30 — Neusuche-Serie, Kurzfassung (Einzelfunde vollständig im CHANGELOG):**
+Fünf Runden à 10–11 neue Plugins über `npm run discover`/`prefetch --kandidaten`, macht 51 neue
+Einträge seit dem Ende der Altbestand-Nachprüfung. Runde 30 brachte erstmals vier offizielle
+Qbox-project-Repos (`qbx_seatbelt`, `qbx_scrapyard`, `qbx_streetraces`, `qbx_npwd`), die bislang
+schlicht übersehen worden waren. Subagent liefert seit Runde 27 ausschließlich JSON zurück, die
+Hauptsession schreibt und prüft gegen — das hat sich bewährt und bleibt Standard.
 **Zwei feste Lehren aus dieser Serie, für jede künftige Runde relevant:**
 1. **Gruppennamen-Kollisionsprüfung ist Pflicht** (Runde 28: `mining` kollidierte mit
    `crypto_mining_sim`, auf `bergbau` korrigiert). Vor dem Schreiben per Grep über alle
@@ -144,33 +147,33 @@ nach jedem `npm run build`, das committet wird, ein Release mit der `catalogVers
 
 ## Nächster Schritt
 
-**Runden 26–29 sind fertig, Neusuche läuft weiter.** 41 Kandidaten sind jetzt im Katalog
-(303 gesamt). `data/.prefetch/kandidaten-29.md` enthält noch **~40 unbearbeitete Kandidaten**
-aus der letzten Vollsuche, u. a. mit Gruppenbezug: `ls_trucking`↔`cipher-trucking`,
-`rhd_garage`↔`cd_garage`, `tx_garage`↔`cd_garage`, `y_mechanic`↔`jg_mechanic`,
-`anx_bridge`↔`jim_bridge`, `pl_lib`↔`ox_lib` (letzteres wirkt wie eine Fehlzuordnung des
-Discover-Scripts, vor Übernahme prüfen) — plus `vl_eas` (5⭐), `mbt_malisling` (4⭐),
-`v-sport-fivem`/`v-hud-fivem` (3⭐) und diverse 0-Stern-Funde vom Ende der Liste. Für Runde 30
+**Runden 26–30 sind fertig, Neusuche läuft weiter.** 51 Kandidaten sind jetzt im Katalog
+(313 gesamt). `data/.prefetch/kandidaten-30.md` enthält noch **~40 unbearbeitete Kandidaten**
+aus der letzten Vollsuche, u. a. mit Gruppenbezug: `tx_garage`↔`cd_garage` (zweiter Konkurrent in
+der `garage`-Gruppe), `anx_bridge`↔`jim_bridge`, `pl_lib`↔`ox_lib` (letzteres wirkt wie eine
+Fehlzuordnung des Discover-Scripts, vor Übernahme prüfen) — plus `ryn-multichar`↔`wasabi_multichar`,
+`v-sport-fivem`/`v-hud-fivem` (3⭐) und diverse 0-Stern-Funde vom Ende der Liste. Für Runde 31
 lohnt sich ein erneuter Blick in diese Datei, bevor ein neuer `discover`-Lauf gestartet wird.
 
-**Runde 30 (nächste Neusuche) so starten:**
+**Runde 31 (nächste Neusuche) so starten:**
 
 ```
-npm run discover -- --seit-letztem-lauf --runde 30   # meist wenig/nichts Neues am selben Tag
-npm run newround 30
-npm run prefetch -- --kandidaten --max 10 --runde 30
+npm run discover -- --seit-letztem-lauf --runde 31   # meist wenig/nichts Neues am selben Tag
+npm run newround 31
+npm run prefetch -- --kandidaten --max 10 --runde 31
 ```
 
-Liefert `--seit-letztem-lauf` 0 Kandidaten (wie in Runde 28/29 passiert), stattdessen
-`npm run discover -- --runde 30` ohne das Flag laufen lassen — filtert bereits Katalogisiertes
+Liefert `--seit-letztem-lauf` 0 Kandidaten (wie in Runde 28/29/30 passiert), stattdessen
+`npm run discover -- --runde 31` ohne das Flag laufen lassen — filtert bereits Katalogisiertes
 automatisch raus. Vor dem `prefetch`-Aufruf `data/.kandidaten.json` per Node-Skript auf eine
 kuratierte Teilmenge kürzen (Indizes der gewünschten Kandidaten wählen, Array neu schreiben),
 priorisiert nach Sternen/Aktivität — hat sich seit Runde 28 bewährt. 10 Kandidaten pro Runde ist
 der Standardwert. **Bei jeder neu vergebenen `gruppe`-ID:** vor dem Schreiben per Grep über alle
 `data/catalog/*.json` nach `"gruppe": "<neuer-name>"` auf Kollision prüfen (Lehre aus Runde 28,
-`mining` vs. `bergbau`), danach in der `validate`-Ausgabe kontrollieren, dass die Gruppe „nur ein
-Mitglied" meldet. **Bei Wegwerf-Account-Clustern:** nicht pauschal verwerfen — jeden einzeln über
-README-Umfang/Code-Substanz bewerten, bei Zweifeln `qualitaet: teilgeprueft` statt Ablehnung.
+`mining` vs. `bergbau` — seit Runde 29/30 zuverlässig angewendet, keine weitere Kollision mehr),
+danach in der `validate`-Ausgabe kontrollieren, dass die Gruppe „nur ein Mitglied" meldet. **Bei
+Wegwerf-Account-Clustern:** nicht pauschal verwerfen — jeden einzeln über README-Umfang/
+Code-Substanz bewerten, bei Zweifeln `qualitaet: teilgeprueft` statt Ablehnung.
 
 Zwei kleine Aufräumpunkte aus Runde 25 sind noch offen (siehe „Bewusst verschoben" unten:
 `kingmaps_shop`-Duplikat, `patoche`-Linkverdacht) — beiläufig in einer künftigen Runde mitnehmen.
@@ -299,3 +302,4 @@ Verdopplung kostet also jedes Mal. Übertragbar ist nur, was sich als *Muster* w
 | 27 | Zweite Neusuche-Runde: 10 neue Plugins über discover --seit-letztem-lauf, 5 davon Wegwerf-Account-Cluster einzeln geprüft, 2 an Bestandsgruppen angeschlossen | 10 | 2 (Gruppenvergleiche bei `cd_dispatch`, `w2f-multicharacter`) | 0 | 0 (8 verifiziert, 2 teilgeprüft) | `data/catalog/runde-27.json` | folgt |
 | 28 | Dritte Neusuche-Runde: 10 populärere Plugins (14–228⭐) über volle discover-Suche, 5 mit Gruppenvergleich, 1 Gruppennamen-Kollision (`mining`→`bergbau`) korrigiert | 10 | 5 (Gruppenvergleiche bei `lb_phone`, `mm_radio`, `qbx_hud`, `qbx_truckerjob`, `jim_mining`) | 0 | 0 (8 verifiziert, 2 teilgeprüft) | `data/catalog/runde-28.json` | folgt |
 | 29 | Vierte Neusuche-Runde: 10 weitere Plugins (9–52⭐) aus der Restliste von Runde 28, 3 mit Gruppenvergleich, Kollisionsprüfung diesmal vorab durchgeführt | 10 | 4 (Gruppenvergleiche bei `fivem_appearance`, `illenium_appearance`, `qbx_vehicleshop`, `polaroid_camera`) | 0 | 0 (alle 10 verifiziert) | `data/catalog/runde-29.json` | folgt |
+| 30 | Fünfte Neusuche-Runde: 4 offizielle Qbox-project-Repos plus 6 Community-Funde, 5 mit Gruppenvergleich (2 neue Gruppen selbst erkannt/kollisionsgeprüft) | 10 | 4 (Gruppenvergleiche bei `npwd`, `jg_mechanic`, `cd_garage`, `cipher-trucking`) | 0 | 0 (8 verifiziert, 2 teilgeprüft) | `data/catalog/runde-30.json` | folgt |
