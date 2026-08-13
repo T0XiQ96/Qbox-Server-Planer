@@ -1,0 +1,329 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r34",
+  "runde": 34,
+  "thema": "Neusuche (docs/RECHERCHE.md §7): 10 Kandidaten, einer mit Gruppenvergleich (stark_lockbox↔leo_lockbox, neue Gruppe 'vehicle_lockbox', Kollisionscheck durchgeführt). distortionz_robped als eigenständiges Feature vom qbx_policejob-Reskin distortionz_police (Runde 33) desselben Autors abgegrenzt. pigeon-dice funktional mit slrn_rolldice verglichen, Lizenz auf escrow korrigiert (proprietäre Lizenz statt Standardannahme).",
+  "erstellt": "2026-08-13",
+  "plugins": [
+    {
+      "id": "peak-clothingitems",
+      "name": "peak-clothingitems",
+      "kategorie": "assets",
+      "essenziell": false,
+      "beschreibung": "Wandelt getragene Kleidungsstücke in physische, metadatenbasierte Inventar-Items um, mit automatischer Framework-Erkennung (QBCore, Qbox, ESX, Standalone) und Unterstützung mehrerer Inventarsysteme (ox_inventory, qb-inventory, ps-inventory, qs-inventory, codem-inventory).",
+      "link": "https://github.com/Peak-Studios/peak-clothingitems",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-26",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt direkte exports.qbx_core-Nutzung (server/bridge.lua, client/init.lua) sowie ox_inventory-Anbindung (server/bridge.lua, server/clothing.lua) und eigene Framework-Autoerkennung (client/init.lua, server/init.lua).",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Framework-Autoerkennung für QBCore, Qbox, ESX und Standalone laut README",
+        "Unterstützt fünf verschiedene Inventarsysteme parallel",
+        "Optionale ox_lib-Radialmenü-Integration statt Zwangsabhängigkeit"
+      ],
+      "contra": [
+        "Admin-Befehl zum Item-Vergeben nur über ACE/Framework-Rechte abgesichert, keine weitere Zugriffskontrolle beschrieben"
+      ],
+      "quelle": "https://github.com/Peak-Studios/peak-clothingitems, https://raw.githubusercontent.com/Peak-Studios/peak-clothingitems/main/fxmanifest.lua"
+    },
+    {
+      "id": "ap_autoshoot",
+      "name": "ap_autoshoot",
+      "kategorie": "admin",
+      "essenziell": false,
+      "beschreibung": "Automatisiertes Tool, das Fahrzeuge nacheinander lädt und Screenshots für einen Fahrzeugkatalog erzeugt; protokolliert bereits fotografierte Fahrzeuge in einer JSON-Verlaufsdatei.",
+      "link": "https://github.com/anya-project/ap_autoshoot",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "",
+      "letztes_update": "Aktiv · letzter Push 2026-05-25",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "kompat_warnung": {
+        "text": "README nennt kein Framework, nur optional ox_lib oder lation_ui für die UI. Kein qbx_core- oder qb-core-Export in der Code-Stichprobe gefunden — reines Standalone-Tool zum Bilder-Erzeugen.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Automatisiert das lästige manuelle Erstellen von Fahrzeug-Katalogbildern"
+      ],
+      "contra": [
+        "Benötigt zusätzlich eine lokale Python-Umgebung außerhalb von FiveM (laut README), höherer Einrichtungsaufwand",
+        "Sehr kleines Repo (4 Lua-Dateien), kein Framework-Bezug, dient nur der Bilderzeugung"
+      ],
+      "quelle": "https://github.com/anya-project/ap_autoshoot, https://raw.githubusercontent.com/anya-project/ap_autoshoot/main/fxmanifest.lua"
+    },
+    {
+      "id": "bcs_auction",
+      "name": "bcs_auction",
+      "kategorie": "wirtschaft",
+      "essenziell": false,
+      "beschreibung": "Auktionshaus-Script für Fahrzeuge, Immobilien und Items mit laufenden Auktionen, automatischer Framework-Erkennung (ESX/QBCore) und optionaler ox_inventory-Anbindung für Item-Auktionen; legt benötigte Datenbanktabellen selbst über oxmysql an.",
+      "link": "https://github.com/bagusgamestudio/bcs_auction",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-15",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "kompat_warnung": {
+        "text": "README beschreibt Framework-Autoerkennung nur für 'esx' oder 'qb' aus Shared.framework, Qbox wird nicht ausdrücklich genannt. Code-Stichprobe zeigt keine direkte qbx_core-Nutzung, aber auch keine roten Flaggen (kein qb-inventory/qb-target) — läuft über die Qbox-QBCore-Bridge.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Auktionen für drei Kategorien (Fahrzeuge, Immobilien, Items) in einem Script",
+        "Legt Datenbanktabellen selbst über oxmysql an, kein manueller SQL-Import nötig",
+        "Item-Auktion prüft aktiv, ob ox_inventory läuft, statt hart vorauszusetzen"
+      ],
+      "contra": [
+        "Immobilien-Auktion setzt optional das separate Escrow-Produkt bcs_housing voraus (nicht katalogisiert)",
+        "Keine SPDX-Lizenz im Repo angegeben"
+      ],
+      "quelle": "https://github.com/bagusgamestudio/bcs_auction, https://raw.githubusercontent.com/bagusgamestudio/bcs_auction/main/fxmanifest.lua"
+    },
+    {
+      "id": "v-digging",
+      "name": "v-digging",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Schatzsuche-/Grabscript mit ox_lib-Skillcheck-Minigame, Grab-Animationen und einer Schaufel, deren Haltbarkeit über ox_inventory-Metadaten bei jedem Grabversuch sinkt, bis sie kaputtgeht.",
+      "link": "https://github.com/Vilde98/v-digging",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-04-04",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "kompat_warnung": {
+        "text": "README nennt qb-core ODER qbx_core ausdrücklich als Voraussetzung, Code-Stichprobe zeigt aber nur ox_inventory-Export, keinen direkten qbx_core-Export — läuft vermutlich über die QBCore-Bridge.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Explizit für QBCore & Qbox beworben (Repo-Titel und README)",
+        "Skillcheck-Minigame und Item-Haltbarkeit über ox_inventory-Metadaten statt eigener Lösung"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben",
+        "Kein bestätigter qbx_core-Export in der Code-Stichprobe — Kompatibilität beruht auf README-Aussage, nicht auf Code-Beleg"
+      ],
+      "quelle": "https://github.com/Vilde98/v-digging, https://raw.githubusercontent.com/Vilde98/v-digging/main/fxmanifest.lua"
+    },
+    {
+      "id": "stark_lockbox",
+      "name": "stark_lockbox",
+      "kategorie": "staat",
+      "essenziell": false,
+      "beschreibung": "Waffentresor im Einsatzfahrzeug für Polizei und EMS mit eigener Bridge für Qbox, QBCore und ESX; für Qbox stellt die Doku die Config-Option ausdrücklich auf 'ox', bei ESX wird nur ox_inventory unterstützt.",
+      "link": "https://github.com/AdamaStark-N7/stark_lockbox",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "5.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-17",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "gruppe": "vehicle_lockbox",
+      "kompat_warnung": {
+        "text": "Eigene Bridge-Dateien pro Framework (bridge/client/qbx.lua, bridge/server/qbx.lua) mit direktem exports.qbx_core-Zugriff und Framework-Autoerkennung. Die QBCore-Bridge-Variante (bridge/server/qb.lua) greift dagegen auf exports['qb-inventory'] zu — das betrifft nur den QBCore-Zweig, nicht den Qbox-Zweig.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Aktiv gepflegt (Version 5.0.0, letzter Push 05/2026), deutlich umfangreicher als der Bestandseintrag leo_lockbox (nur 2 Stars, ungeprüft)",
+        "Eigene, saubere Qbox-Bridge mit direktem qbx_core-Export statt reiner qb-Kompatibilität",
+        "Unterstützt zusätzlich ESX (dort allerdings nur mit ox_inventory)"
+      ],
+      "contra": [
+        "Mehrere Radialmenü-Optionen zur Auswahl (qb-radialmenu/qbx_radialmenu/ox_lib/Lation Modern UI), dadurch mehr Konfigurationsaufwand als bei einer festen Abhängigkeit",
+        "Lation's UI wird laut README separat über Tebex verkauft, falls diese Variante gewünscht ist"
+      ],
+      "neutral": [
+        "Autor bedankt sich im README explizit beim ursprünglichen Entwickler des Konzepts — stark_lockbox ist eine Weiterentwicklung, kein Erstwerk"
+      ],
+      "quelle": "https://github.com/AdamaStark-N7/stark_lockbox, https://raw.githubusercontent.com/AdamaStark-N7/stark_lockbox/main/fxmanifest.lua"
+    },
+    {
+      "id": "distortionz_robped",
+      "name": "Distortionz_Robped",
+      "kategorie": "crime",
+      "essenziell": false,
+      "beschreibung": "Ambiente-NPCs lassen sich über ein ox_target-Interaktionsmenü ausrauben, mit zufälligem Beutewert (Bargeld, Dreckiges Geld oder Items), eskalierenden Polizeialarmen, Cooldowns und Schutzfilterung für geskriptete Peds.",
+      "link": "https://github.com/Distortionzz/Distortionz_Robped",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-17",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_target", "ox_inventory"],
+      "kompat_warnung": {
+        "text": "README nennt Qbox als Pflicht-Framework ('Qbox-required'-Badge), Code-Stichprobe bestätigt direkte exports.qbx_core-Nutzung (client.lua, server.lua) sowie ox_target- und ox_inventory-Anbindung.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Eigenständiges Funktionsfeature (NPC-Ausraub statt reiner Namensänderung), anders als der bereits katalogisierte distortionz_police vom selben Autor",
+        "Ausdrücklich für Qbox gebaut, kein QBCore-Fallback nötig",
+        "MIT-Lizenz, vollständig einsehbarer Code (5 Dateien)"
+      ],
+      "contra": [
+        "Sehr kleines, fokussiertes Script (nur 5 Lua-Dateien) — löst genau eine Aktivität",
+        "README bewirbt es als 'Premium'-Script, obwohl der Code offen auf GitHub liegt"
+      ],
+      "quelle": "https://github.com/Distortionzz/Distortionz_Robped, https://raw.githubusercontent.com/Distortionzz/Distortionz_Robped/main/fxmanifest.lua"
+    },
+    {
+      "id": "shadowforge-devtools",
+      "name": "Shadowforge-devtools",
+      "kategorie": "admin",
+      "essenziell": false,
+      "beschreibung": "In-Game-Entwicklerpanel mit Entity-Inspektion, Koordinaten-Kopie, Zone-Builder (Box/Sphäre/Polygon) und Snippet-Generator für ox_target-, ox_lib- und qb-target-Code; erkennt automatisch das laufende Framework (qbx_core oder qb-core) und vorhandene Ressourcen.",
+      "link": "https://github.com/TonyHinojosa4/Shadowforge-devtools",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-15",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Repo-Beschreibung nennt ausdrücklich Standalone/Qbox/QBCore/ESX, Code-Stichprobe bestätigt exports.qbx_core (server.lua) und Framework-Autoerkennung. Das gefundene exports['qb-target'] (modules/exports_generator.lua, modules/zone_builder.lua) ist nur Teil des Snippet-Generators für QBCore-Nutzer, nicht Voraussetzung — der primäre Zonen-Export läuft über ox_target.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Läuft auch komplett ohne Framework (Standalone), Framework-Erkennung ist optional",
+        "Zone-Builder exportiert wahlweise nach ox_target, ox_lib zones, qb-target oder JSON",
+        "Ressourcen-Whitelist (Config.SafeResources) begrenzt, welche Ressourcen über das Panel gesteuert werden dürfen"
+      ],
+      "contra": [
+        "Enthält qb-target-Exportpfad als Legacy-Option — für reine Qbox-Server ohne qb-target irrelevant, aber im Code vorhanden"
+      ],
+      "quelle": "https://github.com/TonyHinojosa4/Shadowforge-devtools, https://raw.githubusercontent.com/TonyHinojosa4/Shadowforge-devtools/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_weaponrepairer",
+      "name": "qbx_weaponrepairer",
+      "kategorie": "waffen",
+      "essenziell": false,
+      "beschreibung": "Waffen-Reparaturwerkbänke mit Unterstützung für ox_inventory/qb-inventory und ox_target/qb-target, je nach automatisch erkanntem Framework (Qbox oder QBCore).",
+      "link": "https://github.com/iFaisal0/qbx_weaponrepairer",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "",
+      "letztes_update": "Aktiv · letzter Push 2026-05-25",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Code-Stichprobe bestätigt exports.qbx_core und Framework-Autoerkennung (shared/framework.lua) sowie ox_inventory/ox_target für den Qbox-Zweig. Der QBCore-Zweig greift dagegen auf exports['qb-inventory'] und exports['qb-target'] zu (shared/inventory.lua, shared/target.lua) — betrifft nur den QBCore-Pfad, nicht Qbox.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Framework-Autoerkennung mit sauberer Trennung Qbox/QBCore in shared/framework.lua",
+        "README bestätigt ausdrücklich 'Script Supports: qbx, qb'"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben",
+        "Sehr kleines Nischen-Script (7 Lua-Dateien)"
+      ],
+      "quelle": "https://github.com/iFaisal0/qbx_weaponrepairer, https://raw.githubusercontent.com/iFaisal0/qbx_weaponrepairer/main/fxmanifest.lua"
+    },
+    {
+      "id": "devkit",
+      "name": "devkit",
+      "kategorie": "admin",
+      "essenziell": false,
+      "beschreibung": "Standalone In-Game-Debug- und Ressourcenverwaltungsmenü, das einen konfigurierbaren Ressourcenordner scannt und darüber Ressourcen verwalten, testen und steuern lässt.",
+      "link": "https://github.com/DevGeorge-oss/devkit",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-27",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Repo-Beschreibung und README bezeichnen es ausdrücklich als 'Standalone'-Tool für Qbox-Server. Code-Stichprobe zeigt nur ox_lib und einen ox_inventory-Export (server/main.lua), keinen qbx_core-Bezug — passt zum Standalone-Anspruch.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Explizit für Qbox-Server beworben, aber ohne harte Framework-Abhängigkeit",
+        "Nur 4 Lua-Dateien, überschaubarer Code für ein Admin-/Dev-Tool"
+      ],
+      "contra": [
+        "ox_inventory-Export vorhanden, aber im README nicht als Abhängigkeit dokumentiert — Zweck im Code nicht restlos klar"
+      ],
+      "quelle": "https://github.com/DevGeorge-oss/devkit, https://raw.githubusercontent.com/DevGeorge-oss/devkit/main/fxmanifest.lua"
+    },
+    {
+      "id": "pigeon-dice",
+      "name": "pigeon-dice",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Würfel- und Zufallswurf-System fürs Rollenspiel mit konfigurierbaren Befehlen, Cooldowns und Chat-Integration; laut README rein Standalone bzw. optional mit ox_lib-Kontextmenü, ohne Framework-Anbindung.",
+      "link": "https://github.com/WelshPigeon/pigeon-dice",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-13",
+      "version": "1.1.2",
+      "letztes_update": "Aktiv · letzter Push 2026-05-26",
+      "lizenz": "escrow",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "README-Tabelle nennt 'Framework Support: Standalone / ox' ausdrücklich, Code-Stichprobe zeigt nur @ox_lib/init.lua, keine QBCore- oder Qbox-Exports — reines Standalone-Chat-Tool ohne Framework-Berührung.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Keine Framework-Abhängigkeit, läuft unabhängig von Qbox/QBCore/ESX"
+      ],
+      "contra": [
+        "fxmanifest.lua und README weisen die Lizenz ausdrücklich als 'Proprietary FiveM Resource License' (Pigeon Studios) aus — trotz öffentlichem Repo keine freie Bearbeitung/Weitergabe erlaubt",
+        "Funktional deckungsgleich mit dem bereits katalogisierten slrn_rolldice (Würfelsystem), das zusätzlich qbx_core/ox_inventory anbindet"
+      ],
+      "neutral": [
+        "Vergleichbar mit slrn_rolldice (Runde 26): dort mit Qbox-Anbindung, hier bewusst framework-frei — Wahl hängt davon ab, ob eine reine Chat-Funktion oder eine Inventar-/Geld-Anbindung gewünscht ist"
+      ],
+      "quelle": "https://github.com/WelshPigeon/pigeon-dice, https://raw.githubusercontent.com/WelshPigeon/pigeon-dice/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "leo_lockbox",
+      "geprueft_am": "2026-08-13",
+      "gruppe": "vehicle_lockbox",
+      "pro": [
+        "Fraktions-Feature",
+        "Qbox gelistet"
+      ],
+      "contra": [
+        "Repo zu ermitteln",
+        "Kleines Projekt (nur 2 Stars) — im Vergleich deutlich weniger aktiv gepflegt als der neue Konkurrent stark_lockbox (Version 5.0.0, letzter Push 05/2026)"
+      ],
+      "update_grund": "Runde 34: Konkurrenzprodukt stark_lockbox (anderer Anbieter, gleiche Funktion) neu im Katalog aufgenommen. Vergleichsgruppe 'vehicle_lockbox' angelegt (war zuvor null, Kollisionscheck gegen alle Katalogdateien durchgeführt), damit beide Einträge nach RECHERCHE.md §5 gegenübergestellt werden."
+    }
+  ]
+}

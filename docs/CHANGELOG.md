@@ -17,6 +17,34 @@ Format je Eintrag:
 
 ---
 
+## [Runde 34] Neunte Neusuche-Runde – 13.08.2026
+
+**Neu:** 10 weitere Plugins: `peak-clothingitems`, `ap_autoshoot`, `bcs_auction`, `v-digging`,
+`stark_lockbox`, `distortionz_robped`, `shadowforge-devtools`, `qbx_weaponrepairer`, `devkit`,
+`pigeon-dice`.
+
+**`distortionz_robped` (vierter Fund vom Autor Distortionzz) kritisch geprüft und diesmal als
+eigenständig eingestuft** — anders als `distortionz_police` (Runde 33, reiner Rebrand-Fork von
+`qbx_policejob`) ist das hier eine eigene Funktion (NPC-Ausraub-Mechanik über `ox_target`), kein
+Reskin. Als vollwertiger Katalogeintrag übernommen mit explizitem `pro`-Hinweis auf den
+Unterschied zum Vorgänger-Fund.
+
+**`pigeon-dice` funktional mit `slrn_rolldice` (Runde 26) verglichen** — bewusst keine formale
+`gruppe` gesetzt (zu kleines Einzelfeature für eine Vergleichsgruppe), stattdessen ein
+`neutral`-Hinweis auf die Alternative. Wichtiger Fund dabei: fxmanifest und README nennen
+ausdrücklich eine „Proprietary FiveM Resource License" — `lizenz` musste deshalb von der
+Standardannahme `open_source` auf `escrow` korrigiert werden, ein seltener Fall, in dem ein
+öffentliches GitHub-Repo trotzdem keine freie Lizenz trägt.
+
+**Ein mit Gruppenvergleich:** `stark_lockbox`↔`leo_lockbox` (**neue Gruppe `vehicle_lockbox`**,
+Kollisionscheck durchgeführt, `leo_lockbox` hatte zuvor `gruppe: null`).
+
+**Katalog:** 10 neu, 1 aktualisiert (Gruppenvergleich bei `leo_lockbox`), 0 Duplikate
+übersprungen, 0 ungeprüft (9 verifiziert, 1 teilgeprüft)
+**Datei:** `data/catalog/runde-34.json` · **Commit:** folgt
+
+---
+
 ## [Runde 33] Achte Neusuche-Runde – 13.08.2026
 
 **Neu:** 10 weitere Plugins: `lxs-stuntjumps`, `tb-mdt`, `w2f-garage`, `tb-multicharacter`,
