@@ -1,0 +1,355 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r38",
+  "runde": 38,
+  "thema": "Dreizehnte Neusuche-Runde: letzte Restfunde des aktuellen discover-Pools (0-8⭐), 3 mit Gruppenvergleich",
+  "erstellt": "2026-08-14",
+  "plugins": [
+    {
+      "id": "npwd_qbx_garages",
+      "name": "npwd_qbx_garages",
+      "kategorie": "kommunikation",
+      "beschreibung": "NPWD-App, die die Garagen-Verwaltung von qbx_garages ins Handy bringt: Fahrzeuge einsehen, herbeirufen und verwalten direkt aus dem Telefon statt am Garagen-Terminal.",
+      "link": "https://github.com/Qbox-project/npwd_qbx_garages",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-16",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "qbx_garages", "ox_lib"],
+      "ergaenzt": [
+        {
+          "id": "qbx_garages",
+          "plus": ["Garagen-Übersicht und Fahrzeug-Herbeiruf direkt im NPWD-Handy statt nur am Terminal"],
+          "minus": ["Ersetzt qbx_garages nicht — reine Zusatz-App, qbx_garages und npwd müssen weiterhin separat laufen und vor dieser App gestartet werden"]
+        }
+      ],
+      "pro": [
+        "Offizielles Qbox-project-Repo",
+        "Nutzt qbx_core-Exports und ox_lib direkt, keine Fremd-Bridge nötig",
+        "provide 'npwd_qb_garage' für Legacy-Kompatibilität"
+      ],
+      "contra": [
+        "Reine Zusatz-App ohne eigene Garagen-Logik — qbx_garages bleibt Pflicht-Abhängigkeit",
+        "Muss nach npwd, aber vor Config-Eintrag in NPWD config.json eingebunden werden"
+      ],
+      "neutral": [
+        "Keine SPDX-Lizenz im Repo angegeben, aber offizielles Qbox-project-Repo, öffentlich einsehbar"
+      ],
+      "quelle": "https://github.com/Qbox-project/npwd_qbx_garages, https://raw.githubusercontent.com/Qbox-project/npwd_qbx_garages/main/fxmanifest.lua"
+    },
+    {
+      "id": "mri_qbox",
+      "name": "mri_Qbox",
+      "kategorie": "basis",
+      "beschreibung": "Zentrale Verbindungs-Ressource der mri-Qbox-Suite: bündelt Anbindungen an qbx_core, qbx_management, ox_lib und ox_inventory für die übrigen mri-Scripts, u.a. Fahrzeugeinstieg über die richtige Tür via ox_target und Drag-to-Craft im ox_inventory.",
+      "link": "https://github.com/mri-Qbox-Brasil/mri_Qbox",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "unbekannt",
+      "letztes_update": "Aktiv · letzter Push 2026-07-23",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_inventory", "qbx_management"],
+      "pro": [
+        "Nativ auf qbx_core/qbx_management-Exports gebaut, Code-Stichprobe bestätigt (40 von 51 Lua-Dateien geprüft)",
+        "Vue.js-Frontend, mehrere UI-Module (F9/F10-Menüs, Staff, VIP) über ox_lib eingebunden"
+      ],
+      "contra": [
+        "Portugiesischsprachiges README und Doku — Einstieg für nicht-brasilianische Communities erschwert",
+        "Pflicht-Baustein für die gesamte mri-Qbox-Suite — ohne die übrigen mri-Scripts allein wenig nutzbar"
+      ],
+      "neutral": [
+        "Keine SPDX-Lizenz im Repo angegeben",
+        "version-Platzhalter '__VERSION__' im fxmanifest nicht ersetzt — kein festes Release-Tagging erkennbar"
+      ],
+      "quelle": "https://github.com/mri-Qbox-Brasil/mri_Qbox, https://raw.githubusercontent.com/mri-Qbox-Brasil/mri_Qbox/main/fxmanifest.lua, https://raw.githubusercontent.com/mri-Qbox-Brasil/mri_Qbox/main/README.md"
+    },
+    {
+      "id": "jrmy_tags",
+      "name": "jrmy_tags",
+      "kategorie": "ui",
+      "beschreibung": "Persistente Spieler-Tags über dem Kopf mit eigenem Style-Editor und lokalen animierten Hintergründen (GIF/WebP), wahlweise account- oder charakterweise gespeichert.",
+      "link": "https://github.com/JaramiyoSM/jrmy_tags",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-02",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["oxmysql"],
+      "pro": [
+        "MIT-Lizenz",
+        "Unterstützt Qbox, QBCore und ESX laut README, mit qbx_core-Exports im Code bestätigt",
+        "Animierte Hintergründe mit Fallback für reduzierte Bewegung"
+      ],
+      "contra": [
+        "Framework-Bezeichner im ensure-Beispiel ist 'qbx_core' — bei QBCore/ESX-Servern muss der Framework-Wert in config.lua manuell umgestellt werden"
+      ],
+      "neutral": [
+        "Wählbarer Speicher-Scope (license vs. character) muss vor dem Produktiveinsatz festgelegt werden, sonst teilen sich alle Charaktere eines Accounts die Tags"
+      ],
+      "quelle": "https://github.com/JaramiyoSM/jrmy_tags, https://raw.githubusercontent.com/JaramiyoSM/jrmy_tags/main/fxmanifest.lua"
+    },
+    {
+      "id": "brx_diceroll",
+      "name": "brx_diceroll",
+      "kategorie": "zivil",
+      "beschreibung": "Würfel-Minigame mit physischem 3D-Würfel-Prop, animiertem Wurf und ox_lib-Menü; nutzt ox_inventory für das Würfel-Item.",
+      "link": "https://github.com/BruiserX/brx_diceroll",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "unbekannt",
+      "letztes_update": "Aktiv · letzter Push 2025-10-21",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "gruppe": "wuerfelspiel",
+      "pro": [
+        "MIT-Lizenz laut README",
+        "README nennt qbx_core, ox_lib und ox_inventory explizit als Requirements, Autor bezeichnet Framework ausdrücklich als 'QBox'",
+        "Physisches Prop statt reiner UI-Anzeige — sichtbar für andere Spieler"
+      ],
+      "contra": [
+        "Code-Stichprobe findet keinen direkten qbx_core-Export, nur ox_lib/ox_inventory-Muster — Framework-Anbindung laut README, nicht im geprüften Code bestätigt",
+        "Kleiner Funktionsumfang gegenüber slrn_rolldice (nur Würfel, kein Münzwurf)"
+      ],
+      "neutral": [
+        "Reines Minigame ohne Job-Anbindung, wie slrn_rolldice"
+      ],
+      "quelle": "https://github.com/BruiserX/brx_diceroll, https://raw.githubusercontent.com/BruiserX/brx_diceroll/main/fxmanifest.lua, https://raw.githubusercontent.com/BruiserX/brx_diceroll/main/README.md"
+    },
+    {
+      "id": "qbx_customs-redesign-",
+      "name": "qbx_customs Redesign",
+      "kategorie": "fahrzeuge",
+      "beschreibung": "Umfassend überarbeiteter Fork von qbx_customs (selbst ein Fork von Popcornrp-customs) mit neuem NUI-Tuningmenü, Auftrags-/Budgetverwaltung über ein physisches Item und Lackierungs-Meta-Dateien für Gen9-Fahrzeuge.",
+      "link": "https://github.com/jonatas-henrique-alexandre/qbx_customs-redesign-",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-19",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_inventory"],
+      "pro": [
+        "Nutzt qbx_core-Exports, ox_lib und ox_inventory direkt (Code-Stichprobe: 20 von 20 Lua-Dateien geprüft)",
+        "Eigene NUI-Oberfläche statt Standard-Textmenü"
+      ],
+      "contra": [
+        "Einzelner Community-Fork ohne Verbindung zum offiziellen Qbox-project — Pflege hängt an einer Einzelperson",
+        "Portugiesischsprachiges README"
+      ],
+      "neutral": [
+        "Enthält Gen9-Lackierungsdateien (carcols_gen9.meta) — nur relevant, falls der Server auf dem Gen9-Update basiert"
+      ],
+      "quelle": "https://github.com/jonatas-henrique-alexandre/qbx_customs-redesign-, https://raw.githubusercontent.com/jonatas-henrique-alexandre/qbx_customs-redesign-/main/fxmanifest.lua, https://raw.githubusercontent.com/jonatas-henrique-alexandre/qbx_customs-redesign-/main/README.md"
+    },
+    {
+      "id": "dd-characters",
+      "name": "dd-characters",
+      "kategorie": "ui",
+      "beschreibung": "Modernes Multicharacter-System für Qbox, das die Charakterauswahl und Slot-Verwaltung selbst übernimmt, statt die qbx_core-Multichar-Callbacks und -Limits zu nutzen.",
+      "link": "https://github.com/ddainusshaa/dd-characters",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-04",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql", "qbx_core"],
+      "pro": [
+        "MIT-Lizenz",
+        "Nutzt qbx_core-Exports direkt, ergänzend ox_inventory-Anbindung im Server-Code gefunden",
+        "README benennt ausdrücklich, dass eigene Slot-/Limit-Logik statt der qbx_core-Multichar-Callbacks verwendet wird — Konfigurationskonflikt mit paralleler qbx_core-Multichar-Nutzung dokumentiert"
+      ],
+      "contra": [
+        "Eigenständige Charakterverwaltung statt qbx_core-Standard — muss laut README in qbx_core/config/client.lua eingebunden werden, sonst Doppelfunktion mit dem eingebauten Multichar"
+      ],
+      "neutral": [
+        "Optionale Abhängigkeit auf qbx_apartments für neue Charaktere"
+      ],
+      "quelle": "https://github.com/ddainusshaa/dd-characters, https://raw.githubusercontent.com/ddainusshaa/dd-characters/main/fxmanifest.lua, https://raw.githubusercontent.com/ddainusshaa/dd-characters/main/README.md"
+    },
+    {
+      "id": "infronix_gruppe6",
+      "name": "infronix_gruppe6",
+      "kategorie": "zivil",
+      "beschreibung": "Sicherheitsfirma-Job (Gruppe 6) mit Routen-System: Spieler übernehmen geplante Sicherheitsrunden, tracken den Fortschritt persistent und können eine Uniformpflicht vor Arbeitsbeginn erzwingen.",
+      "link": "https://github.com/muhammedmarwan/infronix_gruppe6",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "2.2.0",
+      "letztes_update": "Aktiv · letzter Push 2026-03-08",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_target", "ox_lib"],
+      "kompat_warnung": {
+        "text": "Nutzt an einer Stelle exports['qb-target'] direkt (client.lua:869) statt konsequent ox_target — dieser Codepfad bricht unter Qbox, falls er nicht durch die ox_target-Bridge abgefangen wird.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "MIT-Lizenz",
+        "Nutzt überwiegend qbx_core-Exports, ox_lib, ox_target und ox_inventory (Code-Stichprobe: 5 von 5 Lua-Dateien geprüft)",
+        "Persistentes Routen-Tracking und konfigurierbare Uniformpflicht"
+      ],
+      "contra": [
+        "Ein bestätigter qb-target-Direktzugriff im Code (client.lua:869) trotz sonst durchgängiger ox_target-Nutzung — Einzelfall, aber nicht bereinigt"
+      ],
+      "neutral": [],
+      "quelle": "https://github.com/muhammedmarwan/infronix_gruppe6, https://raw.githubusercontent.com/muhammedmarwan/infronix_gruppe6/main/client.lua"
+    },
+    {
+      "id": "gmn_qboxmultijob",
+      "name": "gmn_qboxmultijob",
+      "kategorie": "ui",
+      "beschreibung": "Registriert den Befehl /multijob, mit dem Spieler zwischen allen ihnen zugewiesenen Jobs wechseln können; setzt auf qbx_core ab Version 1.7.1 auf.",
+      "link": "https://github.com/gamenew09/gmn_qboxmultijob",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "0.0.1",
+      "letztes_update": "Inaktiv seit 2024-03-01 — kein Update seit über zwei Jahren",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "qbx_core"],
+      "pro": [
+        "MIT-Lizenz",
+        "Sehr schlank (4 Lua-Dateien), nutzt qbx_core-Exports direkt"
+      ],
+      "contra": [
+        "Seit März 2024 kein Commit mehr — Kompatibilität mit aktuellen qbx_core-Versionen (README verlangt mindestens 1.7.1) nicht mehr geprüft",
+        "Version 0.0.1 auch nach über zwei Jahren — wirkt wie ein unvollständiges Nebenprojekt",
+        "Sehr knappes README (8 Zeilen), keine Konfigurationsoptionen dokumentiert"
+      ],
+      "neutral": [
+        "Direkter funktionaler Konkurrent zu slrn_multijob (LB-Phone-App), aber ohne Phone-Anbindung — reiner Command"
+      ],
+      "quelle": "https://github.com/gamenew09/gmn_qboxmultijob, https://raw.githubusercontent.com/gamenew09/gmn_qboxmultijob/main/fxmanifest.lua, https://raw.githubusercontent.com/gamenew09/gmn_qboxmultijob/main/README.md"
+    },
+    {
+      "id": "pl_lib",
+      "name": "pl_lib (PulseLib)",
+      "kategorie": "basis",
+      "beschreibung": "Framework-Bridge-Bibliothek, die eine einheitliche API über QBCore, Qbox und ESX sowie viele Drittsysteme (Notification, Inventar, Target, Clothing, Banking) legt — vergleichbar mit community_bridge/jim_bridge/anx_bridge, nicht mit ox_lib selbst, von dem pl_lib zusätzlich abhängt.",
+      "link": "https://github.com/pulsepk/pl_lib",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.3",
+      "letztes_update": "Aktiv · letzter Push 2026-07-29",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "gruppe": "bridge",
+      "pro": [
+        "Sehr breite Drittsystem-Abdeckung laut README-Tabelle (u.a. 10+ Inventar-Systeme, 7+ Notify-Systeme)",
+        "Eigener qbox.lua-Bridge-Zweig mit direkten qbx_core-/ox_inventory-/ox_target-Exports, Framework-Autoerkennung im Code bestätigt (shared/detect.lua:21)",
+        "Aktiv gepflegt (Push 2026-07-29)"
+      ],
+      "contra": [
+        "Trotz Namensähnlichkeit KEINE Alternative zu ox_lib — Feldvorschlag des Discover-Scripts war irreführend, pl_lib baut selbst auf ox_lib auf und übersetzt lediglich zwischen Frameworks/Drittsystemen",
+        "Deutlich jünger und weniger verbreitet als community_bridge und jim_bridge",
+        "Der QBCore-Bridge-Zweig (bridge/qbcore.lua) nutzt qb-inventory/qb-target/TokoVoIP-Muster direkt — für Qbox nur relevant, falls die Framework-Erkennung fehlschlägt und fälschlich den QBCore-Zweig wählt"
+      ],
+      "neutral": [
+        "Keine SPDX-Lizenz im Repo angegeben",
+        "gruppe 'bridge' neu für pl_lib vergeben (bereits mit jim_bridge und anx_bridge belegt) — siehe update_grund an beiden Einträgen"
+      ],
+      "quelle": "https://github.com/pulsepk/pl_lib, https://raw.githubusercontent.com/pulsepk/pl_lib/main/fxmanifest.lua, https://raw.githubusercontent.com/pulsepk/pl_lib/main/README.md, https://raw.githubusercontent.com/pulsepk/pl_lib/main/shared/detect.lua"
+    },
+    {
+      "id": "osm-atmdui",
+      "name": "osm-atmdui",
+      "kategorie": "wirtschaft",
+      "beschreibung": "DUI-basiertes ATM-System mit realistischer Banking-Oberfläche als Ingame-Textur statt klassischem NUI-Overlay, mit separaten Bridge-Modulen für QBCore, ESX und Qbox.",
+      "link": "https://github.com/Welshonioninfinitude16/osm-atmdui",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-12",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "client/main.lua greift an einer Stelle direkt auf exports['qb-target'] zu (Zeile 79), obwohl ein eigener Qbox-Bridge-Zweig mit ox_target existiert — je nach Framework-Erkennung kann dieser Codepfad unter Qbox brechen.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Eigener bridge/*/qbox.lua-Zweig mit qbx_core-, ox_inventory- und ox_target-Exports (Code-Stichprobe: 14 von 14 Lua-Dateien geprüft)",
+        "Framework-Autoerkennung im Code bestätigt (client/bridge.lua:18, server/bridge.lua:13)",
+        "Sehr aktiv (letzter Push am Tag vor der Recherche)"
+      ],
+      "contra": [
+        "Ein bestätigter direkter qb-target-Zugriff außerhalb der Bridge-Struktur (client/main.lua:79)",
+        "Lizenz im Repo als NOASSERTION markiert (kein SPDX-Tag)"
+      ],
+      "neutral": [],
+      "quelle": "https://github.com/Welshonioninfinitude16/osm-atmdui, https://raw.githubusercontent.com/Welshonioninfinitude16/osm-atmdui/main/client/main.lua, https://raw.githubusercontent.com/Welshonioninfinitude16/osm-atmdui/main/client/bridge.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "qbx_garages",
+      "geprueft_am": "2026-08-14",
+      "synergie": ["qbx_vehiclekeys", "npwd_qbx_garages"],
+      "update_grund": "Runde 38: npwd_qbx_garages gefunden — offizielle Qbox-project NPWD-App, die qbx_garages als Pflicht-Abhängigkeit voraussetzt und die Garagenverwaltung ins Handy bringt. Kein Konkurrenzprodukt (der Discover-Vorschlag einer gemeinsamen gruppe war falsch, siehe update an npwd_qbx_garages selbst), daher als synergie statt gruppe eingetragen."
+    },
+    {
+      "id": "slrn_rolldice",
+      "geprueft_am": "2026-08-14",
+      "gruppe": "wuerfelspiel",
+      "update_grund": "Runde 38: brx_diceroll gefunden, funktionaler Konkurrent (Würfel-Minigame) — gruppe 'wuerfelspiel' für beide vergeben, Vergleichsdaten ergänzt.",
+      "pro": [
+        "Schlank (4 Lua-Dateien), Code-Stichprobe bestätigt native Qbox-Anbindung (qbx_core, ox_lib, ox_inventory)",
+        "Zusätzlich Münzwurf, nicht nur Würfel — größerer Funktionsumfang als brx_diceroll"
+      ],
+      "contra": [
+        "Reine UI-Anzeige des Wurfs, kein physisches Prop wie bei brx_diceroll"
+      ]
+    },
+    {
+      "id": "jim_bridge",
+      "geprueft_am": "2026-08-14",
+      "gruppe": "bridge",
+      "update_grund": "Runde 38: pl_lib gefunden, weiterer Konkurrent in der gruppe 'bridge' neben anx_bridge — deutlich breitere Drittsystem-Abdeckung als anx_bridge laut README-Tabelle, aber jünger und weniger etabliert als jim_bridge.",
+      "contra": [
+        "Zusätzliche Dependency",
+        "Umfangreicher als schlankere Alternativen wie anx_bridge",
+        "Weniger Third-Party-Systeme abgedeckt als der neuere pl_lib (Runde 38), aber länger etabliert und breiter verbreitet"
+      ],
+      "neutral": [
+        "Deckt rund 20 eigene jim-Scripts ab, breiter etabliert als anx_bridge"
+      ]
+    },
+    {
+      "id": "anx_bridge",
+      "geprueft_am": "2026-08-14",
+      "update_grund": "Runde 38: pl_lib gefunden, weiterer Konkurrent in der gruppe 'bridge' — pl_lib deckt deutlich mehr Third-Party-Systeme ab als anx_bridge, das gezielt auf anx-scripts-Ressourcen zugeschnitten ist.",
+      "contra": [
+        "Nur für anx-scripts-Ressourcen konzipiert, kleinerer Funktionsumfang als jim_bridge",
+        "Jünger und deutlich weniger verbreitet als jim_bridge",
+        "pl_lib (Runde 38) deckt deutlich mehr Drittsysteme ab (u.a. Clothing, Society/Banking) als anx_bridge"
+      ]
+    }
+  ]
+}

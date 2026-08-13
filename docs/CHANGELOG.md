@@ -17,6 +17,40 @@ Format je Eintrag:
 
 ---
 
+## [Runde 38] Dreizehnte Neusuche-Runde – 14.08.2026
+
+**Neu:** 10 kuratierte Kandidaten aus dem vollen `discover`-Lauf (0-8⭐): `npwd_qbx_garages`
+(offizielles Qbox-project-Repo, NPWD-Garagen-App), `mri_qbox`, `jrmy_tags`, `brx_diceroll`,
+`qbx_customs-redesign-`, `dd-characters`, `infronix_gruppe6`, `gmn_qboxmultijob`, `pl_lib`,
+`osm-atmdui`.
+
+**Fehlzuordnung des Discover-Scripts korrigiert:** `pl_lib` (aus Runde 37 als Verdachtsfall
+notiert) ist entgegen des automatischen Feldvorschlags **keine** `ox_lib`-Alternative, sondern
+eine Framework-Bridge-Bibliothek wie `jim_bridge`/`anx_bridge`, die selbst auf `ox_lib` aufsetzt
+— in die bestehende Gruppe `bridge` einsortiert, `jim_bridge` und `anx_bridge` per Update mit
+Vergleichsdaten ergänzt. Ebenso wurde der vorgeschlagene Gruppenvergleich `npwd_qbx_garages`↔
+`qbx_garages` verworfen (README zeigt `qbx_garages` als Pflicht-Abhängigkeit, keine Konkurrenz)
+und stattdessen als `synergie`/`ergaenzt`-Beziehung eingetragen.
+
+**Ein mit Gruppenvergleich:** `brx_diceroll`↔`slrn_rolldice`, neue Gruppe `wuerfelspiel`
+(Kollisionsprüfung vorab durchgeführt, Name war frei).
+
+**Zwei bestätigte `kompat_warnung`-Funde:** `infronix_gruppe6` (client.lua:869) und
+`osm-atmdui` (client/main.lua:79) greifen je an einer Stelle direkt auf `qb-target` zu, obwohl
+beide sonst durchgängig eine ox_target-Bridge nutzen — mit Codezeile belegt, `sicherheit:
+"bestaetigt"`.
+
+**Damit ist der aktuelle `discover`-Kandidatenpool nach 13 Runden praktisch vollständig
+abgearbeitet.** Für Runde 39 ist vor dem Start eine bewusste Entscheidung fällig: neue
+Suchbegriffe/Topics für `scripts/discover.mjs` (siehe PROGRESS.md „Nächster Schritt").
+
+**Katalog:** 10 neu, 4 aktualisiert (`qbx_garages`, `slrn_rolldice`, `jim_bridge`, `anx_bridge`),
+0 Duplikate, 0 ungeprüft (alle 10 verifiziert).
+**Datei:** `data/catalog/runde-38.json`
+**Commit:** folgt
+
+---
+
 ## [Runde 37] Zwölfte Neusuche-Runde – 13.08.2026
 
 **Neu:** letzte 10 Kandidaten der aktuellen `discover`-Suchrunde: `mrnewbpawn`,

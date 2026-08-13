@@ -3,18 +3,21 @@
 > Diese Datei ist das Gedächtnis des Projekts. Sie wird nach **jedem** Arbeitsschritt aktualisiert.
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
-**Letzte Aktualisierung:** 13.08.2026
-**Letzter Commit:** `b304323` (Runde 36). Runde 37 ist fertig und wird mit diesem Schritt
-committet — noch nicht gepusht (Nutzer hat Push für Runden 26–36 bewusst zurückgestellt, Repo auf
+**Letzte Aktualisierung:** 14.08.2026
+**Letzter Commit:** `c393c45` (Runde 37). Runde 38 ist fertig und wird mit diesem Schritt
+committet — noch nicht gepusht (Nutzer hat Push für Runden 26–37 bewusst zurückgestellt, Repo auf
 GitHub liegt entsprechend mehrere Commits zurück).
-**Validate-Status:** grün (40 Katalogdateien inkl. `runde-37.json` · 383 Plugins gesamt · 24
-harmlose „nur ein Mitglied"-Warnungen — unverändert, beide Gruppen dieser Runde (`hud`, `fishing`)
-waren schon mehrgliedrig).
-**Katalogstand:** 383 gesamt (262 Altbestand + zwölf Runden à 10–11 aus Runde 26–37), **0
+**Validate-Status:** grün (41 Katalogdateien inkl. `runde-38.json` · 393 Plugins gesamt · 21
+harmlose „nur ein Mitglied"-Warnungen, darunter die neue Gruppe `wuerfelspiel`).
+**Katalogstand:** 393 gesamt (262 Altbestand + dreizehn Runden à 10–11 aus Runde 26–38), **0
 Einträge ohne `geprueft_am`.**
 
-**Aktueller `discover`-Kandidatenpool ist weitgehend abgearbeitet** (siehe „Nächster Schritt"
-unten) — Runde 37 markiert das vorläufige Ende dieser Suchrunde ohne neue Suchparameter.
+**Aktueller `discover`-Kandidatenpool ist nach Runde 38 praktisch vollständig abgearbeitet.**
+Voller `discover`-Lauf (ohne `--seit-letztem-lauf`) lieferte erneut 60 Kandidaten, fast
+ausschließlich 0-2⭐ (`mri-Qbox-Brasil`-Cluster, Wegwerf-Accounts). Die 10 besten wurden
+kuratiert übernommen. **Vor Runde 39 steht die in Runde 37 angekündigte Entscheidung an:**
+verbleibende Restfunde trotz niedriger Sterne einzeln aufarbeiten, oder `scripts/discover.mjs`
+mit neuen Suchbegriffen/Topics laufen lassen, um den Pool aufzufrischen.
 
 **Runden 26–37 — Neusuche-Serie, Kurzfassung (Einzelfunde vollständig im CHANGELOG):**
 Zwölf Runden à 10–11 neue Plugins über `npm run discover`/`prefetch --kandidaten`, macht 121
@@ -325,4 +328,5 @@ Verdopplung kostet also jedes Mal. Übertragbar ist nur, was sich als *Muster* w
 | 34 | Neunte Neusuche-Runde: 10 neue Plugins, `distortionz_robped` als eigenständig abgegrenzt, `pigeon-dice`-Lizenz auf escrow korrigiert, 1 mit Gruppenvergleich | 10 | 1 (Gruppenvergleich bei `leo_lockbox`, neue Gruppe `vehicle_lockbox`) | 0 | 0 (9 verifiziert, 1 teilgeprüft) | `data/catalog/runde-34.json` | folgt |
 | 35 | Zehnte Neusuche-Runde: 10 neue Plugins, 2 neue blackmarket-Konkurrenten, 2 Lizenz-Fehleinstufungen (escrow→open_source) vor Commit korrigiert | 10 | 1 (blackmarket_script mit 2 neuen Vergleichspunkten) | 0 | 0 (6 verifiziert, 4 teilgeprüft) | `data/catalog/runde-35.json` | folgt |
 | 36 | Elfte Neusuche-Runde: 10 populäre Plugins (10–34⭐), lone_radio bewusst nicht der radio-Gruppe zugeordnet, 3 mit Gruppenvergleich | 10 | 3 (Gruppenvergleiche bei `keep_crafting`, `xsound`, `qb_minigames`) | 0 | 0 (9 verifiziert, 1 teilgeprüft) | `data/catalog/runde-36.json` | folgt |
-| 37 | Zwölfte Neusuche-Runde: letzte 10 Kandidaten des aktuellen discover-Pools, 2 Autoren-Cluster einzeln geprüft, 2 mit Gruppenvergleich | 10 | 2 (Gruppenvergleiche bei `qbx_hud`, `wasabi_fishing`) | 0 | 0 (alle 10 verifiziert) | `data/catalog/runde-37.json` | folgt |
+| 37 | Zwölfte Neusuche-Runde: letzte 10 Kandidaten des aktuellen discover-Pools, 2 Autoren-Cluster einzeln geprüft, 2 mit Gruppenvergleich | 10 | 2 (Gruppenvergleiche bei `qbx_hud`, `wasabi_fishing`) | 0 | 0 (alle 10 verifiziert) | `data/catalog/runde-37.json` | `c393c45` |
+| 38 | Dreizehnte Neusuche-Runde: 10 kuratierte Kandidaten aus vollem discover-Lauf (0-8⭐), `pl_lib`-Fehlzuordnung korrigiert (Bridge statt ox_lib-Alternative), 1 mit Gruppenvergleich, neue Gruppe `wuerfelspiel` | 10 | 4 (Gruppenvergleiche/Synergie bei `qbx_garages`, `slrn_rolldice`, `jim_bridge`, `anx_bridge`) | 0 | 0 (alle 10 verifiziert) | `data/catalog/runde-38.json` | folgt |
