@@ -6,18 +6,14 @@
 **Letzte Aktualisierung:** 14.08.2026
 **Letzter Commit:** `2f38fce` (App-Ausbau 1).
 
-**Push-Stand (14.08.2026 nachgeprüft, frühere Angabe hier war veraltet):** `origin/main` steht auf
-`c393c45` (Runde 37), letztes GitHub-Release ist **v3.0-r37**. Die alte Notiz „Push für Runden
-26–36 bewusst zurückgestellt" stimmte nicht mehr — bis Runde 37 ist alles gepusht und released.
+**Push-Stand (14.08.2026):** `origin/main` steht auf `6bb3d57` — gepusht bis inklusive
+App-Ausbau 2. Letztes GitHub-Release: **v3.0-r39** (`dist/qbox-planer.html`, 708 KB, 404 Plugins).
+Nichts mehr offen auf dieser Seite.
 
-**Offen und ausdrücklich vom Nutzer so entschieden:** Push der lokalen Commits (Runde 38,
-Runde 39, App-Ausbau 1, App-Ausbau 2) **und** Release `v3.0-r39` nach CLAUDE.md §2.8 wurden
-bewusst zurückgestellt — auf die Frage hin lautete die Wahl „weder noch, direkt Ausbau 2".
-Beides ist damit der nächste Schritt, sobald der Nutzer grünes Licht gibt. Der Build liegt fertig
-in `dist/qbox-planer.html` (692 KB, Katalog v3.0-r39).
-
-**Einziger offener Prüfpunkt beider Ausbaurunden: H5** — der Doppelklick über `file://` ist nicht
-belegt, weil das Browser-Werkzeug `file://` verweigert. Vor dem Release einmal von Hand öffnen.
+**H5 (Doppelklick über `file://`) ist weiterhin nicht durch dieses Tool geprüft** — das
+Browser-Werkzeug verweigert `file://`, jeder Testlauf lief über einen lokalen HTTP-Server. Der
+Nutzer hat den Release-Build trotzdem freigegeben; ein manueller Doppelklick-Check steht bei
+Gelegenheit noch aus, ist aber kein Blocker mehr.
 
 ---
 
