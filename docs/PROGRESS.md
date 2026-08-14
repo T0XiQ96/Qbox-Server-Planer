@@ -4,11 +4,25 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 14.08.2026
-**Letzter Commit:** `c84ab74` (App-Ausbau 5) + Versionssprung auf 3.2.0 (siehe unten).
+**Letzter Commit:** folgt (App-Ausbau 6 + Wissens-Vertiefung + Versionssprung auf 3.3.0).
 
-**Push-Stand (14.08.2026):** `origin/main` bis inklusive App-Ausbau 5 und Versionssprung 3.2.0
-gepusht. Letztes GitHub-Release: **v3.2-r39**, Anhang `qbox-planer-v3.2-r39.html` (404 Plugins,
-17 Wissens-Artikel). Nichts mehr offen auf dieser Seite.
+**Push-Stand (14.08.2026, vor diesem Schritt):** `origin/main` bis inklusive Versionssprung 3.2.0
+gepusht. Letztes GitHub-Release: **v3.2-r39**. Dieser Schritt bringt App-Ausbau 6 (Vergleich:
+zwei getrennte Zustände) und 25 neue Wissens-Artikel (17 → 42) noch dazu — Push/Release dafür
+folgen im nächsten Schritt.
+
+**App-Ausbau 6 — Vergleich korrigiert (DECISIONS D30, CHANGELOG „[App-Ausbau 6]"):** Kopf-⚖️ und
+Karten-⚖️ teilten sich bis eben eine Variable — eine Funktionsgruppen-Wahl im Kopf-Fenster hätte
+die Korb-Leiste überschrieben. Jetzt zwei unabhängige Zustände (`korbZustand` nur über
+Karten-⚖️/Zug, `kopfZustand` fürs Kopf-Fenster mit eigenem Gedächtnis über Schließen/Öffnen
+hinweg), plus ein „🧹 Auswahl leeren" innerhalb jedes Fensters. „Alle N vergleichen" u.ä. nutzen
+einen dritten, namenlosen Zustand, der nirgends hängen bleibt. Neue Features **C16-C18**.
+
+**Wissens-Datenbank auf Nutzerwunsch erweitert, ausdrücklich OHNE Verifizierung:** 25 neue
+Artikel in `data/wissen/vertiefung.json`, 17 → **42 Artikel**. Weiterhin alle `ungeprueft` mit
+leeren `quellen` (D29 gilt unverändert). Beim Schreiben erneut die bekannte Falle aus CLAUDE.md
+§4 gestreift: deutsche Anführungszeichen mit geradem statt typografischem Schließzeichen brachen
+das JSON an 4 Stellen, der Fehlerlokalisierer fing es ab.
 
 **Versionierte Release-Datei (14.08.2026):** Bisher hieß der Release-Anhang bei jeder Version
 gleich `qbox-planer.html` — im Downloads-Ordner bei mehreren Versionen nicht mehr unterscheidbar.

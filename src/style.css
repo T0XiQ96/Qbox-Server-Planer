@@ -458,7 +458,8 @@ body.ansicht-wissen #liste { display: none; }
 .korb-treffer-zeile:hover .korb-zeichen { border-color: var(--lila); background: var(--bg); }
 .korb-drin .korb-zeichen { color: var(--rot); }
 .korb-treffer-zeile:hover.korb-drin .korb-zeichen { border-color: var(--rot); }
-.korb-gruppenwahl { display: block; margin-bottom: 8px; color: var(--leise); font-size: 12px; }
+.korb-auswahl-kopf { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.korb-gruppenwahl { color: var(--leise); font-size: 12px; }
 .korb-gruppenwahl .feld { margin-left: 8px; }
 .korb-name { font-weight: 600; }
 .korb-marke {

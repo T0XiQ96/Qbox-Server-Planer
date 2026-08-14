@@ -404,10 +404,13 @@ function verdrahteWerkzeugleiste() {
 
   document.getElementById('btn-zahnrad').addEventListener('click', oeffneZahnrad);
   document.getElementById('btn-eigenes').addEventListener('click', oeffneEigenesFormular);
-  // Ein einziger Vergleich für alles: der Kopf-Knopf öffnet dasselbe Fenster wie ⚖️ auf einer
-  // Karte. Vorher lag hier ein eigener Zweiervergleich mit zwei Auswahlfeldern — zwei Wege zur
-  // selben Frage, von denen einer weniger konnte.
-  document.getElementById('btn-vergleich').addEventListener('click', () => oeffneKorbVergleich());
+  // Der Kopf-Knopf öffnet dasselbe Fensterlayout wie ⚖️ auf einer Karte, aber eine EIGENE,
+  // gemerkte Auswahl (kopfZustand) — Funktionsgruppen-Wahl und Suchtreffer hier landen nie im
+  // Korb/Drag&Drop-Verlauf. Schließen und neu Öffnen zeigt wieder denselben Stand.
+  document.getElementById('btn-vergleich').addEventListener('click', () => {
+    aktivesVergleichsZiel = kopfZustand;
+    oeffneVergleichsFenster();
+  });
 }
 
 /* ============================== Wissens-Datenbank ============================== */
@@ -495,22 +498,74 @@ function verdrahteGlobal() {
     const synergie = e.target.closest('[data-synergie]');
     if (synergie) { e.preventDefault(); zeigeSynergien(synergie.dataset.synergie); return; }
 
-    // ⚖️ auf der Karte: einfacher Klick legt hinein UND öffnet — bewusst kein Long-Press,
-    // der wäre unsichtbar, ohne Zustandsanzeige und kollidiert mit dem Markieren von Text.
+    // ⚖️ auf der Karte: einfacher Klick legt IMMER in den Korb (nie in die Kopf-Auswahl) UND
+    // öffnet das an den Korb gebundene Fenster — bewusst kein Long-Press, der wäre unsichtbar,
+    // ohne Zustandsanzeige und kollidiert mit dem Markieren von Text.
     const korb = e.target.closest('[data-korb]');
-    if (korb) { e.preventDefault(); korbHinzufuegen(korb.dataset.korb); oeffneKorbVergleich(); return; }
+    if (korb) {
+      e.preventDefault();
+      korbZustand.add(korb.dataset.korb);
+      zeichneListe();
+      aktivesVergleichsZiel = korbZustand;
+      oeffneVergleichsFenster();
+      return;
+    }
 
+    // Treffer aus der Suchliste bzw. „− aus dem Vergleich" auf einer Karte im Fenster: beide
+    // wirken auf das GERADE OFFENE Fenster — den Korb, wenn er es geöffnet hat, die Kopf-Auswahl,
+    // wenn die es geöffnet hat, oder das einmalige Set bei „Alle N vergleichen".
     const korbAdd = e.target.closest('[data-korb-add]');
-    if (korbAdd) { e.preventDefault(); korbHinzufuegen(korbAdd.dataset.korbAdd); return; }
+    if (korbAdd) {
+      e.preventDefault();
+      aktivesVergleichsZiel.add(korbAdd.dataset.korbAdd);
+      if (aktivesVergleichsZiel === korbZustand) zeichneListe();
+      frischeVergleichsFensterAuf();
+      return;
+    }
 
     const korbAb = e.target.closest('[data-korb-ab]');
-    if (korbAb) { e.preventDefault(); korbEntfernen(korbAb.dataset.korbAb); return; }
+    if (korbAb) {
+      e.preventDefault();
+      aktivesVergleichsZiel.entferne(korbAb.dataset.korbAb);
+      if (aktivesVergleichsZiel === korbZustand) zeichneListe();
+      frischeVergleichsFensterAuf();
+      return;
+    }
 
+    // Ein Chip in der angedockten Leiste gehört immer zum Korb, unabhängig davon, welches
+    // Fenster gerade offen ist.
     const korbWeg = e.target.closest('[data-korb-weg]');
-    if (korbWeg) { e.preventDefault(); korbEntfernen(korbWeg.dataset.korbWeg); return; }
+    if (korbWeg) {
+      e.preventDefault();
+      korbZustand.entferne(korbWeg.dataset.korbWeg);
+      zeichneListe();
+      if (aktivesVergleichsZiel === korbZustand) frischeVergleichsFensterAuf();
+      return;
+    }
 
-    if (e.target.closest('[data-korb-oeffnen]')) { e.preventDefault(); oeffneKorbVergleich(); return; }
-    if (e.target.closest('[data-korb-leeren]')) { e.preventDefault(); korbLeeren(); return; }
+    if (e.target.closest('[data-korb-oeffnen]')) {
+      e.preventDefault();
+      aktivesVergleichsZiel = korbZustand;
+      oeffneVergleichsFenster();
+      return;
+    }
+    if (e.target.closest('[data-korb-leeren]')) {
+      e.preventDefault();
+      korbZustand.leeren();
+      zeichneListe();
+      if (aktivesVergleichsZiel === korbZustand) frischeVergleichsFensterAuf();
+      return;
+    }
+
+    // „🧹 Auswahl leeren" IM Fenster: leert nur, woran das offene Fenster gerade hängt — bei
+    // einem einmaligen Set aus „Alle N vergleichen" ist das ohne Wirkung auf Korb oder Kopf.
+    if (e.target.closest('[data-fenster-leeren]')) {
+      e.preventDefault();
+      aktivesVergleichsZiel.leeren();
+      if (aktivesVergleichsZiel === korbZustand) zeichneListe();
+      frischeVergleichsFensterAuf();
+      return;
+    }
 
     const wissenZiel = e.target.closest('[data-wissen-ziel]');
     if (wissenZiel) { e.preventDefault(); springeZuWissen(wissenZiel.dataset.wissenZiel); return; }
@@ -564,8 +619,13 @@ function verdrahteZiehen() {
     leiste.classList.remove('korb-drueber');
     const id = e.dataTransfer.getData('text/plain');
     const p = index.get(id);
-    if (korbHinzufuegen(id)) toast(`${p.name} liegt im Vergleich ⚖️`);
-    else if (p) toast(`${p.name} liegt dort schon.`);
+    // Ziehen legt IMMER in den Korb — das ist per Definition „der Drag&Drop-Verlauf", nie in die
+    // Kopf-Auswahl.
+    if (korbZustand.add(id)) {
+      zeichneListe();
+      if (aktivesVergleichsZiel === korbZustand) frischeVergleichsFensterAuf();
+      toast(`${p.name} liegt im Vergleich ⚖️`);
+    } else if (p) toast(`${p.name} liegt dort schon.`);
   });
 }
 
@@ -700,58 +760,75 @@ async function behebeFehlend(wert) {
   toast(`${p.name} auf ${UMGEBUNG_LABEL[umgebung] || umgebung} gesetzt ✅`);
 }
 
-/** „⚖️ Alle N vergleichen" aus dem Ersetzt-Block: belegt den Korb mit der ganzen Gruppe. */
+/**
+ * „⚖️ Alle N vergleichen" aus dem Ersetzt-Block, sowie die ⚖️-Verweise im Prüfbericht und bei
+ * den Synergien: ein einmaliger Blick auf genau dieses Set. Bewusst NICHT der Korb und NICHT die
+ * Kopf-Auswahl — beide sind eigene, gemerkte Zustände, und ein Klick auf „braucht X" soll weder
+ * die eine noch die andere überschreiben. Deshalb ein frischer, nirgends gespeicherter Zustand,
+ * der mit dem Schließen des Fensters wieder verschwindet.
+ */
 function zeigeMehrfachVergleich(ids) {
-  vergleichsKorb = ids.filter((id) => index.has(id));
-  zeichneListe();
-  oeffneKorbVergleich();
+  aktivesVergleichsZiel = erzeugeVergleichsZustand();
+  aktivesVergleichsZiel.ersetze(ids);
+  oeffneVergleichsFenster();
 }
 
-/* ============================== Vergleichskorb ============================== */
+/* ============================== Vergleich: zwei getrennte Zustände ============================== */
 
 /**
- * EIN gemeinsames Vergleichs-Set statt mehrerer Wege, die sich gegenseitig überschreiben.
- * Gefüllt wird es auf drei Arten: ⚖️ auf einer Karte (öffnet zugleich das Fenster), die
- * Auswahlliste im Fenster, oder „Alle N vergleichen" aus dem Ersetzt-Block.
+ * Zwei UNABHÄNGIGE Vergleichs-Sets statt einem gemeinsamen (Korrektur zu D23):
  *
- * Bewusst nur im Arbeitsspeicher, nicht im localStorage: der Korb ist Arbeitszustand wie Suche
- * und Filter (D8-Gedanke), kein Teil des Plans, den der Nutzer aufbewahren will.
+ *   korbZustand — gefüllt AUSSCHLIESSLICH durch ⚖️ auf einer Karte (Klick oder Zug). Sichtbar als
+ *                 angedockte Leiste im Kopf, das ist „der Drag&Drop-Verlauf".
+ *   kopfZustand — gefüllt über das ⚖️-Vergleichsfenster im Kopf (Funktionsgruppen-Auswahl,
+ *                 Such-Treffer). Bleibt erhalten, wenn das Fenster geschlossen und neu geöffnet
+ *                 wird — „wo man war" steht dann wieder da, ohne dass die Kopf-Auswahl den
+ *                 Korb anfasst oder umgekehrt.
+ *
+ * `aktivesVergleichsZiel` zeigt auf den Zustand, an dem das gerade offene Fenster hängt — beide
+ * Fenster nutzen dieselbe Darstellung (korbTrefferHTML/korbInhaltHTML), nur das Ziel wechselt.
+ * Ein dritter, namenloser Zustand entsteht bei jedem Klick auf „Alle N vergleichen" u.ä.
+ * (siehe zeigeMehrfachVergleich) — der ist bewusst nicht benannt, weil er nirgends aufgehoben wird.
+ *
+ * Alles nur im Arbeitsspeicher, nicht im localStorage: Vergleichszustände sind Arbeitszustand wie
+ * Suche und Filter (D8-Gedanke), kein Teil des Plans, den der Nutzer aufbewahren will.
  */
-let vergleichsKorb = [];
+function erzeugeVergleichsZustand() {
+  let ids = [];
+  return {
+    ids: () => ids,
+    hat: (id) => ids.includes(id),
+    add(id) {
+      if (!index.has(id) || ids.includes(id)) return false;
+      ids.push(id);
+      return true;
+    },
+    entferne(id) { ids = ids.filter((x) => x !== id); },
+    ersetze(neue) { ids = [...new Set(neue)].filter((id) => index.has(id)); },
+    leeren() { ids = []; }
+  };
+}
+
+const korbZustand = erzeugeVergleichsZustand();
+const kopfZustand = erzeugeVergleichsZustand();
+let aktivesVergleichsZiel = korbZustand;
+
 let korbSuche = '';
 let ziehtGerade = false;
 
-function imKorb(id) { return vergleichsKorb.includes(id); }
-
-function korbHinzufuegen(id) {
-  if (!index.has(id) || imKorb(id)) return false;
-  vergleichsKorb.push(id);
-  zeichneListe();
-  frischeKorbFensterAuf();
-  return true;
-}
-
-function korbEntfernen(id) {
-  vergleichsKorb = vergleichsKorb.filter((x) => x !== id);
-  zeichneListe();
-  frischeKorbFensterAuf();
-}
-
-function korbLeeren() {
-  vergleichsKorb = [];
-  zeichneListe();
-  frischeKorbFensterAuf();
-}
+/** Nur für die Karten-Anzeige (aktiver Rahmen ums ⚖️): zeigt IMMER den Korb, nie die Kopf-Auswahl. */
+function imKorb(id) { return korbZustand.hat(id); }
 
 /** Die angedockte Leiste. Beim Ziehen erscheint sie auch leer — sonst gäbe es kein sichtbares Ziel. */
 function zeichneKorbleiste() {
   const el = document.getElementById('korbleiste');
   if (!el) return;
 
-  if (!vergleichsKorb.length && !ziehtGerade) { el.hidden = true; el.innerHTML = ''; return; }
+  const drin = korbZustand.ids();
+  if (!drin.length && !ziehtGerade) { el.hidden = true; el.innerHTML = ''; return; }
   el.hidden = false;
 
-  const chips = vergleichsKorb.map((id) => {
+  const chips = drin.map((id) => {
     const p = index.get(id);
     return `<span class="korb-chip">${escapeHtml(p ? p.name : id)}
       <button type="button" class="korb-weg" data-korb-weg="${escapeHtml(id)}" aria-label="Entfernen">✕</button></span>`;
@@ -759,20 +836,24 @@ function zeichneKorbleiste() {
 
   el.innerHTML = `<span class="korb-titel">⚖️ Vergleich</span>
     <div class="korb-chips">${chips || '<span class="korb-leer">⚖️ einer Karte hierher ziehen</span>'}</div>
-    <button type="button" class="btn btn-klein" data-korb-oeffnen="1" ${vergleichsKorb.length ? '' : 'disabled'}>Öffnen (${vergleichsKorb.length})</button>
+    <button type="button" class="btn btn-klein" data-korb-oeffnen="1" ${drin.length ? '' : 'disabled'}>Öffnen (${drin.length})</button>
     <button type="button" class="btn btn-klein btn-leise" data-korb-leeren="1">leeren</button>`;
 }
 
 /* ------------------------------ Das Fenster ------------------------------ */
 
-function oeffneKorbVergleich() {
+/** Öffnet das Vergleichsfenster, gebunden an `aktivesVergleichsZiel` — welchen Zustand das ist, legt der Aufrufer vorher fest. */
+function oeffneVergleichsFenster() {
   aktuellesDetail = null;        // der Vergleich ist kein Glied der Detail-Kette
   korbSuche = '';
   modal({
     titel: '⚖️ Vergleich',
     klasse: 'modal-breit',
     inhalt: `<div class="korb-auswahl">
-        ${korbGruppenWahlHTML()}
+        <div class="korb-auswahl-kopf">
+          ${korbGruppenWahlHTML()}
+          <button type="button" class="btn btn-klein btn-leise" data-fenster-leeren="1">🧹 Auswahl leeren</button>
+        </div>
         <input type="search" id="korb-suche" class="feld" placeholder="🔍 Plugin suchen (Name, Funktion, Kategorie) …">
         <div class="korb-treffer" id="korb-treffer">${korbTrefferHTML()}</div>
       </div>
@@ -787,9 +868,9 @@ function oeffneKorbVergleich() {
       if (!gruppe) return;
       // Eine ganze Funktionsgruppe ersetzt die Auswahl — das ist die Frage „welches von diesen?",
       // und die beantwortet man nicht mit Fremdeinträgen daneben.
-      vergleichsKorb = gruppenMitglieder(index, gruppe).map((p) => p.id);
+      aktivesVergleichsZiel.ersetze(gruppenMitglieder(index, gruppe).map((p) => p.id));
       zeichneListe();
-      frischeKorbFensterAuf();
+      frischeVergleichsFensterAuf();
       e.target.value = '';
     });
   }
@@ -818,11 +899,14 @@ function korbGruppenWahlHTML() {
 
 /**
  * Die Auswahlliste. Reihenfolge nach ausdrücklichem Wunsch: zuerst die Alternativen des ersten
- * Korb-Eintrags (also genau das, was auf der Karte unter „wird ersetzt durch" steht), danach
- * alles Übrige alphabetisch. Gesucht wird mit derselben Funktion wie in der Hauptsuche.
+ * Eintrags im aktiven Vergleichsziel (also genau das, was auf der Karte unter „wird ersetzt
+ * durch" steht), danach alles Übrige alphabetisch. Gesucht wird mit derselben Funktion wie in
+ * der Hauptsuche. „drin"/das ＋ beziehen sich auf `aktivesVergleichsZiel`, NICHT auf den Korb —
+ * im Kopf-Vergleichsfenster zeigt es also die Kopf-Auswahl, nicht die Korb-Chips.
  */
 function korbTrefferHTML() {
-  const anker = vergleichsKorb.length ? index.get(vergleichsKorb[0]) : null;
+  const eigeneIds = aktivesVergleichsZiel.ids();
+  const anker = eigeneIds.length ? index.get(eigeneIds[0]) : null;
   const alternativIds = new Set(anker ? alternativen(index, anker).map((p) => p.id) : []);
 
   const passend = plugins.filter((p) => passtSuche(p, korbSuche));
@@ -837,7 +921,7 @@ function korbTrefferHTML() {
   // nach rechts zur Handlung, und mehrere hintereinander hinzuzufügen heißt dann, immer
   // dieselbe Stelle zu treffen.
   const zeile = (p) => {
-    const drin = imKorb(p.id);
+    const drin = aktivesVergleichsZiel.hat(p.id);
     return `<button type="button" class="korb-treffer-zeile${drin ? ' korb-drin' : ''}"
       data-korb-${drin ? 'ab' : 'add'}="${escapeHtml(p.id)}">
       <span class="korb-name">${escapeHtml(p.name)}</span>
@@ -859,11 +943,12 @@ function korbTrefferHTML() {
  * die Tabelle beantwortet „worin unterscheiden sie sich", die Karten „was ist das überhaupt".
  */
 function korbInhaltHTML() {
-  if (!vergleichsKorb.length) {
+  const eigeneIds = aktivesVergleichsZiel.ids();
+  if (!eigeneIds.length) {
     return '<p class="hinweis-leise">Noch nichts gewählt — oben suchen und mit ＋ hinzufügen.</p>';
   }
 
-  const karten = vergleichsKorb.map((id) => {
+  const karten = eigeneIds.map((id) => {
     const p = index.get(id);
     if (!p) return '';
     return `<div class="korb-karte">
@@ -872,8 +957,8 @@ function korbInhaltHTML() {
     </div>`;
   }).join('');
 
-  const tabelle = vergleichsKorb.length >= 2
-    ? mehrfachVergleichHTML(vergleicheMehrere(index, vergleichsKorb))
+  const tabelle = eigeneIds.length >= 2
+    ? mehrfachVergleichHTML(vergleicheMehrere(index, eigeneIds))
     : '<p class="hinweis-leise">Ab zwei Einträgen kommt hier die Vergleichstabelle dazu.</p>';
 
   return `<div class="korb-karten">${karten}</div>${tabelle}`;
@@ -884,7 +969,7 @@ function frischeKorbTrefferAuf() {
   if (el) el.innerHTML = korbTrefferHTML();
 }
 
-function frischeKorbFensterAuf() {
+function frischeVergleichsFensterAuf() {
   if (!document.getElementById('korb-inhalt')) return;   // Fenster ist gar nicht offen
   frischeKorbTrefferAuf();
   document.getElementById('korb-inhalt').innerHTML = korbInhaltHTML();

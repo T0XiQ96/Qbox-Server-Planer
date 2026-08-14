@@ -1,0 +1,678 @@
+{
+  "_hinweis": "Wie grundlagen.json/framework.json/inhalte.json/betrieb.json: ALLE Artikel hier stehen auf qualitaet 'ungeprueft' mit leeren quellen (D29) — Erfahrungswissen, nicht gegengeprüft.",
+  "schemaVersion": 1,
+  "artikel": [
+    {
+      "id": "hosting_wahl",
+      "kategorie": "server_aufsetzen",
+      "titel": "Root-Server, vServer oder Gameserver-Hosting?",
+      "kurz": "Die drei üblichen Wege, an eine Maschine für den Server zu kommen, und was sie unterscheidet.",
+      "stichworte": ["hosting", "vps", "root", "provider", "miete"],
+      "abschnitte": [
+        {
+          "titel": "Die drei Wege",
+          "text": "Ein Root-/vServer gibt vollen Zugriff auf ein Linux- oder Windows-System, auf dem der FXServer wie auf einem eigenen Rechner läuft — volle Kontrolle, aber auch volle Verantwortung für Updates und Absicherung. Spezialisiertes FiveM-Gameserver-Hosting nimmt einem die Systemverwaltung ab und bietet oft ein eigenes Panel zusätzlich zu txAdmin — bequemer, aber weniger Kontrolle und meist teurer pro Leistung. Der eigene Rechner zuhause ist für Tests brauchbar, für einen öffentlichen Server wegen Upload-Bandbreite, Portfreigabe und Stromausfällen selten die dauerhafte Lösung."
+        },
+        {
+          "titel": "Worauf es ankommt",
+          "text": "Wichtiger als reine CPU-Kerne ist die Single-Core-Leistung — der FXServer nutzt Rechenzeit nicht gleichmäßig über alle Kerne. Bei der Spielerzahl-Planung lieber konservativ schätzen: ein Server, der bei 32 Spielern ruckelt, verliert schneller Spieler, als er neue gewinnt."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["server_grundaufbau", "performance_grundlagen"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": "Anbieter und Preise ändern sich laufend, das hier ist bewusst anbieterneutral gehalten."
+    },
+    {
+      "id": "portfreigabe_firewall",
+      "kategorie": "server_aufsetzen",
+      "titel": "Portfreigabe und Firewall",
+      "kurz": "Warum ein Server startet, aber niemand sich verbinden kann.",
+      "stichworte": ["port", "firewall", "portforwarding", "30120", "40120"],
+      "abschnitte": [
+        {
+          "titel": "Welche Ports",
+          "text": "Der Spielverkehr läuft über Port 30120, und zwar TCP und UDP gleichzeitig. txAdmin selbst lauscht separat auf Port 40120 fürs Panel — dieser Port muss nicht öffentlich erreichbar sein und sollte es aus Sicherheitsgründen möglichst nicht sein."
+        },
+        {
+          "titel": "Bei eigener Hardware/Router",
+          "text": "Läuft der Server hinter einem Heimrouter, muss der Spielport per Portweiterleitung auf die Maschine geleitet werden, zusätzlich zur Firewall auf dem Server-Betriebssystem selbst. Bei gemietetem Root-/vServer ist meist keine zusätzliche Portweiterleitung nötig, wohl aber eine eigene Firewall-Freigabe auf dem System."
+        },
+        {
+          "titel": "Testen ohne Rätselraten",
+          "text": "Ein einfacher Online-Portchecker zeigt, ob Port 30120 von außen erreichbar ist — das trennt „Server läuft nicht“ von „Server läuft, aber ist unerreichbar“ sofort voneinander."
+        }
+      ],
+      "warnung": "Das txAdmin-Panel (40120) offen ins Internet zu stellen ist eines der häufigsten Einfallstore für eine Server-Übernahme.",
+      "siehe_auch": ["sicherheit_grundregeln", "fehler_verbindung"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "txadmin_scheduler",
+      "kategorie": "txadmin",
+      "titel": "Geplante Neustarts richtig einstellen",
+      "kurz": "Warum regelmäßige Neustarts nötig sind und wie man sie ankündigt, ohne mitten im Spiel zu stören.",
+      "stichworte": ["restart", "scheduler", "neustart", "ankuendigung"],
+      "abschnitte": [
+        {
+          "titel": "Warum überhaupt neu starten",
+          "text": "Ein FXServer-Prozess baut über Stunden Speicher- und Zustandsreste auf, die die Performance langsam verschlechtern. Ein Neustart alle paar Stunden ist deshalb auf den meisten Servern üblich, nicht die Ausnahme."
+        },
+        {
+          "titel": "Der Scheduler in txAdmin",
+          "text": "Im Panel lässt sich eine feste Uhrzeit oder ein Intervall für automatische Neustarts hinterlegen. txAdmin kündigt den Neustart über eingeblendete Warnungen im Spiel an, bevor er ihn ausführt — Spieler mitten in einer Mission oder einem Heist verlieren dadurch keinen Fortschritt ohne Vorwarnung."
+        },
+        {
+          "titel": "Zeitpunkt wählen",
+          "text": "Sinnvoll ist ein Zeitpunkt mit erwartbar wenig aktiven Spielern, nicht mitten in der Hauptspielzeit der eigenen Community. Mehrere kürzere Fenster über den Tag sind oft besser als ein einziger langer Reset."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["txadmin_erste_schritte", "performance_grundlagen"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "txadmin_whitelist",
+      "kategorie": "txadmin",
+      "titel": "Whitelist einrichten",
+      "kurz": "Nur bestimmte Spieler zulassen, bevor der Server öffentlich wird.",
+      "stichworte": ["whitelist", "zugang", "approval", "bewerbung"],
+      "abschnitte": [
+        {
+          "titel": "Wofür",
+          "text": "Eine Whitelist begrenzt den Zutritt auf freigegebene Spieler — üblich in der Testphase, bei Bewerbungsservern oder wenn die Spielerzahl bewusst klein gehalten werden soll."
+        },
+        {
+          "titel": "Die eingebaute Variante",
+          "text": "txAdmin bringt eine eigene Whitelist-Funktion mit: neue Spieler landen beim ersten Verbinden in einer Warteliste, ein Admin gibt sie im Panel frei oder lehnt sie ab. Das läuft unabhängig vom Framework."
+        },
+        {
+          "titel": "Framework-eigene Varianten",
+          "text": "Zusätzlich oder alternativ bieten manche Community-Skripte eine Bewerbungs-Whitelist mit Formular und Discord-Anbindung. Beide Systeme parallel zu betreiben verwirrt eher, als dass es nützt — eines reicht meist."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["admins_panel_vs_ingame", "txadmin_discord_bot"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "txadmin_discord_bot",
+      "kategorie": "txadmin",
+      "titel": "txAdmin mit Discord verbinden",
+      "kurz": "Statusmeldungen, Rollen-Freischaltung und der eingebaute Discord-Bot.",
+      "stichworte": ["discord", "bot", "webhook", "status", "rolle"],
+      "abschnitte": [
+        {
+          "titel": "Der eingebaute Bot",
+          "text": "txAdmin kann einen eigenen Discord-Bot betreiben, der den aktuellen Serverstatus (online/offline, Spielerzahl) in einem Kanal oder als Bot-Status anzeigt. Eingerichtet wird er mit einem Bot-Token aus dem Discord-Entwicklerportal, das im Panel hinterlegt wird."
+        },
+        {
+          "titel": "Rollen-Kopplung",
+          "text": "Über die Discord-Identität eines verbundenen Spielers lässt sich eine Rollen-Voraussetzung erzwingen — etwa dass nur Mitglieder mit einer bestimmten Server-Rolle beitreten dürfen. Das ist ein separater Mechanismus von der klassischen Whitelist und lässt sich mit ihr kombinieren."
+        }
+      ],
+      "warnung": "Der Bot-Token ist ein Geheimnis wie ein Passwort — landet er in einem öffentlichen Repository oder Screenshot, kann der Bot missbraucht werden.",
+      "siehe_auch": ["txadmin_whitelist", "discord_rollen_sync"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "discord_rollen_sync",
+      "kategorie": "admins",
+      "titel": "Discord-Rollen und Ingame-Rechte verbinden",
+      "kurz": "Warum eine Discord-Rolle allein noch keine Rechte im Spiel gibt.",
+      "stichworte": ["discord", "rolle", "sync", "berechtigung"],
+      "abschnitte": [
+        {
+          "titel": "Zwei getrennte Welten",
+          "text": "Eine Admin-Rolle auf dem Discord-Server ist zunächst nur eine Discord-Berechtigung. Damit sie sich auf txAdmin-Zugriff, ACE-Rechte oder Framework-Adminrechte auswirkt, braucht es eine ausdrückliche Kopplung — die passiert nicht von allein."
+        },
+        {
+          "titel": "Übliche Kopplungswege",
+          "text": "Manche Communities pflegen Admin-Listen von Hand anhand von Discord-Rollen. Andere nutzen ein Skript oder einen Bot, der bei Rollenänderung automatisch die passenden ACE-Gruppen oder Framework-Rechte setzt. Beides ist möglich, keines davon passiert automatisch nur durch das Vorhandensein einer Discord-Rolle."
+        }
+      ],
+      "warnung": "„Ich habe die Admin-Rolle auf Discord“ ist keine Garantie für Rechte im Spiel — das ist einer der häufigsten Verwirrungspunkte bei neuen Teams.",
+      "siehe_auch": ["admins_panel_vs_ingame", "txadmin_discord_bot"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "staff_werkzeuge",
+      "kategorie": "admins",
+      "titel": "Moderations-Werkzeuge im Alltag",
+      "kurz": "Report-System, Spectate und Staff-Chat — was ein Team über das reine Kick/Ban hinaus braucht.",
+      "stichworte": ["report", "spectate", "staffchat", "moderation"],
+      "abschnitte": [
+        {
+          "titel": "Report-System",
+          "text": "Ein Report-Befehl, mit dem Spieler ein Problem melden können, landet üblicherweise in einem eigenen Admin-Kanal oder Ingame-Fenster mit Spielername und Kontext. Ohne so etwas erfahren Admins von Problemen meist nur zufällig."
+        },
+        {
+          "titel": "Spectate",
+          "text": "Die Möglichkeit, einem Spieler unsichtbar zuzuschauen, ist das wichtigste Werkzeug, um einen Verdacht zu prüfen, bevor gehandelt wird — Kicks und Bans ohne eigene Beobachtung führen erfahrungsgemäß zu mehr Streit als sie lösen."
+        },
+        {
+          "titel": "Staff-Chat",
+          "text": "Ein separater Chat-Kanal nur für das Team, der nicht im normalen Spielchat sichtbar ist, verhindert, dass Absprachen zur Moderation vor den betroffenen Spielern laufen."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["admins_panel_vs_ingame", "sicherheit_grundregeln"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "qbox_jobs_gangs",
+      "kategorie": "framework",
+      "titel": "Jobs und Gangs anlegen",
+      "kurz": "Der grundsätzliche Aufbau eines Jobs im Framework — und wo Fraktionen sich davon unterscheiden.",
+      "stichworte": ["job", "gang", "fraktion", "shared", "grade"],
+      "abschnitte": [
+        {
+          "titel": "Aufbau eines Jobs",
+          "text": "Ein Job besteht aus einem internen Namen, einem Anzeigenamen und einer Liste von Rängen (grades) mit jeweils eigenem Namen und Gehalt. Diese Definition liegt zentral in einer geteilten Konfigurationsdatei des Frameworks, nicht verstreut in einzelnen Job-Skripten."
+        },
+        {
+          "titel": "Jobs vs. Gangs",
+          "text": "Technisch sind Jobs und Gangs im Framework sehr ähnlich aufgebaut — beides sind Gruppen mit Rängen, denen Spieler zugeordnet werden. Der Unterschied ist eher konzeptionell: Jobs sind meist öffentlich wählbar (Polizei, Rettungsdienst, Zivilberufe), Gangs eher informell oder durch Rollenspiel vergeben."
+        },
+        {
+          "titel": "Eigene Job-Skripte",
+          "text": "Ein Job-Skript (etwa ein Lieferdienst oder ein Handwerksberuf) definiert meist zusätzlich eigene Aufgaben, Orte und Belohnungen, greift aber für Zugehörigkeit und Rang auf die zentrale Job-Definition des Frameworks zurück, statt eine eigene mitzubringen."
+        }
+      ],
+      "warnung": "Zwei Job-Skripte, die denselben internen Job-Namen für unterschiedliche Berufe verwenden, überschreiben sich gegenseitig in der Konfiguration.",
+      "siehe_auch": ["qbox_vs_qbcore", "ressource_installieren"],
+      "plugins": ["qbx_core"],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "qbox_events_grundlagen",
+      "kategorie": "framework",
+      "titel": "Events verstehen — Client, Server und der Unterschied",
+      "kurz": "Warum FiveM-Skripte aus zwei getrennten Programmen bestehen, die sich Nachrichten schicken.",
+      "stichworte": ["event", "trigger", "client", "server", "nui"],
+      "abschnitte": [
+        {
+          "titel": "Zwei getrennte Umgebungen",
+          "text": "Client-Code läuft auf dem Rechner jedes einzelnen Spielers, Server-Code läuft einmal zentral auf dem Server. Sie teilen sich keinen Speicher — die einzige Verbindung zwischen ihnen sind Events, die in beide Richtungen ausgelöst werden können."
+        },
+        {
+          "titel": "Client → Server und zurück",
+          "text": "Ein Client löst mit einem Server-Event etwas beim Server aus (z.B. „ich möchte dieses Item kaufen“), der Server prüft es und antwortet bei Bedarf mit einem eigenen Client-Event. Diese Hin-und-Her-Kommunikation ist der Normalfall, kein Sonderfall."
+        },
+        {
+          "titel": "Warum das für Sicherheit zählt",
+          "text": "Weil jeder Client ein Server-Event mit beliebigen Daten auslösen kann, muss der Server bei jedem eingehenden Event selbst prüfen, ob die Anfrage plausibel ist — das ist der technische Kern von sicherheit_grundregeln."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["sicherheit_grundregeln", "qbox_vs_qbcore"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "qbox_housing_vergleich",
+      "kategorie": "framework",
+      "titel": "Housing-Systeme vergleichen",
+      "kurz": "Weshalb es bei Immobilien-Skripten besonders viele konkurrierende Lösungen gibt.",
+      "stichworte": ["housing", "immobilien", "wohnung", "realtor"],
+      "abschnitte": [
+        {
+          "titel": "Warum so viele Anbieter",
+          "text": "Housing ist eines der Features mit den meisten Vergleichsoptionen im Katalog — Kauf/Miete-Modelle, MLO-gebundene vs. Instanz-Wohnungen, mit oder ohne Möbeleditor unterscheiden sich stark zwischen den Anbietern."
+        },
+        {
+          "titel": "Worauf beim Vergleich achten",
+          "text": "Wichtige Unterscheidungsmerkmale sind: ob Wohnungen an feste MLOs gebunden sind oder als eigene Instanz existieren (das beeinflusst, wie viele Spieler gleichzeitig dieselbe Wohnung nutzen können), ob es einen Möbeleditor gibt, und ob ein Immobilienmakler-Job mitgeliefert wird oder separat gebraucht wird."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["qbox_vs_qbcore"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": "Die Housing-Gruppe im Katalog wächst häufig, ein Blick dort lohnt sich zusätzlich zu diesem Artikel."
+    },
+    {
+      "id": "dependencies_deklarieren",
+      "kategorie": "ressourcen",
+      "titel": "Abhängigkeiten in der fxmanifest.lua deklarieren",
+      "kurz": "dependency, provide und die Reihenfolge, die FiveM daraus selbst ableitet.",
+      "stichworte": ["fxmanifest", "dependency", "provide", "manifest"],
+      "abschnitte": [
+        {
+          "titel": "dependency",
+          "text": "Der Eintrag dependency in der fxmanifest.lua einer Ressource sagt dem Server, dass diese andere Ressource vorhanden und gestartet sein muss. FiveM berücksichtigt das teilweise selbst beim Start, ersetzt aber nicht die eigene, bewusste Reihenfolge in der server.cfg.",
+          "code": "dependency 'ox_lib'\ndependency 'qbx_core'"
+        },
+        {
+          "titel": "provide",
+          "text": "Ein Ressourcen-Ersatz oder Fork kann sich per provide als Ersatz für eine andere Ressource ausgeben — praktisch bei Bridges oder Alternativimplementierungen, die vorhandene Abhängigkeitsprüfungen erfüllen sollen, ohne selbst so zu heißen."
+        },
+        {
+          "titel": "Warum die server.cfg trotzdem entscheidet",
+          "text": "dependency ist eine Startprüfung, keine automatische Umsortierung der server.cfg. Die tatsächliche Startreihenfolge bestimmt weiterhin die Reihenfolge der ensure-Zeilen — deshalb baut der Planer die ensure-Liste automatisch topologisch sortiert."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["startreihenfolge", "ressource_installieren"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "handling_tuning",
+      "kategorie": "fahrzeuge",
+      "titel": "Fahrverhalten über handling.meta anpassen",
+      "kurz": "Wie Fahrzeuge sich anders anfühlen lassen, ohne das Modell selbst zu ändern.",
+      "stichworte": ["handling", "tuning", "fahrverhalten", "meta"],
+      "abschnitte": [
+        {
+          "titel": "Was handling.meta steuert",
+          "text": "Die handling.meta bestimmt Masse, Höchstgeschwindigkeit, Beschleunigung, Bremsverhalten, Traktion und Schadensmodell eines Fahrzeugs. Jedes Fahrzeug referenziert einen handling-Namen; mehrere Fahrzeuge können sich denselben Handling-Eintrag teilen."
+        },
+        {
+          "titel": "Eigene Werte setzen",
+          "text": "Für ein individuelles Fahrverhalten bekommt ein Fahrzeug einen eigenen, eindeutigen Handling-Namen mit eigenen Werten, statt sich einen bestehenden mit einem anderen Fahrzeug zu teilen — sonst ändert eine Anpassung ungewollt auch andere Fahrzeuge mit."
+        },
+        {
+          "titel": "Vorsichtig herantasten",
+          "text": "Handling-Werte wirken oft nicht linear und beeinflussen sich gegenseitig. Kleine Änderungen und häufiges Testen im Spiel liefern verlässlichere Ergebnisse als große Sprünge nach Gefühl."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["fahrzeug_einbauen"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "ped_komponenten_details",
+      "kategorie": "kleidung",
+      "titel": "Ped-Komponenten im Detail",
+      "kurz": "Warum ein Charaktermodell aus austauschbaren Einzelteilen besteht statt aus einem Stück.",
+      "stichworte": ["ped", "komponente", "drawable", "textur", "prop"],
+      "abschnitte": [
+        {
+          "titel": "Komponenten vs. Props",
+          "text": "Komponenten sind fest am Skelett befestigte Teile wie Oberkörper, Beine oder Hände. Props sind lose aufgesetzte Zusatzobjekte wie Hüte, Brillen oder Rucksäcke — beide haben getrennte Nummernsysteme und werden im Kleidungsmenü meist getrennt behandelt."
+        },
+        {
+          "titel": "Drawable und Textur",
+          "text": "Jede Komponente hat eine Drawable-Nummer (welches Modell) und eine Textur-Nummer (welche Variante/Farbe des Modells). Ein neues Kleidungsstück fügt in der Regel ein neues Drawable mit einer oder mehreren Texturvarianten hinzu."
+        },
+        {
+          "titel": "Ped-Modell selbst wechseln",
+          "text": "Zusätzlich zu den Standard-Freemode-Modellen (die den größten Teil der Anpassbarkeit bieten) lassen sich auch komplett andere Ped-Modelle laden. Das ist ein größerer Eingriff und betrifft meist NPCs oder spezielle Rollenspiel-Charaktere, nicht die alltägliche Kleidungsauswahl."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["kleidung_grundlagen", "streaming_grundlagen"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "waffen_balance_components",
+      "kategorie": "waffen",
+      "titel": "Waffen-Balancing und Aufsätze",
+      "kurz": "Schaden, Reichweite und Aufsätze über die Meta-Dateien im Zaum halten.",
+      "stichworte": ["balancing", "damage", "component", "aufsatz", "recoil"],
+      "abschnitte": [
+        {
+          "titel": "Schaden und Reichweite",
+          "text": "Schadenswerte, effektive Reichweite und Streuung stehen in den Waffen-Meta-Dateien. Für ein ausgewogenes Rollenspiel-Setting werden diese Werte gegenüber dem Standardspiel häufig deutlich angepasst, meist nach unten."
+        },
+        {
+          "titel": "Aufsätze/Components",
+          "text": "Zielfernrohre, Schalldämpfer, Magazine und Griffe sind eigene Components, die einer Waffe zugewiesen und wieder entfernt werden können. Ob und welche Aufsätze eine Addon-Waffe unterstützt, hängt davon ab, ob passende Component-Einträge für sie definiert wurden."
+        },
+        {
+          "titel": "Serverseitig prüfen",
+          "text": "Wie bei jeder Ausrüstung gilt: welche Waffe und welche Aufsätze ein Spieler tragen darf, muss der Server durchsetzen, nicht nur das Menü im Client verstecken."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["waffe_einbauen", "sicherheit_grundregeln"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "item_metadata_durability",
+      "kategorie": "items",
+      "titel": "Metadaten und Abnutzung bei Items",
+      "kurz": "Warum zwei gleiche Items im Inventar trotzdem unterschiedlich sein können.",
+      "stichworte": ["metadata", "durability", "abnutzung", "seriennummer"],
+      "abschnitte": [
+        {
+          "titel": "Was Metadaten sind",
+          "text": "Über die Grunddefinition hinaus kann ein einzelnes Item-Exemplar eigene Metadaten tragen — etwa eine Seriennummer bei einer Waffe, den Ladezustand bei einem Akku, oder wer ein Dokument ausgestellt hat. Zwei Items mit demselben internen Namen können dadurch trotzdem unterschiedlich sein."
+        },
+        {
+          "titel": "Abnutzung/Haltbarkeit",
+          "text": "Manche Items sinken bei Gebrauch in ihrem Zustand (etwa Werkzeuge oder Kleidung) und werden ab einem Schwellenwert unbrauchbar oder verschwinden. Das ist eine optionale Eigenschaft, die pro Item aktiviert wird, nicht ein automatisches Verhalten aller Items."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["items_anlegen"],
+      "plugins": ["ox_inventory"],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "crafting_shops",
+      "kategorie": "items",
+      "titel": "Crafting und Shops einrichten",
+      "kurz": "Wo Items herkommen: aus Rezepten oder aus dem Verkaufsregal.",
+      "stichworte": ["crafting", "shop", "rezept", "verkauf"],
+      "abschnitte": [
+        {
+          "titel": "Crafting-Systeme",
+          "text": "Ein Crafting-System verwandelt eine definierte Kombination aus Zutat-Items in ein Ergebnis-Item, meist mit Zeit- und Erfolgswahrscheinlichkeit. Die Rezepte liegen in einer eigenen Konfiguration und müssen auf existierende Item-Namen verweisen."
+        },
+        {
+          "titel": "Shops",
+          "text": "Ein Shop bindet Items an einen Ort und einen Preis. In ox_inventory lassen sich Shops mit eigenem Sortiment, Öffnungszeiten und Job-Bindung definieren, sodass etwa nur Mitarbeiter eines Jobs zu Einkaufspreisen kaufen können."
+        }
+      ],
+      "warnung": "Rezepte und Shop-Einträge, die auf einen falsch geschriebenen Item-Namen verweisen, scheitern meist stillschweigend — beim Testen lohnt ein Blick in die Konsole.",
+      "siehe_auch": ["items_anlegen", "item_metadata_durability"],
+      "plugins": ["ox_inventory"],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "db_werkzeuge",
+      "kategorie": "datenbank",
+      "titel": "Datenbank-Werkzeuge im Vergleich",
+      "kurz": "Womit man sich die Datenbank überhaupt ansieht — phpMyAdmin, Adminer, HeidiSQL & Co.",
+      "stichworte": ["phpmyadmin", "adminer", "heidisql", "werkzeug", "gui"],
+      "abschnitte": [
+        {
+          "titel": "Webbasierte Werkzeuge",
+          "text": "phpMyAdmin und Adminer laufen im Browser über einen kleinen Webserver und sind auf vielen Hosting-Angeboten bereits vorhanden oder leicht nachinstallierbar. Praktisch für schnelle Blicke ohne lokale Installation, aber ein zusätzlicher öffentlich erreichbarer Dienst, der abgesichert werden muss."
+        },
+        {
+          "titel": "Desktop-Werkzeuge",
+          "text": "HeidiSQL, DBeaver oder ähnliche Programme verbinden sich direkt von einem lokalen Rechner aus über den Datenbank-Port. Das erspart einen zusätzlichen Webdienst auf dem Server, verlangt aber, dass der Datenbank-Port von außen erreichbar ist — was wiederum eigene Absicherung braucht."
+        }
+      ],
+      "warnung": "Ein Datenbank-Port, der ohne Einschränkung offen ins Internet zeigt, ist ein beliebtes Angriffsziel. Zugriff nach Möglichkeit auf bekannte IP-Adressen beschränken.",
+      "siehe_auch": ["db_einrichten", "db_wartung_indexe"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "db_wartung_indexe",
+      "kategorie": "datenbank",
+      "titel": "Datenbank-Wartung: wenn Abfragen langsam werden",
+      "kurz": "Warum eine gewachsene Datenbank irgendwann bremst, und was dagegen hilft.",
+      "stichworte": ["index", "wartung", "optimierung", "langsam"],
+      "abschnitte": [
+        {
+          "titel": "Warum es langsamer wird",
+          "text": "Tabellen mit Spielerdaten wachsen über Monate spürbar. Ohne passende Indexe muss die Datenbank bei jeder Abfrage immer mehr Zeilen durchsuchen, was sich zuerst in gelegentlichen Rucklern beim Speichern oder Laden bemerkbar macht."
+        },
+        {
+          "titel": "Indexe",
+          "text": "Ein Index beschleunigt Abfragen auf einer bestimmten Spalte erheblich, kostet dafür etwas zusätzlichen Speicherplatz und Schreibzeit. Ressourcen, die eigene Tabellen anlegen, bringen die für sie sinnvollen Indexe meist schon in der SQL-Datei mit."
+        },
+        {
+          "titel": "Regelmäßige Sicherung bleibt wichtiger",
+          "text": "Performance-Feintuning ist ein Optimierungsschritt für einen bereits laufenden, gesicherten Server — die regelmäßige Sicherung (siehe db_einrichten) bleibt die wichtigere Grundlage, auf die zuerst geachtet werden sollte."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["db_einrichten", "performance_grundlagen"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "streaming_budget_culling",
+      "kategorie": "performance",
+      "titel": "Streaming-Budget und warum „mehr Inhalte“ nicht umsonst ist",
+      "kurz": "Die zwei Kosten von zusätzlichen Fahrzeugen, Kleidung und MLOs: Download und laufender Speicher.",
+      "stichworte": ["streaming", "budget", "culling", "speicher", "vram"],
+      "abschnitte": [
+        {
+          "titel": "Zwei getrennte Kosten",
+          "text": "Gestreamte Inhalte kosten zweimal: einmal als Downloadgröße beim ersten Verbinden, und einmal als laufender Speicherbedarf auf dem Client, sobald der Spieler in der Nähe ist. Ein Server kann also eine überschaubare Downloadgröße haben und trotzdem im Betrieb ruckeln, wenn zu viel gleichzeitig geladen sein muss."
+        },
+        {
+          "titel": "Wenn es zu viel wird",
+          "text": "Übermäßig viele gleichzeitig aktive Streaming-Inhalte äußern sich in Rucklern beim Umsehen, verzögert nachladenden Texturen oder abstürzenden Clients mit schwächerer Hardware. Das trifft besonders MLO-reiche Server mit vielen begehbaren Interieurs."
+        },
+        {
+          "titel": "Gegensteuern",
+          "text": "Redundante oder kaum genutzte Pakete aussortieren hilft mehr als reines Zutexten mit noch mehr Inhalt. Bei MLOs lohnt es, nur die tatsächlich genutzten zu behalten statt eine große Sammlung „auf Vorrat“ einzubinden."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["streaming_grundlagen", "performance_grundlagen"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "txadmin_resource_monitor",
+      "kategorie": "performance",
+      "titel": "Den Ressourcen-Monitor im Panel lesen",
+      "kurz": "txAdmin zeigt serverseitige Performance-Daten, die resmon im Spiel nicht liefert.",
+      "stichworte": ["monitor", "cpu", "txadmin", "panel", "auslastung"],
+      "abschnitte": [
+        {
+          "titel": "Server- vs. Client-Sicht",
+          "text": "resmon in der F8-Konsole zeigt, was auf EINEM Client an Rechenzeit anfällt. Das Panel zeigt zusätzlich die serverseitige Prozessauslastung — beides zusammen ergibt erst das vollständige Bild, weil ein Skript client- und serverseitig unterschiedlich teuer sein kann."
+        },
+        {
+          "titel": "Wann ins Panel schauen",
+          "text": "Steigt die CPU-Auslastung des Serverprozesses stetig mit der Spielerzahl überproportional an, deutet das eher auf ein serverseitiges Problem (z.B. eine teure Datenbankabfrage pro Spieler) als auf einzelne Client-Skripte."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["performance_grundlagen", "fehler_ressource_startet_nicht"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": "Umfang und Darstellung des Monitors ändern sich mit txAdmin-Versionen."
+    },
+    {
+      "id": "onesync_grundlagen_sicherheit",
+      "kategorie": "sicherheit",
+      "titel": "OneSync und was es NICHT gegen Cheater tut",
+      "kurz": "OneSync ist eine Synchronisations-Technik, kein AntiCheat.",
+      "stichworte": ["onesync", "sync", "entity", "anticheat"],
+      "abschnitte": [
+        {
+          "titel": "Was OneSync ist",
+          "text": "OneSync bestimmt, wie Positionen, Fahrzeuge und andere Entitäten zwischen vielen Spielern synchronisiert werden, und hebt das alte 32-Spieler-Limit auf. Es ist eine technische Voraussetzung für moderne Server, kein Sicherheitswerkzeug."
+        },
+        {
+          "titel": "Serverseitige Entity-Kontrolle",
+          "text": "Mit OneSync kann der Server serverseitig Entitäten kennen und verwalten, statt sich rein auf Client-Meldungen zu verlassen. Das eröffnet die Möglichkeit für serverseitige Prüfungen (etwa Positionsplausibilität), ersetzt solche Prüfungen aber nicht automatisch — sie müssen weiterhin bewusst eingebaut werden."
+        }
+      ],
+      "warnung": "OneSync allein macht einen Server nicht sicherer gegen Cheats — es liefert nur die Grundlage, auf der sinnvolle Serverprüfungen aufgebaut werden können.",
+      "siehe_auch": ["sicherheit_grundregeln", "qbox_events_grundlagen"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "ban_systeme",
+      "kategorie": "sicherheit",
+      "titel": "Bans — txAdmin, Framework und Identifier",
+      "kurz": "Warum ein Spieler nach einem Ban manchmal trotzdem wiederkommt.",
+      "stichworte": ["ban", "bann", "identifier", "hwid", "sperre"],
+      "abschnitte": [
+        {
+          "titel": "Woran ein Ban hängt",
+          "text": "Ein Ban wird gegen einen oder mehrere Identifier eines Spielers ausgesprochen (license, discord, steam, IP). Wie bei den ACE-Rechten ist die license-ID meist die zuverlässigste, weil sie nicht von einem Drittdienst abhängt."
+        },
+        {
+          "titel": "Warum Umgehung möglich ist",
+          "text": "Ein Spieler mit einem neuen Discord- oder Steam-Konto und derselben FiveM-Lizenz kann unter Umständen trotzdem wieder verbinden, wenn nicht alle relevanten Identifier gesperrt wurden. Ein vollständiger Ban schließt möglichst alle bekannten Identifier des Spielers ein, nicht nur einen."
+        },
+        {
+          "titel": "txAdmin- vs. Framework-Bans",
+          "text": "txAdmin führt eine eigene Banliste unabhängig vom Framework. Manche Frameworks oder Zusatzskripte führen zusätzlich eine eigene. Zwei getrennte, nicht synchronisierte Banlisten können dazu führen, dass ein in der einen gesperrter Spieler über die andere trotzdem hereinkommt."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["sicherheit_grundregeln", "admins_panel_vs_ingame"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "backup_notfallplan",
+      "kategorie": "sicherheit",
+      "titel": "Notfallplan: Was tun, wenn etwas schiefgeht",
+      "kurz": "Ein kurzer Fahrplan für die Fälle, die man sich vorher überlegt haben sollte, nicht erst währenddessen.",
+      "stichworte": ["notfall", "backup", "wiederherstellung", "incident"],
+      "abschnitte": [
+        {
+          "titel": "Datenbank kompromittiert oder beschädigt",
+          "text": "Ohne eine aktuelle, getestete Sicherung ist dieser Fall kaum zu retten. „Getestet“ heißt: schon einmal tatsächlich zurückgespielt, nicht nur angelegt und nie angesehen."
+        },
+        {
+          "titel": "Panel-Zugang verloren oder kompromittiert",
+          "text": "Master-Zugangsdaten sicher und getrennt vom Discord-Server aufbewahren (falls dieser selbst betroffen ist). Bei Verdacht auf Kompromittierung: Passwörter aller Panel-Konten und der Datenbank sofort ändern, laufende Sitzungen invalidieren, wenn die Software das anbietet."
+        },
+        {
+          "titel": "Massiver Exploit im laufenden Spielbetrieb",
+          "text": "Server kurzzeitig für neue Verbindungen sperren oder ganz herunterfahren ist oft die schnellste Schadensbegrenzung, bevor der eigentliche Fehler gesucht wird — ein Wirtschafts-Exploit, der weiterläuft, während man debuggt, richtet in der Zeit weiter Schaden an."
+        }
+      ],
+      "warnung": "Diese Entscheidungen im Vorfeld einmal in Ruhe zu durchdenken ist etwas völlig anderes, als sie zum ersten Mal mitten in einem laufenden Vorfall zu treffen.",
+      "siehe_auch": ["db_einrichten", "sicherheit_grundregeln"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "haeufige_fehlermeldungen",
+      "kategorie": "fehlersuche",
+      "titel": "Häufige Fehlermeldungen einordnen",
+      "kurz": "Ein paar wiederkehrende Zeilen aus der Konsole und was dahintersteckt.",
+      "stichworte": ["fehler", "error", "meldung", "couldnt", "failed"],
+      "abschnitte": [
+        {
+          "titel": "„Couldn't find resource“",
+          "text": "Die ensure-Zeile nennt einen Ordnernamen, den es in resources/ nicht gibt — meist ein Tippfehler oder das erwähnte „-main“-Suffix aus einem GitHub-Download."
+        },
+        {
+          "titel": "„Failed to load script“ / Lua-Syntaxfehler",
+          "text": "Eine Datei enthält einen Tippfehler im Code, oft nach eigenen Anpassungen an einer Konfigurationsdatei. Die Meldung nennt üblicherweise Dateiname und Zeilennummer — dort zuerst nachsehen."
+        },
+        {
+          "titel": "„MySQL connection error“ / oxmysql-Fehler",
+          "text": "Entweder stimmen die Zugangsdaten in der server.cfg nicht, die Datenbank läuft nicht, oder oxmysql startet vor der Convar-Zeile — die Reihenfolge in der server.cfg prüfen."
+        },
+        {
+          "titel": "Stille Fehler ohne Meldung",
+          "text": "Manche Fehler (etwa ein fehlendes Item, auf das ein Shop verweist) werfen keinen Startfehler, sondern fallen erst bei Benutzung im Spiel auf. Hier hilft der Blick in die F8-Client-Konsole zum Zeitpunkt des Problems."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["fehler_ressource_startet_nicht", "ressource_installieren"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": "Exakte Fehlertexte ändern sich zwischen FXServer-Versionen."
+    },
+    {
+      "id": "fehler_verbindung",
+      "kategorie": "fehlersuche",
+      "titel": "Spieler können sich nicht verbinden",
+      "kurz": "Der Server läuft, aber niemand kommt rein — die üblichen Ursachen in Prüfreihenfolge.",
+      "stichworte": ["verbindung", "connecting", "timeout", "connect failed"],
+      "abschnitte": [
+        {
+          "titel": "Prüfreihenfolge",
+          "text": "Von der wahrscheinlichsten zur unwahrscheinlichsten Ursache.",
+          "schritte": [
+            "Port 30120 TCP+UDP von außen erreichbar? (Online-Portchecker)",
+            "Lizenzschlüssel in der server.cfg gültig und korrekt eingetragen?",
+            "Server in der Konsole tatsächlich vollständig hochgefahren, nicht mitten in einem Absturz-Neustart?",
+            "Bei eigener Hardware: Portweiterleitung UND Betriebssystem-Firewall geprüft, nicht nur eines von beiden?",
+            "Meldet der Spieler einen konkreten Fehlercode? Der grenzt zwischen Netzwerkproblem und Server-Ablehnung ein."
+          ]
+        },
+        {
+          "titel": "„Nur bei mir“ vs. „bei allen“",
+          "text": "Kann sich niemand verbinden, liegt es fast immer am Server/Netzwerk. Kann sich nur ein einzelner Spieler nicht verbinden, während andere problemlos reinkommen, liegt es eher an diesem einen Client, einem Ban, oder einer Whitelist-Sperre."
+        }
+      ],
+      "warnung": null,
+      "siehe_auch": ["portfreigabe_firewall", "server_grundaufbau"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    }
+  ]
+}

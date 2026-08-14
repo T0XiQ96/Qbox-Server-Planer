@@ -65,8 +65,11 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 
 | # | Feature | Testfall | Status |
 |---|---|---|---|
-| C12 | **Ein einziger Vergleich für alles**: der ⚖️-Knopf im Kopf öffnet dasselbe Fenster wie ⚖️ auf einer Karte. Der frühere separate Zweiervergleich mit zwei Auswahlfeldern ist entfallen — er konnte weniger (keine Karten, kein Mehrfach-Hinzufügen) | Kopf-⚖️ → Vergleichsfenster mit Suche und Auswahlliste, kein Auswahlfeld-Paar mehr | getestet |
-| C13 | **Funktionsgruppe als Ganzes** direkt im Vergleichsfenster wählbar (über der Suche) | Gruppe „hud" wählen → 6 Karten im Vergleich | getestet |
+| C12 | Der ⚖️-Knopf im Kopf öffnet dasselbe Fensterlayout wie ⚖️ auf einer Karte — aber eine **eigene, getrennte Auswahl** (siehe C16-C18, DECISIONS D30). Der frühere separate Zweiervergleich mit zwei Auswahlfeldern ist entfallen — er konnte weniger (keine Karten, kein Mehrfach-Hinzufügen) | Kopf-⚖️ → Vergleichsfenster mit Suche und Auswahlliste, kein Auswahlfeld-Paar mehr | getestet |
+| C13 | **Funktionsgruppe als Ganzes** direkt im Vergleichsfenster wählbar (über der Suche) | Gruppe „hud" wählen → Karten im Vergleich | getestet |
+| C16 | **Der Korb (angedockte Leiste) füllt sich ausschließlich über ⚖️ auf einer Karte** (Klick oder Zug) — Funktionsgruppen-Wahl oder Such-Treffer im **Kopf**-Vergleichsfenster fließen NICHT in den Korb ein | Gruppe „hud" im Kopf-Fenster wählen → Korb-Leiste bleibt unverändert, zeigt weiterhin nur explizit gezogene/geklickte Einträge | getestet |
+| C17 | Das Kopf-Vergleichsfenster hat eine **eigene, gemerkte Auswahl**: Schließen und erneutes Öffnen zeigt wieder denselben Stand | Plugin im Kopf-Fenster hinzufügen, schließen, „⚖️ Vergleich" erneut öffnen → Plugin ist noch da | getestet |
+| C18 | Jedes Vergleichsfenster hat ein eigenes **„🧹 Auswahl leeren"** — wirkt nur auf die Auswahl, an der das gerade offene Fenster hängt | Im Kopf-Fenster leeren → nur die Kopf-Auswahl wird leer, der Korb bleibt unangetastet | getestet |
 | C14 | Das Vergleichsfenster nutzt die **volle Fensterbreite**, Karten stehen nebeneinander; bei schmalem Fenster stapeln sie wieder | Vollbild → 96 % Breite, 6 Karten in 3 Spalten | getestet |
 | C15 | Das ＋ steht **rechts** an jedem Treffer, immer an derselben Stelle — mehrere hintereinander hinzufügen, ohne die Maus zu suchen | Treffer-Zeile: Name, Kategorie, ＋ als letztes Element | getestet |
 | C1 | Vergleich nur sinnvoll innerhalb derselben Funktionsgruppe (seit C12 über den Mehrfachvergleich mit zwei Einträgen) | Zwei Inventare vergleichen → automatischer Funktionsvergleich | getestet |

@@ -17,6 +17,64 @@ Format je Eintrag:
 
 ---
 
+## [App-Ausbau 6] Vergleich: zwei getrennte Zustände statt einem Korb – 14.08.2026
+
+**Der Fehler:** Der Kopf-⚖️-Knopf und die Karten-⚖️-Knöpfe teilten sich seit App-Ausbau 4 eine
+einzige Variable (`vergleichsKorb`, D23). Eine Funktionsgruppen-Wahl oder ein Such-Treffer im
+Kopf-Vergleichsfenster hätte damit die Korb-Leiste (den „Drag&Drop-Verlauf") überschrieben —
+zwei äußerlich gleiche Wege, die sich gegenseitig die Auswahl wegnahmen.
+
+**Die Korrektur (DECISIONS D30, korrigiert D23 teilweise):** Zwei unabhängige
+`erzeugeVergleichsZustand()`-Instanzen. `korbZustand` wird **ausschließlich** durch ⚖️ auf einer
+Karte gefüllt (Klick oder Zug) und in der angedockten Leiste angezeigt. `kopfZustand` gehört zum
+Kopf-Vergleichsfenster (Funktionsgruppen-Auswahl, Suchtreffer) und bleibt über Schließen/Öffnen
+hinweg erhalten — „wo man war" steht beim erneuten Öffnen wieder da. „Alle N vergleichen" aus dem
+Ersetzt-Block sowie die ⚖️-Verweise im Prüfbericht und bei Synergien erzeugen einen dritten,
+namenlosen Zustand, der mit dem Fenster verschwindet und keinen der beiden anderen anfasst.
+
+**Neu:** ein „🧹 Auswahl leeren" **innerhalb** jedes Vergleichsfensters, das nur die Auswahl
+trifft, an der das gerade offene Fenster hängt — nicht die Korb-Leiste, wenn ein anderes Fenster
+offen war. `aktivesVergleichsZiel` verweist auf den Zustand, an den `oeffneVergleichsFenster()`
+gerade gebunden ist; `korbTrefferHTML()`/`korbInhaltHTML()` lesen daraus statt fest verdrahtet
+auf einer globalen Liste. `imKorb()` (Kartenrahmen-Hervorhebung) bleibt bewusst an `korbZustand`
+gebunden, nicht an das gerade offene Fenster — der Rahmen auf der Karte zeigt immer den
+Drag&Drop-Korb, nie eine Kopf-Auswahl.
+
+**Geändert:** `main.js`, `style.css` (neue Kopfzeile im Vergleichsfenster für den Leeren-Knopf).
+Keine Katalogdatei angefasst.
+
+**Geprüft** am echten Build: Karte-⚖️ und Gruppenwahl im selben Fenster füllen den Korb (6
+HUD-Einträge in der Leiste); Kopf-Fenster startet trotzdem leer und bleibt vom Korb unberührt;
+Kopf-Fenster merkt eine Auswahl über Schließen/Öffnen hinweg; „🧹 Auswahl leeren" im Kopf-Fenster
+leert nur die Kopf-Auswahl; „Alle N vergleichen" zeigt eine ephemere Vorschau ohne Korb oder Kopf
+zu verändern; Drag&Drop landet ausschließlich im Korb. Keine Konsolenfehler. **Commit:** folgt
+
+---
+
+## [Wissens-Datenbank] Vertiefung – 14.08.2026
+
+Auf Nutzerwunsch weiter recherchiert und ausgebaut, **ohne Verifizierungsschritt** — bleibt
+konsequent bei `qualitaet: "ungeprueft"` mit leeren `quellen` wie der Rest der Datenbank (D29).
+
+**25 neue Artikel** (`data/wissen/vertiefung.json`), Katalog wächst von 17 auf **42 Artikel**.
+Schwerpunkt auf Vertiefung bestehender Kategorien statt neuer Themenfelder: Hosting-Wahl und
+Portfreigabe (server_aufsetzen), Neustart-Scheduler, Whitelist und Discord-Anbindung (txAdmin),
+Discord-Rollen-Kopplung und Moderationswerkzeuge (Admins), Jobs/Gangs, Events und
+Housing-Vergleich (Framework), Dependency-Deklaration (Ressourcen), Handling-Tuning
+(Fahrzeuge), Ped-Komponenten im Detail (Kleidung), Waffen-Balancing (Waffen), Metadaten/Crafting
+(Items), Datenbank-Werkzeuge und -Wartung, Streaming-Budget und Resource-Monitor (Performance),
+OneSync-Grenzen, Ban-Systeme und ein Notfallplan (Sicherheit), häufige Fehlermeldungen und
+Verbindungsprobleme (Fehlersuche).
+
+**Ein wiederholter Stolperstein beim Schreiben (CLAUDE.md §4, dieselbe Falle wie bei den
+kimi-Katalogen):** deutsche Anführungszeichen „…" mit geradem statt typografischem schließenden
+Zeichen brachen das JSON an vier Stellen — der Fehlerlokalisierer fing sie zuverlässig ab, per
+Hand auf „…" korrigiert.
+
+**Commit:** folgt
+
+---
+
 ## [Release] v3.2-r39 — versionierte Release-Datei – 14.08.2026
 
 Push und Release für App-Ausbau 3-5. `package.json` von 3.1.0 auf **3.2.0** angehoben, damit
