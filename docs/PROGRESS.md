@@ -4,12 +4,23 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 14.08.2026
-**Letzter Commit:** folgt (App-Ausbau 6 + Wissens-Vertiefung + Versionssprung auf 3.3.0).
+**Letzter Commit:** folgt (Runden 40-42: 33 neue Plugins, reine Datenrunde).
 
 **Push-Stand (14.08.2026, vor diesem Schritt):** `origin/main` bis inklusive Versionssprung 3.2.0
 gepusht. Letztes GitHub-Release: **v3.2-r39**. Dieser Schritt bringt App-Ausbau 6 (Vergleich:
-zwei getrennte Zustände) und 25 neue Wissens-Artikel (17 → 42) noch dazu — Push/Release dafür
-folgen im nächsten Schritt.
+zwei getrennte Zustände), 25 neue Wissens-Artikel (17 → 42) und jetzt zusätzlich Runden 40-42
+(33 neue Plugins, 404 → 437) noch dazu — Push/Release dafür folgen im nächsten Schritt. **Kein
+Rebuild nötig** für Runden 40-42 (reine Datenrunde, CLAUDE.md §2.7).
+
+**Runden 40-42 (14.08.2026) — drei Neusuche-Runden hintereinander, auf Nutzerwunsch inkl.
+Premium-Plugins:** 33 neue Einträge über drei `discover`-Zusatzsuchen
+(`qbox drugs/garage`, `qbox phone/banking`, `qbox tuning/billing/tablet`), Kandidaten gemergt,
+nach Sternen sortiert, Autoren-Cluster über die drei Runden verteilt. 3 parallele Subagents mit
+je eigenem Prefetch-Briefing, danach Ergebnisse gegen Schema/Konventionen geprüft und korrigiert
+(Details siehe CHANGELOG „[Runden 40-42]"). Neue Gruppen-Mitglieder: `mechanic` (+popcornrp-customs),
+`phone` (+sd-phone, +summit_phone), `dealership` (+w2f-dealership, +citgo_dealership), `garage`
+(+mgarage-qbox, +keep-sharedgarages), `multichar` (+forger-multichar), `banking` (+w2f-banking),
+`notify` (+rxnotify). Validate grün, 437 Plugins gesamt, 0 ungeprüft.
 
 **App-Ausbau 6 — Vergleich korrigiert (DECISIONS D30, CHANGELOG „[App-Ausbau 6]"):** Kopf-⚖️ und
 Karten-⚖️ teilten sich bis eben eine Variable — eine Funktionsgruppen-Wahl im Kopf-Fenster hätte
@@ -413,3 +424,6 @@ Verdopplung kostet also jedes Mal. Übertragbar ist nur, was sich als *Muster* w
 | 37 | Zwölfte Neusuche-Runde: letzte 10 Kandidaten des aktuellen discover-Pools, 2 Autoren-Cluster einzeln geprüft, 2 mit Gruppenvergleich | 10 | 2 (Gruppenvergleiche bei `qbx_hud`, `wasabi_fishing`) | 0 | 0 (alle 10 verifiziert) | `data/catalog/runde-37.json` | `c393c45` |
 | 38 | Dreizehnte Neusuche-Runde: 10 kuratierte Kandidaten aus vollem discover-Lauf (0-8⭐), `pl_lib`-Fehlzuordnung korrigiert (Bridge statt ox_lib-Alternative), 1 mit Gruppenvergleich, neue Gruppe `wuerfelspiel` | 10 | 4 (Gruppenvergleiche/Synergie bei `qbx_garages`, `slrn_rolldice`, `jim_bridge`, `anx_bridge`) | 0 | 0 (alle 10 verifiziert) | `data/catalog/runde-38.json` | `d637ed1` |
 | 39 | Vierzehnte Neusuche-Runde: 11 Kandidaten aus 3 gezielten Zusatzsuchen (qbox mlo/heist/clothing+weapon) statt des erschöpften Standardpools, 4 mit Gruppenvergleich, neue Gruppe `burgershot`, 2 Framework-Korrekturen | 11 | 4 (Gruppenvergleiche bei `jim_burgershot`, `loaf_housing`, `randolio_moneywash`, `qb_minigames`) | 0 | 0 (9 verifiziert, 2 teilgeprüft) | `data/catalog/runde-39.json` | folgt |
+| 40 | Fünfzehnte Neusuche-Runde: 11 Kandidaten aus gezielten Zusatzsuchen (qbox drugs/garage/phone/banking/tuning/billing/tablet), 2 mit Gruppenvergleich, Premium-Plugins ausdrücklich mit aufgenommen | 11 | 2 (Gruppenvergleiche bei `qb_customs`, `lb_phone`) | 0 | 0 (10 verifiziert, 1 teilgeprüft) | `data/catalog/runde-40.json` | folgt |
+| 41 | Sechzehnte Neusuche-Runde: 11 Kandidaten, Garagen-/Dealership-/Wirtschafts-Cluster, 3 mit Gruppenvergleich (`dealership` x2, `garage` x2, `multichar`) | 11 | 0 | 0 (9 verifiziert, 2 teilgeprüft) | `data/catalog/runde-41.json` | folgt |
+| 42 | Siebzehnte Neusuche-Runde: 11 Kandidaten, Rest der Zusatzsuchen (Tablet/Banking/DOJ/Notify/Towjob/Police/Payment), 3 mit Gruppenvergleich, 1 Synergie-Verknüpfung (`sd-tablet`↔`sd-phone`) | 11 | 1 (Synergie bei `sd-phone`) | 0 | 0 (9 verifiziert, 2 teilgeprüft) | `data/catalog/runde-42.json` | folgt |

@@ -1,0 +1,294 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.3-r41",
+  "runde": 41,
+  "thema": "Sechzehnte Neusuche-Runde: Garagen/Dealership/Wirtschaft-Cluster aus der Restliste, 11 neue Plugins, 3 mit Gruppenvergleich",
+  "erstellt": "2026-08-14",
+  "plugins": [
+    {
+      "id": "w2f-dealership",
+      "name": "w2f-dealership",
+      "kategorie": "fahrzeuge",
+      "beschreibung": "Autohaus-Script für Qbox mit Showroom-NUI, Probefahrten mit Timer-HUD und oxmysql-gestützten Preis-/Layout-Overrides. Nutzt qbx_garages für das Parken gekaufter Fahrzeuge.",
+      "link": "https://github.com/Wayy2Flyyy/w2f-dealership",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-18",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": "dealership",
+      "abhaengigkeiten": ["qbx_core", "qbx_garages", "ox_lib", "ox_target", "oxmysql"],
+      "pro": [
+        "Nativ auf qbx_core-Exports gebaut, keine Bridge nötig",
+        "Nutzt qbx_garages statt eigenem Parksystem"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben",
+        "Kleinerer, weniger etablierter Anbieter als jg_dealerships"
+      ],
+      "quelle": "https://github.com/Wayy2Flyyy/w2f-dealership, https://raw.githubusercontent.com/Wayy2Flyyy/w2f-dealership/main/fxmanifest.lua"
+    },
+    {
+      "id": "bs_billing",
+      "name": "bs_billing",
+      "kategorie": "wirtschaft",
+      "beschreibung": "Framework-übergreifendes Rechnungssystem: Spieler und Jobs stellen private oder geschäftliche Rechnungen mit optionaler Provisionsaufteilung. Unterstützt mehrere Banking-Anbindungen (Renewed-Banking, qb-banking, okokBanking u.a.).",
+      "link": "https://github.com/BeetleStudios/bs_billing",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "3.0.3",
+      "letztes_update": "Aktiv · letzter Push 2026-08-05",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "pro": [
+        "GPL-3.0, frei einsehbar und reparierbar",
+        "Framework-Autoerkennung (Qbox/QBCore/ESX) im Code belegt",
+        "Optionale NUI-Rechnungsapp (bs_billing_phone) als Premium-Ergänzung erhältlich"
+      ],
+      "quelle": "https://github.com/BeetleStudios/bs_billing, https://raw.githubusercontent.com/BeetleStudios/bs_billing/main/fxmanifest.lua"
+    },
+    {
+      "id": "citgo_dealership",
+      "name": "citgo_dealership",
+      "kategorie": "fahrzeuge",
+      "beschreibung": "Autohaus-Script mit glasmorphem UI, Fahrzeug-Vorschaubildern über uz_AutoShot, Farbwahl und individuellen Kennzeichen. Erkennt QBCore und Qbox (qbx_core) automatisch zur Laufzeit.",
+      "link": "https://github.com/MasiahTech/citgo_dealership",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-04-19",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "dealership",
+      "abhaengigkeiten": ["oxmysql", "ox_lib"],
+      "pro": [
+        "Automatische Framework-Erkennung im Code belegt (QBCore/Qbox)",
+        "Wählbare Interaktionsart (core_focus, ox_target, ox_lib-Radial)"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben",
+        "Finanzierung erfordert zusätzlich ein separates Banking-Script (tgg-banking)"
+      ],
+      "quelle": "https://github.com/MasiahTech/citgo_dealership, https://raw.githubusercontent.com/MasiahTech/citgo_dealership/master/fxmanifest.lua"
+    },
+    {
+      "id": "matkez_jobgarages",
+      "name": "matkez_jobgarages",
+      "kategorie": "fahrzeuge",
+      "beschreibung": "Job-Garagen-Script für QBOX und ESX: stellt Firmenfahrzeuge über eine eigene Bridge bereit, getrennt von privaten Spieler-Garagen.",
+      "link": "https://github.com/MatkezZzz/matkez_jobgarages",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-04-28",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "GPL-3.0, quelloffen",
+        "Nutzt qbx_core-Exports direkt, keine Bridge über qb-core"
+      ],
+      "contra": [
+        "Deckt nur Job-Fahrzeuge ab, kein privates Garagensystem — ergänzt qbx_garages statt es zu ersetzen"
+      ],
+      "quelle": "https://github.com/MatkezZzz/matkez_jobgarages, https://raw.githubusercontent.com/MatkezZzz/matkez_jobgarages/main/fxmanifest.lua"
+    },
+    {
+      "id": "mgarage-qbox",
+      "name": "mGarage-qbox",
+      "kategorie": "fahrzeuge",
+      "beschreibung": "Auf Qbox angepasste Fahrzeug-Garage, die Fahrzeuge auch unter falschem Kennzeichen (Item 'fakeplate' aus mVehicle) speichern kann.",
+      "link": "https://github.com/bbeckann/mGarage-qbox",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.1.0",
+      "letztes_update": "Seit 2024-08-07 kein Push mehr",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "gruppe": "garage",
+      "pro": [
+        "Quelloffen (GPL-3.0)"
+      ],
+      "contra": [
+        "Seit über einem Jahr kein Commit mehr — Pflegezustand unklar",
+        "README kaum dokumentiert, zwingende Abhängigkeit auf dem nicht katalogisierten mVehicle-Script statt Standard-Fahrzeugverwaltung",
+        "Deutlich schwächer belegt als die etablierten Gruppenmitglieder cd_garage/qbx_garages"
+      ],
+      "quelle": "https://github.com/bbeckann/mGarage-qbox, https://raw.githubusercontent.com/bbeckann/mGarage-qbox/main/fxmanifest.lua"
+    },
+    {
+      "id": "keep-sharedgarages",
+      "name": "keep-sharedgarages",
+      "kategorie": "fahrzeuge",
+      "beschreibung": "Geteilte Garagen für FiveM: mehrere Spieler können sich eine Garage teilen. Laut README für qb-core entwickelt und mit dem Qbox-Framework (qbx_core) getestet.",
+      "link": "https://github.com/A1SCRIPTSS/keep-sharedgarages",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.0.4",
+      "letztes_update": "Aktiv · letzter Push 2025-08-23",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "gruppe": "garage",
+      "abhaengigkeiten": ["oxmysql"],
+      "kompat_warnung": {
+        "text": "Code-Stichprobe findet keinen direkten qbx_core-Export, nur ox_lib. README nennt Qbox nur als getestet, nicht als primäres Ziel — Kompatibilität ist plausibel, aber nicht im Code belegt.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Quelloffen (GPL-3.0)",
+        "README nennt Qbox ausdrücklich als getestet"
+      ],
+      "contra": [
+        "Kein direkter Beleg für qbx_core-Nutzung im Code, läuft vermutlich über die qb-core-Bridge"
+      ],
+      "quelle": "https://github.com/A1SCRIPTSS/keep-sharedgarages, https://raw.githubusercontent.com/A1SCRIPTSS/keep-sharedgarages/main/fxmanifest.lua"
+    },
+    {
+      "id": "dps-vehiclepersistence",
+      "name": "dps-vehiclepersistence",
+      "kategorie": "fahrzeuge",
+      "beschreibung": "Sorgt dafür, dass abgestellte Fahrzeuge realistisch an ihrem Standort bleiben, auch über Verbindungsabbrüche und Neustarts hinweg. Unterstützt QBCore, Qbox und ESX per Framework-Bridge mit automatischer Erkennung.",
+      "link": "https://github.com/DaemonAlex/dps-vehiclepersistence",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.2.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "pro": [
+        "Framework-Autoerkennung im Code belegt, dedizierter Qbox-Fix laut Changelog",
+        "Sehr aktiv gepflegt (Push am Tag der Prüfung)"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben"
+      ],
+      "quelle": "https://github.com/DaemonAlex/dps-vehiclepersistence, https://raw.githubusercontent.com/DaemonAlex/dps-vehiclepersistence/main/fxmanifest.lua"
+    },
+    {
+      "id": "serverdepth-businesses",
+      "name": "serverdepth-businesses",
+      "kategorie": "zivil",
+      "beschreibung": "System für spielergeführte Unternehmen mit angestelltem NPC-Personal: 8 Geschäftstypen, passives Einkommen, NPC-Zufriedenheit und Besitzer-Dashboard. Optional mit serverdepth-reputation kombinierbar.",
+      "link": "https://github.com/koliguides/serverdepth-businesses",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-12",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["oxmysql", "ox_lib", "ox_inventory"],
+      "pro": [
+        "Qbox primär, QBCore als Fallback laut README",
+        "Nutzt ox_target/ox_inventory statt qb-Pendants — läuft nicht an der Bridge vorbei"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben"
+      ],
+      "quelle": "https://github.com/koliguides/serverdepth-businesses, https://raw.githubusercontent.com/koliguides/serverdepth-businesses/main/fxmanifest.lua"
+    },
+    {
+      "id": "nx_form",
+      "name": "nx_form",
+      "kategorie": "ui",
+      "beschreibung": "Baukasten für dynamische Ingame-Formulare, die Spieler ausfüllen können. Läuft laut README auf qb-core oder qbx_core, nutzt ox_lib und ox_target für die Interaktion.",
+      "link": "https://github.com/Bangbree/nx_form",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Seit 2026-01-23 kein Push mehr",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib", "ox_target"],
+      "kompat_warnung": {
+        "text": "fxmanifest listet 'qb-core' als harte Abhängigkeit, kein qbx_core-Export im Code gefunden. README nennt Qbox nur im Titel, nicht als geprüfte Laufzeitumgebung. Zusätzlich zwingende Renewed-Banking-Abhängigkeit.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "AGPL-3.0, quelloffen"
+      ],
+      "contra": [
+        "fxmanifest fordert zwingend Renewed-Banking",
+        "Kein Code-Beleg für native Qbox-Unterstützung, vermutlich nur über die qb-core-Bridge lauffähig"
+      ],
+      "quelle": "https://github.com/Bangbree/nx_form, https://raw.githubusercontent.com/Bangbree/nx_form/main/fxmanifest.lua"
+    },
+    {
+      "id": "emergencydealer",
+      "name": "EmergencyDealer",
+      "kategorie": "staat",
+      "beschreibung": "NPC-Verkäufer für Polizei- und Rettungsdienstfahrzeuge mit Job- und Rang-Voraussetzungen sowie Anbindung an Garage und Tankstelle.",
+      "link": "https://github.com/VentuZAB1/EmergencyDealer",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Seit 2025-07-26 kein Push mehr",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "qbx_core"],
+      "pro": [
+        "MIT-Lizenz, quelloffen",
+        "Nutzt qbx_core-Exports direkt (belegt in server.lua:1, client.lua:1)"
+      ],
+      "contra": [
+        "Zwingend an die kostenpflichtigen Zusatzscripte okokGarage und okokGasStation gekoppelt",
+        "Über ein Jahr kein Commit mehr"
+      ],
+      "quelle": "https://github.com/VentuZAB1/EmergencyDealer, https://raw.githubusercontent.com/VentuZAB1/EmergencyDealer/main/fxmanifest.lua"
+    },
+    {
+      "id": "forger-multichar",
+      "name": "forger-multichar",
+      "kategorie": "ui",
+      "beschreibung": "Filmische Mehrfach-Charakterauswahl mit 3D-Live-Vorschau, Posen, Kamerazoom, Wetter/Zeit-Filtern, Spawn-Auswahl und pro Spieler konfigurierbaren Slot-Limits (per Identifier/Ace/Discord-Rolle). Unterstützt QBCore, Qbox und ESX Legacy.",
+      "link": "https://github.com/bimdroidinc-dev/forger-multichar",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.2.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-30",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": "multichar",
+      "abhaengigkeiten": ["oxmysql"],
+      "kompat_warnung": {
+        "text": "server/starteritems.lua:31 greift auf exports['qb-inventory'] zu, obwohl ox_inventory-Erkennung ebenfalls vorhanden ist (Zeile 24) — bei reinem ox_inventory-Setup ohne qb-inventory-Kompatibilitätslayer könnte die Startitem-Vergabe fehlschlagen.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Apache-2.0, quelloffen",
+        "Kein SQL-Migrationsbedarf, nutzt bestehende players-Tabelle",
+        "Pluggable Clothing-Unterstützung (illenium, fivem-appearance, skinchanger, qb-clothing)"
+      ],
+      "contra": [
+        "Ein Codepfad für Startitems greift noch auf qb-inventory statt ausschließlich ox_inventory zu",
+        "Erfordert aktivierte qb-core-Bridge (qbx:enablebridge) für bestehende Charaktere laut README"
+      ],
+      "quelle": "https://github.com/bimdroidinc-dev/forger-multichar, https://raw.githubusercontent.com/bimdroidinc-dev/forger-multichar/main/fxmanifest.lua"
+    }
+  ],
+  "updates": []
+}

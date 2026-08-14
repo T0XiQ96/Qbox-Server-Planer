@@ -1,0 +1,336 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.3-r40",
+  "runde": 40,
+  "thema": "Fünfzehnte Neusuche-Runde: gezielte Zusatzsuchen (qbox drugs/garage/phone/banking/tuning/billing/tablet), 11 neue Plugins, Premium-Plugins ausdrücklich mit aufgenommen",
+  "erstellt": "2026-08-14",
+  "plugins": [
+    {
+      "id": "popcornrp-customs",
+      "name": "popcornrp-customs",
+      "kategorie": "fahrzeuge",
+      "beschreibung": "Fahrzeug-Customization-Script auf Basis von ox_lib, entstanden als Ersatz für qb-customs nach Vorwürfen gestohlenen Codes. Bietet eigene Framework-Varianten für QBCore/Qbox/ND/ESX.",
+      "link": "https://github.com/alberttheprince/popcornrp-customs",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.4.7",
+      "letztes_update": "Aktiv · letzter Push 2026-08-02",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "mechanic",
+      "pro": [
+        "Framework-Autoerkennung im Code (QBCore/ESX/Qbox-Varianten)",
+        "Nutzt ox_lib",
+        "Aktiv gepflegt, eigenständiger Ersatz für das defekte qb_customs"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo, nur README-Hinweis auf modifizierte MIT-Lizenz"
+      ],
+      "quelle": "https://github.com/alberttheprince/popcornrp-customs, https://raw.githubusercontent.com/alberttheprince/popcornrp-customs/main/fxmanifest.lua"
+    },
+    {
+      "id": "sd-phone",
+      "name": "sd-phone",
+      "kategorie": "kommunikation",
+      "beschreibung": "Umfangreiches Smartphone-Script mit 47+ Apps (Anrufe, Nachrichten, Banking, Aktien, Marktplatz, Garagen, Jobs u.a.), Framework-Autoerkennung für QBCore/Qbox/ESX und optionaler lb-phone-Kompatibilität für Drittanbieter-Apps.",
+      "link": "https://github.com/Samuels-Development/sd-phone",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "0.9.7",
+      "letztes_update": "Aktiv · letzter Push 2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "phone",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "kompat_warnung": {
+        "text": "Bridge-Code enthält im QBCore-Fallback-Zweig einen exports['qb-inventory']-Aufruf (bridge/server/money.lua:88) — auf reinem Qbox/ox_inventory-Setup sollte dieser Pfad nicht erreicht werden, ist aber nicht auf allen Codepfaden verifiziert.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Framework-Bridge mit qbx_core-Exports und automatischer Erkennung",
+        "lb-phone-Kompatibilitätsschicht für Drittanbieter-Apps",
+        "Sehr aktiv, breite App-Auswahl"
+      ],
+      "contra": [
+        "Sehr groß (355 Lua-Dateien), nicht jede Datei einzeln geprüft",
+        "Benötigt separates sd-phone-props-Paket"
+      ],
+      "quelle": "https://github.com/Samuels-Development/sd-phone, https://raw.githubusercontent.com/Samuels-Development/sd-phone/main/fxmanifest.lua"
+    },
+    {
+      "id": "nopixel-4_0-inventory",
+      "name": "Nopixel-4.0-inventory",
+      "kategorie": "ui",
+      "beschreibung": "Inventar-System im Stil von NoPixel 4.0 mit Framework-Autoerkennung für QBCore/Qbox, laut README zuletzt kostenlos aktualisiert (V1.7.0 als letztes freies Update).",
+      "link": "https://github.com/pooyahpx/Nopixel-4.0-inventory",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.6.7",
+      "letztes_update": "Aktiv · letzter Push 2025-12-28",
+      "lizenz": "open_source",
+      "framework": "qbcore_only",
+      "qualitaet": "verifiziert",
+      "kompat_warnung": {
+        "text": "Greift direkt auf exports['qb-inventory'] (server/shop_compat.lua:75, server/compat_qb.lua:36) und exports['qb-target'] (client/main.lua:377) zu, zusätzlich @qb-core-Includes im fxmanifest — läuft an der Qbox-Bridge vorbei (Qbox nutzt ox_inventory/ox_target).",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "NoPixel-4.0-Optik, beliebt in der Community",
+        "Framework-Autoerkennung vorhanden"
+      ],
+      "contra": [
+        "Harte qb-inventory/qb-target-Abhängigkeit, keine ox_inventory/ox_target-Anbindung gefunden",
+        "README verspricht Qbox-Support, Code widerspricht dem",
+        "Letztes Update laut README ist \"last free update\" — mögliche kommerzielle Weiterentwicklung"
+      ],
+      "quelle": "https://github.com/pooyahpx/Nopixel-4.0-inventory, https://raw.githubusercontent.com/pooyahpx/Nopixel-4.0-inventory/main/fxmanifest.lua"
+    },
+    {
+      "id": "randol_paycheck",
+      "name": "randol_paycheck",
+      "kategorie": "wirtschaft",
+      "beschreibung": "Einfaches Gehaltsauszahlungs-System für QBCore, mit Bridge-Ordner für Framework-Anbindung und ox_lib als Abhängigkeit.",
+      "link": "https://github.com/Randolio/randol_paycheck",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "unbekannt",
+      "letztes_update": "Zuletzt aktiv 2024-11-12, seither kein Push mehr",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "kompat_warnung": {
+        "text": "Nutzt exports['qb-target'] direkt (cl_paycheck.lua:14) statt ausschließlich über die ox_target-Bridge (cl_paycheck.lua:12) zu gehen — funktioniert nur, wenn qb-target parallel läuft oder der Bridge-Pfad greift.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "ox_lib eingebunden",
+        "Bridge-Ordner mit separaten qb/esx-Dateien für Framework-Erkennung"
+      ],
+      "contra": [
+        "Seit Ende 2024 kein Update mehr",
+        "README-Anleitung erfordert manuelles Patchen von qb-core/server/functions.lua — greift damit direkt in den Core ein"
+      ],
+      "quelle": "https://github.com/Randolio/randol_paycheck, https://raw.githubusercontent.com/Randolio/randol_paycheck/main/fxmanifest.lua"
+    },
+    {
+      "id": "kartik-loansystem",
+      "name": "kartik-loansystem",
+      "kategorie": "wirtschaft",
+      "beschreibung": "Kredit-/Darlehenssystem für Spieler, nutzt ox_lib und qbx_core-Exports, laut README kompatibel mit QBCore/Qbox/ESX.",
+      "link": "https://github.com/kartik1410/kartik-loansystem",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0",
+      "letztes_update": "Aktiv · letzter Push 2025-09-05",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["oxmysql", "ox_lib"],
+      "kompat_warnung": {
+        "text": "Nutzt qbx_core-Exports direkt (server/utils.lua:61, client/utils.lua:21) und ox_target als primären Pfad, enthält aber einen Fallback auf exports['qb-target'] (client/utils.lua:44).",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Nutzt qbx_core-Exports direkt",
+        "ox_target statt qb-target als primärer Pfad",
+        "MIT-Lizenz eindeutig"
+      ],
+      "contra": [
+        "Autor bewirbt im README ein separates kostenpflichtiges Bankingsystem (dieses Script selbst ist aber kostenlos)"
+      ],
+      "quelle": "https://github.com/kartik1410/kartik-loansystem, https://raw.githubusercontent.com/kartik1410/kartik-loansystem/main/fxmanifest.lua"
+    },
+    {
+      "id": "kq_link",
+      "name": "kq_link",
+      "kategorie": "basis",
+      "beschreibung": "Framework- und Ressourcen-Bridge, die Scripts unabhängig von Framework (ESX/QBCore/Qbox), Inventar oder Dispatch-System machen soll, inklusive Mock-Funktionen für Standalone-Betrieb.",
+      "link": "https://github.com/Kuzkay/kq_link",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.29.1",
+      "letztes_update": "Aktiv · letzter Push 2026-08-12",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "kompat_warnung": {
+        "text": "fxmanifest bindet @ox_core/lib/init.lua ein (Zeile 53) — eine ox_core-Abhängigkeit bestätigt allein keine Qbox-Kompatibilität. Zusätzlich direkter exports['qb-inventory']-Zugriff im getrennten QBCore-Zweig (links/frameworks/qbcore/server.lua:150). Eigener qbox-Zweig mit qbx_core-Exports existiert separat (links/frameworks/qbox/server.lua:7).",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Eigener qbox-Zweig mit qbx_core-Exports",
+        "ox_lib eingebunden, sehr aktiv gepflegt",
+        "escrow_ignore '**' im fxmanifest — Code liegt trotz kommerziellem Umfeld des Autors offen"
+      ],
+      "contra": [
+        "Framework-Codepfade sind pro Framework getrennt (qb/qbox/esx) statt einer einheitlichen Bridge",
+        "Keine SPDX-Lizenz angegeben, Autor betreibt kommerziellen Shop für andere Produkte"
+      ],
+      "quelle": "https://github.com/Kuzkay/kq_link, https://raw.githubusercontent.com/Kuzkay/kq_link/main/fxmanifest.lua"
+    },
+    {
+      "id": "bc_paycheck",
+      "name": "BC_Paycheck",
+      "kategorie": "wirtschaft",
+      "beschreibung": "Gehaltsauszahlungs-Script, das Spieler zwingt, ihr Gehalt an Sammelstellen abzuholen statt es automatisch zu erhalten, für QBCore und Qbox.",
+      "link": "https://github.com/TeamBroCode/BC_Paycheck",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Zuletzt aktiv 2024-01-15, seither kein Push mehr",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Nutzt qbx_core-Exports direkt (server/main.lua:6), README nennt qb-target als Alternative zu ox_target und Code greift zusätzlich auf exports['qb-target'] zu (client/main.lua:100).",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Nutzt qbx_core-Exports direkt",
+        "GPL-3.0 klar lizenziert",
+        "README erklärt sowohl QBCore- als auch Qbox-Installation im Detail"
+      ],
+      "contra": [
+        "Über 2 Jahre kein Update mehr (Stand 2024-01)",
+        "README-Anleitung erfordert manuelles Patchen von qbx_core/server/player.lua"
+      ],
+      "quelle": "https://github.com/TeamBroCode/BC_Paycheck, https://raw.githubusercontent.com/TeamBroCode/BC_Paycheck/main/fxmanifest.lua"
+    },
+    {
+      "id": "nc-memory",
+      "name": "nc-memory",
+      "kategorie": "zivil",
+      "beschreibung": "Memory-Minigame (Karten-Merkspiel) für FiveM, framework-unabhängig nutzbar, mit Beispielcode zur Anbindung an ESX/QBCore für Belohnungen.",
+      "link": "https://github.com/NaorNC/nc-memory",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Zuletzt aktiv 2025-03-10, seither kein Push mehr",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "pro": [
+        "Framework-unabhängig, minimalistisches Minigame",
+        "Export StartMemoryGame für einfache Integration"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben",
+        "Über ein Jahr kein Update",
+        "Beispielcode nur für ESX/QBCore, kein Qbox-Beleg im Code oder README gefunden"
+      ],
+      "quelle": "https://github.com/NaorNC/nc-memory, https://raw.githubusercontent.com/NaorNC/nc-memory/main/fxmanifest.lua"
+    },
+    {
+      "id": "sp_tuning",
+      "name": "sp_tuning",
+      "kategorie": "fahrzeuge",
+      "beschreibung": "Fahrzeug-Tuning-Script mit Karten-basierter NUI (Karosserie, Lackierung, Räder, Leistung, Beleuchtung), Orbit-Kamera und optionalem Boss-Menü, gebaut nativ auf qbx_core.",
+      "link": "https://github.com/zsronx/sp_tuning",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-06",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "qbx_core"],
+      "pro": [
+        "Nativ auf qbx_core gebaut, keine QBCore-Kompatibilitätsschicht nötig",
+        "Ausführliche README-Doku zur Anbindung von Gesellschaftsgeld über qbx_core-Hooks",
+        "Aktiv gepflegt"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben",
+        "Society-/Boss-Geld-Anbindung muss manuell in qbx_core/config/server.lua implementiert werden",
+        "Deckt nur Tuning ab, kein Karosserie-/Lackier-Ersatz für popcornrp-customs — bewusst nicht derselben Gruppe zugeordnet"
+      ],
+      "quelle": "https://github.com/zsronx/sp_tuning, https://raw.githubusercontent.com/zsronx/sp_tuning/main/fxmanifest.lua"
+    },
+    {
+      "id": "summit_phone",
+      "name": "summit_phone",
+      "kategorie": "kommunikation",
+      "beschreibung": "Smartphone-Script mit React/TypeScript-Frontend inklusive Krypto-App, kompatibel mit QBCore oder Qbox über austauschbares Core-Dependency.",
+      "link": "https://github.com/Nathan-FiveM/summit_phone",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-01-04",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "gruppe": "phone",
+      "abhaengigkeiten": ["ox_lib", "pma-voice"],
+      "pro": [
+        "React/TypeScript-Frontend mit Krypto-App",
+        "README nennt separate Install-Anleitungen für QBCore und Qbox"
+      ],
+      "contra": [
+        "Nur 1 Lua-Datei im Code-Stichprobenumfang, Rest ist kompilierter JS-Build — Code-Ebene nicht vollständig einsehbar/prüfbar",
+        "dependencies-Kommentar im fxmanifest nennt 'qb-core' als Alternative zu qbx-core, kein automatischer qbx_core-Export im sichtbaren Code gefunden",
+        "Keine SPDX-Lizenz im Repo angegeben"
+      ],
+      "quelle": "https://github.com/Nathan-FiveM/summit_phone, https://raw.githubusercontent.com/Nathan-FiveM/summit_phone/main/fxmanifest.lua"
+    },
+    {
+      "id": "ez_moneylog_qbx",
+      "name": "EZ_MoneyLOG_QBX",
+      "kategorie": "admin",
+      "beschreibung": "Geld-Logging- und Leaderboard-System speziell für Qbox: protokolliert alle Geldtransaktionen mit Discord-Benachrichtigungen in Echtzeit und optionaler Datenbank-Speicherung.",
+      "link": "https://github.com/Malitha-DEV/EZ_MoneyLOG_QBX",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Zuletzt aktiv 2025-09-08, seither kein Push mehr",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "oxmysql"],
+      "pro": [
+        "Speziell für Qbox entwickelt, nutzt qbx_core-Exports direkt (server/main.lua:57, server/database.lua:87)",
+        "Erkennt auch ox_inventory-Bargeld-Bewegungen laut README"
+      ],
+      "contra": [
+        "Keine Lizenzangabe im Repo (\"provided as-is\")",
+        "Seit knapp einem Jahr kein Update mehr",
+        "Kein QBCore-Support — reines Qbox-Tool, nicht für gemischte Setups"
+      ],
+      "quelle": "https://github.com/Malitha-DEV/EZ_MoneyLOG_QBX, https://raw.githubusercontent.com/Malitha-DEV/EZ_MoneyLOG_QBX/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "qb_customs",
+      "geprueft_am": "2026-08-14",
+      "gruppe": "mechanic",
+      "contra": [
+        "Original-Repo defekt/nicht mehr sauber verfügbar (Vorwürfe gestohlenen Codes) — popcornrp-customs (Runde 40) ist der aktiv gepflegte, saubere Ersatz"
+      ],
+      "update_grund": "Neuer Gruppen-Konkurrent popcornrp-customs (Runde 40) gefunden — aktiv gepflegter, quelloffener Ersatz mit Framework-Autoerkennung, entstanden explizit als Reaktion auf Probleme mit dem qb_customs-Original."
+    },
+    {
+      "id": "lb_phone",
+      "geprueft_am": "2026-08-14",
+      "gruppe": "phone",
+      "contra": [
+        "💰 Kostenpflichtig (Escrow)",
+        "Gegenüber sd-phone (kostenlos, 47+ Apps, lb-phone-Kompatibilitätsschicht) und summit_phone (React/TS-UI mit Krypto-App) inzwischen zwei kostenlose Alternativen mit vergleichbarem Funktionsumfang"
+      ],
+      "update_grund": "Zwei neue Gruppen-Konkurrenten in Runde 40 gefunden: sd-phone (kostenlos, sehr aktiv, lb-phone-App-Kompatibilität als Bonus) und summit_phone (kostenlos, React/TS-UI, aber nur teilgeprueft da Code größtenteils kompiliert vorliegt)."
+    }
+  ]
+}

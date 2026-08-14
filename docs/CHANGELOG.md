@@ -17,6 +17,59 @@ Format je Eintrag:
 
 ---
 
+## [Runden 40–42] Fünfzehnte bis siebzehnte Neusuche-Runde – 14.08.2026
+
+**33 neue Plugins in 3 parallelen Runden** (auf Nutzerwunsch „3 Stück hintereinander"), gefunden
+über drei gezielte `discover`-Zusatzsuchen (`qbox drugs OR garage`, `qbox phone OR banking`,
+`qbox tuning OR billing OR tablet`) mit anschließendem Merge/Dedupe/Sortierung nach Sternen und
+Verteilung über die drei Runden (Autoren-Cluster wie `koliguides`, `Wayy2Flyyy`, `DaemonAlex`,
+`Samuels-Development` bewusst über die Runden gestreut statt geballt in einer). Recherche über
+3 parallele Subagents mit je eigenem Prefetch-Briefing. **Ausdrücklicher Nutzerwunsch dieser
+Runde:** Premium-/Tebex-Plugins werden ganz normal mit aufgenommen, nicht ausgefiltert.
+
+**Runde 40 (11 neu):** `popcornrp-customs` (aktiver Ersatz für das defekte `qb_customs`, Gruppe
+`mechanic`), `sd-phone` (47+ Apps, kostenlose Alternative zu `lb_phone`, Gruppe `phone`),
+`summit_phone` (React/TS-Phone mit Krypto-App, ebenfalls Gruppe `phone`, aber nur `teilgeprueft`
+da Code größtenteils kompiliert vorliegt), `nopixel-4_0-inventory` (NoPixel-4.0-Optik, aber harte
+`qb-inventory`/`qb-target`-Bindung trotz Qbox-Werbung im README — `kompat_warnung` gesetzt),
+`randol_paycheck`, `kartik-loansystem`, `kq_link` (Framework-Bridge, eigener qbox-Zweig, aber
+QBCore-Zweig weiterhin roh auf `qb-inventory`), `bc_paycheck`, `nc-memory`, `sp_tuning`
+(Qbox-natives Tuning-Script, bewusst nicht der `mechanic`-Gruppe zugeordnet — andere Funktion als
+Karosserie/Lackierung), `ez_moneylog_qbx`. **Updates:** `qb_customs` und `lb_phone` bekommen
+Gruppen-Vergleichstext gegen die neuen, kostenlosen Alternativen.
+
+**Runde 41 (11 neu):** `w2f-dealership` und `citgo_dealership` (beide Gruppe `dealership`),
+`bs_billing`, `matkez_jobgarages` (Job-Garagen, bewusst *nicht* der `garage`-Gruppe zugeordnet —
+andere Funktion als private Spieler-Garagen), `mgarage-qbox` und `keep-sharedgarages` (beide
+schwächer belegt, aber funktional passend der `garage`-Gruppe zugeordnet), `dps-vehiclepersistence`,
+`serverdepth-businesses`, `nx_form` (`kompat_warnung`: harte `qb-core`-Abhängigkeit trotz
+Qbox-Titel), `emergencydealer`, `forger-multichar` (Gruppe `multichar`).
+
+**Runde 42 (11 neu):** `sd-tablet` (reines Companion zu `sd-phone`, per `synergie` statt eigener
+Gruppe verknüpft — Update auf `sd-phone` ergänzt den Rückverweis), `w2f-banking` (Gruppe
+`banking`), `serverdepth-doj`, `rxnotify` (Gruppe `notify`), `distortionz_towjob` (Repo nennt sich
+selbst „Premium", Preis im Repo aber nicht belegbar — bewusst `null` statt geraten),
+`zf-policejob`, `vancepay` (chinesischsprachiges README, AGPL-3.0), `rox_speedway`, `qbx_admincar`,
+`core-billing` (parallel als Tebex-Paket vertrieben, deshalb nur `teilgeprueft` statt `verifiziert`
+— GitHub- und Verkaufsversion nicht zweifelsfrei als identisch belegt), `mri_qgrossery`.
+
+**Korrektur beim Einpflegen:** Alle drei Subagents lieferten für Repos ohne LICENSE-Datei
+uneinheitlich `lizenz: "escrow"` oder das ungültige `"ungeprueft"` (Schema erlaubt nur
+`open_source`/`escrow`). Nach der in Runde 35 etablierten Konvention korrigiert: kein LICENSE-File
++ kein erkennbares Verkaufsmodell (kein Tebex-Link, kein Preis) → Standardannahme `open_source`,
+öffentlich einsehbarer Code ohne Escrow-Verschlüsselung. Betroffen: `nc-memory`, `sp_tuning`,
+`summit_phone`, `ez_moneylog_qbx` (Runde 40), `w2f-dealership`, `citgo_dealership`,
+`dps-vehiclepersistence`, `serverdepth-businesses` (Runde 41). Zusätzlich ein Schema-Fehler vor
+dem Commit behoben: `mgarage-qbox` hatte `mvehicle` (nicht katalogisiert) als
+`abhaengigkeiten`-ID eingetragen — auf Fließtext im `contra`-Feld umgestellt.
+
+**Katalog:** 33 neu, 3 aktualisiert (Gruppenvergleiche `qb_customs`/`lb_phone`/`sd-phone`), 0
+Duplikate übersprungen, 0 ungeprüft (10 verifiziert + 1 teilgeprüft je Runde außer Runde 42: 9
+verifiziert + 2 teilgeprüft). Katalogstand 404 → **437 Plugins**.
+**Commit:** folgt
+
+---
+
 ## [App-Ausbau 6] Vergleich: zwei getrennte Zustände statt einem Korb – 14.08.2026
 
 **Der Fehler:** Der Kopf-⚖️-Knopf und die Karten-⚖️-Knöpfe teilten sich seit App-Ausbau 4 eine

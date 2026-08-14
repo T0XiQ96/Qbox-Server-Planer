@@ -1,0 +1,289 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.3-r42",
+  "runde": 42,
+  "thema": "Siebzehnte Neusuche-Runde: Rest der gezielten Zusatzsuchen (Tablet/Banking/DOJ/Notify/Towjob/Police/Payment), 11 neue Plugins, 3 mit Gruppenvergleich",
+  "erstellt": "2026-08-14",
+  "plugins": [
+    {
+      "id": "sd-tablet",
+      "name": "sd-tablet",
+      "kategorie": "kommunikation",
+      "beschreibung": "In-Game-Tablet als Companion zu sd-phone: teilt sich Nachrichten, Mail, Kontakte, Apps und Einstellungen vollständig mit dem Handy, kann alles außer Telefonate. Setzt sd-phone zwingend voraus.",
+      "link": "https://github.com/Samuels-Development/sd-tablet",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "0.9.5",
+      "letztes_update": "Aktiv · letzter Push 2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "sd-phone"],
+      "synergie": ["sd-phone"],
+      "kompat_warnung": {
+        "text": "Code enthält einen direkten qb-inventory-Export (server/main.lua:108) neben ox_inventory-Nutzung — auf reinem Qbox/ox_inventory-Setup prüfen, ob dieser Zweig überhaupt erreicht wird.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Teilt sich vollständig den App-/Datenstand mit sd-phone (Runde 40)",
+        "Kein separates System, reines Zubehör statt Konkurrenzprodukt"
+      ],
+      "contra": [
+        "Ohne sd-phone nicht lauffähig"
+      ],
+      "quelle": "https://github.com/Samuels-Development/sd-tablet, https://raw.githubusercontent.com/Samuels-Development/sd-tablet/main/fxmanifest.lua"
+    },
+    {
+      "id": "w2f-banking",
+      "name": "w2f-banking",
+      "kategorie": "wirtschaft",
+      "beschreibung": "Qbox-Banking-System mit Bankfilialen, Geldautomaten, Kassierer-Dialogen, Transaktionsverlauf und PIN-Schutz über eine React/Vite-NUI. Nutzt qbx_core für Kontostände.",
+      "link": "https://github.com/Wayy2Flyyy/w2f-banking",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-18",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": "banking",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "oxmysql"],
+      "pro": [
+        "Nativ auf qbx_core aufgebaut, keine Bridge nötig",
+        "PIN-Schutz und Transaktionsverlauf enthalten"
+      ],
+      "contra": [
+        "Weniger verbreitet/erprobt als qb_banking",
+        "Kein offizieller Support-Kanal bekannt"
+      ],
+      "quelle": "https://github.com/Wayy2Flyyy/w2f-banking, https://raw.githubusercontent.com/Wayy2Flyyy/w2f-banking/main/fxmanifest.lua"
+    },
+    {
+      "id": "serverdepth-doj",
+      "name": "serverdepth-doj",
+      "kategorie": "staat",
+      "beschreibung": "Justizministerium/Gerichtssystem mit Fallanlage, Verhandlungsterminen, Urteilsvollstreckung und Führerschein-/Lizenzentzug. Erkennt QBox oder QBCore automatisch, optional verknüpft mit serverdepth-reputation.",
+      "link": "https://github.com/koliguides/serverdepth-doj",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-12",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["oxmysql", "ox_lib"],
+      "pro": [
+        "Framework-Autoerkennung QBox/QBCore mit Override-Option",
+        "Optionale Verknüpfung mit Reputationssystem (serverdepth-reputation)"
+      ],
+      "contra": [
+        "Verlässt sich für Strafvollzug auf einen externen qb-prison/qbx-prison-Export, kein eigenes Gefängnissystem"
+      ],
+      "quelle": "https://github.com/koliguides/serverdepth-doj, https://raw.githubusercontent.com/koliguides/serverdepth-doj/main/fxmanifest.lua"
+    },
+    {
+      "id": "rxnotify",
+      "name": "RxNotify",
+      "kategorie": "ui",
+      "beschreibung": "Standalone-Benachrichtigungssystem mit Vue/Tailwind-UI, framework-unabhängig nutzbar, mit optionalen Dateien zur Integration in ESX, QBCore oder QBox.",
+      "link": "https://github.com/rxscripts/RxNotify",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.1",
+      "letztes_update": "Aktiv · letzter Push 2025-11-01",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "gruppe": "notify",
+      "pro": [
+        "Keine Pflichtabhängigkeit, läuft ohne Framework"
+      ],
+      "contra": [
+        "Framework-Integration erfordert manuelles Kopieren von Dateien in qb-core/qbx_core statt eines fertigen Exports"
+      ],
+      "quelle": "https://github.com/rxscripts/RxNotify, https://raw.githubusercontent.com/rxscripts/RxNotify/main/fxmanifest.lua"
+    },
+    {
+      "id": "distortionz_towjob",
+      "name": "Distortionz_Towjob",
+      "kategorie": "zivil",
+      "beschreibung": "Abschleppjob mit polizeifunkartigem Dispatch, NUI-HUD, Sprachausgabe per Funk, Ausrüstungs-Platzierer und schadensabhängiger Auszahlung. Baut auf qbx_core, ox_lib und ox_target auf.",
+      "link": "https://github.com/Distortionzz/Distortionz_Towjob",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.2.3",
+      "letztes_update": "Aktiv · letzter Push 2026-05-13",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_target"],
+      "pro": [
+        "Nativ auf qbx_core/ox_target, kein Bridge-Risiko",
+        "Dispatch-Audio und Schadenslogik als Alleinstellungsmerkmal"
+      ],
+      "contra": [
+        "Empfohlene Zusatzabhängigkeit qbx_vehiclekeys, sonst Motor-Bug beim Einsteigen",
+        "Repo-Beschreibung nennt es 'Premium' — konkreter Preis war im Repo selbst nicht belegbar, bewusst nicht geraten"
+      ],
+      "quelle": "https://github.com/Distortionzz/Distortionz_Towjob, https://raw.githubusercontent.com/Distortionzz/Distortionz_Towjob/main/fxmanifest.lua"
+    },
+    {
+      "id": "zf-policejob",
+      "name": "zf-policejob",
+      "kategorie": "staat",
+      "beschreibung": "Leichtgewichtiger Polizei-Wrapper für QBox: Radialmenü, Waffenkammer und Beweislager über ox_inventory, Dienstschalter über qbx_core.",
+      "link": "https://github.com/VirellaScriptsQB/zf-policejob",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-01-20",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["qbx_core", "ox_lib"],
+      "pro": [
+        "Sehr schlank (nur 2 Lua-Dateien), einfach zu prüfen"
+      ],
+      "contra": [
+        "Kein eigenes MDT/Dispatch — reiner Utility-Wrapper, kein Vollersatz für qbx_policejob",
+        "Harte Abhängigkeit auf zf-notify, das nicht im Katalog steht (nicht als abhaengigkeiten-ID eingetragen, da unklarer Verweis)"
+      ],
+      "quelle": "https://github.com/VirellaScriptsQB/zf-policejob, https://raw.githubusercontent.com/VirellaScriptsQB/zf-policejob/main/fxmanifest.lua"
+    },
+    {
+      "id": "vancepay",
+      "name": "VancePay",
+      "kategorie": "wirtschaft",
+      "beschreibung": "Zahlungssystem für Qbox mit Kassenterminal, Telefon-/Kartenzahlung, Rückerstattungen, Transaktionsprotokoll, Rechteverwaltung und Audit-Berichten. Setzt auf qbx_core-Kontostände auf.",
+      "link": "https://github.com/vancehuds/VancePay",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-17",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory", "ox_target", "oxmysql", "qbx_core"],
+      "pro": [
+        "AGPL-3.0 lizenziert, echte Open-Source-Garantie",
+        "Audit-Log und Rechteverwaltung eingebaut"
+      ],
+      "contra": [
+        "README/Repo primär auf Chinesisch, Doku für deutschsprachige Nutzer schwerer zugänglich",
+        "Bekannte Startreihenfolge-Falle mit ox_inventory-Item-Exports laut README"
+      ],
+      "quelle": "https://github.com/vancehuds/VancePay, https://raw.githubusercontent.com/vancehuds/VancePay/main/fxmanifest.lua"
+    },
+    {
+      "id": "rox_speedway",
+      "name": "rox_speedway",
+      "kategorie": "zivil",
+      "beschreibung": "Speedway-Rennstrecken-Ressource mit Boxenstopp-Logik, Fahrzeugkosmetik, Leaderboard und LED-Anzeige. Bearbeitete Variante von max_rox_speedway, erkennt QBCore/QBox/ESX automatisch.",
+      "link": "https://github.com/DaemonAlex/rox_speedway",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "unbekannt",
+      "letztes_update": "Aktiv · letzter Push 2026-05-16",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "kompat_warnung": {
+        "text": "Enthält einen direkten qb-target-Export (client/c_main.lua:549) neben ox_target-Unterstützung — Target-System ist per Config wählbar, auf reinem Qbox/ox_target sicherstellen, dass Config.TargetSystem korrekt gesetzt ist.",
+        "sicherheit": "bestaetigt"
+      },
+      "contra": [
+        "Ist laut fxmanifest eine Fremdbearbeitung eines anderen Originalautors — Herkunft/Wartungsstatus unklarer als bei einem Originalautor"
+      ],
+      "quelle": "https://github.com/DaemonAlex/rox_speedway, https://raw.githubusercontent.com/DaemonAlex/rox_speedway/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_admincar",
+      "name": "qbx_admincar",
+      "kategorie": "admin",
+      "beschreibung": "Kleines Admin-Kommando zum Spawnen eines gespeicherten Admin-Fahrzeugs für Qbox, mit konfigurierbarer Berechtigungsstufe.",
+      "link": "https://github.com/notAtYourservice/qbx_admincar",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-12-19",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "Sehr klein und fokussiert (4 Dateien), leicht auditierbar",
+        "Nativ auf qbx_core-Exports"
+      ],
+      "contra": [
+        "Sehr geringer Funktionsumfang, kein Vergleich zu vollwertigen Admin-Suiten"
+      ],
+      "quelle": "https://github.com/notAtYourservice/qbx_admincar, https://raw.githubusercontent.com/notAtYourservice/qbx_admincar/main/fxmanifest.lua"
+    },
+    {
+      "id": "core-billing",
+      "name": "core-billing",
+      "kategorie": "wirtschaft",
+      "beschreibung": "Rechnungssystem mit ox_lib-Menü: Kunden erhalten Rechnungen und akzeptieren oder lehnen sie per Dialog ab. Für QBCore, ESX und QBox.",
+      "link": "https://github.com/Core-Forge-5/core-billing",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.1.2",
+      "letztes_update": "Aktiv · letzter Push 2026-07-16",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "pro": [
+        "Auch als Tebex-Paket verfügbar, falls eine unterstützte Escrow-Version gewünscht ist"
+      ],
+      "contra": [
+        "Tippfehler im fxmanifest ('discription' statt 'description') deutet auf geringere Code-Sorgfalt hin",
+        "Repo-Version quelloffen, aber paralleles Tebex-Produkt existiert — ob GitHub- und Verkaufsversion identisch sind, ist unklar, daher nur teilgeprueft"
+      ],
+      "quelle": "https://github.com/Core-Forge-5/core-billing, https://raw.githubusercontent.com/Core-Forge-5/core-billing/main/fxmanifest.lua, https://core-forge.tebex.io/package/7254081"
+    },
+    {
+      "id": "mri_qgrossery",
+      "name": "mri_Qgrossery",
+      "kategorie": "zivil",
+      "beschreibung": "System für spielerbetriebene Lebensmittel-/Getränkeläden auf Basis von ox_inventory. Admins legen den Laden an, Spieler können ihn kaufen, Einkaufspreise festlegen und über einen Großhändler-NPC beliefern lassen. Unterstützt QBox (qbx_core) und QBCore.",
+      "link": "https://github.com/rodrigogusmao/mri_Qgrossery",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-14",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_inventory"],
+      "pro": [
+        "Framework-Bridge-Ordnerstruktur sauber getrennt (bridge/qb, bridge/framework.lua)",
+        "Großhändler-NPC-Automatik als Zusatzfeature"
+      ],
+      "contra": [
+        "README primär auf Portugiesisch",
+        "Optionale ps-banking-Abhängigkeit im README genannt, aber nicht im fxmanifest gelistet — Zahlungsanbindung ggf. inkonsistent dokumentiert"
+      ],
+      "quelle": "https://github.com/rodrigogusmao/mri_Qgrossery, https://raw.githubusercontent.com/rodrigogusmao/mri_Qgrossery/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "sd-phone",
+      "geprueft_am": "2026-08-14",
+      "synergie": ["sd-tablet"],
+      "update_grund": "sd-tablet (Runde 42) ist ein reines Companion-Zubehör zu sd-phone (harte Abhängigkeit, kein eigenständiges Konkurrenzprodukt) — als Synergie statt eigener Vergleichsgruppe verknüpft."
+    }
+  ]
+}
