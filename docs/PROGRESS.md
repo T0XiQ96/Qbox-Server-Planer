@@ -4,9 +4,15 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 14.08.2026
-**Letzter Commit:** `fb25689` (Runde 39). Der App-Ausbau 1 ist fertig und wird mit diesem Schritt
-committet — noch nicht gepusht (Nutzer hat Push für Runden 26–39 bewusst zurückgestellt, Repo auf
-GitHub liegt entsprechend mehrere Commits zurück).
+**Letzter Commit:** `2f38fce` (App-Ausbau 1).
+
+**Push-Stand (14.08.2026 nachgeprüft, frühere Angabe hier war veraltet):** `origin/main` steht auf
+`c393c45` (Runde 37), letztes GitHub-Release ist **v3.0-r37**. Der Rückstand beträgt genau **3
+Commits**: `d637ed1` (Runde 38), `fb25689` (Runde 39), `2f38fce` (App-Ausbau 1). Die alte Notiz
+„Push für Runden 26–36 bewusst zurückgestellt" stimmte nicht mehr — bis Runde 37 ist alles
+gepusht und released. **Offen: Push dieser 3 Commits + Release `v3.0-r39`** (CLAUDE.md §2.8,
+Build liegt vor). Bewusst noch nicht ausgeführt, weil H5 (Doppelklick über `file://`) für diesen
+Build nicht belegt ist — siehe App-Ausbau-Abschnitt.
 
 ---
 
