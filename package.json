@@ -1,6 +1,6 @@
 {
   "name": "qbox-server-planer",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Offline nutzbares Planungstool fuer einen FiveM/Qbox-Server (DEV + MAIN)",
   "type": "module",
   "private": true,

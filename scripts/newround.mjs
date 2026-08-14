@@ -6,8 +6,14 @@
  * Überschreibt nie eine vorhandene Datei — eine Runde ist Arbeit, die nicht verloren gehen darf.
  */
 
-import { writeFileSync, existsSync } from 'node:fs';
+import { writeFileSync, existsSync, readFileSync } from 'node:fs';
 import { pfad, relPfad, ladeKatalog, rot, gruen, gelb, grau, fett } from './lib/katalog.mjs';
+
+// Der Präfix folgt der App-Version aus package.json (major.minor), nicht mehr hartcodiert "3.0" —
+// eine Runde, die zusammen mit einem App-Ausbau (neue Features in src/) gebaut wird, soll das
+// auch in ihrer catalogVersion zeigen, statt beide Zählungen stillschweigend zu vermischen.
+const paket = JSON.parse(readFileSync(pfad('package.json'), 'utf8'));
+const VERSIONS_PRAEFIX = paket.version.split('.').slice(0, 2).join('.');
 
 const THEMEN = {
   1: 'Framework & Kern', 2: 'Jobs', 3: 'Crime & Heists', 4: 'Fahrzeuge',
@@ -40,7 +46,7 @@ const nachpruefen = plugins
 
 const geruest = {
   _hinweis: 'Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet "ungeprueft".',
-  catalogVersion: `3.0-r${n}`,
+  catalogVersion: `${VERSIONS_PRAEFIX}-r${n}`,
   runde: n,
   thema: THEMEN[n] || '<Themenblock eintragen>',
   erstellt: new Date().toISOString().slice(0, 10),

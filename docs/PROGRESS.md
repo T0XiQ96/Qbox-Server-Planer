@@ -7,7 +7,16 @@
 **Letzter Commit:** `2f38fce` (App-Ausbau 1).
 
 **Push-Stand (14.08.2026):** `origin/main` steht auf `6bb3d57` — gepusht bis inklusive
-App-Ausbau 2. Letztes GitHub-Release: **v3.0-r39** (`dist/qbox-planer.html`, 708 KB, 404 Plugins).
+App-Ausbau 2. Letztes GitHub-Release: **v3.1-r39** (`dist/qbox-planer.html`, 404 Plugins).
+**Versionskorrektur (14.08.2026):** Der erste Release-Versuch hieß fälschlich noch `v3.0-r39` —
+`catalogVersion` folgte einem hartcodierten `"3.0-r${n}"` in `scripts/newround.mjs`, unabhängig
+von der App-Version. Da diese Runde zwei App-Ausbaurunden mit echten `src/`-Änderungen enthält
+(neue Features, keine reine Datenrunde), gehört das sichtbar gemacht: `package.json` auf
+**3.1.0**, `newround.mjs` liest den Präfix jetzt aus `package.json` (`major.minor`) statt ihn
+festzuschreiben, `runde-39.json` von Hand auf `3.1-r39` nachgezogen. Der falsche Release
+`v3.0-r39` wurde gelöscht und durch `v3.1-r39` ersetzt. **Für künftige Runden:** eine reine
+Datenrunde bleibt beim aktuellen `major.minor`-Präfix (z.B. weiterhin `3.1-r40`), ein
+App-Ausbau erhöht `package.json` VOR dem nächsten `npm run newround`-Aufruf.
 Nichts mehr offen auf dieser Seite.
 
 **H5 (Doppelklick über `file://`) ist weiterhin nicht durch dieses Tool geprüft** — das
