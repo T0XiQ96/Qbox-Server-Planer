@@ -1,0 +1,19 @@
+{
+  "_hinweis": "Kategorien der Wissens-Datenbank. Reihenfolge = Anzeigereihenfolge im Reiter. Eine neue Kategorie wird HIER ergänzt, niemals in src/ (Entscheidung D28).",
+  "version": "1.0",
+  "kategorien": [
+    { "id": "server_aufsetzen", "name": "1. Server aufsetzen",        "zeichen": "🚀", "kurz": "Von der leeren Maschine zum laufenden FXServer" },
+    { "id": "txadmin",          "name": "2. txAdmin",                 "zeichen": "🛠️", "kurz": "Panel, Deployment, Neustarts, Konsole" },
+    { "id": "admins",           "name": "3. Admins & Rechte",         "zeichen": "🔑", "kurz": "Wer darf was — im Panel und im Spiel" },
+    { "id": "framework",        "name": "4. Qbox & QBCore",           "zeichen": "🧩", "kurz": "Unterschiede, Bridge, ox-Stack, Startreihenfolge" },
+    { "id": "ressourcen",       "name": "5. Ressourcen installieren", "zeichen": "📦", "kurz": "Ordner, ensure, fxmanifest, Abhängigkeiten" },
+    { "id": "fahrzeuge",        "name": "6. Fahrzeuge",               "zeichen": "🚗", "kurz": "Addon vs. Replace, Meta-Dateien, Shop-Eintrag" },
+    { "id": "kleidung",         "name": "7. Kleidung, Peds & MLOs",   "zeichen": "👕", "kurz": "EUP, Ped-Komponenten, Interieurs, Streaming" },
+    { "id": "waffen",           "name": "8. Waffen",                  "zeichen": "🔫", "kurz": "Addon-Waffen, Meta-Dateien, Items" },
+    { "id": "items",            "name": "9. Items & Inventar",        "zeichen": "🎒", "kurz": "ox_inventory-Items, Bilder, Metadaten" },
+    { "id": "datenbank",        "name": "10. Datenbank",              "zeichen": "🗄️", "kurz": "MariaDB, oxmysql, Sicherung" },
+    { "id": "performance",      "name": "11. Performance",            "zeichen": "⚡", "kurz": "resmon lesen, typische Fresser, Streaming-Budget" },
+    { "id": "sicherheit",       "name": "12. AntiCheat & Sicherheit", "zeichen": "🛡️", "kurz": "Serverautorität, Event-Absicherung, Bans" },
+    { "id": "fehlersuche",      "name": "13. Fehlersuche",            "zeichen": "🔍", "kurz": "Konsolenfehler lesen, Ressource startet nicht" }
+  ]
+}

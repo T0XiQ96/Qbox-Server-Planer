@@ -146,6 +146,22 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 | G10 | Praxis-Tipp-Feld (Balancing, Performance, Doppel-Systeme vermeiden) | — | getestet |
 | G11 | Qualitäts-Kennzeichnung: verifiziert / teilgeprüft / ungeprüft | — | getestet |
 
+## W — Wissens-Datenbank
+
+Eigene Ansicht über „📖 Wissen" im Kopf. Inhalte liegen in `data/wissen/`, gerendert von
+`src/app/wissen.js` — ein neuer Artikel erfordert nie eine Änderung in `src/` (DECISIONS D28).
+
+| # | Feature | Testfall | Status |
+|---|---|---|---|
+| W1 | Eigener Reiter mit 13 Kategorien, umgeschaltet über eine Klasse am `<body>` | „📖 Wissen" → Plugin-Liste verschwindet, 13 Kategorieblöcke erscheinen | getestet |
+| W2 | Artikel sind aufklappbar; Kurzfassung reicht zum Überfliegen, der volle Text kommt auf Wunsch | 17 Artikel, alle zunächst zu | getestet |
+| W3 | Eigene Volltextsuche über Titel, Kurzfassung, Stichworte, Abschnitte und Codebeispiele | „ace" → 3 Artikel (txAdmin, Admins, Fahrzeuge) | getestet |
+| W4 | Sprungleiste über alle Kategorien; verschwindet bei aktiver Suche | 13 Einträge, nach Suche ausgeblendet | getestet |
+| W5 | **Quellenlage sichtbar**: Artikel ohne Quelle tragen ausdrücklich „aus Erfahrungswissen geschrieben und nicht gegengeprüft"; der Validator verbietet `verifiziert` ohne Quelle und Prüfdatum | 17 von 17 als ungeprüft markiert, Zähler oben nennt die Zahl | getestet |
+| W6 | `siehe_auch` springt innerhalb der Wissensseite, klappt das Ziel auf und hebt es hervor | „servercfg_grundgeruest" → Ziel offen, Ansicht bleibt | getestet |
+| W7 | `plugins`-Verweise führen zurück in die Plugin-Liste zum jeweiligen Eintrag | Verweis „oxmysql" → Ansicht wechselt zurück, Liste sichtbar | getestet |
+| W8 | Eigenes Pflicht-Gate `validate-wissen.mjs`: Schema, doppelte IDs, unbekannte Kategorien, kaputte `siehe_auch`, Plugin-Verweise ins Leere | `npm run validate` prüft Katalog **und** Wissen; der Build ebenso | getestet |
+
 ## H — Rahmen
 
 | # | Feature | Testfall | Status |

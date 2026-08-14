@@ -48,7 +48,26 @@ vollständige Karten im Vergleich mit der Tabelle darunter; Drag&Drop als Zusatz
 Leiste als sichtbarer Ablagefläche. Kein Long-Press (DECISIONS **D23**). Neue Features:
 **C6, C7, C8, C9**. `ui.js` nimmt für das breite Fenster jetzt eine `klasse` entgegen.
 
-**Beide Ausbaurunden sind gebaut, committet und ohne Konsolenfehler getestet.**
+**App-Ausbau 3** (anklickbare Querverweise im Prüfbericht, Beziehungs-Kopfzeile im Vergleich,
+Nachfolger-Zeile) und **App-Ausbau 4** (ein Vergleich für alles statt zwei Wegen, Backup-Dialoge
+mit Umbenennen, klappbare Warnbox mit Gedächtnis) sind ebenfalls fertig — Einzelheiten im
+CHANGELOG. Neue Entscheidungen: **D24-D27**.
+
+**App-Ausbau 5 — Wissens-Datenbank (neu, D28/D29):** Eigener Reiter „📖 Wissen" mit 13 Kategorien
+und 17 Artikeln. Liegt als **Daten** unter `data/wissen/` mit eigenem Schema
+(`schema/wissen.schema.json`) und eigenem Pflicht-Gate (`scripts/validate-wissen.mjs`, läuft in
+`npm run validate` und im Build mit). Gerendert von `src/app/wissen.js`.
+
+**Wichtig für die nächste Runde:** **Alle 17 Artikel stehen auf `qualitaet: "ungeprueft"` mit
+leeren `quellen`** — sie sind aus Erfahrungswissen geschrieben und gegen keine Quelle abgeglichen.
+So war es abgestimmt („Erst Gerüst, alles ungeprüft"). Der nächste Schritt ist die
+**kategorieweise Verifizierung**: je Kategorie recherchieren, Quellen nachtragen, `geprueft_am`
+setzen, dann auf `teilgeprueft`/`verifiziert` hochstufen. Der Validator (Regel W1) verhindert eine
+Hochstufung ohne Beleg. Sinnvolle Reihenfolge: die Kategorien, die am schnellsten altern und am
+meisten Schaden anrichten, wenn sie falsch sind — **txAdmin**, **Server aufsetzen**, **Admins &
+Rechte**, **AntiCheat & Sicherheit**. Das ist eine Daten-Aufgabe → **Sonnet** genügt.
+
+**Alle fünf Ausbaurunden sind gebaut, committet und ohne Konsolenfehler getestet.**
 **Validate-Status:** grün (42 Katalogdateien inkl. `runde-39.json` · 404 Plugins gesamt · 20
 harmlose „nur ein Mitglied"-Warnungen, `minigames` jetzt mit 3 Mitgliedern kein Einzelfall mehr).
 **Katalogstand:** 404 gesamt (262 Altbestand + vierzehn Runden à 10–11 aus Runde 26–39), **0

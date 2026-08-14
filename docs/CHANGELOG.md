@@ -17,6 +17,43 @@ Format je Eintrag:
 
 ---
 
+## [App-Ausbau 5] Wissens-Datenbank – 14.08.2026
+
+Neuer Reiter „📖 Wissen" mit 13 Kategorien und 17 Artikeln — eine kleine Hilfe-Datenbank neben
+dem Plugin-Katalog.
+
+**Als Daten gebaut, nicht als Code (DECISIONS D28):** Kategorien in
+`data/wissen/kategorien.json`, Artikel in `data/wissen/*.json`, eigenes Schema unter
+`schema/wissen.schema.json`, gerendert von `src/app/wissen.js`. Ein neuer Artikel bedeutet eine
+Datei in `data/` und einen Rebuild — nie eine Änderung in `src/`. Ohne diese Trennung wäre die
+Datenbank nach zwanzig Artikeln genau das geworden, woran das Vorgängerprojekt gescheitert ist.
+
+**Eigenes Pflicht-Gate:** `npm run validate` ruft jetzt zusätzlich `validate-wissen.mjs`, der
+Build ebenso. Geprüft werden Schema, doppelte IDs, unbekannte Kategorien, kaputte `siehe_auch`
+und Plugin-Verweise ins Leere.
+
+**Die Quellenlage ist sichtbar (D29):** Alle 17 Artikel stehen auf `ungeprueft` mit leeren
+`quellen` — sie sind aus Erfahrungswissen geschrieben und noch gegen keine Quelle abgeglichen.
+Das steht wörtlich unter jedem Artikel, und der Validator verbietet die Stufe `verifiziert` ohne
+Quelle **und** Prüfdatum (Regel W1). So sieht die Datenbank nicht verlässlicher aus als sie ist —
+dieselbe Logik wie D7/D18 beim Plugin-Katalog. Verifiziert wird später kategorieweise.
+
+**Die 13 Kategorien:** Server aufsetzen · txAdmin · Admins & Rechte · Qbox & QBCore ·
+Ressourcen installieren · Fahrzeuge · Kleidung, Peds & MLOs · Waffen · Items & Inventar ·
+Datenbank · Performance · AntiCheat & Sicherheit · Fehlersuche.
+
+**Verzahnt mit dem Katalog:** Artikel verweisen über `plugins` auf Katalogeinträge (Klick führt
+zurück in die Liste zum Eintrag) und über `siehe_auch` aufeinander (Klick klappt den Zielartikel
+auf). Eigene Volltextsuche über Titel, Kurzfassung, Stichworte, Abschnitte und Codebeispiele.
+
+**Neu:** `schema/wissen.schema.json`, `data/wissen/` (5 Dateien), `scripts/validate-wissen.mjs`,
+`src/app/wissen.js`. **Geändert:** `main.js`, `style.css`, `build.mjs`, `package.json`.
+
+**Geprüft** am echten Build: Umschalten, 13 Kategorien mit 17 Artikeln, Suche („ace" → 3
+Treffer), beide Sprungwege, Quellen-Kennzeichnung. Keine Konsolenfehler. **Commit:** folgt
+
+---
+
 ## [App-Ausbau 4] Ein Vergleich für alles, Backup-Dialoge, klappbare Warnbox – 14.08.2026
 
 Neun Punkte aus der Praxis, in drei Blöcken.

@@ -13,7 +13,7 @@
  * Vor dem Bauen läuft immer validate. Ein roter Katalog wird nicht ausgeliefert.
  */
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import { dirname, resolve, relative } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { pfad, relPfad, ladeKatalog, rot, gruen, gelb, grau, fett } from './lib/katalog.mjs';
@@ -28,12 +28,14 @@ const ZIEL = pfad('dist', 'qbox-planer.html');
 console.log(fett('\nnpm run build'));
 console.log(grau('  1/4  validate …'));
 
-const gate = spawnSync(process.execPath, [pfad('scripts', 'validate.mjs')], { encoding: 'utf8' });
-if (gate.status !== 0) {
-  console.log(gate.stdout || '');
-  console.error(gate.stderr || '');
-  console.error(rot('✖ Build abgebrochen: validate ist rot. Ein roter Katalog wird nicht gebaut.\n'));
-  process.exit(1);
+for (const gateSkript of ['validate.mjs', 'validate-wissen.mjs']) {
+  const gate = spawnSync(process.execPath, [pfad('scripts', gateSkript)], { encoding: 'utf8' });
+  if (gate.status !== 0) {
+    console.log(gate.stdout || '');
+    console.error(gate.stderr || '');
+    console.error(rot(`✖ Build abgebrochen: ${gateSkript} ist rot. Rote Daten werden nicht gebaut.\n`));
+    process.exit(1);
+  }
 }
 
 for (const datei of [RAHMEN, EINSTIEG]) {
@@ -127,13 +129,26 @@ const alsJson = (wert) => JSON.stringify(wert).replace(/</g, '\\u003c');
 // und eine Datei, die hier durchgeht, im Tool durchfallen (oder schlimmer: umgekehrt).
 const schema = JSON.parse(readFileSync(pfad('schema', 'plugin.schema.json'), 'utf8'));
 
+// Die Wissens-Datenbank wandert genauso mit wie der Katalog: sie ist Daten, kein Code (D28).
+// Ein neuer Artikel bedeutet also eine Datei in data/wissen/ und einen Rebuild — nie eine
+// Änderung in src/.
+const wissenOrdner = pfad('data', 'wissen');
+const wissen = { kategorien: [], artikel: [] };
+if (existsSync(wissenOrdner)) {
+  wissen.kategorien = JSON.parse(readFileSync(pfad('data', 'wissen', 'kategorien.json'), 'utf8')).kategorien || [];
+  for (const name of readdirSync(wissenOrdner).filter((d) => d.endsWith('.json') && d !== 'kategorien.json').sort()) {
+    wissen.artikel.push(...(JSON.parse(readFileSync(pfad('data', 'wissen', name), 'utf8')).artikel || []));
+  }
+}
+
 const daten = {
   katalogVersion,
   toolVersion: paket.version,
   gebaut: new Date().toISOString().slice(0, 10),
   kategorien: kategorien.kategorien,
   schema,
-  plugins
+  plugins,
+  wissen
 };
 
 /* -------------------------------- 4. Schreiben -------------------------------- */

@@ -22,6 +22,7 @@ import { kartenHTML, escapeHtml } from './render.js';
 import { leererFilter, gefilterteUndSortierteListe, holeAktiveSortierung, setzeAktiveSortierung, SORTIER_OPTIONEN, passtSuche } from './filters.js';
 import { vergleicheMehrere, mehrfachVergleichHTML } from './compare.js';
 import { berichtBeiderUmgebungen, berichtZusammenfassung, warnIds, synergienBeiderUmgebungen, ungenutzteSynergien, UMGEBUNG_LABEL } from './warnings.js';
+import { wissenSeiteHTML, wissenNavHTML } from './wissen.js';
 import { ladeDifferenz, mitDifferenz, verwirfDifferenz, differenzInfo } from './katalogspeicher.js';
 import { mitEigenen, legeEigenesAn } from './custom.js';
 import { baueZustandsExport, leseZustandsDatei, uebernimmZustand, baueKatalogVorschau, wendeVorschauAn, vorschauZusammenfassung } from './import.js';
@@ -62,6 +63,7 @@ function baueGeruest() {
         <span class="kopf-version" id="kopf-version"></span>
       </div>
       <div class="kopf-knoepfe">
+        <button class="btn" id="btn-wissen">📖 Wissen</button>
         <button class="btn" id="btn-eigenes">➕ Eigenes Plugin</button>
         <button class="btn" id="btn-vergleich">⚖️ Vergleich</button>
         <button class="btn" id="btn-zahnrad">⚙️ Daten</button>
@@ -115,6 +117,16 @@ function baueGeruest() {
     <div class="chips" id="chips"></div>
     <div class="treffer" id="treffer"></div>
     <div id="liste"></div>
+
+    <div id="wissen-seite">
+      <div class="wissen-kopf">
+        <input type="search" id="wissen-suche" class="feld feld-suche" placeholder="🔍 Im Wissen suchen …">
+        <span class="wissen-zaehler" id="wissen-zaehler"></span>
+      </div>
+      <div id="wissen-nav"></div>
+      <div id="wissen-inhalt"></div>
+    </div>
+
     <button class="btn zurueck-knopf" id="btn-zurueck" hidden></button>`;
 
   const kat = document.getElementById('f-kategorie');
@@ -381,12 +393,68 @@ function verdrahteWerkzeugleiste() {
 
   document.getElementById('btn-zurueck').addEventListener('click', geheZurueck);
 
+  document.getElementById('btn-wissen').addEventListener('click', () => zeigeWissen(!wissenSichtbar));
+
+  let wissenTimer = null;
+  document.getElementById('wissen-suche').addEventListener('input', (e) => {
+    clearTimeout(wissenTimer);
+    const wert = e.target.value;
+    wissenTimer = setTimeout(() => { wissenSuche = wert; zeichneWissen(); }, 150);
+  });
+
   document.getElementById('btn-zahnrad').addEventListener('click', oeffneZahnrad);
   document.getElementById('btn-eigenes').addEventListener('click', oeffneEigenesFormular);
   // Ein einziger Vergleich für alles: der Kopf-Knopf öffnet dasselbe Fenster wie ⚖️ auf einer
   // Karte. Vorher lag hier ein eigener Zweiervergleich mit zwei Auswahlfeldern — zwei Wege zur
   // selben Frage, von denen einer weniger konnte.
   document.getElementById('btn-vergleich').addEventListener('click', () => oeffneKorbVergleich());
+}
+
+/* ============================== Wissens-Datenbank ============================== */
+
+/**
+ * Eigene Ansicht statt eines weiteren Kastens auf der Startseite: 13 Kategorien passen nicht
+ * mehr nebenbei in die Plugin-Liste. Umgeschaltet wird über eine Klasse am <body>, damit das
+ * Ein- und Ausblenden vollständig in style.css steht und keine Elementliste im Code gepflegt
+ * werden muss, die bei jedem neuen Baustein nachgezogen werden müsste.
+ */
+const WISSEN = daten.wissen || { kategorien: [], artikel: [] };
+let wissenSichtbar = false;
+let wissenSuche = '';
+
+function zeigeWissen(an) {
+  wissenSichtbar = an;
+  document.body.classList.toggle('ansicht-wissen', an);
+  document.getElementById('btn-wissen').textContent = an ? '📚 Zur Plugin-Liste' : '📖 Wissen';
+  if (an) {
+    zeichneWissen();
+    window.scrollTo({ top: 0 });
+  }
+}
+
+function zeichneWissen() {
+  document.getElementById('wissen-nav').innerHTML = wissenSuche ? '' : wissenNavHTML(WISSEN);
+  document.getElementById('wissen-inhalt').innerHTML = wissenSeiteHTML(WISSEN, index, wissenSuche);
+
+  const gesamt = (WISSEN.artikel || []).length;
+  const offen = (WISSEN.artikel || []).filter((a) => a.qualitaet === 'ungeprueft').length;
+  document.getElementById('wissen-zaehler').textContent =
+    `${gesamt} Artikel · ${offen} noch ungeprüft`;
+}
+
+/** „Siehe auch" springt innerhalb der Wissensseite und klappt das Ziel auf. */
+function springeZuWissen(id) {
+  if (!wissenSichtbar) zeigeWissen(true);
+  if (wissenSuche) {                       // sonst ist das Ziel womöglich gerade ausgefiltert
+    wissenSuche = '';
+    document.getElementById('wissen-suche').value = '';
+    zeichneWissen();
+  }
+  const ziel = document.getElementById('wissen-' + id);
+  if (!ziel) { toast('Dieser Artikel ist (noch) nicht vorhanden.', 'warnung'); return; }
+  ziel.open = true;
+  ziel.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  blinke(ziel);
 }
 
 /* ================= Ein Listener für Liste, Prüfbericht und Fenster ================= */
@@ -444,8 +512,16 @@ function verdrahteGlobal() {
     if (e.target.closest('[data-korb-oeffnen]')) { e.preventDefault(); oeffneKorbVergleich(); return; }
     if (e.target.closest('[data-korb-leeren]')) { e.preventDefault(); korbLeeren(); return; }
 
+    const wissenZiel = e.target.closest('[data-wissen-ziel]');
+    if (wissenZiel) { e.preventDefault(); springeZuWissen(wissenZiel.dataset.wissenZiel); return; }
+
     const sprung = e.target.closest('[data-jump-id]');
-    if (sprung) behandleSprung(e, sprung);
+    if (sprung) {
+      // Ein Plugin-Verweis aus einem Wissens-Artikel führt zurück in die Liste — sonst zeigt
+      // der Anker auf eine Karte, die in dieser Ansicht gar nicht sichtbar ist.
+      if (wissenSichtbar) zeigeWissen(false);
+      behandleSprung(e, sprung);
+    }
   });
 
   verdrahteZiehen();

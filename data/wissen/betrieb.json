@@ -1,0 +1,146 @@
+{
+  "_hinweis": "Alles qualitaet 'ungeprueft' mit leeren quellen — Erfahrungswissen, noch nicht gegen Quellen abgeglichen (D29).",
+  "schemaVersion": 1,
+  "artikel": [
+    {
+      "id": "db_einrichten",
+      "kategorie": "datenbank",
+      "titel": "Datenbank einrichten und sichern",
+      "kurz": "MariaDB, die Verbindungszeichenfolge und warum die Sicherung wichtiger ist als alles andere.",
+      "stichworte": ["mysql", "mariadb", "oxmysql", "datenbank", "backup", "sql"],
+      "abschnitte": [
+        {
+          "titel": "Welche Datenbank",
+          "text": "Üblich ist MariaDB oder MySQL. Der Server selbst spricht nicht direkt mit ihr — das übernimmt die Ressource oxmysql, die als Erstes starten sollte, weil praktisch jede andere Ressource auf sie zugreift."
+        },
+        {
+          "titel": "Verbindung herstellen",
+          "text": "Die Zugangsdaten stehen als Convar in der server.cfg. Sie muss VOR den ensure-Zeilen stehen, sonst startet oxmysql ohne Ziel.",
+          "code": "set mysql_connection_string \"mysql://benutzer:passwort@localhost/deine_datenbank?charset=utf8mb4\""
+        },
+        {
+          "titel": "SQL-Dateien einspielen",
+          "text": "Viele Ressourcen bringen eine .sql-Datei mit, die Tabellen anlegt. Sie wird einmalig über ein Datenbank-Werkzeug eingespielt. Wird das vergessen, startet die Ressource meist normal und wirft erst im Spielbetrieb Fehler — deshalb ist es Teil der Installation, nicht der Fehlersuche."
+        },
+        {
+          "titel": "Sicherung",
+          "text": "Die Datenbank enthält alles, was Spieler erarbeitet haben: Charaktere, Geld, Fahrzeuge, Inventare. Ein Ressourcen-Ordner lässt sich neu herunterladen, eine verlorene Datenbank nicht. Regelmäßige, automatische Sicherungen sind das Wichtigste am ganzen Serverbetrieb."
+        }
+      ],
+      "warnung": "Zugangsdaten stehen im Klartext in der server.cfg. Diese Datei gehört nicht in ein öffentliches Repository und nicht in Screenshots.",
+      "siehe_auch": ["servercfg_grundgeruest", "startreihenfolge"],
+      "plugins": ["oxmysql"],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "performance_grundlagen",
+      "kategorie": "performance",
+      "titel": "Performance messen und verstehen",
+      "kurz": "resmon lesen, die üblichen Fresser kennen, und was wirklich am Ruckeln schuld ist.",
+      "stichworte": ["resmon", "performance", "ms", "lag", "fps", "streaming"],
+      "abschnitte": [
+        {
+          "titel": "resmon",
+          "text": "In der F8-Konsole zeigt der Befehl resmon eine Liste aller laufenden Ressourcen mit ihrer Rechenzeit. Damit findet man Ausreißer sofort. Wichtig ist der Wert im Leerlauf UND unter Last — manche Ressourcen sind erst teuer, wenn ein Menü offen ist oder viele Spieler online sind.",
+          "code": "resmon"
+        },
+        {
+          "titel": "Wann es kritisch wird",
+          "text": "Einzelne Ressourcen sollten im Ruhezustand deutlich unter einer Millisekunde bleiben. Ein dauerhaft hoher Wert bei einer Ressource, die gerade nichts tut, deutet fast immer auf eine Schleife ohne Wartezeit hin — der klassische Fehler in selbstgeschriebenen Skripten."
+        },
+        {
+          "titel": "Die üblichen Fresser",
+          "text": "Drei Muster treten immer wieder auf: Endlosschleifen, die jeden Frame etwas prüfen statt auf ein Ereignis zu warten; zu viele gleichzeitig gestreamte Modelle; und Skripte, die bei jedem Tick eine Datenbankabfrage machen statt zu zwischenspeichern."
+        },
+        {
+          "titel": "Download-Größe",
+          "text": "Ein oft übersehener Punkt ist nicht die Rechenzeit, sondern die Downloadgröße. Fahrzeug-, Kleidungs- und MLO-Pakete summieren sich schnell. Wer Neuspieler halten will, achtet auf die Gesamtgröße, die beim ersten Verbinden geladen werden muss."
+        }
+      ],
+      "warnung": "Nicht auf Verdacht optimieren. Erst messen, dann handeln — sonst wirft man Ressourcen raus, die gar nicht das Problem waren.",
+      "siehe_auch": ["streaming_grundlagen", "fehler_ressource_startet_nicht"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "sicherheit_grundregeln",
+      "kategorie": "sicherheit",
+      "titel": "Sicherheit — die eine Regel, aus der alles folgt",
+      "kurz": "Der Client lügt. Jede serverseitige Prüfung, die fehlt, ist eine offene Tür.",
+      "stichworte": ["anticheat", "sicherheit", "exploit", "event", "cheater", "trigger"],
+      "abschnitte": [
+        {
+          "titel": "Der Client ist nicht vertrauenswürdig",
+          "text": "Alles, was auf dem Rechner des Spielers läuft, kann verändert werden. Jeder Wert, den ein Client an den Server schickt, kann erfunden sein — Positionen, Geldbeträge, Item-Mengen, Job-Zugehörigkeit. Aus dieser einen Tatsache folgt praktisch die gesamte Serversicherheit."
+        },
+        {
+          "titel": "Server-Events absichern",
+          "text": "Ein Event, das der Server entgegennimmt, kann von JEDEM Spieler ausgelöst werden — nicht nur von der Stelle im Skript, die es vorgesehen hat. Deshalb muss der Server bei jedem Event selbst prüfen: Darf dieser Spieler das? Ist er nah genug dran? Stimmt die Menge? Ein Event, das ungeprüft Geld gutschreibt, ist die häufigste Ursache für Wirtschafts-Schäden."
+        },
+        {
+          "titel": "Was AntiCheat leisten kann",
+          "text": "Ein AntiCheat erkennt bekannte Werkzeuge und auffälliges Verhalten. Es ersetzt keine serverseitigen Prüfungen — es ist eine zweite Verteidigungslinie, keine erste. Ein Server mit ungeprüften Events bleibt angreifbar, egal welches AntiCheat läuft."
+        },
+        {
+          "titel": "Zugänge",
+          "text": "Das txAdmin-Panel, die Datenbank und der SSH-/RDP-Zugang sind die drei Wege, über die ein Server komplett übernommen werden kann. Starke, unterschiedliche Passwörter, kein offener Datenbank-Port ins Internet, und das Panel nicht ungeschützt erreichbar."
+        },
+        {
+          "titel": "Rechte sparsam vergeben",
+          "text": "Pauschale Allmacht für eine Admin-Gruppe ist bequem und gefährlich. Moderatoren brauchen selten mehr als Kick, Warn und Ban — nicht das Nachladen von Ressourcen oder Serverbefehle."
+        }
+      ],
+      "warnung": "Clientseitige Prüfungen sind reine Bequemlichkeit für ehrliche Spieler, kein Schutz. Wer eine Prüfung nur im Client hat, hat sie nicht.",
+      "siehe_auch": ["admins_panel_vs_ingame", "waffe_einbauen"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "fehler_ressource_startet_nicht",
+      "kategorie": "fehlersuche",
+      "titel": "Eine Ressource startet nicht",
+      "kurz": "Die Konsole sagt fast immer, was los ist — man muss nur wissen, worauf man schaut.",
+      "stichworte": ["fehler", "error", "konsole", "startet nicht", "debug"],
+      "abschnitte": [
+        {
+          "titel": "Zuerst: die Konsole lesen",
+          "text": "Beim Serverstart läuft viel durch. Der entscheidende Teil ist die erste rote Zeile, nicht die letzte — Folgefehler verdecken oft die eigentliche Ursache. Im Zweifel den Server neu starten und die Ausgabe von oben durchgehen."
+        },
+        {
+          "titel": "Die vier häufigsten Ursachen",
+          "text": "In dieser Reihenfolge prüfen — sie deckt die allermeisten Fälle ab.",
+          "schritte": [
+            "Ordnername stimmt nicht mit der ensure-Zeile überein (oft ein angehängtes -main aus einem GitHub-Download)",
+            "Eine Abhängigkeit fehlt oder startet später — Reihenfolge in der server.cfg prüfen",
+            "Die SQL-Datei wurde nicht eingespielt, Tabellen fehlen",
+            "Syntaxfehler in einer Konfigurationsdatei, meist nach eigenen Änderungen"
+          ]
+        },
+        {
+          "titel": "Einzeln testen",
+          "text": "Startet der Server insgesamt nicht, hilft es, verdächtige ensure-Zeilen vorübergehend auszukommentieren und schrittweise wieder hinzuzunehmen. So findet man den Verursacher, statt zu raten."
+        },
+        {
+          "titel": "Fehler im Spiel statt beim Start",
+          "text": "Erscheint der Fehler erst im Betrieb, gehört die F8-Konsole des Clients dazu: clientseitige Fehler stehen dort und nicht in der Serverkonsole. Viele Probleme, die als „Skript geht nicht\" gemeldet werden, sind dort in einer Zeile erklärt."
+        }
+      ],
+      "warnung": "Ressourcen nicht auf Verdacht neu herunterladen und überschreiben. Erst die Ursache lesen — sonst ist danach die eigene Konfiguration weg und der Fehler bleibt.",
+      "siehe_auch": ["ressource_installieren", "startreihenfolge", "performance_grundlagen"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    }
+  ]
+}

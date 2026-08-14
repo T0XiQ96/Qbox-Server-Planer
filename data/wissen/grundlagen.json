@@ -1,0 +1,172 @@
+{
+  "_hinweis": "ALLE Artikel hier stehen auf qualitaet 'ungeprueft' und haben leere quellen — sie sind aus Erfahrungswissen geschrieben und noch gegen keine Quelle abgeglichen (Entscheidung D29). Vor einer Höherstufung: Quelle nachtragen, geprueft_am setzen.",
+  "schemaVersion": 1,
+  "artikel": [
+    {
+      "id": "server_grundaufbau",
+      "kategorie": "server_aufsetzen",
+      "titel": "Woraus ein FiveM-Server besteht",
+      "kurz": "Die vier Teile, die zusammenkommen müssen, bevor irgendein Plugin läuft.",
+      "stichworte": ["fxserver", "artifacts", "grundlagen", "aufbau"],
+      "abschnitte": [
+        {
+          "titel": "Die vier Teile",
+          "text": "Ein laufender Server besteht aus dem FXServer selbst (den „Artifacts\"), einem Server-Datenordner mit server.cfg und den Ressourcen, einer MySQL-/MariaDB-Datenbank, und einem Lizenzschlüssel von Cfx.re. Fehlt eines davon, startet nichts — die meisten Startprobleme von Anfängern sind schlicht ein fehlendes dieser vier Teile."
+        },
+        {
+          "titel": "Artifacts",
+          "text": "Die Server-Binaries werden nicht installiert, sondern als Archiv entpackt. Es gibt getrennte Builds für Windows und Linux und jeweils eine „latest\"- und eine „recommended\"-Linie. Für einen Produktivserver ist die empfohlene Linie die sichere Wahl; die neueste kann Ressourcen brechen, die noch nicht angepasst sind."
+        },
+        {
+          "titel": "Lizenzschlüssel",
+          "text": "Der Schlüssel wird im Cfx.re-Keymaster erzeugt und ist an eine IP bzw. an ein Konto gebunden. Er gehört in die server.cfg. Ohne gültigen Schlüssel startet der Server nicht und erscheint nicht in der Serverliste.",
+          "code": "sv_licenseKey \"deinSchluesselHier\""
+        },
+        {
+          "titel": "Ordnerstruktur",
+          "text": "Bewährt hat sich, die Artifacts von den Serverdaten zu trennen: ein Ordner für die Binaries, ein zweiter für server.cfg, resources/ und die eigenen Inhalte. So lässt sich ein Artifact-Update durch bloßes Austauschen des ersten Ordners erledigen, ohne dass die eigenen Daten in Gefahr geraten."
+        }
+      ],
+      "warnung": "Artifacts und Serverdaten NICHT in denselben Ordner legen. Beim Update überschreibt oder löscht man sonst leicht die eigene server.cfg und die Ressourcen.",
+      "siehe_auch": ["servercfg_grundgeruest", "txadmin_erste_schritte"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": "Artifact-Verteilung und Keymaster-Oberfläche ändern sich gelegentlich."
+    },
+    {
+      "id": "servercfg_grundgeruest",
+      "kategorie": "server_aufsetzen",
+      "titel": "server.cfg — das Grundgerüst",
+      "kurz": "Was mindestens drinstehen muss, und in welcher Reihenfolge.",
+      "stichworte": ["server.cfg", "config", "endpoint", "port", "onesync"],
+      "abschnitte": [
+        {
+          "titel": "Netzwerk und Identität",
+          "text": "Der Server lauscht standardmäßig auf Port 30120, und zwar auf TCP UND UDP. Beide Zeilen werden gebraucht; fehlt UDP, verbindet niemand. Dazu kommen Servername, Spielerzahl und Lizenzschlüssel.",
+          "code": "endpoint_add_tcp \"0.0.0.0:30120\"\nendpoint_add_udp \"0.0.0.0:30120\"\nsv_hostname \"Mein Qbox-Server\"\nsv_maxclients 48\nsv_licenseKey \"deinSchluesselHier\""
+        },
+        {
+          "titel": "Datenbank",
+          "text": "Die Verbindungszeichenfolge für oxmysql wird als Convar gesetzt, bevor die Ressourcen starten. Sie enthält Benutzer, Passwort, Host und Datenbanknamen.",
+          "code": "set mysql_connection_string \"mysql://benutzer:passwort@localhost/deine_datenbank?charset=utf8mb4\""
+        },
+        {
+          "titel": "OneSync",
+          "text": "OneSync hebt das alte 32-Spieler-Limit auf und ist für moderne Frameworks Voraussetzung. Es wird über Convars aktiviert. Ohne OneSync funktionieren viele serverseitige Entity-Funktionen nicht, die Qbox und der ox-Stack voraussetzen."
+        },
+        {
+          "titel": "Ressourcen starten",
+          "text": "Ganz unten stehen die ensure-Zeilen. Ihre Reihenfolge ist nicht beliebig: Abhängigkeiten müssen vor dem stehen, was sie braucht. Genau dafür gibt es im Planer die ensure-Liste, die automatisch topologisch sortiert."
+        }
+      ],
+      "warnung": "Der Lizenzschlüssel und die Datenbank-Zugangsdaten stehen im Klartext in der server.cfg. Diese Datei gehört niemals in ein öffentliches Git-Repository und niemals in einen Screenshot.",
+      "siehe_auch": ["server_grundaufbau", "startreihenfolge", "db_einrichten"],
+      "plugins": ["oxmysql"],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "txadmin_erste_schritte",
+      "kategorie": "txadmin",
+      "titel": "txAdmin — Einstieg und Panel",
+      "kurz": "txAdmin liegt den Artifacts bei und ist der übliche Weg, einen Server zu starten und zu verwalten.",
+      "stichworte": ["txadmin", "panel", "40120", "master", "webinterface"],
+      "abschnitte": [
+        {
+          "titel": "Was txAdmin ist",
+          "text": "txAdmin ist eine Weboberfläche, die den FXServer startet, überwacht und neu startet. Sie kommt mit den Artifacts mit — man installiert sie nicht separat. Gestartet wird sie, indem man die Server-Binary ohne weitere Argumente ausführt; sie öffnet dann eine lokale Weboberfläche, üblicherweise auf Port 40120."
+        },
+        {
+          "titel": "Erster Start",
+          "text": "Beim allerersten Start erzeugt txAdmin einen Einmal-Link bzw. PIN in der Konsole, mit dem das Master-Konto angelegt wird. Dieser Link ist kurzlebig — wer ihn verpasst, startet neu und liest die Konsole diesmal mit.",
+          "schritte": [
+            "Server-Binary starten und die Konsolenausgabe beobachten",
+            "Den angezeigten Einmal-Link/PIN im Browser öffnen",
+            "Master-Konto mit sicherem Passwort anlegen",
+            "Server-Profil anlegen: entweder vorhandene Serverdaten einbinden oder per Rezept neu ausrollen"
+          ]
+        },
+        {
+          "titel": "Rezepte (Deployer)",
+          "text": "txAdmin kann einen Server aus einem „Rezept\" ausrollen — es lädt Framework und Grundressourcen, legt die Datenbank an und schreibt eine server.cfg. Für einen ersten Testserver ist das der schnellste Weg. Für einen Server, der später gepflegt werden soll, lohnt es sich trotzdem, danach zu verstehen, was das Rezept angelegt hat."
+        },
+        {
+          "titel": "Laufender Betrieb",
+          "text": "Im Panel finden sich die Live-Konsole, geplante Neustarts, Spielerverwaltung, Bans und die Serverdateien. Geplante Neustarts sind kein Luxus: FiveM-Server werden über Stunden hinweg langsamer, ein Neustart alle paar Stunden ist üblich."
+        }
+      ],
+      "warnung": "Das txAdmin-Panel niemals ungeschützt ins Internet stellen. Wer Zugriff auf das Panel hat, hat Zugriff auf den kompletten Server samt Dateien und Konsole.",
+      "siehe_auch": ["admins_panel_vs_ingame", "server_grundaufbau"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": "txAdmin wird häufig weiterentwickelt; Menüpunkte und Bezeichnungen ändern sich."
+    },
+    {
+      "id": "txadmin_ingame",
+      "kategorie": "txadmin",
+      "titel": "txAdmin im Spiel benutzen",
+      "kurz": "Das Ingame-Menü von txAdmin und was es vom Framework-Adminmenü unterscheidet.",
+      "stichworte": ["txadmin", "menu", "ingame", "teleport", "noclip"],
+      "abschnitte": [
+        {
+          "titel": "Das txAdmin-Menü",
+          "text": "txAdmin bringt ein eigenes Ingame-Menü mit, das unabhängig vom Framework funktioniert. Es deckt die Server-Verwaltung ab: Spieler suchen, teleportieren, kicken, warnen, bannen, Fahrzeug spawnen, Heilung, NoClip. Es wird über einen Tastenbefehl geöffnet, der in den FiveM-Einstellungen belegt werden kann."
+        },
+        {
+          "titel": "Abgrenzung zum Framework-Menü",
+          "text": "Das Framework (Qbox/QBCore) hat ein eigenes Adminmenü für spielbezogene Dinge: Jobs setzen, Geld geben, Items spawnen. Beides existiert nebeneinander und hat getrennte Rechteverwaltungen. Wer im txAdmin-Panel Admin ist, ist damit NICHT automatisch Admin im Framework — und umgekehrt."
+        },
+        {
+          "titel": "Rechte",
+          "text": "Welche Punkte im txAdmin-Menü sichtbar sind, hängt an den Berechtigungen des jeweiligen txAdmin-Kontos. Die Zuordnung passiert im Panel über die Admin-Verwaltung, nicht über die server.cfg."
+        }
+      ],
+      "warnung": "Die getrennten Rechtesysteme sind die häufigste Verwirrung: „Ich bin doch Admin\" heißt fast immer, dass man es nur in einem der beiden Systeme ist.",
+      "siehe_auch": ["admins_panel_vs_ingame", "txadmin_erste_schritte"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": "Menüumfang und Tastenbelegung ändern sich mit txAdmin-Versionen."
+    },
+    {
+      "id": "admins_panel_vs_ingame",
+      "kategorie": "admins",
+      "titel": "Admins einrichten — die drei getrennten Systeme",
+      "kurz": "txAdmin-Konten, ACE-Rechte in der server.cfg und Framework-Rollen sind drei verschiedene Dinge.",
+      "stichworte": ["admin", "ace", "principal", "berechtigung", "rechte", "permissions"],
+      "abschnitte": [
+        {
+          "titel": "1. txAdmin-Konten",
+          "text": "Gelten nur für das Panel und das txAdmin-Ingame-Menü. Verwaltet werden sie im Panel unter der Admin-Verwaltung; jedes Konto bekommt einzeln zugewiesene Berechtigungen. Ein txAdmin-Konto kann mit einer Discord- oder Cfx.re-Identität verknüpft werden, damit die Person sich auch im Spiel identifizieren lässt."
+        },
+        {
+          "titel": "2. ACE-Rechte in der server.cfg",
+          "text": "Das eingebaute Rechtesystem von FiveM. Es entscheidet, wer welche Serverbefehle ausführen darf. Man ordnet eine Identität einer Gruppe zu (principal) und erlaubt dieser Gruppe Befehle (ace).",
+          "code": "add_principal identifier.license:DEINELIZENZ group.admin\nadd_ace group.admin command allow\nadd_ace group.admin command.quit deny"
+        },
+        {
+          "titel": "3. Framework-Rollen",
+          "text": "Qbox und QBCore führen eigene Berechtigungsstufen für ihre Adminmenüs und Befehle. Wie sie gesetzt werden, hängt vom Framework ab — teils über eine Konfigurationsdatei, teils über einen Befehl, teils über die Datenbank. Diese Rechte steuern spielbezogene Eingriffe, nicht die Serververwaltung."
+        },
+        {
+          "titel": "Identifier finden",
+          "text": "Für ACE-Einträge braucht man einen eindeutigen Identifier des Spielers: license, steam, discord oder fivem. Sie lassen sich im txAdmin-Panel bei einem verbundenen Spieler ablesen oder in der Serverkonsole ausgeben. Die license-ID ist die zuverlässigste, weil sie nicht an einen Drittdienst gebunden ist."
+        }
+      ],
+      "warnung": "„command allow\" für eine Gruppe erlaubt ALLE Befehle, auch Serverabschaltung und das Nachladen von Ressourcen. Für Moderatoren einzelne Befehle freigeben statt pauschal alles.",
+      "siehe_auch": ["txadmin_ingame", "sicherheit_grundregeln"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    }
+  ]
+}

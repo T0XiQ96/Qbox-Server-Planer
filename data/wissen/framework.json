@@ -1,0 +1,147 @@
+{
+  "_hinweis": "Alles qualitaet 'ungeprueft' mit leeren quellen — Erfahrungswissen, noch nicht gegen Quellen abgeglichen (D29).",
+  "schemaVersion": 1,
+  "artikel": [
+    {
+      "id": "qbox_vs_qbcore",
+      "kategorie": "framework",
+      "titel": "Qbox und QBCore — was der Unterschied ist",
+      "kurz": "Qbox ist aus QBCore hervorgegangen, setzt aber auf den ox-Stack statt auf die qb-Ressourcen.",
+      "stichworte": ["qbox", "qbcore", "qbx_core", "bridge", "unterschied"],
+      "abschnitte": [
+        {
+          "titel": "Die Herkunft",
+          "text": "Qbox ist ein Fork von QBCore. Die Grundbegriffe sind dieselben — Spieler, Jobs, Gangs, Items —, aber der Unterbau wurde ausgetauscht: statt qb-inventory, qb-target und qb-menu setzt Qbox auf ox_inventory, ox_target und ox_lib. Der Kern heißt qbx_core statt qb-core."
+        },
+        {
+          "titel": "Die Bridge",
+          "text": "Qbox bringt eine Kompatibilitätsschicht mit, die die üblichen QBCore-Exports übersetzt. Viele QBCore-Skripte laufen dadurch ohne Änderung. Übersetzt werden aber nur die Standardzugriffe — nicht jeder denkbare."
+        },
+        {
+          "titel": "Was trotz Bridge bricht",
+          "text": "Drei Muster laufen auch mit Bridge nicht: harte Abhängigkeiten auf qb-inventory oder qb-target (weil Qbox diese Ressourcen gar nicht hat), Eingriffe in interne qb-core-Spielerfunktionen, und eigene SQL-Abfragen auf qb-Tabellen, die es unter Qbox anders oder nicht gibt."
+        },
+        {
+          "titel": "Nicht verwechseln: ox_core",
+          "text": "ox_lib, ox_inventory, ox_target und ox_doorlock sind die Bausteine, auf die Qbox setzt. ox_core dagegen ist ein eigenständiges, konkurrierendes Framework und NICHT Teil von Qbox. Dasselbe gilt für ox_mdt."
+        }
+      ],
+      "warnung": "„Läuft mit QBCore\" auf einer Produktseite heißt nicht „läuft mit Qbox\". Vor dem Kauf im Zweifel den Autor fragen oder im Code nach qb-inventory/qb-target suchen.",
+      "siehe_auch": ["startreihenfolge", "ressource_installieren"],
+      "plugins": ["qbx_core", "ox_lib", "ox_inventory", "ox_target"],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": "Der Umfang der Bridge wächst mit den Qbox-Versionen."
+    },
+    {
+      "id": "startreihenfolge",
+      "kategorie": "framework",
+      "titel": "Startreihenfolge in der server.cfg",
+      "kurz": "Warum die Reihenfolge der ensure-Zeilen über Start oder Absturz entscheidet.",
+      "stichworte": ["ensure", "start", "reihenfolge", "dependency", "abhängigkeit"],
+      "abschnitte": [
+        {
+          "titel": "Das Grundprinzip",
+          "text": "Eine Ressource, die beim Start auf eine andere zugreift, muss NACH ihr starten. Sonst findet sie den Export nicht und wirft einen Fehler — oder schlimmer: sie startet halb und fällt erst im Spielbetrieb aus."
+        },
+        {
+          "titel": "Die übliche Reihenfolge",
+          "text": "Zuerst die Infrastruktur, dann der Kern, dann alles andere.",
+          "schritte": [
+            "oxmysql — die Datenbankanbindung, die fast alles braucht",
+            "ox_lib — die gemeinsame Bibliothek",
+            "qbx_core — der Framework-Kern",
+            "ox_inventory, ox_target und weitere Basis-Ressourcen",
+            "alle übrigen Skripte, Jobs und Inhalte"
+          ]
+        },
+        {
+          "titel": "ensure statt start",
+          "text": "„ensure\" startet eine Ressource und startet sie neu, falls sie bereits läuft. Das ist gegenüber „start\" das robustere Verhalten und der übliche Standard in modernen Konfigurationen."
+        },
+        {
+          "titel": "Ganze Ordner starten",
+          "text": "Mit einem Platzhalter lässt sich ein ganzer Unterordner auf einmal starten. Das ist bequem, nimmt einem aber die Kontrolle über die Reihenfolge innerhalb des Ordners — für Basis-Ressourcen deshalb ungeeignet.",
+          "code": "ensure [meine_jobs]"
+        }
+      ],
+      "warnung": "Der Planer erzeugt die ensure-Liste bereits topologisch sortiert (Zahnrad-Menü → ensure-Liste). Erkannte Ringabhängigkeiten stehen als Kommentar im Kopf der Liste — die muss man von Hand auflösen.",
+      "siehe_auch": ["qbox_vs_qbcore", "ressource_installieren", "fehler_ressource_startet_nicht"],
+      "plugins": ["oxmysql", "ox_lib", "qbx_core"],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "ressource_installieren",
+      "kategorie": "ressourcen",
+      "titel": "Eine Ressource installieren",
+      "kurz": "Der immer gleiche Ablauf — und die vier Stellen, an denen es schiefgeht.",
+      "stichworte": ["installieren", "resources", "ensure", "fxmanifest", "ordner"],
+      "abschnitte": [
+        {
+          "titel": "Der Ablauf",
+          "text": "Ressourcen liegen im Ordner resources/ des Serverdatenverzeichnisses. Unterordner in eckigen Klammern sind reine Sammelordner ohne eigene Funktion und dienen der Ordnung.",
+          "schritte": [
+            "Ordner nach resources/ entpacken, gern in einen Sammelordner wie [jobs]",
+            "Prüfen, ob der Ordnername mit dem übereinstimmt, was die Doku als ensure-Namen nennt",
+            "Abhängigkeiten installieren, falls noch nicht vorhanden",
+            "SQL-Datei einspielen, falls eine beiliegt",
+            "ensure-Zeile in die server.cfg eintragen, an der richtigen Stelle der Reihenfolge",
+            "Server neu starten und die Konsole beim Start mitlesen"
+          ]
+        },
+        {
+          "titel": "Der Ordnername zählt",
+          "text": "Die Ressource heißt so, wie ihr Ordner heißt — nicht so, wie das ZIP hieß. Heruntergeladene Archive von GitHub enden oft auf „-main\", was zu einem falschen Ordnernamen führt. Das ist mit Abstand der häufigste Installationsfehler."
+        },
+        {
+          "titel": "fxmanifest.lua lesen",
+          "text": "Die fxmanifest.lua ist die Visitenkarte einer Ressource. Dort stehen Abhängigkeiten (dependencies), eingebundene Dateien und Datendateien. Ein Blick hinein beantwortet meistens die Frage, was noch fehlt."
+        },
+        {
+          "titel": "Escrow",
+          "text": "Manche gekauften Ressourcen sind verschlüsselt („Escrow\"). Sie laufen nur mit dem Konto, das sie gekauft hat, und ihr Code lässt sich nicht einsehen oder anpassen. Was in der fxmanifest unter escrow_ignore steht, bleibt offen — der Rest nicht."
+        }
+      ],
+      "warnung": "Nie einfach den Server-Ordner nach dem Entpacken durchsuchen und raten. Wenn die Ressource nicht startet, steht der Grund fast immer wörtlich in der Serverkonsole.",
+      "siehe_auch": ["startreihenfolge", "fehler_ressource_startet_nicht"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "streaming_grundlagen",
+      "kategorie": "ressourcen",
+      "titel": "Streaming — eigene Modelle in den Server bringen",
+      "kurz": "Wie Fahrzeuge, Kleidung, Waffen und Interieurs technisch an den Spieler kommen.",
+      "stichworte": ["stream", "streaming", "ydd", "ytd", "yft", "data_file"],
+      "abschnitte": [
+        {
+          "titel": "Der stream-Ordner",
+          "text": "Alles, was der Spieler an neuen Modellen und Texturen laden soll, kommt in einen Unterordner namens stream innerhalb der Ressource. Der Server verteilt diese Dateien beim Verbinden automatisch — man muss sie nicht einzeln eintragen."
+        },
+        {
+          "titel": "Meta-Dateien",
+          "text": "Modelle allein reichen nicht. Damit das Spiel weiß, was ein Modell ist und wie es sich verhält, braucht es Meta-Dateien, die in der fxmanifest.lua als data_file eingetragen werden. Welche das sind, hängt vom Inhaltstyp ab — bei Fahrzeugen andere als bei Waffen.",
+          "code": "files { 'vehicles.meta', 'handling.meta' }\ndata_file 'VEHICLE_METADATA_FILE' 'vehicles.meta'\ndata_file 'HANDLING_FILE' 'handling.meta'"
+        },
+        {
+          "titel": "Größe im Blick behalten",
+          "text": "Gestreamte Inhalte muss jeder Spieler beim ersten Verbinden herunterladen. Ein Server mit vielen Fahrzeug- und Kleidungspaketen kann schnell mehrere Gigabyte erreichen — das ist die häufigste Ursache für lange Ladezeiten und abspringende Neuspieler."
+        }
+      ],
+      "warnung": "Zwei Ressourcen, die dasselbe Modell streamen, führen zu unvorhersehbarem Verhalten. Bei Fahrzeugpaketen aus verschiedenen Quellen auf doppelte Modellnamen achten.",
+      "siehe_auch": ["fahrzeug_einbauen", "kleidung_grundlagen", "waffe_einbauen", "performance_grundlagen"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    }
+  ]
+}

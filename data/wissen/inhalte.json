@@ -1,0 +1,132 @@
+{
+  "_hinweis": "Alles qualitaet 'ungeprueft' mit leeren quellen — Erfahrungswissen, noch nicht gegen Quellen abgeglichen (D29).",
+  "schemaVersion": 1,
+  "artikel": [
+    {
+      "id": "fahrzeug_einbauen",
+      "kategorie": "fahrzeuge",
+      "titel": "Ein Fahrzeug in den Server bringen",
+      "kurz": "Addon oder Replace, die vier Meta-Dateien, und der Eintrag im Framework.",
+      "stichworte": ["auto", "fahrzeug", "addon", "replace", "vehicles.meta", "handling"],
+      "abschnitte": [
+        {
+          "titel": "Addon oder Replace",
+          "text": "Ein Addon-Fahrzeug kommt als zusätzliches Modell mit eigenem Namen dazu — die Originalfahrzeuge bleiben unberührt. Ein Replace ersetzt ein vorhandenes GTA-Fahrzeug. Für Server ist fast immer Addon die richtige Wahl: Replace-Fahrzeuge führen zu Verwirrung, weil dasselbe Spawn-Wort plötzlich etwas anderes bedeutet."
+        },
+        {
+          "titel": "Die Meta-Dateien",
+          "text": "Ein Addon-Fahrzeug braucht mehrere Beschreibungsdateien, die alle in der fxmanifest.lua eingetragen werden. vehicles.meta beschreibt das Fahrzeug selbst, handling.meta das Fahrverhalten, carvariations.meta und carcols.meta die Lackierungen und Varianten.",
+          "code": "files {\n  'vehicles.meta', 'carvariations.meta', 'carcols.meta', 'handling.meta'\n}\ndata_file 'VEHICLE_METADATA_FILE' 'vehicles.meta'\ndata_file 'CARCOLS_FILE' 'carcols.meta'\ndata_file 'VEHICLE_VARIATION_FILE' 'carvariations.meta'\ndata_file 'HANDLING_FILE' 'handling.meta'"
+        },
+        {
+          "titel": "Bekanntmachen im Framework",
+          "text": "Damit ein Fahrzeug im Autohaus kaufbar ist, einen Anzeigenamen hat und einen Preis bekommt, muss es zusätzlich in der Fahrzeugliste des Frameworks eingetragen werden. Das ist ein getrennter Schritt vom Streaming — ein Fahrzeug kann fahrbereit im Server liegen und trotzdem nirgends kaufbar sein."
+        },
+        {
+          "titel": "Prüfen",
+          "text": "Zum Testen reicht der Spawn-Befehl mit dem Modellnamen aus dem vehicles.meta. Erscheint ein Fahrzeug ohne Textur (weiß/schwarz), fehlt meist die zugehörige .ytd; erscheint gar nichts, stimmt der Modellname nicht oder die Meta-Datei wurde nicht geladen."
+        }
+      ],
+      "warnung": "Doppelte Modellnamen zwischen zwei Fahrzeugpaketen sind ein häufiger und schwer zu findender Fehler. Vor dem Einbau eines neuen Pakets prüfen, ob ein Name schon vergeben ist.",
+      "siehe_auch": ["streaming_grundlagen", "performance_grundlagen"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "kleidung_grundlagen",
+      "kategorie": "kleidung",
+      "titel": "Kleidung, Peds und EUP",
+      "kurz": "Wie zusätzliche Kleidung an den Charakter kommt und wo EUP sich einordnet.",
+      "stichworte": ["kleidung", "clothing", "eup", "ped", "komponenten", "drawable"],
+      "abschnitte": [
+        {
+          "titel": "Komponenten und Drawables",
+          "text": "Die Kleidung eines Charakters besteht aus nummerierten Komponenten (Oberkörper, Beine, Schuhe, Accessoires) mit jeweils einer Drawable-Nummer und einer Textur-Nummer. Zusätzliche Kleidung erweitert diese Nummernbereiche — deshalb hängen Kleidungspakete und das Charakter-Menü eng zusammen."
+        },
+        {
+          "titel": "EUP",
+          "text": "EUP ist ein Paket mit Uniformen und Dienstkleidung (Polizei, Rettungsdienst und ähnliches). Es ist kein Skript, sondern im Kern gestreamte Kleidung plus die passenden Definitionen. Es wird üblicherweise zusammen mit einem Kleidungs-Menü eingesetzt, das die zusätzlichen Nummern auch anbietet."
+        },
+        {
+          "titel": "Zusammenspiel mit dem Charakter-Menü",
+          "text": "Ein Kleidungspaket allein macht die Kleidung noch nicht auswählbar. Das Charakter-/Kleidungsmenü muss die erweiterten Nummernbereiche kennen. Passt das nicht zusammen, sieht man die neuen Teile im Menü nicht oder es erscheinen unsichtbare bzw. kaputte Modelle."
+        },
+        {
+          "titel": "MLOs",
+          "text": "MLOs sind begehbare Interieurs — Gebäude, die es im Originalspiel nicht oder nur als Fassade gibt. Sie werden wie andere Inhalte gestreamt und können zusätzlich das Ein- und Ausschalten von Karten-Teilen (IPL) erfordern. Sie sind oft die größten einzelnen Brocken beim Download."
+        }
+      ],
+      "warnung": "Kleidungspakete unterschiedlicher Herkunft überschneiden sich gern in denselben Nummernbereichen. Zwei Pakete zusammen ergeben dann nicht die Summe, sondern kaputte Modelle.",
+      "siehe_auch": ["streaming_grundlagen", "performance_grundlagen"],
+      "plugins": [],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "waffe_einbauen",
+      "kategorie": "waffen",
+      "titel": "Addon-Waffen einbauen",
+      "kurz": "Modell, Meta-Dateien und der Item-Eintrag — drei Schritte, die alle nötig sind.",
+      "stichworte": ["waffe", "weapon", "weapons.meta", "addon", "munition"],
+      "abschnitte": [
+        {
+          "titel": "Die Bestandteile",
+          "text": "Eine Addon-Waffe besteht aus dem Modell, mehreren Meta-Dateien und einem Eintrag im Inventarsystem. Die Meta-Dateien beschreiben Schaden, Reichweite, Munitionstyp und die Animationen; sie werden in der fxmanifest.lua als data_file eingetragen.",
+          "code": "files { 'weapons.meta', 'weaponarchetypes.meta', 'pedpersonality.meta' }\ndata_file 'WEAPONINFO_FILE' 'weapons.meta'\ndata_file 'WEAPON_METADATA_FILE' 'weaponarchetypes.meta'"
+        },
+        {
+          "titel": "Als Item verfügbar machen",
+          "text": "Damit die Waffe im Inventar auftaucht und ausgegeben werden kann, muss sie zusätzlich als Item im Inventarsystem hinterlegt werden — mit Name, Anzeigename und Bild. Ohne diesen Schritt existiert die Waffe technisch, ist aber für Spieler unerreichbar."
+        },
+        {
+          "titel": "Munition",
+          "text": "Waffen verweisen auf einen Munitionstyp. Nutzt eine Addon-Waffe einen eigenen Typ, muss auch dieser definiert und als Item vorhanden sein — sonst lässt sich die Waffe nicht nachladen."
+        }
+      ],
+      "warnung": "Addon-Waffen sind ein beliebtes Ziel für Exploits. Ausgabe ausschließlich über serverseitig geprüfte Wege (Adminmenü, Job-Ausgabe), niemals über ein Client-Event, das jeder auslösen kann.",
+      "siehe_auch": ["items_anlegen", "sicherheit_grundregeln", "streaming_grundlagen"],
+      "plugins": ["ox_inventory"],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    },
+    {
+      "id": "items_anlegen",
+      "kategorie": "items",
+      "titel": "Items in ox_inventory anlegen",
+      "kurz": "Definition, Bild und Verwendung — und warum das Bild so oft fehlt.",
+      "stichworte": ["item", "inventar", "ox_inventory", "bild", "png"],
+      "abschnitte": [
+        {
+          "titel": "Die Definition",
+          "text": "Items werden in einer Datendatei von ox_inventory definiert. Jedes Item hat einen internen Namen (klein, ohne Leerzeichen), einen Anzeigenamen, ein Gewicht und optionale Eigenschaften wie Stapelbarkeit oder Verzehrbarkeit."
+        },
+        {
+          "titel": "Das Bild",
+          "text": "Das Item-Bild ist eine PNG-Datei im Bilderordner von ox_inventory, deren Dateiname exakt dem internen Item-Namen entspricht. Fehlt sie oder ist sie anders benannt, zeigt das Inventar ein Platzhalterbild — die häufigste kleine Enttäuschung nach dem Anlegen eines Items."
+        },
+        {
+          "titel": "Items aus Skripten",
+          "text": "Viele gekaufte oder heruntergeladene Skripte bringen eine Liste mitzulegender Items mit. Diese Liste abzuarbeiten ist Teil der Installation — ein Skript, dessen Items fehlen, wirft im Betrieb Fehler statt beim Start."
+        },
+        {
+          "titel": "Interner Name ist unveränderlich",
+          "text": "Der interne Name steckt in gespeicherten Inventaren in der Datenbank. Wird er nachträglich geändert, verlieren alle Spieler die betroffenen Items. Anzeigenamen dagegen lassen sich jederzeit ändern."
+        }
+      ],
+      "warnung": "Interne Item-Namen nach dem Produktivstart nicht mehr umbenennen — die Items in den Spieler-Inventaren zeigen dann ins Leere.",
+      "siehe_auch": ["waffe_einbauen", "db_einrichten"],
+      "plugins": ["ox_inventory"],
+      "quellen": [],
+      "qualitaet": "ungeprueft",
+      "geprueft_am": "",
+      "stand_hinweis": null
+    }
+  ]
+}
