@@ -316,6 +316,26 @@ ul { margin: 4px 0; padding-left: 20px; }
 .vergleich-nur li { color: var(--lila); }
 .vergleich-leer { color: var(--leise); }
 
+/* ================= Verweis, der den Vergleich öffnet (Prüfbericht) ================= */
+
+/* Sitzt im Fließtext, verhält sich aber anders als ein Namens-Verweis: er öffnet den Vergleich,
+   statt zur Karte zu springen. Deshalb eigene Farbe und das ⚖️ im Text davor. */
+.bericht-partner {
+  background: none; border: none; padding: 0; font: inherit;
+  color: var(--lila); cursor: pointer; text-decoration: underline dotted;
+}
+.bericht-partner:hover { text-decoration: underline; }
+
+.karte-nachfolge strong { color: var(--orange); }
+
+.synergie-knoepfe { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+
+/* Vergleich: Beziehung benennen, Tabelle nur bei echten Alternativen offen */
+.vergleich-tabelle-block > summary { cursor: pointer; color: var(--leise); font-size: 12px; margin-bottom: 8px; }
+.vergleich-abhaengigkeit, .vergleich-synergie { color: var(--gruen); }
+.vergleich-konflikt { color: var(--rot); }
+.vergleich-nachfolge { color: var(--orange); }
+
 /* ============================== Vergleichskorb ============================== */
 
 /* Sitzt IM Kopf, damit beide zusammen kleben — zwei getrennte sticky-Elemente auf top:0
@@ -351,8 +371,9 @@ ul { margin: 4px 0; padding-left: 20px; }
 .modal-breit { max-width: 1180px; }
 .korb-auswahl { margin-bottom: 14px; }
 .korb-auswahl .feld { width: 100%; }
+/* Kein Trefferdeckel mehr — die Liste hält den ganzen Katalog und scrollt in sich. */
 .korb-treffer {
-  max-height: 190px; overflow-y: auto; margin-top: 8px;
+  max-height: 260px; overflow-y: auto; margin-top: 8px;
   border: 1px solid var(--rand); border-radius: 6px;
 }
 .korb-treffer-zeile {

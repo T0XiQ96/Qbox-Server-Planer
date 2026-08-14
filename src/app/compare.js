@@ -150,8 +150,62 @@ export function vergleicheMehrere(index, ids) {
     gemeinsam,
     exklusiv,
     selbeGruppe,
-    gruppe: selbeGruppe ? teilnehmer[0].gruppe : null
+    gruppe: selbeGruppe ? teilnehmer[0].gruppe : null,
+    beziehung: beziehungImVergleich(teilnehmer)
   };
+}
+
+/**
+ * Welche Beziehung besteht zwischen den Verglichenen — und was heißt sie für den Server?
+ *
+ * Diese Frage wurde vorher nicht gestellt: alles, was nicht dieselbe `gruppe` teilte, bekam den
+ * Satz „kein besser oder schlechter, sondern verschiedene Zwecke". Bei einer ABHÄNGIGKEIT ist das
+ * grob irreführend — es liest sich wie ein Entweder-oder, dabei müssen zwingend beide laufen.
+ * Genau dieser Fall entsteht jetzt ständig, weil der Prüfbericht die fehlende Abhängigkeit
+ * direkt in den Vergleich schickt.
+ *
+ * Erste Übereinstimmung gewinnt. Die Reihenfolge ist Absicht: der Konflikt ist die schärfste
+ * Aussage und muss auch dann oben stehen, wenn die beiden zufällig dieselbe Gruppe teilen.
+ */
+export function beziehungImVergleich(teilnehmer) {
+  const paare = [];
+  for (const a of teilnehmer) {
+    for (const b of teilnehmer) if (a.id !== b.id) paare.push([a, b]);
+  }
+
+  for (const [a, b] of paare) {
+    if ((a.konflikte || []).includes(b.id)) {
+      return { art: 'konflikt', text: `${a.name} und ${b.name} vertragen sich laut Katalog nicht — höchstens eines davon gehört auf den Server.` };
+    }
+  }
+
+  const gruppen = new Set(teilnehmer.map((p) => p.gruppe).filter(Boolean));
+  if (gruppen.size === 1 && teilnehmer.every((p) => p.gruppe)) {
+    return {
+      art: 'alternativen',
+      text: `Alle ${teilnehmer.length} bedienen dieselbe Funktionsgruppe „${teilnehmer[0].gruppe}" — davon gehört genau eines auf den Server.`
+    };
+  }
+
+  for (const [a, b] of paare) {
+    if (a.archiviert && a.archiviert.nachfolger === b.id) {
+      return { art: 'nachfolge', text: `${a.name} ist archiviert, ${b.name} ist der im Katalog genannte Nachfolger — hier steht der Umstieg zum Nachlesen.` };
+    }
+  }
+
+  for (const [a, b] of paare) {
+    if ((a.abhaengigkeiten || []).includes(b.id)) {
+      return { art: 'abhaengigkeit', text: `${a.name} braucht ${b.name} — beide gehören auf den Server, das ist kein Entweder-oder.` };
+    }
+  }
+
+  for (const [a, b] of paare) {
+    if ((a.synergie || []).includes(b.id) || (a.ergaenzt || []).some((e) => e && e.id === b.id)) {
+      return { art: 'synergie', text: `${a.name} und ${b.name} ergänzen sich — beide zusammen sind sinnvoll, es ist keine Auswahl zwischen ihnen.` };
+    }
+  }
+
+  return { art: 'verschieden', text: 'Unterschiedliche Funktionsgruppen — kein besser oder schlechter, sondern verschiedene Zwecke nebeneinander.' };
 }
 
 /* -------------------------------- Darstellung -------------------------------- */
@@ -194,15 +248,21 @@ export function mehrfachVergleichHTML(v) {
   if (v.fehler) return `<p class="vergleich-fehler">${escapeHtml(v.fehler)}</p>`;
 
   const t = v.teilnehmer;
-  const hinweis = v.selbeGruppe
-    ? `<p class="vergleich-hinweis">ℹ️ Alle ${t.length} bedienen dieselbe Funktionsgruppe <code>${escapeHtml(v.gruppe)}</code> — davon gehört genau eines auf den Server.</p>`
-    : `<p class="vergleich-hinweis">ℹ️ Unterschiedliche Funktionsgruppen — kein besser oder schlechter, sondern verschiedene Zwecke nebeneinander.</p>`;
+  const b = v.beziehung || beziehungImVergleich(t);
+  const hinweis = `<p class="vergleich-hinweis vergleich-${b.art}">ℹ️ ${escapeHtml(b.text)}</p>`;
 
   const gemeinsam = v.gemeinsam.length
     ? `<div class="vergleich-gemeinsam"><strong>Alle können:</strong>${punkteHTML('', v.gemeinsam)}</div>` : '';
 
+  // Nur bei echten Alternativen ist die Zeile-für-Zeile-Gegenüberstellung die eigentliche Frage.
+  // Bei einer Abhängigkeit will man die Karten lesen, nicht „Dafür/Dagegen" zweier Dinge
+  // vergleichen, die beide laufen müssen — dann startet die Tabelle eingeklappt.
+  const offen = b.art === 'alternativen' ? ' open' : '';
+
   const tabelle = `
-    <div class="vergleich-tabelle-huelle">
+    <details class="vergleich-tabelle-block"${offen}>
+      <summary>Unterschiede im Einzelnen</summary>
+      <div class="vergleich-tabelle-huelle">
       <table class="vergleich-tabelle">
         <thead><tr><th></th>${t.map((p) => `<th scope="col">${escapeHtml(p.name)}</th>`).join('')}</tr></thead>
         <tbody>
@@ -219,7 +279,8 @@ export function mehrfachVergleichHTML(v) {
           ${zeileHTML('Zu beachten', t, (p) => punkteHTML('vergleich-neutral', p.neutral))}
         </tbody>
       </table>
-    </div>`;
+      </div>
+    </details>`;
 
   return `<section class="vergleich">${hinweis}${gemeinsam}${tabelle}</section>`;
 }

@@ -195,6 +195,23 @@ function berichtLink(p) {
   return `<a href="#karte-${escapeHtml(p.id)}" class="karte-sprung" data-jump-id="${escapeHtml(p.id)}">${escapeHtml(p.name)}</a>`;
 }
 
+/**
+ * Ein Verweis, der den VERGLEICH öffnet statt zur Karte zu springen.
+ *
+ * Bewusst sichtbar anders als `berichtLink()`: überall sonst führt ein Pluginname zur Karte, hier
+ * führt er zu zwei Karten nebeneinander. Zwei gleich aussehende Verweise mit verschiedenem
+ * Verhalten wären eine Falle, deshalb das ⚖️ davor.
+ *
+ * `data-vergleich-ids` ist bereits verdrahtet (siehe verdrahteGlobal) und belegt den
+ * Vergleichskorb in genau dieser Reihenfolge — die erste ID steht links.
+ */
+function vergleichsVerweis(ids, beschriftung) {
+  const eindeutig = [...new Set(ids)];
+  return `<button type="button" class="bericht-partner"
+    data-vergleich-ids="${escapeHtml(eindeutig.join(','))}"
+    title="Beide nebeneinander ansehen">⚖️ ${escapeHtml(beschriftung)}</button>`;
+}
+
 function fundHTML(f) {
   // Eine Warnung ohne Weg zur Behebung ist eine halbe Warnung: fehlt eine Abhängigkeit, steht der
   // Haken direkt daneben statt irgendwo weiter unten in der Liste.
@@ -202,9 +219,22 @@ function fundHTML(f) {
     ? `<button type="button" class="btn btn-klein bericht-behebe"
          data-behebe="${escapeHtml(f.behebung.id)}:${escapeHtml(f.behebung.umgebung)}">＋ setzen</button>`
     : '';
+
+  // Der Fundtext trägt an der Stelle des Partners den Platzhalter {partner} (warnings.js).
+  // Nur die Literalteile werden escapt, dazwischen kommt der gerenderte Verweis — sonst stünde
+  // der Partnername als toter Text im Satz, obwohl das Objekt in f.partner längst vorliegt.
+  let textHtml;
+  if (f.partner[0] && f.text.includes('{partner}')) {
+    const [vor, nach = ''] = f.text.split('{partner}');
+    // Links das Plugin mit dem Problem, rechts der Partner.
+    textHtml = escapeHtml(vor) + vergleichsVerweis([f.plugin.id, f.partner[0].id], f.partner[0].name) + escapeHtml(nach);
+  } else {
+    textHtml = escapeHtml(f.text);
+  }
+
   return `<li class="bericht-fund bericht-${f.stufe}">
     <span class="bericht-zeichen">${STUFEN_ZEICHEN[f.stufe]}</span>
-    <span class="bericht-text">${berichtLink(f.plugin)} — ${escapeHtml(f.text)}</span>
+    <span class="bericht-text">${berichtLink(f.plugin)} — ${textHtml}</span>
     ${behebung}</li>`;
 }
 
@@ -586,8 +616,6 @@ let vergleichsKorb = [];
 let korbSuche = '';
 let ziehtGerade = false;
 
-const KORB_MAX_TREFFER = 60;
-
 function imKorb(id) { return vergleichsKorb.includes(id); }
 
 function korbHinzufuegen(id) {
@@ -684,9 +712,10 @@ function korbTrefferHTML() {
     </button>`;
   };
 
-  const rest_hinweis = gesamt.length > KORB_MAX_TREFFER
-    ? `<p class="hinweis-leise">… und ${gesamt.length - KORB_MAX_TREFFER} weitere — Suche verfeinern.</p>` : '';
-  return gesamt.slice(0, KORB_MAX_TREFFER).map(zeile).join('') + rest_hinweis;
+  // Kein Deckel: wer nicht sucht, sondern blättert, soll den ganzen Katalog durchscrollen können.
+  // Die Liste scrollt in sich (style.css), und 400+ Knöpfe zu zeichnen kostet weniger als die
+  // Kartenliste dahinter, die ohnehin bei jedem Neuzeichnen vollständig entsteht.
+  return gesamt.map(zeile).join('');
 }
 
 /**
@@ -740,12 +769,21 @@ function zeigeSynergien(umgebung) {
     ? `<ul class="${klasse}">${eintraege.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>` : '';
 
   const zeile = (v) => {
+    // Der Grund ist der Partner: links das, was schon gesetzt ist, rechts der Vorschlag.
     const gruende = v.gruende.map((g) => `<li>${g.art === 'synergie' ? '🔗 Synergie mit' : '➕ Ergänzt sich mit'}
-      <strong>${escapeHtml(g.von.name)}</strong>${punkte('karte-plus', g.plus)}${punkte('karte-minus', g.minus)}</li>`).join('');
+      ${vergleichsVerweis([g.von.id, v.ziel.id], g.von.name)}${punkte('karte-plus', g.plus)}${punkte('karte-minus', g.minus)}</li>`).join('');
+
+    // Hängen mehrere gesetzte Plugins an demselben Vorschlag, lohnt der Blick auf alle zugleich.
+    const alle = v.gruende.length > 1
+      ? vergleichsVerweis([...v.gruende.map((g) => g.von.id), v.ziel.id], 'alle vergleichen')
+      : '';
+
     return `<div class="synergie-vorschlag">
       <div class="synergie-kopf">
         ${berichtLink(v.ziel)}
-        <button type="button" class="btn btn-klein" data-behebe="${escapeHtml(v.ziel.id)}:${escapeHtml(umgebung)}">＋ auf ${label} setzen</button>
+        <span class="synergie-knoepfe">${alle}
+          <button type="button" class="btn btn-klein" data-behebe="${escapeHtml(v.ziel.id)}:${escapeHtml(umgebung)}">＋ auf ${label} setzen</button>
+        </span>
       </div>
       ${v.ziel.beschreibung ? `<p>${escapeHtml(v.ziel.beschreibung)}</p>` : ''}
       <ul class="synergie-gruende">${gruende}</ul>
@@ -1113,6 +1151,15 @@ async function katalogImportieren() {
   else toast(`Import übernommen: ${vorschauZusammenfassung(v)} ✅`);
 }
 
+/**
+ * `nachfolger` ist eine Katalog-ID. In der Vorschau wird daraus kein Verweis (das Ziel ist noch
+ * gar nicht gerendert), aber wenigstens der lesbare Name statt der rohen Kennung.
+ */
+function nachfolgerName(id) {
+  const p = index.get(id);
+  return p ? p.name : id;
+}
+
 /** E8 + E9 — Änderungsliste mit hervorgehobener Warnung für bereits gehakte Plugins. */
 function vorschauHTML(v) {
   const warnungen = v.warnungen.length ? `
@@ -1121,7 +1168,7 @@ function vorschauHTML(v) {
       ${v.warnungen.map((w) => `
         <div class="vorschau-warnung-zeile">
           <strong>${escapeHtml(w.name)}</strong> (${w.umgebungen.map((u) => u.toUpperCase()).join(' + ')})
-          <ul>${w.gruende.map((g) => `<li>${escapeHtml(g.text)}${g.nachfolger ? ` <em>Nachfolger: ${escapeHtml(g.nachfolger)}</em>` : ''}</li>`).join('')}</ul>
+          <ul>${w.gruende.map((g) => `<li>${escapeHtml(g.text)}${g.nachfolger ? ` <em>Nachfolger: ${escapeHtml(nachfolgerName(g.nachfolger))}</em>` : ''}</li>`).join('')}</ul>
         </div>`).join('')}
     </div>` : '';
 

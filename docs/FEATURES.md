@@ -58,6 +58,7 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 | B6 | Banner neben dem Namen: „⚠️ ersetzt durch XXX [MAIN]", XXX anklickbar | Getrennte Banner für DEV und MAIN, wenn unterschiedliche Plugins gewählt sind | getestet |
 | B7 | Karte wird **nicht** ausgeblendet — nur der betroffene DEV- bzw. MAIN-Schalter abgeschwächt | ox_inventory auf MAIN → bei qs-inventory ist nur der MAIN-Schalter gestrichelt, DEV normal | getestet |
 | B8 | Sprung auf ein **ausgefiltertes** Plugin öffnet dessen vollständige Karte im Detail-Fenster; Suche und Filter dahinter bleiben unangetastet | Nach „blackmarket" suchen, dort auf `ox_lib` klicken → Fenster mit ox_lib, Liste dahinter weiter bei 1 Treffer | getestet |
+| B10 | `archiviert.nachfolger` ist eine Katalog-ID und erscheint als **eigene anklickbare Zeile auf der Karte** (nicht mehr als rohe ID im Tooltip); nicht auflösbare Nachfolger werden als solche markiert statt behauptet | `legacyfuel` → Zeile „🪦 Nachfolger: ox_fuel", anklickbar | getestet |
 | B9 | Zurück-Navigation als **Stapel**: schwebender Knopf in der Liste, „← Zurück" im Fenster; ✕/Esc führt an den Ausgangspunkt zurück | ox_lib → ox_inventory → Zurück → ox_lib; Sprung in der Liste → „← Zurück zu XXX" | getestet |
 
 ## C — Vergleichsmodus
@@ -72,6 +73,8 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 | C6 | **Vergleichskorb**: ⚖️ oben rechts auf jeder Karte, einfacher Klick legt hinein und öffnet das Fenster; die Leiste dockt oben am Kopf an und übersteht Filter- und Suchwechsel | ⚖️ auf ps-hud → Fenster offen, Chip in der Leiste | getestet |
 | C7 | Im Vergleichsfenster **eigenes Suchfeld** mit derselben Logik wie die Hauptsuche; Treffer-Reihenfolge: erst die Alternativen des ersten Eintrags (als „Alternative" markiert), dann alles Übrige alphabetisch | „house" tippen → 7 Treffer über Name **und** Beschreibung; bei ps-hud stehen die 5 HUD-Alternativen vorn | getestet |
 | C8 | Im Vergleich steht jedes Plugin als **vollständige Karte** (Name, Badges, Beschreibung, Meta, Abwägung); die Vergleichstabelle kommt **darunter**, nicht statt der Karten | Zwei Einträge wählen → 2 vollständige Karten, danach die Tabelle mit 2 Spalten | getestet |
+| C10 | Der Vergleich **benennt die tatsächliche Beziehung** (Konflikt / Alternativen / Nachfolge / Abhängigkeit / Synergie) statt pauschal „verschiedene Zwecke"; die Unterschiedstabelle startet nur bei echten Alternativen aufgeklappt | Abhängigkeit vergleichen → „X braucht Y — beide gehören auf den Server, kein Entweder-oder", Tabelle zu; zwei HUDs → „genau eines gehört auf den Server", Tabelle offen | getestet |
+| C11 | Auswahlliste im Vergleich **ohne Trefferdeckel** — der ganze Katalog ist durchscrollbar | Fenster ohne Suchbegriff öffnen → alle 404 Einträge, kein „… und N weitere" | getestet |
 | C9 | ⚖️ lässt sich **in die Leiste ziehen** (Zusatzweg, kein Pflichtweg): die Leiste erscheint beim Ziehbeginn als sichtbare Ablagefläche, der Abwurf legt hinein **ohne** das Fenster zu öffnen. Kein Long-Press. | oxmysql-⚖️ ziehen → Leiste erscheint mit „hierher ziehen", Abwurf legt es hinein, Fenster bleibt zu | getestet |
 
 ## D — Filter, Suche, Sortierung
@@ -116,6 +119,8 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 | F7 | Kosten-Tracker, getrennt nach einmalig und €/Monat, für MAIN und DEV | Premium-Plugin haken → Summe steigt in der richtigen Spalte | getestet |
 | F8 | **Laufender Prüfbericht ganz oben**, je Umgebung: Konflikt, doppelt belegte Funktion, fehlende Abhängigkeit (Fehler); archiviert, toter Link, bestätigte Inkompatibilität (Warnung); Bundle (Hinweis). Nicht erst im Export. | Plugin mit fehlender Abhängigkeit haken → Bericht erscheint sofort mit „2 Fehler" | getestet |
 | F9 | **Ein-Klick-Behebung** im Prüfbericht: „＋ setzen" hakt die fehlende Abhängigkeit direkt | Auf „＋ setzen" klicken → Abhängigkeit gehakt, Fund verschwindet, Bericht wird grün | getestet |
+| F11 | Im Prüfbericht ist **der genannte Partner anklickbar** (⚖️ davor) und öffnet den Vergleich — links das Plugin mit dem Problem, rechts der Partner. Gilt für fehlende Abhängigkeit, Konflikt, „doppelt" und Nachfolger | „Braucht ⚖️ ox_lib" klicken → Vergleich mit beiden Karten in dieser Reihenfolge | getestet |
+| F12 | In den ungenutzten Synergien ist der **Grund** anklickbar; bei mehreren Gründen zusätzlich „⚖️ alle vergleichen" | Synergie-Fenster → „🔗 Synergie mit ⚖️ qbx_hud" öffnet den Vergleich | getestet |
 | F10 | Zähler **„ungenutzte Synergien"** je Umgebung neben den Kosten; Klick listet auf, was zum aktuellen Stand noch dazupasst (`synergie` + `ergaenzt`, beide Richtungen), je mit „＋ setzen" | ox_lib auf MAIN → „🔗 2 ungenutzte Synergien" → ox_inventory, ox_target | getestet |
 
 ## G — Informationen pro Plugin

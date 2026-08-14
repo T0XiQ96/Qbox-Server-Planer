@@ -62,11 +62,10 @@ export function kompatHTML(plugin) {
 export function archivHTML(plugin) {
   const a = plugin.archiviert;
   if (!a) return '';
-  const nachfolger = a.nachfolger ? ` Nachfolger: ${a.nachfolger}.` : '';
-  return span('badge badge-archiviert', '🪦 Archiviert', `${a.text}${nachfolger}`);
-  // Der Nachfolger wird als Text im Tooltip genannt. Anklickbar-zum-Eintrag-springen ist Feature B5
-  // und kommt zusammen mit den übrigen Sprüngen in Schritt 1c — dort existiert die Karte des Ziels
-  // erst im gerenderten DOM, auf das gesprungen werden könnte.
+  // Der Nachfolger steht bewusst NICHT mehr im Tooltip: In einem `title` lässt sich kein Verweis
+  // unterbringen, und er stand dort als rohe ID statt als Name. Er bekommt stattdessen eine
+  // eigene, anklickbare Zeile — siehe nachfolgerHTML().
+  return span('badge badge-archiviert', '🪦 Archiviert', a.text);
 }
 
 /* ========================= G5 — Alt-Stack-Hinweis ========================= */
@@ -193,6 +192,21 @@ export function ersetztHTML(index, plugin) {
     <strong>⚠️ Ersetzt / wird ersetzt durch:</strong><ul>${eintraege}</ul>${knopf}</div>`;
 }
 
+/* ============================ G4 — Nachfolger als Verweis ============================ */
+
+/**
+ * `archiviert.nachfolger` ist laut Schema eine Katalog-ID, wurde bisher aber überall als roher
+ * Text ausgegeben („ps_lib" statt des echten Namens) und war nirgends anklickbar. Als eigene
+ * Zeile lässt sich beides beheben: sprungLink() löst die ID auf den Namen auf und markiert einen
+ * nicht auflösbaren Nachfolger über `karte-sprung-fehlt`, statt ihn stillschweigend zu behaupten.
+ */
+export function nachfolgerHTML(index, plugin) {
+  const a = plugin.archiviert;
+  if (!a || !a.nachfolger) return '';
+  return `<div class="karte-beziehung karte-nachfolge"><strong>🪦 Nachfolger:</strong>
+    ${sprungLink(index, a.nachfolger, statusPraefix(a.nachfolger))}</div>`;
+}
+
 /* ================================ B2 — Synergie ================================ */
 
 export function synergieHTML(index, plugin) {
@@ -302,7 +316,8 @@ export function kartenHTML(index, plugin, opt = {}) {
   const kopf = `<div class="karte-kopfzeile">
     <h3 class="karte-titel">${escapeHtml(plugin.name)}${essenziellHTML(plugin)}</h3>${korbKnopf}</div>`;
   const badges = `<div class="karte-badges">${badgesHTML(plugin)}${kompatHTML(plugin)}${archivHTML(plugin)}${altStackHTML(plugin)}${preisHTML(plugin)}${qualitaetHTML(plugin)}${linkStatusHTML(plugin)}</div>`;
-  const beziehungen = ersetztHTML(index, plugin) + synergieHTML(index, plugin) + ergaenztHTML(index, plugin) + abhaengigkeitenHTML(index, plugin);
+  const beziehungen = nachfolgerHTML(index, plugin) + ersetztHTML(index, plugin) + synergieHTML(index, plugin)
+    + ergaenztHTML(index, plugin) + abhaengigkeitenHTML(index, plugin);
   const kennung = (opt.detail ? 'detail-karte-' : 'karte-') + escapeHtml(plugin.id);
 
   return `<article id="${kennung}" class="karte${opt.detail ? ' karte-imfenster' : ''}" data-kategorie="${escapeHtml(plugin.kategorie)}">

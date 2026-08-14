@@ -59,7 +59,7 @@ export function pruefbericht(index, umgebung) {
       gesehen.add(schluessel);
       funde.push({
         stufe: 'fehler', art: 'konflikt', umgebung, plugin: p, partner: [gegner],
-        text: `Sollte nicht parallel mit ${gegner.name} laufen — beides zusammen führt erfahrungsgemäß zu Problemen.`,
+        text: 'Sollte nicht parallel mit {partner} laufen — beides zusammen führt erfahrungsgemäß zu Problemen.',
         behebung: null
       });
     }
@@ -72,7 +72,7 @@ export function pruefbericht(index, umgebung) {
       gesehen.add(schluessel);
       funde.push({
         stufe: 'fehler', art: 'doppelt', umgebung, plugin: p, partner: [alt],
-        text: `Erfüllt dieselbe Aufgabe wie ${alt.name}. Beide gleichzeitig zu installieren ist nicht vorgesehen — eines von beiden reicht.`,
+        text: 'Erfüllt dieselbe Aufgabe wie {partner}. Beide gleichzeitig zu installieren ist nicht vorgesehen — eines von beiden reicht.',
         behebung: null
       });
     }
@@ -81,17 +81,28 @@ export function pruefbericht(index, umgebung) {
     for (const fehlt of fehlendeAbhaengigkeiten(index, p, umgebung)) {
       funde.push({
         stufe: 'fehler', art: 'abhaengigkeit', umgebung, plugin: p, partner: [fehlt],
-        text: `Braucht ${fehlt.name}, das auf ${UMGEBUNG_LABEL[umgebung]} nicht gesetzt ist — ohne das startet die Ressource nicht.`,
+        text: `Braucht {partner}, das auf ${UMGEBUNG_LABEL[umgebung]} nicht gesetzt ist — ohne das startet die Ressource nicht.`,
         behebung: { id: fehlt.id, umgebung }
       });
     }
 
     /* --- warnung: das Repo ist tot (G4) --- */
     if (p.archiviert) {
-      const nachfolger = p.archiviert.nachfolger ? ` Nachfolger: ${p.archiviert.nachfolger}.` : '';
+      // `nachfolger` ist laut Schema eine Katalog-ID, keine Klartextbezeichnung. Löst sie auf,
+      // wird daraus ein Verweis auf den echten Eintrag — und es steht der NAME da statt der
+      // rohen ID, was hier bisher durchgängig falsch herum war. Löst sie nicht auf (im Katalog
+      // kommt das einmal vor), bleibt sie ehrlich als unaufgelöste Kennung stehen.
+      const nachfolgerId = p.archiviert.nachfolger || '';
+      const nachfolger = nachfolgerId ? holePlugin(index, nachfolgerId) : null;
+
+      let text = 'Archiviert — bekommt keine Updates mehr.';
+      if (nachfolger) text += ' Nachfolger: {partner}';
+      else if (nachfolgerId) text += ` Nachfolger: ${nachfolgerId} (nicht im Katalog).`;
+
       funde.push({
-        stufe: 'warnung', art: 'archiviert', umgebung, plugin: p, partner: [],
-        text: `Archiviert — bekommt keine Updates mehr.${nachfolger}`,
+        stufe: 'warnung', art: 'archiviert', umgebung, plugin: p,
+        partner: nachfolger ? [nachfolger] : [],
+        text,
         behebung: null
       });
     }

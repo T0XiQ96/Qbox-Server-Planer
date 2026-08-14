@@ -17,6 +17,54 @@ Format je Eintrag:
 
 ---
 
+## [App-Ausbau 3] Anklickbare Querverweise im Prüfbericht – 14.08.2026
+
+**Der Anlass:** Im Prüfbericht stand „Black Market Script — Braucht pl_lib, das auf MAIN nicht
+gesetzt ist". Das betroffene Plugin war verlinkt, **der genannte Partner nicht** — er steckte als
+toter Text im Satz, obwohl das Objekt in `f.partner` längst vorlag. Ursache: `pruefbericht()`
+backte den Namen direkt in das `text`-Feld, und `fundHTML()` escapte den ganzen Satz.
+
+**Platzhalter statt eingebackener Namen (D24):** Die Fundtexte tragen jetzt `{partner}`, das beim
+Rendern durch ein Element ersetzt wird. Nötig war das wegen der deutschen Satzstellung — der Name
+steht mitten im Satz, ein angehängter Verweis hätte ihn doppelt gezeigt. Betrifft alle vier
+Fundarten: fehlende Abhängigkeit, Konflikt, „doppelt" und Nachfolger.
+
+**Klick öffnet den Vergleich, nicht den Sprung (F11/F12):** links das Plugin mit dem Problem,
+rechts der Partner, beide als vollständige Karte. Weil überall sonst ein Pluginname zur Karte
+springt, trägt dieser Verweis ein sichtbares ⚖️ — zwei gleich aussehende Verweise mit
+verschiedenem Verhalten wären eine Falle. Dasselbe in den ungenutzten Synergien, dort zusätzlich
+„⚖️ alle vergleichen", wenn mehrere gesetzte Plugins auf denselben Vorschlag zeigen.
+
+**Der eigentlich wichtigere Fund — Beziehung benennen (D25):** Das Vergleichsfenster schrieb bei
+allem, was nicht dieselbe `gruppe` teilte, „kein besser oder schlechter, verschiedene Zwecke".
+Bei einer **Abhängigkeit** liest sich das wie ein Entweder-oder — dabei müssen zwingend beide
+laufen. Seit der Prüfbericht fehlende Abhängigkeiten direkt in den Vergleich schickt, war das der
+häufigste Fall. Jetzt bestimmt `beziehungImVergleich()` die tatsächliche Beziehung (Konflikt vor
+Alternativen vor Nachfolge vor Abhängigkeit vor Synergie) und textet entsprechend; die
+Unterschiedstabelle startet nur bei echten Alternativen aufgeklappt.
+
+**Nachfolger endlich richtig (B10):** `archiviert.nachfolger` ist laut Schema eine Katalog-ID,
+wurde aber an drei Stellen als **rohe ID** ausgegeben (`ox_fuel` statt des Namens) und war
+nirgends anklickbar — im Tooltip ging das auch strukturell nicht. Jetzt eine eigene sichtbare
+Zeile auf der Karte über `sprungLink()`, das zugleich den Namen auflöst und einen nicht
+auflösbaren Nachfolger als solchen markiert statt ihn zu behaupten (im Katalog trifft das genau
+einen Fall). Import-Vorschau zeigt ebenfalls den Namen statt der ID.
+
+**Auswahlliste ohne Deckel (C11):** statt „… und 344 weitere — Suche verfeinern" steht jetzt der
+ganze Katalog zum Durchscrollen in der Liste.
+
+**Nicht angefasst:** das Konflikt-Popup beim Hakensetzen. Es ist eine blockierende Rückfrage;
+ein Vergleichs-Klick darin würde das Fenster ersetzen und die Frage unbeantwortet verwerfen.
+
+**Geändert:** `warnings.js`, `main.js`, `compare.js`, `render.js`, `style.css`.
+Keine Katalogdatei angefasst.
+
+**Geprüft** am echten Build mit 404 Plugins: Reihenfolge im Vergleich, Kopfzeile bei Abhängigkeit
+vs. Alternativen, Tabellenzustand, Synergie-Gründe, Nachfolger-Zeile, 404 Zeilen in der
+Auswahlliste. Keine Konsolenfehler. **Commit:** folgt
+
+---
+
 ## [App-Ausbau 2] Vergleichskorb – 14.08.2026
 
 Vier Wünsche, die während Ausbau 1 dazukamen — alle auf **ein** gemeinsames Vergleichs-Set
