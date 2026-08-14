@@ -17,6 +17,47 @@ Format je Eintrag:
 
 ---
 
+## [Runden 43–44] Achtzehnte und neunzehnte Neusuche-Runde – 14.08.2026
+
+**22 weitere neue Plugins** (auf Nutzerwunsch „weitere Runden, 2 Stück"), gefunden über drei
+weitere `discover`-Zusatzsuchen (`qbox heist/weapon/mining`, `qbox hud/radio/target`,
+`qbox anticheat/admin/mdt`), gemergt/dedupliziert/nach Sternen sortiert, Autoren-Cluster
+(`DaemonAlex`, `jayz666`, `novendra05`) über die zwei Runden verteilt. Weiterhin Premium-Plugins
+ausdrücklich mit aufgenommen.
+
+**Runde 43 (11 neu):** `lation_mining` (Gruppe `bergbau`, dritter Kandidat neben `red40_mining`
+und `jim_mining`), `ef_shops` (nativ auf qbx_core/ox_inventory gebaut — neue Gruppe `shops`
+zusammen mit den bestehenden `jim_shops`/`wasabi_oxshops`/`murderface-shops`, die per Update
+nachträglich zugeordnet wurden), `pickle_xp`, `peak-sprays`, `ff_storerobbery` (neue Gruppe
+`ladenraub` zusammen mit `qbx_storerobbery`), `ps-inventory-v2` (Gruppe `inventory` — von
+Project-Sloth archiviert, gleiches Muster wie `ps-housing`/`ps-realtor`; Qbox-Support laut README
+nie über „Coming soon" hinausgekommen), `w2f-phone` (Gruppe `phone`, nur `teilgeprueft` da Repo
+selbst „IN TESTING"), `cipher-drone`, `evolution-crypto-mining`, `jrmy_peds`, `detective_cityhall`
+(Gruppe `cityhall`).
+
+**Runde 44 (11 neu):** `pickpocket`, `dps-transit`, `mineandmarket-stage1` (Gruppe `pawnshop`,
+Escrow — README bestätigt das wörtlich, einziger echter Escrow-Fall dieser beiden Runden),
+`vs_communityservices`, `ms-adminmenu` (Gruppe `adminmenu`, `kompat_warnung` wegen veraltetem
+mysql-async-Zugriff statt oxmysql), `kxs-pawn` (Gruppe `pawnshop`, `kompat_warnung` wegen
+qb-target-Fallback im Code), `ew_mdt` (Gruppe `mdt`, nur `teilgeprueft` — README behauptet
+Qbox-Support, Code-Stichprobe über alle 11 Lua-Dateien fand dafür keinen Beleg), `k_skills`,
+`opengather`, `airdrops`, `gilo-helicopter`.
+
+**Korrekturen beim Einpflegen:** Subagent für Runde 44 lieferte `"preis": "kostenlos"` als
+String statt des schema-konformen `null`/Weglassens — vor dem Commit entfernt (alle 11 Einträge
+sind kostenlos, das Feld bleibt bei kostenlosen Plugins konventionsgemäß einfach weg). Mehrere
+`kompat_warnung`-würdige Befunde kamen zunächst nur als lose `contra`-Zeile mit 🔴-Emoji statt als
+strukturiertes `kompat_warnung`-Objekt (Felder `text`+`sicherheit`) — für `ms-adminmenu`,
+`kxs-pawn` und `ew_mdt` nachträglich korrekt gesetzt.
+
+**Katalog:** 22 neu, 4 aktualisiert (Gruppenvergleiche `jim_shops`/`wasabi_oxshops`/
+`murderface-shops`/`qbx_storerobbery` in Runde 43, `jim_pawnshop`/`qbx_pawnshop`/`ox_mdt`/
+`ps_adminmenu` in Runde 44), 0 Duplikate übersprungen, 0 ungeprüft. Katalogstand 437 → **459
+Plugins**.
+**Commit:** folgt
+
+---
+
 ## [Runden 40–42] Fünfzehnte bis siebzehnte Neusuche-Runde – 14.08.2026
 
 **33 neue Plugins in 3 parallelen Runden** (auf Nutzerwunsch „3 Stück hintereinander"), gefunden

@@ -1,0 +1,314 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.3-r44",
+  "runde": 44,
+  "thema": "Neunzehnte Neusuche-Runde: Rest der Zusatzsuchen (heist/weapon/mining, hud/radio/target, anticheat/admin/mdt), 11 neue Plugins, 3 mit Gruppenvergleich (pawnshop x2, mdt, adminmenu)",
+  "erstellt": "2026-08-14",
+  "plugins": [
+    {
+      "id": "pickpocket",
+      "name": "pickpocket",
+      "kategorie": "crime",
+      "beschreibung": "Leichtgewichtiges Taschendiebstahl-Script: Spieler können nahen NPCs über ox_target Bargeld und geringwertige Items entwenden.",
+      "link": "https://github.com/xtdocx/pickpocket",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-04",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory", "ox_target"],
+      "pro": [
+        "Framework-agnostisch, funktioniert mit ox_core oder qbx_core ohne Core-spezifischen Code (nur ox_inventory/ox_lib-Berührung)"
+      ],
+      "contra": [
+        "Zusätzliche UI-Abhängigkeit bl_ui (nicht im Katalog) nötig, nicht als optional dokumentiert"
+      ],
+      "quelle": "https://github.com/xtdocx/pickpocket, https://raw.githubusercontent.com/xtdocx/pickpocket/main/fxmanifest.lua, https://raw.githubusercontent.com/xtdocx/pickpocket/main/README.md"
+    },
+    {
+      "id": "dps-transit",
+      "name": "dps-transit",
+      "kategorie": "realismus",
+      "beschreibung": "Multimodales Transitsystem mit Regionalbahn, Metro und KI-Shuttlebussen, inklusive Fahrgast-/Frachtplanung und dynamischer Geschwindigkeitsregelung an Kurven/Brücken.",
+      "link": "https://github.com/DaemonAlex/dps-transit",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.8.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_target", "qbx_core"],
+      "pro": [
+        "Framework-Autoerkennung im Code bestätigt, direkter qbx_core-Export",
+        "Aktiv gepflegt, Bridge seit v2.7.0 eigens für Qbox/QBCore/ESX ausgebaut"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben"
+      ],
+      "quelle": "https://github.com/DaemonAlex/dps-transit, https://raw.githubusercontent.com/DaemonAlex/dps-transit/master/fxmanifest.lua, https://raw.githubusercontent.com/DaemonAlex/dps-transit/master/README.md"
+    },
+    {
+      "id": "mineandmarket-stage1",
+      "name": "mineandmarket-stage1",
+      "kategorie": "crime",
+      "gruppe": "pawnshop",
+      "beschreibung": "Pfandhaus-System zum Verkauf geförderter Erze über NPC-Händler mit ox_target-Interaktion und ox_inventory-Anbindung.",
+      "link": "https://github.com/jayz666/mineandmarket-stage1",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-03-23",
+      "lizenz": "escrow",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_target", "ox_inventory"],
+      "pro": [
+        "Framework-Autoerkennung im Code bestätigt, direkter qbx_core-Export"
+      ],
+      "contra": [
+        "README bestätigt wörtlich: \"This resource is protected by escrow and licensing agreements\" — Code nicht frei einsehbar/reparierbar bei Bridge-Problemen",
+        "Kein Preis im Repo genannt, Verkaufsseite nicht auffindbar — bewusst kein Preis eingetragen"
+      ],
+      "quelle": "https://github.com/jayz666/mineandmarket-stage1, https://raw.githubusercontent.com/jayz666/mineandmarket-stage1/main/fxmanifest.lua, https://raw.githubusercontent.com/jayz666/mineandmarket-stage1/main/README.md"
+    },
+    {
+      "id": "vs_communityservices",
+      "name": "Vs_CommunityServices",
+      "kategorie": "admin",
+      "beschreibung": "System für Sozialstunden: Admins weisen Spielern Arbeitszonen zu, Fortschritt wird verfolgt und im Admin-Panel überwacht.",
+      "link": "https://github.com/vicestudio-eu/Vs_CommunityServices",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-05",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql", "ox_inventory"],
+      "pro": [
+        "Eigene bridge/-Dateien für ESX/QBCore/Qbox mit Autoerkennung im Code bestätigt",
+        "ox_lib-basiert, moderne UI-Komponenten (lib.inputDialog)"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben"
+      ],
+      "quelle": "https://github.com/vicestudio-eu/Vs_CommunityServices, https://raw.githubusercontent.com/vicestudio-eu/Vs_CommunityServices/main/fxmanifest.lua, https://raw.githubusercontent.com/vicestudio-eu/Vs_CommunityServices/main/README.md"
+    },
+    {
+      "id": "ms-adminmenu",
+      "name": "Ms-Adminmenu",
+      "kategorie": "admin",
+      "gruppe": "adminmenu",
+      "beschreibung": "Serverautoritatives Admin-Menü mit automatischer Framework-/Inventar-Erkennung, Spieler-, Fahrzeug- und Ankündigungsverwaltung sowie ACE-Permission-Anbindung.",
+      "link": "https://github.com/MilleniumStore/Ms-Adminmenu",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-31",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "kompat_warnung": {
+        "text": "Nutzt veraltete mysql-async/ghmattimysql-Zugriffsmuster (server/database.lua:9, config.lua:13) statt oxmysql — bei einem reinen ox-Stack ohne mysql-async-Kompatibilitätsschicht prüfen, ob der Datenbank-Layer greift.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Framework-Autoerkennung im Code bestätigt, direkter qbx_core-Export",
+        "MIT-lizenziert, ox_inventory-Anbindung bestätigt"
+      ],
+      "contra": [
+        "Veraltetes Datenbank-Zugriffsmuster (siehe kompat_warnung)"
+      ],
+      "quelle": "https://github.com/MilleniumStore/Ms-Adminmenu, https://raw.githubusercontent.com/MilleniumStore/Ms-Adminmenu/main/fxmanifest.lua, https://raw.githubusercontent.com/MilleniumStore/Ms-Adminmenu/main/README.md"
+    },
+    {
+      "id": "kxs-pawn",
+      "name": "kxs-pawn",
+      "kategorie": "crime",
+      "gruppe": "pawnshop",
+      "beschreibung": "Pfandhaus-System mit MDT-artiger NUI, dynamischer Marktpreisbildung, Reputationssystem und persistentem Rückkauf verkaufter Gegenstände.",
+      "link": "https://github.com/kodoxsripts/kxs-pawn",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "unbekannt",
+      "letztes_update": "Aktiv · letzter Push 2026-03-16",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["oxmysql", "ox_lib"],
+      "kompat_warnung": {
+        "text": "Hartcodierter exports['qb-target']-Aufruf gefunden (client/main.lua:151) neben ox_target-Nutzung — bei reiner Qbox/ox_target-Umgebung ohne qb-target ggf. Fehlerquelle.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Multi-Framework/-Inventar wählbar (QBCore/Qbox/ESX, ox_inventory/qb-inventory/qs-inventory), qbx_core-Export bestätigt"
+      ],
+      "contra": [
+        "qb-target-Fallback im Code (siehe kompat_warnung)",
+        "Keine SPDX-Lizenz im Repo angegeben"
+      ],
+      "quelle": "https://github.com/kodoxsripts/kxs-pawn, https://raw.githubusercontent.com/kodoxsripts/kxs-pawn/main/fxmanifest.lua, https://raw.githubusercontent.com/kodoxsripts/kxs-pawn/main/README.md"
+    },
+    {
+      "id": "ew_mdt",
+      "name": "ew_mdt",
+      "kategorie": "staat",
+      "gruppe": "mdt",
+      "beschreibung": "Polizei-MDT-Tablet mit Bürgerdatenbank (Suche nach Name/Telefon/ID), Strafregister, Bußgeldern und Lizenzen für ESX/QBCore/Qbox.",
+      "link": "https://github.com/LinoSauvaire/ew_mdt",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-22",
+      "lizenz": "escrow",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "kompat_warnung": {
+        "text": "README nennt Qbox als unterstütztes Framework, Code-Stichprobe über alle 11 .lua-Dateien fand aber weder qbx_core- noch qb-core-Fundstellen — die Bridge-Aussage im README ist im Code nicht nachvollziehbar. Zusätzlich escrow_ignore-Block im fxmanifest, typisches Merkmal verschlüsselter/kommerzieller Ressourcen, ohne dass ein Preis belegbar wäre.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "README nennt Qbox ausdrücklich als unterstütztes Framework"
+      ],
+      "contra": [
+        "Framework-Bridge im Code nicht nachvollziehbar (siehe kompat_warnung)",
+        "Vermutlich Escrow-Ressource, aber kein Preis belegbar"
+      ],
+      "quelle": "https://github.com/LinoSauvaire/ew_mdt, https://raw.githubusercontent.com/LinoSauvaire/ew_mdt/main/fxmanifest.lua, https://raw.githubusercontent.com/LinoSauvaire/ew_mdt/main/README.md"
+    },
+    {
+      "id": "k_skills",
+      "name": "k_skills",
+      "kategorie": "ui",
+      "beschreibung": "Globales Skill-/XP-System, das Fertigkeitswerte in Spieler-Metadaten speichert und über Exports für andere Scripts bereitstellt, gebaut für ox_inventory und Qbox.",
+      "link": "https://github.com/kurnok/k_skills",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.5",
+      "letztes_update": "Aktiv · letzter Push 2025-10-07",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory", "qbx_core"],
+      "pro": [
+        "Direkter qbx_core-Export im Code bestätigt",
+        "MIT-lizenziert trotz zusätzlichem Tebex-Auftritt des Autors für andere Produkte"
+      ],
+      "quelle": "https://github.com/kurnok/k_skills, https://raw.githubusercontent.com/kurnok/k_skills/main/fxmanifest.lua, https://raw.githubusercontent.com/kurnok/k_skills/main/README.md"
+    },
+    {
+      "id": "opengather",
+      "name": "OpenGather",
+      "kategorie": "zivil",
+      "beschreibung": "Kostenloser, quelloffener Sammel-und-Verkaufen-Job mit performanceorientiertem, serverautoritativem Ansatz und Bridge für ESX/QBCore/Qbox.",
+      "link": "https://github.com/PlayClawForge/OpenGather",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-30",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "pro": [
+        "MIT-Lizenz ausdrücklich im README bestätigt",
+        "Sehr performanceorientiert (~0.00-0.02ms idle laut README), Zero-Dependency-Default",
+        "Optionale ox_target-Nutzung im Code bestätigt"
+      ],
+      "contra": [
+        "Kein qbx_core-natives Muster im Code, Bridge ist eine eigene kleine bridge.lua-Datei ohne offizielle Qbox-Exports"
+      ],
+      "quelle": "https://github.com/PlayClawForge/OpenGather, https://raw.githubusercontent.com/PlayClawForge/OpenGather/main/fxmanifest.lua, https://raw.githubusercontent.com/PlayClawForge/OpenGather/main/README.md"
+    },
+    {
+      "id": "airdrops",
+      "name": "airdrops",
+      "kategorie": "realismus",
+      "beschreibung": "QBOX-Luftabwurf-Loot-System mit serverseitiger Zustandsverwaltung, ox_inventory-Belohnungen und ox_target-Interaktion an gelandeten Kisten.",
+      "link": "https://github.com/Skeezle/airdrops",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.4.5",
+      "letztes_update": "Aktiv · letzter Push 2026-07-11",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_target", "ox_inventory", "qbx_core"],
+      "pro": [
+        "README bestätigt ausdrücklich \"non-escrowed\"",
+        "Vollständig durch Code-Stichprobe bestätigt: qbx_core-, ox_inventory-, ox_target-Exports",
+        "Item-Belohnungen serverseitig gegen ox_inventory-Katalog validiert"
+      ],
+      "quelle": "https://github.com/Skeezle/airdrops, https://raw.githubusercontent.com/Skeezle/airdrops/main/fxmanifest.lua, https://raw.githubusercontent.com/Skeezle/airdrops/main/README.md"
+    },
+    {
+      "id": "gilo-helicopter",
+      "name": "gilo-helicopter",
+      "kategorie": "staat",
+      "beschreibung": "Polizeihubschrauber-Kamerasystem mit Kennzeichenerkennung (ALPR), taktischen Markierungen und State-Bag-Synchronisation, für QBCore, ESX, Qbox oder Standalone.",
+      "link": "https://github.com/DaemonAlex/gilo-helicopter",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-08",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "pro": [
+        "Framework-Autoerkennung im Code bestätigt",
+        "Läuft laut README auch komplett standalone ohne Framework"
+      ],
+      "contra": [
+        "ox_lib nur optional für Notifications, keine tiefere Qbox-Integration über reine Notify-Bridge hinaus"
+      ],
+      "quelle": "https://github.com/DaemonAlex/gilo-helicopter, https://raw.githubusercontent.com/DaemonAlex/gilo-helicopter/main/fxmanifest.lua, https://raw.githubusercontent.com/DaemonAlex/gilo-helicopter/main/README.md"
+    }
+  ],
+  "updates": [
+    {
+      "id": "jim_pawnshop",
+      "geprueft_am": "2026-08-14",
+      "contra": [
+        "Gegenüber kxs-pawn (Reputationssystem, dynamische Marktpreise) und mineandmarket-stage1 (Erz-Verwertung) inzwischen zwei weitere Gruppenmitglieder mit eigenem Profil"
+      ],
+      "update_grund": "Zwei neue Gruppen-Konkurrenten in Runde 44 gefunden: kxs-pawn (kostenlos, dynamische Marktpreise, Reputationssystem, aber qb-target-Fallback im Code) und mineandmarket-stage1 (Escrow, spezialisiert auf Erz-Verwertung aus Bergbau-Aktivitäten)."
+    },
+    {
+      "id": "qbx_pawnshop",
+      "geprueft_am": "2026-08-14",
+      "contra": [
+        "Gegenüber kxs-pawn (Reputationssystem, dynamische Marktpreise) und mineandmarket-stage1 (Erz-Verwertung) inzwischen zwei weitere Gruppenmitglieder mit eigenem Profil"
+      ],
+      "update_grund": "Zwei neue Gruppen-Konkurrenten in Runde 44 gefunden: kxs-pawn (kostenlos, dynamische Marktpreise, Reputationssystem, aber qb-target-Fallback im Code) und mineandmarket-stage1 (Escrow, spezialisiert auf Erz-Verwertung aus Bergbau-Aktivitäten)."
+    },
+    {
+      "id": "ox_mdt",
+      "geprueft_am": "2026-08-14",
+      "contra": [
+        "Neuer Gruppenkandidat ew_mdt (Runde 44) bewirbt Qbox-Support im README, konnte das aber im Code nicht belegen — kein klarer Vorteil ggü. ox_mdt, nur als weitere Option gelistet"
+      ],
+      "update_grund": "Neuer Gruppen-Kandidat ew_mdt (Runde 44) gefunden — Framework-Bridge-Aussage im README nicht im Code nachvollziehbar, daher nur teilgeprueft und kein klarer Ersatz für ox_mdt."
+    },
+    {
+      "id": "ps_adminmenu",
+      "geprueft_am": "2026-08-14",
+      "contra": [
+        "Neuer Gruppenkandidat ms-adminmenu (Runde 44) mit Framework-Autoerkennung, nutzt aber veraltete mysql-async-Zugriffsmuster statt oxmysql"
+      ],
+      "update_grund": "Neuer Gruppen-Konkurrent ms-adminmenu (Runde 44) gefunden — kostenloses Admin-Menü mit Framework-Autoerkennung und ACE-Permission-Anbindung, aber veralteter Datenbank-Layer."
+    }
+  ]
+}

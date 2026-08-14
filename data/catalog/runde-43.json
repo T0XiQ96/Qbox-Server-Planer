@@ -1,0 +1,336 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.3-r43",
+  "runde": 43,
+  "thema": "Achtzehnte Neusuche-Runde: gezielte Zusatzsuchen (qbox heist/weapon/mining, hud/radio/target, anticheat/admin/mdt), 11 neue Plugins, 3 neue/erweiterte Gruppen (shops, ladenraub, bergbau/inventory/cityhall/phone erweitert)",
+  "erstellt": "2026-08-14",
+  "plugins": [
+    {
+      "id": "lation_mining",
+      "name": "lation_mining",
+      "kategorie": "zivil",
+      "beschreibung": "Bergbau- und Schmelz-Aktivität mit XP-System, Level-Voraussetzungen für Spitzhacken und Verkauf von Erzen/Barren. Unterstützt ESX, QBCore und Qbox über eine eigene Bridge.",
+      "link": "https://github.com/IamLation/lation_mining",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.0.3",
+      "letztes_update": "Aktiv · letzter Push 2025-06-30",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "bergbau",
+      "abhaengigkeiten": ["oxmysql", "ox_lib"],
+      "kompat_warnung": {
+        "text": "Ein Fallback nutzt exports['qb-target'] statt ox_target (client/functions.lua:217) — nur relevant, falls die Bridge den Zweig nicht korrekt auf Qbox umschaltet.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Eigene Bridge mit Framework-Autoerkennung",
+        "Nutzt ox_lib und exports.qbx_core/ox_inventory/ox_target direkt",
+        "XP-System mit granularen Level-Anforderungen"
+      ],
+      "contra": [
+        "Ein qb-target-Fallback im Code (siehe kompat_warnung)"
+      ],
+      "quelle": "https://github.com/IamLation/lation_mining, fxmanifest.lua, bridge/server.lua:55, bridge/client.lua:126, client/functions.lua:217"
+    },
+    {
+      "id": "ef_shops",
+      "name": "Everfall Shops",
+      "kategorie": "wirtschaft",
+      "beschreibung": "Shop-System mit React-UI, speziell für qbx_core und ox_inventory gebaut. Ermöglicht konfigurierbare NPC-Shops.",
+      "link": "https://github.com/jellyton255/ef_shops",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.3.0",
+      "letztes_update": "Aktiv · letzter Push 2025-06-12",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": "shops",
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "Direkt für qbx_core/ox_inventory/ox_target gebaut, keine Bridge-Umwege",
+        "React-basierte UI",
+        "Folgt den offiziellen Qbox-Contribution-Guidelines"
+      ],
+      "contra": [
+        "Nicht für reines QBCore oder ESX gedacht"
+      ],
+      "quelle": "https://github.com/jellyton255/ef_shops, fxmanifest.lua, server/sv_main.lua:9,77, client/cl_main.lua:8,210"
+    },
+    {
+      "id": "pickle_xp",
+      "name": "pickle_xp",
+      "kategorie": "ui",
+      "beschreibung": "Standalone-XP-System mit Multi-Framework-Unterstützung (QBox, ESX, QBCore) inklusive automatischer Framework-Erkennung und ox_lib-Benachrichtigungen.",
+      "link": "https://github.com/PickleModifications/pickle_xp",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "v1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2025-12-15",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["oxmysql", "ox_lib"],
+      "pro": [
+        "Läuft auch ganz ohne Framework (Standalone-Modus)",
+        "Explizite qbx_core-Bridge mit Autoerkennung",
+        "Nutzt Multi-Charakter-Identifier je Framework"
+      ],
+      "contra": [
+        "Keine LICENSE-Datei im Repo"
+      ],
+      "quelle": "https://github.com/PickleModifications/pickle_xp, fxmanifest.lua, bridge/qbx/client.lua:11, bridge/qbx/server.lua:8"
+    },
+    {
+      "id": "peak-sprays",
+      "name": "Peak Sprays",
+      "kategorie": "assets",
+      "beschreibung": "Persistentes Spray-Painting-System mit Framework-Bridge für QBCore, Qbox, ESX, OX Core, vRP und Standalone-Betrieb.",
+      "link": "https://github.com/Peak-Studios/peak-sprays",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "0.2.3",
+      "letztes_update": "Aktiv · letzter Push 2026-07-25",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "kompat_warnung": {
+        "text": "Ein Codepfad nutzt noch ein älteres MySQL-Zugriffsmuster (server/init.lua:126) statt ausschließlich oxmysql — im Regelfall unschädlich, da oxmysql als Dependency gesetzt ist, aber ein Hinweis auf Altcode.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "MIT-lizenziert, echter Open Source trotz 'Premium'-Beschreibung im Repo",
+        "Breite Framework-Bridge inkl. Standalone-Modus",
+        "Nutzt exports.qbx_core und ox_inventory direkt"
+      ],
+      "contra": [
+        "Ein Rest-Codepfad mit veraltetem MySQL-Muster (siehe kompat_warnung)"
+      ],
+      "quelle": "https://github.com/Peak-Studios/peak-sprays, fxmanifest.lua, server/bridge.lua:191, client/init.lua:51"
+    },
+    {
+      "id": "ff_storerobbery",
+      "name": "ff_shoprobbery",
+      "kategorie": "crime",
+      "beschreibung": "Ladenraub-System mit Animationen und vernetzten Szenen. Framework-Bridge für ESX, QBCore, Qbox und Mythic, Ziel-System wahlweise ox_target, qb-target, qtarget oder mythic-targeting.",
+      "link": "https://github.com/FiveForge-Studios/ff_storerobbery",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.2",
+      "letztes_update": "Aktiv · letzter Push 2025-03-30",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "ladenraub",
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "Eigene Bridge mit Framework-Autoerkennung inkl. eigenem qbox-Zweig",
+        "Unterstützt ox_target/ox_inventory nativ",
+        "Breite Ziel-System-Auswahl"
+      ],
+      "contra": [
+        "Legacy-Fallbacks auf qb-target/qb-inventory im Bridge-Code (nur für den QBCore-Zweig aktiv)"
+      ],
+      "quelle": "https://github.com/FiveForge-Studios/ff_storerobbery, fxmanifest.lua, bridge/server/qbox.lua:55, bridge/framework.lua:3"
+    },
+    {
+      "id": "ps-inventory-v2",
+      "name": "PS Inventory",
+      "kategorie": "ui",
+      "beschreibung": "Inventar-System von Project Sloth mit ox_target-Unterstützung, primär für QBCore gebaut. Qbox-Support war laut README nur als 'Coming soon' geplant.",
+      "link": "https://github.com/Project-Sloth/ps-inventory-v2",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.0.0",
+      "letztes_update": "Archiviert · letzter Push 2026-02-06",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "gruppe": "inventory",
+      "archiviert": {
+        "text": "Repo auf GitHub archiviert (Autor Project Sloth stellt reihenweise ps-*-Repos ein zugunsten von ps-mdt v3, gleiches Muster wie ps-housing/ps-realtor). Qbox-Support war laut README nie über 'Coming soon' hinausgekommen.",
+        "nachfolger": ""
+      },
+      "contra": [
+        "Archiviert, keine weitere Pflege",
+        "Qbox-Support laut README nie fertiggestellt, nur QBCore explizit unterstützt"
+      ],
+      "quelle": "https://github.com/Project-Sloth/ps-inventory-v2, README.md L1-15, framework/base/client.lua:137,147"
+    },
+    {
+      "id": "w2f-phone",
+      "name": "W2F Phone",
+      "kategorie": "kommunikation",
+      "beschreibung": "Handy-System mit Item-Bindung über ox_inventory, entwickelt speziell für Qbox (qbx_core) als Teil des 'W2F QBX Refined'-Pakets. Laut Repo-Beschreibung noch in Testphase.",
+      "link": "https://github.com/Wayy2Flyyy/w2f-phone",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-28",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "gruppe": "phone",
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_inventory", "oxmysql"],
+      "contra": [
+        "Repo-Status explizit 'IN TESTING' — noch nicht als stabil zu betrachten",
+        "Kein ESX-Support (laut README)",
+        "An das 'W2F QBX Refined'-Paket gebunden, keine Standalone-Nutzung vorgesehen"
+      ],
+      "pro": [
+        "Direkt auf qbx_core und ox_inventory-Metadaten aufgebaut, keine Bridge-Umwege"
+      ],
+      "quelle": "https://github.com/Wayy2Flyyy/w2f-phone, README.md L3-10, server/core.lua:10,67"
+    },
+    {
+      "id": "cipher-drone",
+      "name": "Cipher — Drone",
+      "kategorie": "staat",
+      "beschreibung": "Einsetzbare Polizei-Drohne mit Live-Kamera, Wärmebild, Scheinwerfer, Tracker-Pfeilen und Abschussmöglichkeit; auf Verbrecherseite mit Jamming als Gegenspiel. Für QBox und QBCore mit Framework-Autoerkennung.",
+      "link": "https://github.com/XyraL/cipher-drone",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-04",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "kompat_warnung": {
+        "text": "Laut README hat qbx_core keine server-seitige 'useable item'-Registrierung wie qb-core, wodurch Drohnen-/Jammer-Item ohne weitere Anpassung wirkungslos bleiben können.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Framework-Autoerkennung über bridge/framework.lua",
+        "Nutzt exports.qbx_core und ox_inventory/ox_target direkt",
+        "Teil einer aktiv gepflegten Cipher-Suite (mehrere verwandte Module vom selben Autor)"
+      ],
+      "contra": [
+        "Bekannte Einschränkung bei useable-item-Registrierung unter Qbox (siehe kompat_warnung)",
+        "ox_lib optional, ohne es fallen Keybinds auf native Prompts zurück"
+      ],
+      "quelle": "https://github.com/XyraL/cipher-drone, README.md L120, bridge/framework.lua:11,28"
+    },
+    {
+      "id": "evolution-crypto-mining",
+      "name": "Evolution-Crypto-Mining",
+      "kategorie": "zivil",
+      "beschreibung": "Crypto-Mining-Aktivität, laut README auf Qbox aufgebaut; QBCore-Kompatibilität wird als 'sollte auch funktionieren' angegeben, nicht bestätigt.",
+      "link": "https://github.com/Robbiew24636/Evolution-Crypto-Mining",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-05-10",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_inventory"],
+      "kompat_warnung": {
+        "text": "README nennt QBCore-Support nur als Vermutung ('should also work on QBCore'), im Code selbst ist kein qb-core-spezifischer Zweig zu finden — für QBCore-Server also unbelegt.",
+        "sicherheit": "vermutung"
+      },
+      "contra": [
+        "Sehr kleines Repo (nur 3 Lua-Dateien), kaum dokumentierte Features",
+        "Kein Framework-Autoerkennungscode gefunden, nur ox_inventory-Export direkt genutzt"
+      ],
+      "quelle": "https://github.com/Robbiew24636/Evolution-Crypto-Mining, README.md L4-8, server.lua:28"
+    },
+    {
+      "id": "jrmy_peds",
+      "name": "jrmy_peds",
+      "kategorie": "realismus",
+      "beschreibung": "Persistente Ped-Verwaltung mit administrativer Zuweisung und individuellen Ped-Sammlungen pro Charakter. Unterstützt Qbox, QBCore und ESX inklusive gängiger Aussehen-Ressourcen.",
+      "link": "https://github.com/JaramiyoSM/jrmy_peds",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-01",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["oxmysql"],
+      "pro": [
+        "Konfigurierbares Framework-Feld (auto/qbox/qb/esx)",
+        "Kompatibel mit mehreren Aussehen-Systemen (Illenium/FiveM Appearance/QB Clothing/ESX Skin)",
+        "MIT-lizenziert"
+      ],
+      "contra": [
+        "Nur eine qbx_core-Fundstelle im Code, QBCore/ESX-Zweige nicht per Code-Stichprobe verifiziert"
+      ],
+      "quelle": "https://github.com/JaramiyoSM/jrmy_peds, README.md L88, server/main.lua:154, client/main.lua:41"
+    },
+    {
+      "id": "detective_cityhall",
+      "name": "Detective_cityhall",
+      "kategorie": "staat",
+      "beschreibung": "Modernes, konfigurierbares Rathaus-System mit Lizenzverkauf (Führerschein, Waffenschein) für QBCore und Qbox.",
+      "link": "https://github.com/DetectivDEV/Detective_cityhall",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-09",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "cityhall",
+      "kompat_warnung": {
+        "text": "Requirements-Abschnitt im README nennt ausschließlich 'QBCore Framework' als Pflichtabhängigkeit, Qbox wird nur im Titel/Beschreibung erwähnt; ein Zugriff auf exports['qb-target'] (client.lua:183) besteht neben dem konfigurierbaren ox_target-Pfad.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "ox_target per Config umschaltbar",
+        "Aktiv gepflegt, kleine Codebasis leicht prüfbar"
+      ],
+      "contra": [
+        "README-Requirements nennen nur QBCore, Qbox-Support wirkt nachträglich aufgesetzt",
+        "qb-target-Zugriff im Code parallel zu ox_target"
+      ],
+      "quelle": "https://github.com/DetectivDEV/Detective_cityhall, README.md L139-147, client.lua:169,183"
+    }
+  ],
+  "updates": [
+    {
+      "id": "jim_shops",
+      "geprueft_am": "2026-08-14",
+      "gruppe": "shops",
+      "contra": [
+        "Gegenüber ef_shops (kostenlos, nativ auf qbx_core/ox_inventory) ein kostenpflichtiges Produkt"
+      ],
+      "update_grund": "Neuer Gruppen-Konkurrent ef_shops (Runde 43) gefunden — kostenloses, nativ auf qbx_core gebautes Shop-System. Gruppe 'shops' neu vergeben, jim_shops/wasabi_oxshops/murderface-shops nachträglich zugeordnet (Kollisionscheck: Name war frei)."
+    },
+    {
+      "id": "wasabi_oxshops",
+      "geprueft_am": "2026-08-14",
+      "gruppe": "shops",
+      "update_grund": "Gruppe 'shops' neu vergeben (siehe jim_shops-Update, Runde 43) — wasabi_oxshops als leichtgewichtige ox_inventory-Alternative gehört fachlich in dieselbe Vergleichsgruppe."
+    },
+    {
+      "id": "murderface-shops",
+      "geprueft_am": "2026-08-14",
+      "gruppe": "shops",
+      "update_grund": "Gruppe 'shops' neu vergeben (siehe jim_shops-Update, Runde 43) — murderface-shops gehört fachlich in dieselbe Vergleichsgruppe."
+    },
+    {
+      "id": "qbx_storerobbery",
+      "geprueft_am": "2026-08-14",
+      "gruppe": "ladenraub",
+      "contra": [
+        "Gegenüber ff_storerobbery (breitere Ziel-System-Auswahl, mehrfache Framework-Bridge) funktional schlanker"
+      ],
+      "update_grund": "Neuer Gruppen-Konkurrent ff_storerobbery (Runde 43) gefunden — Ladenraub-System mit breiterer Framework-/Ziel-System-Unterstützung. Gruppe 'ladenraub' neu vergeben (Kollisionscheck: Name war frei)."
+    }
+  ]
+}
