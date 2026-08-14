@@ -1,0 +1,362 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.0-r39",
+  "runde": 39,
+  "thema": "Vierzehnte Neusuche-Runde: gezielte Zusatzsuchen (qbox mlo/heist/clothing+weapon), 11 neue Plugins, 4 mit Gruppenvergleich",
+  "erstellt": "2026-08-14",
+  "plugins": [
+    {
+      "id": "v-supplychain-restaurants",
+      "name": "v-supplychain-restaurants",
+      "kategorie": "zivil",
+      "beschreibung": "Liefer- und Lagerkette für mehrere Restaurant-Jobs: Rohstoffe verarbeiten, Bestand verwalten, Zutaten zwischen Verarbeitung und Restaurant transportieren. Nutzt ox_target und ox_inventory, alternativ qb-target als Fallback.",
+      "link": "https://github.com/Virgildev/v-supplychain-restaurants",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-07-04",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": null,
+      "abhaengigkeiten": ["ox_lib", "ox_inventory"],
+      "archiviert": {
+        "text": "Vom Autor selbst im README als 'no longer maintained, use at your own risk' markiert."
+      },
+      "kompat_warnung": {
+        "text": "Enthält harte exports['qb-target']-Aufrufe (client/cl_resturant.lua:20, client/cl_processing.lua:7) neben ox_target-Pfaden (client/cl_resturant.lua:52, cl_processing.lua:27) — Framework wird vermutlich per Config umgeschaltet, nicht automatisch erkannt.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Deckt komplette Lieferkette für mehrere Restaurants ab, nicht nur einen Job",
+        "Nutzt ox_lib/ox_target/ox_inventory für Qbox"
+      ],
+      "contra": [
+        "Vom Autor selbst als nicht mehr gepflegt markiert",
+        "Keine SPDX-Lizenz im Repo angegeben"
+      ],
+      "quelle": "https://github.com/Virgildev/v-supplychain-restaurants, https://raw.githubusercontent.com/Virgildev/v-supplychain-restaurants/main/fxmanifest.lua"
+    },
+    {
+      "id": "mtc-arcade",
+      "name": "mtc-arcade",
+      "kategorie": "zivil",
+      "beschreibung": "Arcade-Automaten-Feature für QBCore/Qbox mit eigener UI-Seite und Token-System. Kein README im Repo vorhanden, Zweck stammt aus Repo-Beschreibung und Dateistruktur.",
+      "link": "https://github.com/morethancodenl/mtc-arcade",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2023-12-18",
+      "lizenz": "open_source",
+      "framework": "qbcore_only",
+      "qualitaet": "teilgeprueft",
+      "gruppe": null,
+      "kompat_warnung": {
+        "text": "shared_scripts bindet @qb-core/shared/locale.lua direkt ein (fxmanifest.lua:19), zusätzlich exports['qb-target'] (client/cl_tokens.lua:55, client/cl_target.lua:14). Kein ox-Gegenstück in der Code-Stichprobe gefunden — wirkt wie feste QBCore-Bindung statt Bridge.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Nutzt zusätzlich ox_lib"
+      ],
+      "contra": [
+        "Feste Abhängigkeit auf @qb-core/shared/locale.lua und qb-target ohne erkennbaren ox-Pfad",
+        "Kein README — Funktionsumfang nicht im Detail belegbar",
+        "Letzter Push Ende 2023"
+      ],
+      "quelle": "https://github.com/morethancodenl/mtc-arcade, https://raw.githubusercontent.com/morethancodenl/mtc-arcade/main/fxmanifest.lua"
+    },
+    {
+      "id": "sleepless_lootbox",
+      "name": "sleepless_lootbox",
+      "kategorie": "wirtschaft",
+      "beschreibung": "CS:GO-artiges Lootbox-/Case-Opening-System mit gewichtsbasierten Drop-Pools. Unterstützt ESX, QBCore, Qbox und ox_core; Items werden je nach Framework über ox_inventory- oder qb-core-Item-Definitionen registriert.",
+      "link": "https://github.com/Sleepless-Development/sleepless_lootbox",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.7",
+      "letztes_update": "Aktiv · letzter Push 2026-07-10",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": null,
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "Bedient Qbox nativ über exports.qbx_core (config.lua:251)",
+        "Zusätzlich ESX/QBCore/ox_core unterstützt, inkl. Beispiel-Itemdefinitionen für beide Inventar-Welten",
+        "MIT-lizenziert, aktiv gepflegt (Push 07/2026)"
+      ],
+      "contra": [
+        "Setzt ox_lib zwingend voraus"
+      ],
+      "quelle": "https://github.com/Sleepless-Development/sleepless_lootbox, https://raw.githubusercontent.com/Sleepless-Development/sleepless_lootbox/main/fxmanifest.lua"
+    },
+    {
+      "id": "eye_minigames",
+      "name": "eye_minigames",
+      "kategorie": "crime",
+      "beschreibung": "Standalone-Sammlung von 70 filmisch gestalteten Skill-Check-Minispielen mit einer einheitlichen Export-API. Kein Framework, kein ox_lib und keine Datenbank nötig.",
+      "link": "https://github.com/invalid0190/eye_minigames",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "2.3.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-30",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "gruppe": "minigames",
+      "pro": [
+        "70 Minigames statt einer Handvoll Klassiker",
+        "Framework-agnostisch, kein ESX/QBCore/Qbox/ox_lib nötig (README L3-L4)",
+        "Aktiv gepflegt (Push 06/2026), keine Datenbank/Dependencies"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben",
+        "Kein etablierter Standard-Export-Name wie bei qb-minigames, den bestehende Heist-Scripts erwarten"
+      ],
+      "quelle": "https://github.com/invalid0190/eye_minigames, https://raw.githubusercontent.com/invalid0190/eye_minigames/main/fxmanifest.lua"
+    },
+    {
+      "id": "wp-seats",
+      "name": "wp-seats",
+      "kategorie": "basis",
+      "beschreibung": "Standalone-Script, das eine 'Hinsetzen'-Target-Option auf Stühlen im gesamten Kartenbereich hinzufügt. Framework- und Notify-Anbindung wird über eine austauschbare framework.lua konfiguriert.",
+      "link": "https://github.com/WaypointRP/wp-seats",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.2",
+      "letztes_update": "Aktiv · letzter Push 2025-05-04",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": null,
+      "kompat_warnung": {
+        "text": "framework.lua enthält sowohl exports['qb-target'] (Zeile 57) als auch exports.ox_target (Zeile 64) — README bestätigt: ox_lib-Include muss für ox-Targeting manuell aktiviert werden (auskommentiert per Default).",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Standalone, keine zwingende Framework-Abhängigkeit",
+        "Chairs in eigenen MLOs funktionieren, sofern das Prop dafür genutzt wird"
+      ],
+      "contra": [
+        "ox_lib-Include für ox_target ist per Default auskommentiert — muss manuell aktiviert werden",
+        "Chair-Kompatibilität bei Custom-MLOs hängt von der MLO-Erstellung ab, laut Autor nicht garantiert"
+      ],
+      "quelle": "https://github.com/WaypointRP/wp-seats, https://raw.githubusercontent.com/WaypointRP/wp-seats/main/fxmanifest.lua"
+    },
+    {
+      "id": "smodsk_housing",
+      "name": "smodsk_housing",
+      "kategorie": "wohnen",
+      "beschreibung": "Housing- und Realtor-System mit Multi-Framework-Bridge für ESX, QBCore und Qbox, wahlweise mit ox_target/ox_inventory oder qb-target/qb-inventory. Enthält kein Realtor-Society-Jobmenü, das ist laut README separat nötig.",
+      "link": "https://github.com/sModsk/smodsk_housing",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-04-14",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "housing",
+      "kompat_warnung": {
+        "text": "properties/bridge/bridge.lua führt Framework-Autoerkennung durch (Zeile 1) mit getrennten qb-Pfaden (exports['qb-inventory']/exports['qb-target'] in properties/bridge/qb/*) und ox-Pfaden (exports.qbx_core in properties/bridge/multi/server/server_bridge.lua:150, exports.ox_target/ox_inventory in bridge.lua:4-6).",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Qbox im README ausdrücklich als unterstütztes Framework genannt (L54), anders als bei loaf_housing, wo Qbox-Support ein offener Punkt ist",
+        "Kostenlos, Quellcode vollständig einsehbar",
+        "Bridge für ESX/QBCore/Qbox mit ox- und qb-Inventar/-Target"
+      ],
+      "contra": [
+        "Kein Realtor-Society-Jobmenü enthalten (laut README, separates Script nötig)",
+        "Geringere Bekanntheit/Community-Größe als das etablierte, aber kostenpflichtige loaf_housing"
+      ],
+      "quelle": "https://github.com/sModsk/smodsk_housing, https://raw.githubusercontent.com/sModsk/smodsk_housing/main/fxmanifest.lua"
+    },
+    {
+      "id": "s4t4n667_moneywash",
+      "name": "s4t4n667_moneywash",
+      "kategorie": "crime",
+      "beschreibung": "Geldwäsche-System für kriminelles Roleplay: Blip auf der Karte, optional versteckbar, Item-gebundener Zugang. Läuft auf ESX, QBCore oder Qbox, benötigt zwingend ox_target und ox_inventory.",
+      "link": "https://github.com/s4t4n667/s4t4n667_moneywash",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-04",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "moneywash",
+      "abhaengigkeiten": ["ox_target", "ox_inventory"],
+      "pro": [
+        "Explizit für ESX/QBCore/Qbox dokumentiert (README L7)",
+        "Aktiv gepflegt (letzter Push 05/2026)",
+        "Konfigurierbar (Blip, Geheimhaltung, Item-Zugang)"
+      ],
+      "contra": [
+        "Harte Abhängigkeit auf ox_target und ox_inventory — anders als randolio_moneywash, das ohne diese auskommt"
+      ],
+      "quelle": "https://github.com/s4t4n667/s4t4n667_moneywash, https://raw.githubusercontent.com/s4t4n667/s4t4n667_moneywash/main/fxmanifest.lua"
+    },
+    {
+      "id": "cmdpatrolbag",
+      "name": "cmdPatrolbag",
+      "kategorie": "staat",
+      "beschreibung": "Server-autoritatives Mehrfach-Taschen-System (z.B. Verbandstasche, Beweismitteltasche): Item öffnen, persönliches Stash nutzen. Baut auf ox_lib und ox_inventory auf, läuft laut README auf ESX und Qbox.",
+      "link": "https://github.com/cmdscripts/cmdPatrolbag",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-24",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": null,
+      "abhaengigkeiten": ["ox_lib", "ox_inventory"],
+      "pro": [
+        "Framework-Zugriff ist in server/bridge.lua isoliert (README L123, L130), inkl. direktem exports.qbx_core (server/bridge.lua:10)",
+        "ox_inventory-Exploit-Guards laut Dateistruktur (server/hooks.lua)",
+        "Server-autoritativ, konfigurierbares Interaktionssystem (ox_target oder Marker)"
+      ],
+      "contra": [
+        "README nennt nur ESX und Qbox als Ziel-Frameworks, kein klassisches QBCore"
+      ],
+      "quelle": "https://github.com/cmdscripts/cmdPatrolbag, https://raw.githubusercontent.com/cmdscripts/cmdPatrolbag/main/fxmanifest.lua"
+    },
+    {
+      "id": "yote_backpacks",
+      "name": "yote_backpacks",
+      "kategorie": "ui",
+      "beschreibung": "Konfigurierbares Rucksack-System für ox_inventory: erweitert dynamisch die Inventar-Slots/Gewicht statt ein separates Rucksack-Inventar anzulegen, inklusive visueller Rucksack-Props. Laut README mit jedem Framework nutzbar, das ox_inventory einsetzt.",
+      "link": "https://github.com/Yot-3/yote_backpacks",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "1.1.1",
+      "letztes_update": "Aktiv · letzter Push 2025-12-13",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "gruppe": null,
+      "abhaengigkeiten": ["ox_lib", "ox_inventory"],
+      "pro": [
+        "Erweitert bestehende ox_inventory-Slots statt ein separates Rucksack-Inventar zu erzeugen (kein Powergaming-Risiko laut README L8)",
+        "Framework-unabhängig, solange ox_inventory läuft (README L39)",
+        "Getestet mit illenium-appearance laut README"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben",
+        "Erfordert genaue Ladereihenfolge: nach ox_lib, vor ox_inventory (README L47)"
+      ],
+      "quelle": "https://github.com/Yot-3/yote_backpacks, https://raw.githubusercontent.com/Yot-3/yote_backpacks/main/fxmanifest.lua"
+    },
+    {
+      "id": "y_burgershot",
+      "name": "y_burgershot",
+      "kategorie": "zivil",
+      "beschreibung": "Burgershot-Job für das Qbox-Framework. Kein README im Repo vorhanden, Zweck stammt aus Repo-Beschreibung und fxmanifest.",
+      "link": "https://github.com/TonybynMp4/y_burgershot",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "1.3.4",
+      "letztes_update": "Aktiv · letzter Push 2024-05-11",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "gruppe": "burgershot",
+      "kompat_warnung": {
+        "text": "Nutzt @qbx_core/modules/playerdata.lua als client_script-Include sowie exports.qbx_core (fxmanifest.lua:15, server/main.lua:27) — direkte native Qbox-Anbindung.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Kostenlos und quelloffen (GPL-3.0) statt Closed-Source-Kauf wie bei jim_burgershot",
+        "Native Qbox-Anbindung über qbx_core-Exports statt Bridge"
+      ],
+      "contra": [
+        "Kein README vorhanden — Funktionsumfang nicht im Detail belegbar",
+        "Seit Mai 2024 kein sichtbarer weiterer Push mehr"
+      ],
+      "quelle": "https://github.com/TonybynMp4/y_burgershot, https://raw.githubusercontent.com/TonybynMp4/y_burgershot/main/fxmanifest.lua"
+    },
+    {
+      "id": "xrb-druglab",
+      "name": "xrb-druglab",
+      "kategorie": "crime",
+      "beschreibung": "Drogenlabor-System mit Admin-Menü und Positions-Editor: Spieler können Labore kaufen, finden und für die Produktion verschiedener Drogen verwalten. Framework-Logik ist laut README für ESX/QBCore ausgelegt, Qbox wird nur als Hashtag in der Repo-Beschreibung genannt.",
+      "link": "https://github.com/xrb-script/xrb-druglab",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-13",
+      "geprueft_am": "2026-08-14",
+      "version": "2.1.0",
+      "letztes_update": "Aktiv · letzter Push 2025-07-05",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": null,
+      "abhaengigkeiten": ["ox_lib", "ox_target", "ox_inventory"],
+      "kompat_warnung": {
+        "text": "server_scripts bindet @mysql-async/lib/MySQL.lua ein (fxmanifest.lua:16) — veraltete DB-Basis statt oxmysql. README beschreibt Framework-Kompatibilität nur als 'ESX/QBCore' (L33-34); Qbox taucht lediglich als Hashtag in der Repo-Beschreibung auf, nicht im Lauftext.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Nutzt ox_target und ox_inventory",
+        "Admin-Menü mit Positions-Editor für Labore"
+      ],
+      "contra": [
+        "Abhängigkeit auf @mysql-async/lib/MySQL.lua statt oxmysql — veraltete Basis",
+        "README bestätigt nur ESX/QBCore, Qbox-Support nicht im Lauftext belegt"
+      ],
+      "quelle": "https://github.com/xrb-script/xrb-druglab, https://raw.githubusercontent.com/xrb-script/xrb-druglab/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "jim_burgershot",
+      "geprueft_am": "2026-08-14",
+      "gruppe": "burgershot",
+      "contra": [
+        "Viele Items anlegen",
+        "Kostenpflichtiges Closed-Source-Produkt gegenüber dem kostenlosen, quelloffenen y_burgershot (dessen Funktionsumfang mangels README allerdings nicht im Detail belegbar ist)"
+      ],
+      "update_grund": "Neuer Gruppen-Konkurrent y_burgershot (Runde 39) gefunden — kostenloses, quelloffenes GPL-3.0-Repo mit nativer Qbox-Anbindung über qbx_core-Exports, aber ohne README und ohne Aktivität seit 05/2024. gruppe 'burgershot' neu vergeben (Kollisionscheck durchgeführt, Name war frei)."
+    },
+    {
+      "id": "loaf_housing",
+      "geprueft_am": "2026-08-14",
+      "contra": [
+        "💰 Kostenpflichtig",
+        "🔒 Kern Escrow",
+        "Qbox-Support verifizieren",
+        "Gegenüber smodsk_housing (kostenlos, Qbox-Support im README ausdrücklich bestätigt) kostenpflichtig und beim eigenen Qbox-Support weiterhin ein offener Punkt"
+      ],
+      "update_grund": "Neuer Gruppen-Konkurrent smodsk_housing (Runde 39) gefunden — kostenloses Multi-Framework-Housing mit im README bestätigtem Qbox-Support, aber ohne eigenes Realtor-Society-Jobmenü und mit geringerer Bekanntheit als loaf_housing."
+    },
+    {
+      "id": "randolio_moneywash",
+      "geprueft_am": "2026-08-14",
+      "contra": [
+        "Link ungeprüft",
+        "Gegenüber s4t4n667_moneywash (aktiv gepflegt, explizit für ESX/QBCore/Qbox dokumentiert) bisher nur die Profilseite als Link, kaum belegt"
+      ],
+      "update_grund": "Neuer Gruppen-Konkurrent s4t4n667_moneywash (Runde 39) gefunden — aktiv gepflegtes, für ESX/QBCore/Qbox dokumentiertes Geldwäsche-System mit harter Abhängigkeit auf ox_target/ox_inventory (randolio_moneywash kommt ohne diese aus)."
+    },
+    {
+      "id": "qb_minigames",
+      "geprueft_am": "2026-08-14",
+      "contra": [
+        "Überholt",
+        "Nur eine Handvoll klassischer Minigames (Thermite, Hack) gegenüber 70 Minigames bei eye_minigames",
+        "Letzter Push 2024, eye_minigames deutlich aktiver gepflegt (Push 06/2026)"
+      ],
+      "update_grund": "Neuer Gruppen-Konkurrent eye_minigames (Runde 39) gefunden — 70 framework-agnostische Skill-Check-Minigames mit eigener Export-API, aktiver gepflegt, aber ohne den etablierten Export-Namen, den bestehende Heist-Scripts von qb-minigames erwarten."
+    }
+  ]
+}

@@ -4,20 +4,17 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 14.08.2026
-**Letzter Commit:** `c393c45` (Runde 37). Runde 38 ist fertig und wird mit diesem Schritt
-committet — noch nicht gepusht (Nutzer hat Push für Runden 26–37 bewusst zurückgestellt, Repo auf
+**Letzter Commit:** `d637ed1` (Runde 38). Runde 39 ist fertig und wird mit diesem Schritt
+committet — noch nicht gepusht (Nutzer hat Push für Runden 26–38 bewusst zurückgestellt, Repo auf
 GitHub liegt entsprechend mehrere Commits zurück).
-**Validate-Status:** grün (41 Katalogdateien inkl. `runde-38.json` · 393 Plugins gesamt · 21
-harmlose „nur ein Mitglied"-Warnungen, darunter die neue Gruppe `wuerfelspiel`).
-**Katalogstand:** 393 gesamt (262 Altbestand + dreizehn Runden à 10–11 aus Runde 26–38), **0
+**Validate-Status:** grün (42 Katalogdateien inkl. `runde-39.json` · 404 Plugins gesamt · 20
+harmlose „nur ein Mitglied"-Warnungen, `minigames` jetzt mit 3 Mitgliedern kein Einzelfall mehr).
+**Katalogstand:** 404 gesamt (262 Altbestand + vierzehn Runden à 10–11 aus Runde 26–39), **0
 Einträge ohne `geprueft_am`.**
 
-**Aktueller `discover`-Kandidatenpool ist nach Runde 38 praktisch vollständig abgearbeitet.**
-Voller `discover`-Lauf (ohne `--seit-letztem-lauf`) lieferte erneut 60 Kandidaten, fast
-ausschließlich 0-2⭐ (`mri-Qbox-Brasil`-Cluster, Wegwerf-Accounts). Die 10 besten wurden
-kuratiert übernommen. **Vor Runde 39 steht die in Runde 37 angekündigte Entscheidung an:**
-verbleibende Restfunde trotz niedriger Sterne einzeln aufarbeiten, oder `scripts/discover.mjs`
-mit neuen Suchbegriffen/Topics laufen lassen, um den Pool aufzufrischen.
+**Der alte `discover`-Standardpool (6 feste Abfragen) war nach Runde 38 abgearbeitet — Runde 39
+hat stattdessen mit gezielten Zusatzsuchen neu aufgefüllt** (siehe „Nächster Schritt" unten für
+das genaue Vorgehen, das sich bewährt hat und wiederholbar ist).
 
 **Runden 26–37 — Neusuche-Serie, Kurzfassung (Einzelfunde vollständig im CHANGELOG):**
 Zwölf Runden à 10–11 neue Plugins über `npm run discover`/`prefetch --kandidaten`, macht 121
@@ -162,37 +159,41 @@ nach jedem `npm run build`, das committet wird, ein Release mit der `catalogVers
 
 ## Nächster Schritt
 
-**Runden 26–37 sind fertig.** 121 Kandidaten sind jetzt im Katalog (383 gesamt). Der aktuelle
-`discover`-Kandidatenpool (immer dieselben 60 Top-Treffer aus den 6 Standard-Suchanfragen) ist
-nach 12 Runden **weitgehend abgearbeitet** — `data/.prefetch/kandidaten-37.md` enthält nur noch
-Restfunde mit 0–2 Sternen (viele `mri-Qbox-Brasil`-Kleinstressourcen, weitere Distortionz-/
-Bevrick-Funde, `pl_lib`↔`ox_lib` wirkt wie eine Fehlzuordnung des Discover-Scripts). Bevor Runde
-38 startet, lohnt sich eine bewusste Entscheidung: entweder die verbleibenden Restfunde trotz
-niedriger Sterne aufarbeiten, oder `scripts/discover.mjs` mit **anderen Suchbegriffen/Topics**
-laufen lassen (z. B. andere GitHub-Topic-Tags, Suche nach spezifischen Kategorien wie "qbox mlo"
-oder "qbox heist"), um neue Kandidaten jenseits der immer gleichen 6 Abfragen zu finden.
-
-**Runde 38 (nächste Neusuche) so starten, falls die Restfunde aufgearbeitet werden:**
+**Runden 26–39 sind fertig.** 142 Kandidaten sind jetzt im Katalog (404 gesamt). Der alte
+`discover`-Standardpool (6 feste Abfragen) war nach Runde 38 abgearbeitet. **Runde 39 hat
+stattdessen mit gezielten Zusatzsuchen aufgefüllt — dieses Vorgehen hat sich bewährt und ist
+das Muster für weitere Runden, sobald der Pool wieder dünn wird:**
 
 ```
-npm run discover -- --seit-letztem-lauf --runde 38   # meist wenig/nichts Neues am selben Tag
-npm run newround 38
-npm run prefetch -- --kandidaten --max 10 --runde 38
+npm run discover -- --suche "qbox <thema> in:description,readme fork:false" --max 30 --runde 40a
+cp data/.kandidaten.json data/.kandidaten-40a.json   # sichern, bevor der nächste Lauf überschreibt
+npm run discover -- --suche "qbox <anderes-thema> ..." --max 30 --runde 40b
+cp data/.kandidaten.json data/.kandidaten-40b.json
+# ggf. weitere Themen …
 ```
 
-Liefert `--seit-letztem-lauf` 0 Kandidaten (wie in Runde 28–37 durchgehend passiert), stattdessen
-`npm run discover -- --runde 38` ohne das Flag laufen lassen — filtert bereits Katalogisiertes
-automatisch raus. Vor dem `prefetch`-Aufruf `data/.kandidaten.json` per Node-Skript auf eine
-kuratierte Teilmenge kürzen (Indizes der gewünschten Kandidaten wählen, Array neu schreiben),
-priorisiert nach Sternen/Aktivität — hat sich seit Runde 28 bewährt. 10 Kandidaten pro Runde ist
-der Standardwert. **Bei jeder neu vergebenen `gruppe`-ID:** vor dem Schreiben per Grep über alle
+Danach die `.kandidaten-*.json`-Dateien per Node-Skript zusammenführen (nach `id` deduplizieren),
+nach Sternen sortieren, die besten ~10–11 auswählen (Autoren-Cluster wie `MalibuTechTeam` nicht
+alle auf einmal nehmen, sondern über Runden verteilen) und als `data/.kandidaten.json` mit
+`runde: N` neu schreiben — danach wie gewohnt `npm run newround N` und
+`npm run prefetch -- --kandidaten --max 11 --runde N`. Die Sicherungsdateien am Ende löschen.
+
+**Themen, die in Runde 39 gut funktioniert haben:** `qbox mlo`, `qbox heist`,
+`qbox clothing OR qbox weapon`. **Für Runde 40 noch nicht ausprobiert, naheliegende Kandidaten:**
+`qbox drugs`, `qbox garage`, `qbox phone`, `qbox banking`, andere Kategorie-Stichworte aus
+`data/kategorien.json`, die im Katalog noch dünn besetzt sind. Ein `--suche`-String mit `OR`
+funktioniert (siehe Runde 39, drittes Thema) — spart einen Lauf gegenüber zwei Einzelsuchen.
+
+**Bei jeder neu vergebenen `gruppe`-ID:** vor dem Schreiben per Grep über alle
 `data/catalog/*.json` nach `"gruppe": "<neuer-name>"` auf Kollision prüfen (Lehre aus Runde 28)
 UND prüfen, ob ein vermeintlich neuer Bestandseintrag nicht schon eine andere, bereits etablierte
 Gruppe trägt (Lehre aus Runde 31: `qbx_garages` hatte schon dieselbe Gruppe wie `cd_garage`).
 **Beim Schreiben von `ergaenzt`:** kein Array aus IDs, sondern `{id, plus, minus}`-Objekte (Lehre
 aus Runde 31, siehe Schema/Beispiel in `data/catalog/altbestand.json`). **Bei
 Wegwerf-Account-Clustern:** nicht pauschal verwerfen — jeden einzeln über README-Umfang/
-Code-Substanz bewerten, bei Zweifeln `qualitaet: teilgeprueft` statt Ablehnung.
+Code-Substanz bewerten, bei Zweifeln `qualitaet: teilgeprueft` statt Ablehnung. **`version` ist
+immer Text, niemals `null`** (Lehre aus Runde 38: Validator lehnt `null` ab, Platzhalter wie
+"unbekannt" verwenden).
 
 Zwei kleine Aufräumpunkte aus Runde 25 sind noch offen (siehe „Bewusst verschoben" unten:
 `kingmaps_shop`-Duplikat, `patoche`-Linkverdacht) — beiläufig in einer künftigen Runde mitnehmen.
@@ -329,4 +330,5 @@ Verdopplung kostet also jedes Mal. Übertragbar ist nur, was sich als *Muster* w
 | 35 | Zehnte Neusuche-Runde: 10 neue Plugins, 2 neue blackmarket-Konkurrenten, 2 Lizenz-Fehleinstufungen (escrow→open_source) vor Commit korrigiert | 10 | 1 (blackmarket_script mit 2 neuen Vergleichspunkten) | 0 | 0 (6 verifiziert, 4 teilgeprüft) | `data/catalog/runde-35.json` | folgt |
 | 36 | Elfte Neusuche-Runde: 10 populäre Plugins (10–34⭐), lone_radio bewusst nicht der radio-Gruppe zugeordnet, 3 mit Gruppenvergleich | 10 | 3 (Gruppenvergleiche bei `keep_crafting`, `xsound`, `qb_minigames`) | 0 | 0 (9 verifiziert, 1 teilgeprüft) | `data/catalog/runde-36.json` | folgt |
 | 37 | Zwölfte Neusuche-Runde: letzte 10 Kandidaten des aktuellen discover-Pools, 2 Autoren-Cluster einzeln geprüft, 2 mit Gruppenvergleich | 10 | 2 (Gruppenvergleiche bei `qbx_hud`, `wasabi_fishing`) | 0 | 0 (alle 10 verifiziert) | `data/catalog/runde-37.json` | `c393c45` |
-| 38 | Dreizehnte Neusuche-Runde: 10 kuratierte Kandidaten aus vollem discover-Lauf (0-8⭐), `pl_lib`-Fehlzuordnung korrigiert (Bridge statt ox_lib-Alternative), 1 mit Gruppenvergleich, neue Gruppe `wuerfelspiel` | 10 | 4 (Gruppenvergleiche/Synergie bei `qbx_garages`, `slrn_rolldice`, `jim_bridge`, `anx_bridge`) | 0 | 0 (alle 10 verifiziert) | `data/catalog/runde-38.json` | folgt |
+| 38 | Dreizehnte Neusuche-Runde: 10 kuratierte Kandidaten aus vollem discover-Lauf (0-8⭐), `pl_lib`-Fehlzuordnung korrigiert (Bridge statt ox_lib-Alternative), 1 mit Gruppenvergleich, neue Gruppe `wuerfelspiel` | 10 | 4 (Gruppenvergleiche/Synergie bei `qbx_garages`, `slrn_rolldice`, `jim_bridge`, `anx_bridge`) | 0 | 0 (alle 10 verifiziert) | `data/catalog/runde-38.json` | `d637ed1` |
+| 39 | Vierzehnte Neusuche-Runde: 11 Kandidaten aus 3 gezielten Zusatzsuchen (qbox mlo/heist/clothing+weapon) statt des erschöpften Standardpools, 4 mit Gruppenvergleich, neue Gruppe `burgershot`, 2 Framework-Korrekturen | 11 | 4 (Gruppenvergleiche bei `jim_burgershot`, `loaf_housing`, `randolio_moneywash`, `qb_minigames`) | 0 | 0 (9 verifiziert, 2 teilgeprüft) | `data/catalog/runde-39.json` | folgt |

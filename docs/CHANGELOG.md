@@ -17,6 +17,42 @@ Format je Eintrag:
 
 ---
 
+## [Runde 39] Vierzehnte Neusuche-Runde – 14.08.2026
+
+**Neuer Ansatz statt des erschöpften Standard-Pools:** Der `discover`-Pool aus den 6 festen
+Abfragen war nach Runde 38 praktisch abgearbeitet (nur noch 0-2⭐-Wegwerf-Funde übrig). Statt
+diese aufzuarbeiten, drei gezielte Zusatzsuchen mit `npm run discover -- --suche "..."` über
+andere Themen gefahren: `qbox mlo`, `qbox heist`, `qbox clothing OR qbox weapon` (je in
+Beschreibung/README). Ergebnis: 79 bislang unentdeckte, deutlich populärere Kandidaten
+(bis 39⭐ statt vorher 0-8⭐) — die 6 Standardabfragen decken offenbar nur einen Teil des
+tatsächlichen Qbox-Ökosystems ab.
+
+**Neu:** 11 kuratierte Top-Funde aus den drei Zusatzsuchen: `v-supplychain-restaurants`,
+`mtc-arcade`, `sleepless_lootbox`, `eye_minigames`, `wp-seats`, `smodsk_housing`,
+`s4t4n667_moneywash`, `cmdpatrolbag`, `yote_backpacks`, `y_burgershot`, `xrb-druglab`.
+
+**Vier mit Gruppenvergleich:** `eye_minigames`↔`qb_minigames`/`mbt_minigames` (bestehende
+Gruppe `minigames`, jetzt 3 Mitglieder), `smodsk_housing`↔`loaf_housing` (Gruppe `housing`),
+`s4t4n667_moneywash`↔`randolio_moneywash` (Gruppe `moneywash`), `y_burgershot`↔`jim_burgershot`
+(neue Gruppe `burgershot`, Kollisionscheck vorab durchgeführt).
+
+**Zwei Framework-Korrekturen:** `mtc-arcade` (kein README, feste `qb-target`/`@qb-core`-Bindung
+im Code ohne ox-Gegenstück) von `qbcore_bridge` auf `qbcore_only` herabgestuft. `yote_backpacks`
+(README verlangt nur `ox_inventory`, keinen Framework-Kern) von `qbcore_bridge` auf `standalone`
+korrigiert.
+
+**Zwei Kompatibilitätsfunde mit Codebeleg:** `v-supplychain-restaurants` (vom Autor selbst als
+„no longer maintained" markiert, zusätzlich harte `qb-target`-Aufrufe neben ox-Pfaden — als
+`archiviert` + `kompat_warnung` eingetragen) und `xrb-druglab` (README bestätigt nur ESX/QBCore
+im Lauftext, Qbox nur als Hashtag — `kompat_warnung.sicherheit: "vermutung"` statt „bestaetigt").
+
+**Katalog:** 11 neu, 4 aktualisiert (`jim_burgershot`, `loaf_housing`, `randolio_moneywash`,
+`qb_minigames`), 0 Duplikate, 0 ungeprüft (9 verifiziert, 2 teilgeprüft).
+**Datei:** `data/catalog/runde-39.json`
+**Commit:** folgt
+
+---
+
 ## [Runde 38] Dreizehnte Neusuche-Runde – 14.08.2026
 
 **Neu:** 10 kuratierte Kandidaten aus dem vollen `discover`-Lauf (0-8⭐): `npwd_qbx_garages`
