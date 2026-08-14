@@ -291,7 +291,16 @@ export function prioritaetHTML(plugin) {
  * `#karte-…`-Anker plötzlich ins Fenster statt in die Liste.
  */
 export function kartenHTML(index, plugin, opt = {}) {
-  const kopf = `<h3 class="karte-titel">${escapeHtml(plugin.name)}${essenziellHTML(plugin)}</h3>`;
+  // ⚖️ oben rechts: Klick öffnet das Vergleichsfenster mit diesem Plugin als Ausgangspunkt,
+  // Ziehen legt es in die Vergleichsleiste. `draggable` sitzt am Knopf, nicht an der Karte —
+  // sonst würde jeder Textmarkierungs-Versuch in der Karte ein Ziehen auslösen.
+  const korbKnopf = opt.ohneKorb ? '' : `<button type="button"
+    class="karte-korb${opt.imKorb ? ' karte-korb-aktiv' : ''}" draggable="true"
+    data-korb="${escapeHtml(plugin.id)}" aria-pressed="${opt.imKorb ? 'true' : 'false'}"
+    title="Vergleichen — klicken zum Öffnen, ziehen für die Vergleichsleiste">⚖️</button>`;
+
+  const kopf = `<div class="karte-kopfzeile">
+    <h3 class="karte-titel">${escapeHtml(plugin.name)}${essenziellHTML(plugin)}</h3>${korbKnopf}</div>`;
   const badges = `<div class="karte-badges">${badgesHTML(plugin)}${kompatHTML(plugin)}${archivHTML(plugin)}${altStackHTML(plugin)}${preisHTML(plugin)}${qualitaetHTML(plugin)}${linkStatusHTML(plugin)}</div>`;
   const beziehungen = ersetztHTML(index, plugin) + synergieHTML(index, plugin) + ergaenztHTML(index, plugin) + abhaengigkeitenHTML(index, plugin);
   const kennung = (opt.detail ? 'detail-karte-' : 'karte-') + escapeHtml(plugin.id);

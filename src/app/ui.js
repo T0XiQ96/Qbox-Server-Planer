@@ -31,17 +31,18 @@ export function toast(text, art = 'info') {
 
 /**
  * Öffnet ein Modal.
- * @param {{titel:string, inhalt:string, knoepfe?:Array<{text:string, art?:string, wert?:any}>}} opt
+ * @param {{titel:string, inhalt:string, knoepfe?:Array<{text:string, art?:string, wert?:any}>,
+ *          klasse?:string}} opt  `klasse` für Sonderformate, z.B. das breite Vergleichsfenster
  * @returns {Promise<any>} Wert des gedrückten Knopfes, null bei Abbruch (Esc, Klick daneben, ✕)
  */
-export function modal({ titel, inhalt, knoepfe = [{ text: 'Schließen', wert: null }] }) {
+export function modal({ titel, inhalt, knoepfe = [{ text: 'Schließen', wert: null }], klasse = '' }) {
   schliesseModal();
 
   return new Promise((aufloesen) => {
     const huelle = document.createElement('div');
     huelle.className = 'modal-huelle';
     huelle.innerHTML = `
-      <div class="modal" role="dialog" aria-modal="true" aria-label="${titel}">
+      <div class="modal ${klasse}" role="dialog" aria-modal="true" aria-label="${titel}">
         <div class="modal-kopf">
           <h2>${titel}</h2>
           <button class="modal-schliessen" aria-label="Schließen">✕</button>

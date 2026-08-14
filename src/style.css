@@ -316,8 +316,75 @@ ul { margin: 4px 0; padding-left: 20px; }
 .vergleich-nur li { color: var(--lila); }
 .vergleich-leer { color: var(--leise); }
 
+/* ============================== Vergleichskorb ============================== */
+
+/* Sitzt IM Kopf, damit beide zusammen kleben — zwei getrennte sticky-Elemente auf top:0
+   würden sich überlagern, sobald man scrollt. */
+.korbleiste {
+  flex: 1 0 100%; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 8px 10px; margin-bottom: 10px;
+  background: var(--bg2); border: 1px dashed var(--rand); border-radius: 8px;
+}
+.korbleiste.korb-bereit { border-color: var(--lila); }
+.korbleiste.korb-drueber { border-color: var(--lila); background: var(--bg3); border-style: solid; }
+.korb-titel { color: var(--leise); font-size: 12px; flex: none; }
+.korb-chips { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; min-width: 120px; }
+.korb-leer { color: var(--leise); font-size: 12px; font-style: italic; }
+.korb-chip {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 12px;
+  background: var(--bg3); border: 1px solid var(--rand); border-radius: 999px; padding: 2px 6px 2px 10px;
+}
+.korb-weg { background: none; border: none; color: var(--leise); cursor: pointer; font-size: 12px; padding: 0 2px; }
+.korb-weg:hover { color: var(--rot); }
+
+/* ⚖️ oben rechts auf der Karte */
+.karte-kopfzeile { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.karte-korb {
+  flex: none; background: none; border: 1px solid var(--rand); border-radius: 6px;
+  padding: 2px 7px; cursor: grab; font-size: 13px; line-height: 1.4;
+}
+.karte-korb:hover { border-color: var(--lila); background: var(--bg3); }
+.karte-korb:active { cursor: grabbing; }
+.karte-korb-aktiv { border-color: var(--lila); background: var(--bg3); }
+
+/* Fenster: Auswahlliste oben, Karten und Tabelle darunter */
+.modal-breit { max-width: 1180px; }
+.korb-auswahl { margin-bottom: 14px; }
+.korb-auswahl .feld { width: 100%; }
+.korb-treffer {
+  max-height: 190px; overflow-y: auto; margin-top: 8px;
+  border: 1px solid var(--rand); border-radius: 6px;
+}
+.korb-treffer-zeile {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  background: none; border: none; border-bottom: 1px solid var(--rand);
+  color: var(--text); font: inherit; font-size: 12px; text-align: left; padding: 6px 10px; cursor: pointer;
+}
+.korb-treffer-zeile:last-child { border-bottom: none; }
+.korb-treffer-zeile:hover { background: var(--bg3); }
+.korb-treffer-zeile small { color: var(--leise); margin-left: auto; }
+.korb-zeichen { color: var(--lila); font-weight: 600; flex: none; width: 14px; }
+.korb-drin .korb-zeichen { color: var(--rot); }
+.korb-name { font-weight: 600; }
+.korb-marke {
+  font-size: 10px; color: var(--orange); border: 1px solid var(--orange);
+  border-radius: 999px; padding: 0 6px; flex: none;
+}
+
+/* Vollständige Karten nebeneinander, danach erst die Tabelle */
+.korb-karten {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 12px; margin-bottom: 18px;
+}
+.korb-karte {
+  border: 1px solid var(--rand); border-radius: 8px; padding: 12px; background: var(--bg);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.korb-karte .karte-imfenster { flex: 1; }
+
 @media (max-width: 600px) {
   .karten { grid-template-columns: 1fr; }
   .formular, .vergleich-funktionen, .vergleich-zweck, .vergleich-abwaegung { grid-template-columns: 1fr; }
   .zurueck-knopf { right: 10px; bottom: 10px; }
+  .korb-karten { grid-template-columns: 1fr; }
 }

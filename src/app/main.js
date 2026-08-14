@@ -17,9 +17,9 @@
 
 import { alleMitStandard } from './defaults.js';
 import { ladeZustand, istGehakt, setzeHaken, setzeNotiz, setzePrioritaet, setzeZurueck, legeBackupAn, holeBackups, ladeBackup, loescheBackup } from './state.js';
-import { baueIndex, aktiveKonflikte, fehlendeAbhaengigkeiten, bundleHinweis, alleGruppen, gruppenMitglieder } from './relations.js';
+import { baueIndex, aktiveKonflikte, fehlendeAbhaengigkeiten, bundleHinweis, alleGruppen, gruppenMitglieder, alternativen } from './relations.js';
 import { kartenHTML, escapeHtml } from './render.js';
-import { leererFilter, gefilterteUndSortierteListe, holeAktiveSortierung, setzeAktiveSortierung, SORTIER_OPTIONEN } from './filters.js';
+import { leererFilter, gefilterteUndSortierteListe, holeAktiveSortierung, setzeAktiveSortierung, SORTIER_OPTIONEN, passtSuche } from './filters.js';
 import { vergleiche, vergleichHTML, vergleicheMehrere, mehrfachVergleichHTML } from './compare.js';
 import { berichtBeiderUmgebungen, berichtZusammenfassung, warnIds, synergienBeiderUmgebungen, ungenutzteSynergien, UMGEBUNG_LABEL } from './warnings.js';
 import { ladeDifferenz, mitDifferenz, verwirfDifferenz, differenzInfo } from './katalogspeicher.js';
@@ -66,6 +66,7 @@ function baueGeruest() {
         <button class="btn" id="btn-vergleich">⚖️ Vergleich</button>
         <button class="btn" id="btn-zahnrad">⚙️ Daten</button>
       </div>
+      <div class="korbleiste" id="korbleiste" hidden></div>
     </header>
 
     <div class="warnbox">
@@ -167,7 +168,7 @@ function zeichneListe() {
         ${escapeHtml(KATEGORIE_NAMEN.get(katId) || katId)}
         <span class="kategorie-zaehler">${aufMain}/${alleDerKategorie.length} auf MAIN · ${aufDev} auf DEV</span>
       </h2>
-      <div class="karten">${eintraege.map((p) => kartenHTML(index, p)).join('')}</div>
+      <div class="karten">${eintraege.map((p) => kartenHTML(index, p, { imKorb: imKorb(p.id) })).join('')}</div>
     </section>`;
   });
 
@@ -179,6 +180,7 @@ function zeichneListe() {
 
   zeichnePruefbericht(bericht);
   zeichneKosten();
+  zeichneKorbleiste();
   aktualisiereChips();
   aktualisiereKopf();
   aktualisiereZurueck();
@@ -366,8 +368,69 @@ function verdrahteGlobal() {
     const synergie = e.target.closest('[data-synergie]');
     if (synergie) { e.preventDefault(); zeigeSynergien(synergie.dataset.synergie); return; }
 
+    // ⚖️ auf der Karte: einfacher Klick legt hinein UND öffnet — bewusst kein Long-Press,
+    // der wäre unsichtbar, ohne Zustandsanzeige und kollidiert mit dem Markieren von Text.
+    const korb = e.target.closest('[data-korb]');
+    if (korb) { e.preventDefault(); korbHinzufuegen(korb.dataset.korb); oeffneKorbVergleich(); return; }
+
+    const korbAdd = e.target.closest('[data-korb-add]');
+    if (korbAdd) { e.preventDefault(); korbHinzufuegen(korbAdd.dataset.korbAdd); return; }
+
+    const korbAb = e.target.closest('[data-korb-ab]');
+    if (korbAb) { e.preventDefault(); korbEntfernen(korbAb.dataset.korbAb); return; }
+
+    const korbWeg = e.target.closest('[data-korb-weg]');
+    if (korbWeg) { e.preventDefault(); korbEntfernen(korbWeg.dataset.korbWeg); return; }
+
+    if (e.target.closest('[data-korb-oeffnen]')) { e.preventDefault(); oeffneKorbVergleich(); return; }
+    if (e.target.closest('[data-korb-leeren]')) { e.preventDefault(); korbLeeren(); return; }
+
     const sprung = e.target.closest('[data-jump-id]');
     if (sprung) behandleSprung(e, sprung);
+  });
+
+  verdrahteZiehen();
+}
+
+/**
+ * Drag&Drop als ZUSATZweg neben dem Klick — nie als einziger: auf Touch-Geräten gibt es kein
+ * echtes HTML5-Ziehen, dort bleibt der Klickweg. Die Leiste blendet sich beim Ziehbeginn ein,
+ * damit das Ablageziel nie außerhalb des Sichtfelds liegt (sie klebt oben am Kopf).
+ */
+function verdrahteZiehen() {
+  const leiste = document.getElementById('korbleiste');
+
+  document.addEventListener('dragstart', (e) => {
+    const knopf = e.target.closest('[data-korb]');
+    if (!knopf) return;
+    e.dataTransfer.setData('text/plain', knopf.dataset.korb);
+    e.dataTransfer.effectAllowed = 'copy';
+    ziehtGerade = true;
+    zeichneKorbleiste();
+    leiste.classList.add('korb-bereit');
+  });
+
+  document.addEventListener('dragend', () => {
+    ziehtGerade = false;
+    leiste.classList.remove('korb-bereit', 'korb-drueber');
+    zeichneKorbleiste();
+  });
+
+  leiste.addEventListener('dragover', (e) => {
+    e.preventDefault();                       // ohne das nimmt der Browser den Abwurf nicht an
+    e.dataTransfer.dropEffect = 'copy';
+    leiste.classList.add('korb-drueber');
+  });
+  leiste.addEventListener('dragleave', (e) => {
+    if (!leiste.contains(e.relatedTarget)) leiste.classList.remove('korb-drueber');
+  });
+  leiste.addEventListener('drop', (e) => {
+    e.preventDefault();
+    leiste.classList.remove('korb-drueber');
+    const id = e.dataTransfer.getData('text/plain');
+    const p = index.get(id);
+    if (korbHinzufuegen(id)) toast(`${p.name} liegt im Vergleich ⚖️`);
+    else if (p) toast(`${p.name} liegt dort schon.`);
   });
 }
 
@@ -473,7 +536,7 @@ function zeigeDetail(id, mitHerkunft = true) {
   if (zurueckStapel.length) knoepfe.push({ text: '← Zurück', wert: 'zurueck' });
   knoepfe.push({ text: 'Schließen', wert: null });
 
-  modal({ titel: escapeHtml(p.name), inhalt: kartenHTML(index, p, { detail: true }), knoepfe })
+  modal({ titel: escapeHtml(p.name), inhalt: kartenHTML(index, p, { detail: true, imKorb: imKorb(id) }), knoepfe })
     .then((wahl) => {
       if (wahl === 'zurueck') { geheZurueck(); return; }
       if (aktuellesDetail !== id) return;      // ein anderes Fenster hat inzwischen übernommen
@@ -502,13 +565,165 @@ async function behebeFehlend(wert) {
   toast(`${p.name} auf ${UMGEBUNG_LABEL[umgebung] || umgebung} gesetzt ✅`);
 }
 
+/** „⚖️ Alle N vergleichen" aus dem Ersetzt-Block: belegt den Korb mit der ganzen Gruppe. */
 function zeigeMehrfachVergleich(ids) {
-  aktuellesDetail = null;   // der Vergleich ist kein Glied der Detail-Kette
+  vergleichsKorb = ids.filter((id) => index.has(id));
+  zeichneListe();
+  oeffneKorbVergleich();
+}
+
+/* ============================== Vergleichskorb ============================== */
+
+/**
+ * EIN gemeinsames Vergleichs-Set statt mehrerer Wege, die sich gegenseitig überschreiben.
+ * Gefüllt wird es auf drei Arten: ⚖️ auf einer Karte (öffnet zugleich das Fenster), die
+ * Auswahlliste im Fenster, oder „Alle N vergleichen" aus dem Ersetzt-Block.
+ *
+ * Bewusst nur im Arbeitsspeicher, nicht im localStorage: der Korb ist Arbeitszustand wie Suche
+ * und Filter (D8-Gedanke), kein Teil des Plans, den der Nutzer aufbewahren will.
+ */
+let vergleichsKorb = [];
+let korbSuche = '';
+let ziehtGerade = false;
+
+const KORB_MAX_TREFFER = 60;
+
+function imKorb(id) { return vergleichsKorb.includes(id); }
+
+function korbHinzufuegen(id) {
+  if (!index.has(id) || imKorb(id)) return false;
+  vergleichsKorb.push(id);
+  zeichneListe();
+  frischeKorbFensterAuf();
+  return true;
+}
+
+function korbEntfernen(id) {
+  vergleichsKorb = vergleichsKorb.filter((x) => x !== id);
+  zeichneListe();
+  frischeKorbFensterAuf();
+}
+
+function korbLeeren() {
+  vergleichsKorb = [];
+  zeichneListe();
+  frischeKorbFensterAuf();
+}
+
+/** Die angedockte Leiste. Beim Ziehen erscheint sie auch leer — sonst gäbe es kein sichtbares Ziel. */
+function zeichneKorbleiste() {
+  const el = document.getElementById('korbleiste');
+  if (!el) return;
+
+  if (!vergleichsKorb.length && !ziehtGerade) { el.hidden = true; el.innerHTML = ''; return; }
+  el.hidden = false;
+
+  const chips = vergleichsKorb.map((id) => {
+    const p = index.get(id);
+    return `<span class="korb-chip">${escapeHtml(p ? p.name : id)}
+      <button type="button" class="korb-weg" data-korb-weg="${escapeHtml(id)}" aria-label="Entfernen">✕</button></span>`;
+  }).join('');
+
+  el.innerHTML = `<span class="korb-titel">⚖️ Vergleich</span>
+    <div class="korb-chips">${chips || '<span class="korb-leer">⚖️ einer Karte hierher ziehen</span>'}</div>
+    <button type="button" class="btn btn-klein" data-korb-oeffnen="1" ${vergleichsKorb.length ? '' : 'disabled'}>Öffnen (${vergleichsKorb.length})</button>
+    <button type="button" class="btn btn-klein btn-leise" data-korb-leeren="1">leeren</button>`;
+}
+
+/* ------------------------------ Das Fenster ------------------------------ */
+
+function oeffneKorbVergleich() {
+  aktuellesDetail = null;        // der Vergleich ist kein Glied der Detail-Kette
+  korbSuche = '';
   modal({
     titel: '⚖️ Vergleich',
-    inhalt: mehrfachVergleichHTML(vergleicheMehrere(index, ids)),
+    klasse: 'modal-breit',
+    inhalt: `<div class="korb-auswahl">
+        <input type="search" id="korb-suche" class="feld" placeholder="🔍 Plugin suchen (Name, Funktion, Kategorie) …">
+        <div class="korb-treffer" id="korb-treffer">${korbTrefferHTML()}</div>
+      </div>
+      <div id="korb-inhalt">${korbInhaltHTML()}</div>`,
     knoepfe: [{ text: 'Schließen', wert: null }]
   });
+
+  const feld = document.getElementById('korb-suche');
+  if (!feld) return;
+  let tippTimer = null;
+  feld.addEventListener('input', (e) => {
+    clearTimeout(tippTimer);
+    const wert = e.target.value;
+    tippTimer = setTimeout(() => { korbSuche = wert; frischeKorbTrefferAuf(); }, 150);
+  });
+}
+
+/**
+ * Die Auswahlliste. Reihenfolge nach ausdrücklichem Wunsch: zuerst die Alternativen des ersten
+ * Korb-Eintrags (also genau das, was auf der Karte unter „wird ersetzt durch" steht), danach
+ * alles Übrige alphabetisch. Gesucht wird mit derselben Funktion wie in der Hauptsuche.
+ */
+function korbTrefferHTML() {
+  const anker = vergleichsKorb.length ? index.get(vergleichsKorb[0]) : null;
+  const alternativIds = new Set(anker ? alternativen(index, anker).map((p) => p.id) : []);
+
+  const passend = plugins.filter((p) => passtSuche(p, korbSuche));
+  const zuerst = passend.filter((p) => alternativIds.has(p.id));
+  const rest = passend.filter((p) => !alternativIds.has(p.id))
+    .sort((a, b) => a.name.localeCompare(b.name, 'de'));
+  const gesamt = [...zuerst, ...rest];
+
+  if (!gesamt.length) return '<p class="hinweis-leise">Kein Plugin passt zu dieser Suche.</p>';
+
+  const zeile = (p) => {
+    const drin = imKorb(p.id);
+    return `<button type="button" class="korb-treffer-zeile${drin ? ' korb-drin' : ''}"
+      data-korb-${drin ? 'ab' : 'add'}="${escapeHtml(p.id)}">
+      <span class="korb-zeichen">${drin ? '−' : '＋'}</span>
+      <span class="korb-name">${escapeHtml(p.name)}</span>
+      ${alternativIds.has(p.id) ? '<span class="korb-marke">Alternative</span>' : ''}
+      <small>${escapeHtml(KATEGORIE_NAMEN.get(p.kategorie) || p.kategorie)}</small>
+    </button>`;
+  };
+
+  const rest_hinweis = gesamt.length > KORB_MAX_TREFFER
+    ? `<p class="hinweis-leise">… und ${gesamt.length - KORB_MAX_TREFFER} weitere — Suche verfeinern.</p>` : '';
+  return gesamt.slice(0, KORB_MAX_TREFFER).map(zeile).join('') + rest_hinweis;
+}
+
+/**
+ * Jedes gewählte Plugin steht als vollständige Karte da — wie in der normalen Liste, mit Badges,
+ * Beschreibung, Meta und Abwägung. Die Vergleichstabelle kommt DARUNTER, nicht statt der Karten:
+ * die Tabelle beantwortet „worin unterscheiden sie sich", die Karten „was ist das überhaupt".
+ */
+function korbInhaltHTML() {
+  if (!vergleichsKorb.length) {
+    return '<p class="hinweis-leise">Noch nichts gewählt — oben suchen und mit ＋ hinzufügen.</p>';
+  }
+
+  const karten = vergleichsKorb.map((id) => {
+    const p = index.get(id);
+    if (!p) return '';
+    return `<div class="korb-karte">
+      ${kartenHTML(index, p, { detail: true, ohneKorb: true })}
+      <button type="button" class="btn btn-klein btn-leise" data-korb-ab="${escapeHtml(id)}">− aus dem Vergleich</button>
+    </div>`;
+  }).join('');
+
+  const tabelle = vergleichsKorb.length >= 2
+    ? mehrfachVergleichHTML(vergleicheMehrere(index, vergleichsKorb))
+    : '<p class="hinweis-leise">Ab zwei Einträgen kommt hier die Vergleichstabelle dazu.</p>';
+
+  return `<div class="korb-karten">${karten}</div>${tabelle}`;
+}
+
+function frischeKorbTrefferAuf() {
+  const el = document.getElementById('korb-treffer');
+  if (el) el.innerHTML = korbTrefferHTML();
+}
+
+function frischeKorbFensterAuf() {
+  if (!document.getElementById('korb-inhalt')) return;   // Fenster ist gar nicht offen
+  frischeKorbTrefferAuf();
+  document.getElementById('korb-inhalt').innerHTML = korbInhaltHTML();
 }
 
 /** Was ließe sich zum aktuellen Stand noch sinnvoll dazunehmen? */
@@ -587,7 +802,7 @@ function frischeDetailAuf() {
   if (!aktuellesDetail) return;
   const inhalt = document.querySelector('.modal-huelle .modal-inhalt');
   const p = index.get(aktuellesDetail);
-  if (inhalt && p) inhalt.innerHTML = kartenHTML(index, p, { detail: true });
+  if (inhalt && p) inhalt.innerHTML = kartenHTML(index, p, { detail: true, imKorb: imKorb(p.id) });
 }
 
 /* ================================== Vergleich ================================== */

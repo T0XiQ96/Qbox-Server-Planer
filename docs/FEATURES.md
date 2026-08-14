@@ -12,6 +12,10 @@ manuell durchgespielt wurde. Nichts aus dieser Liste darf bei einem Umbau verlor
 geänderte Filterregel (D4: UND → Facetten-Logik, siehe `docs/DECISIONS.md` D20). Geprüft am
 echten Build mit dem vollen Katalog (404 Plugins), nicht mit Demodaten.
 
+**Stand 14.08.2026 (Ausbau-Runde 2):** 4 neue Features (C6-C9) — der Vergleichskorb mit
+⚖️-Knopf je Karte, eigenem Suchfeld, vollständigen Karten im Vergleich und Drag&Drop als
+Zusatzweg (`docs/DECISIONS.md` D23).
+
 **Wie diese Runde geprüft wurde — wichtig fürs Nachtesten:** Das Browser-Werkzeug verweigert
 `file://`, deshalb lief der Test über einen lokalen HTTP-Server auf dieselbe gebaute Datei, mit
 im Seitenkontext ausgeführten Klick-/Eingabe-Folgen statt von Hand. Fachlich ist das derselbe
@@ -65,6 +69,10 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 | C3 | Pro & Contra **für beide** Seiten, nie nur für eines | Grün = Vorteil, Rot = Nachteil, Orange = neutral/zu beachten | getestet |
 | C4 | Bei grundverschiedenen Plugins: kein besser/schlechter, sondern Zweck + Features je Seite, mit Hinweis | Radio vs. Garage vergleichen → Hinweis „andere Use-Cases" | getestet |
 | C5 | Vergleich über **beliebig viele** Einträge als Tabelle (Status, Framework, Lizenz, Preis, Prüfstand, Update, Zustand, „nur hier", pro/contra/neutral) | „⚖️ Alle N vergleichen" im Ersetzt-Block; über ⚖️ auch je Funktionsgruppe wählbar | getestet |
+| C6 | **Vergleichskorb**: ⚖️ oben rechts auf jeder Karte, einfacher Klick legt hinein und öffnet das Fenster; die Leiste dockt oben am Kopf an und übersteht Filter- und Suchwechsel | ⚖️ auf ps-hud → Fenster offen, Chip in der Leiste | getestet |
+| C7 | Im Vergleichsfenster **eigenes Suchfeld** mit derselben Logik wie die Hauptsuche; Treffer-Reihenfolge: erst die Alternativen des ersten Eintrags (als „Alternative" markiert), dann alles Übrige alphabetisch | „house" tippen → 7 Treffer über Name **und** Beschreibung; bei ps-hud stehen die 5 HUD-Alternativen vorn | getestet |
+| C8 | Im Vergleich steht jedes Plugin als **vollständige Karte** (Name, Badges, Beschreibung, Meta, Abwägung); die Vergleichstabelle kommt **darunter**, nicht statt der Karten | Zwei Einträge wählen → 2 vollständige Karten, danach die Tabelle mit 2 Spalten | getestet |
+| C9 | ⚖️ lässt sich **in die Leiste ziehen** (Zusatzweg, kein Pflichtweg): die Leiste erscheint beim Ziehbeginn als sichtbare Ablagefläche, der Abwurf legt hinein **ohne** das Fenster zu öffnen. Kein Long-Press. | oxmysql-⚖️ ziehen → Leiste erscheint mit „hierher ziehen", Abwurf legt es hinein, Fenster bleibt zu | getestet |
 
 ## D — Filter, Suche, Sortierung
 

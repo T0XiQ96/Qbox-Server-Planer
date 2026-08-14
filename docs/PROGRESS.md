@@ -7,12 +7,17 @@
 **Letzter Commit:** `2f38fce` (App-Ausbau 1).
 
 **Push-Stand (14.08.2026 nachgeprüft, frühere Angabe hier war veraltet):** `origin/main` steht auf
-`c393c45` (Runde 37), letztes GitHub-Release ist **v3.0-r37**. Der Rückstand beträgt genau **3
-Commits**: `d637ed1` (Runde 38), `fb25689` (Runde 39), `2f38fce` (App-Ausbau 1). Die alte Notiz
-„Push für Runden 26–36 bewusst zurückgestellt" stimmte nicht mehr — bis Runde 37 ist alles
-gepusht und released. **Offen: Push dieser 3 Commits + Release `v3.0-r39`** (CLAUDE.md §2.8,
-Build liegt vor). Bewusst noch nicht ausgeführt, weil H5 (Doppelklick über `file://`) für diesen
-Build nicht belegt ist — siehe App-Ausbau-Abschnitt.
+`c393c45` (Runde 37), letztes GitHub-Release ist **v3.0-r37**. Die alte Notiz „Push für Runden
+26–36 bewusst zurückgestellt" stimmte nicht mehr — bis Runde 37 ist alles gepusht und released.
+
+**Offen und ausdrücklich vom Nutzer so entschieden:** Push der lokalen Commits (Runde 38,
+Runde 39, App-Ausbau 1, App-Ausbau 2) **und** Release `v3.0-r39` nach CLAUDE.md §2.8 wurden
+bewusst zurückgestellt — auf die Frage hin lautete die Wahl „weder noch, direkt Ausbau 2".
+Beides ist damit der nächste Schritt, sobald der Nutzer grünes Licht gibt. Der Build liegt fertig
+in `dist/qbox-planer.html` (692 KB, Katalog v3.0-r39).
+
+**Einziger offener Prüfpunkt beider Ausbaurunden: H5** — der Doppelklick über `file://` ist nicht
+belegt, weil das Browser-Werkzeug `file://` verweigert. Vor dem Release einmal von Hand öffnen.
 
 ---
 
@@ -31,30 +36,14 @@ lokalen HTTP-Server geprüft, mit im Seitenkontext ausgeführten Klick-/Eingabef
 derselbe Durchlauf, **aber H5 (Doppelklick über `file://`) ist NICHT erneut belegt**, weil das
 Browser-Werkzeug `file://` verweigert. Das ist der einzige offene Prüfpunkt dieser Runde.
 
-**App-Ausbau 2 — vom Nutzer beauftragt, noch nicht begonnen.** Alle vier Wünsche gehören zu
-EINEM gemeinsamen Vergleichs-Set („Vergleichskorb"), das oben andockt und Filter-/Suchwechsel
-übersteht:
+**App-Ausbau 2 ist ebenfalls fertig** (CHANGELOG „[App-Ausbau 2] Vergleichskorb"): ⚖️-Knopf oben
+rechts auf jeder Karte, einfacher Klick legt in den Korb und öffnet das Fenster; eigenes
+Suchfeld im Fenster mit der Hauptsuch-Logik (Alternativen zuerst, als solche markiert);
+vollständige Karten im Vergleich mit der Tabelle darunter; Drag&Drop als Zusatzweg mit der
+Leiste als sichtbarer Ablagefläche. Kein Long-Press (DECISIONS **D23**). Neue Features:
+**C6, C7, C8, C9**. `ui.js` nimmt für das breite Fenster jetzt eine `klasse` entgegen.
 
-1. Kleiner ⚖️-Knopf **oben rechts auf jeder Plugin-Karte**. **Einfacher Klick öffnet den
-   Vergleich** — links das angeklickte Plugin, rechts die Auswahlliste.
-2. In der Auswahlliste lassen sich **beliebig viele** hinzufügen. Reihenfolge: zuerst die
-   Einträge aus „wird ersetzt durch", danach alle übrigen.
-3. Über der Auswahlliste ein **eigenes Suchfeld** mit derselben Logik wie die Hauptsuche
-   (`passtSuche`: Name, Beschreibung, Kategorie, Features) — Eingabe „house" listet alle
-   Housing-Plugins.
-4. Im Vergleich wird jedes Plugin **vollständig dargestellt wie in der normalen Liste** (Name,
-   Badges, Beschreibung, Meta, Pro/Contra) — die Vergleichstabelle kommt **darunter**, nicht
-   statt der Karten.
-5. **Zusätzlich** (kein Pflichtweg): den ⚖️-Knopf per **Drag&Drop** in die Leiste ziehen. Die
-   Leiste erscheint beim Ziehbeginn sofort oben klebend als sichtbare Ablagefläche, damit das
-   Ziel nie außerhalb des Sichtfelds liegt; Touch-Fallback bleibt der Klickweg. **Kein
-   Long-Press** — vom Nutzer nach Erläuterung bestätigt („perfekt mach es so"): unsichtbar, ohne
-   Zustandsanzeige und kollidiert mit Textmarkieren.
-
-Vorarbeit dafür steht schon: `vergleicheMehrere(index, ids)` und `mehrfachVergleichHTML()` in
-`src/app/compare.js` nehmen bewusst eine **freie ID-Liste** statt einer `gruppe`, und
-`kartenHTML(index, plugin, {detail:true})` rendert eine vollständige Karte außerhalb der Liste.
-**Das ist eine `/src/`-Aufgabe → Opus.**
+**Beide Ausbaurunden sind gebaut, committet und ohne Konsolenfehler getestet.**
 **Validate-Status:** grün (42 Katalogdateien inkl. `runde-39.json` · 404 Plugins gesamt · 20
 harmlose „nur ein Mitglied"-Warnungen, `minigames` jetzt mit 3 Mitgliedern kein Einzelfall mehr).
 **Katalogstand:** 404 gesamt (262 Altbestand + vierzehn Runden à 10–11 aus Runde 26–39), **0

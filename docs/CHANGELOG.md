@@ -17,6 +17,48 @@ Format je Eintrag:
 
 ---
 
+## [App-Ausbau 2] Vergleichskorb – 14.08.2026
+
+Vier Wünsche, die während Ausbau 1 dazukamen — alle auf **ein** gemeinsames Vergleichs-Set
+gebaut statt auf mehrere Wege, die sich gegenseitig überschreiben (DECISIONS D23).
+
+**⚖️ oben rechts auf jeder Karte (C6):** Einfacher Klick legt das Plugin in den Korb und öffnet
+zugleich das Vergleichsfenster. Die Korbleiste sitzt **im** Kopf und klebt damit zwangsläufig
+mit ihm oben — zwei getrennte `sticky`-Elemente auf `top:0` würden sich beim Scrollen überlagern.
+Der Korb übersteht Filter- und Suchwechsel und lebt bewusst nur im Arbeitsspeicher: er ist
+Arbeitszustand wie Suche und Filter, kein Teil des Plans (D8-Gedanke).
+
+**Eigenes Suchfeld im Fenster (C7):** dieselbe `passtSuche`-Funktion wie die Hauptsuche, also
+Name, Beschreibung, Kategorie und Features. Nachgemessen: „house" liefert 7 Treffer, darunter
+`qbx_properties` und `randolio_grandma`, die das Wort nur in der Beschreibung führen.
+Trefferreihenfolge wie gewünscht: erst die Alternativen des ersten Korb-Eintrags — genau das,
+was auf der Karte unter „wird ersetzt durch" steht, sichtbar als „Alternative" markiert — danach
+alles Übrige alphabetisch, gedeckelt auf 60 Zeilen mit Hinweis auf den Rest.
+
+**Vollständige Karten statt nur Tabelle (C8):** Jedes gewählte Plugin steht im Vergleich als
+komplette Karte da (Badges, Beschreibung, Meta, Abwägung), die Vergleichstabelle kommt
+**darunter**. Die Tabelle beantwortet „worin unterscheiden sie sich", die Karten „was ist das
+überhaupt" — beides wird gebraucht.
+
+**Drag&Drop als Zusatzweg (C9):** Der ⚖️-Knopf ist ziehbar; beim Ziehbeginn blendet sich die
+Leiste als sichtbare Ablagefläche ein („⚖️ einer Karte hierher ziehen"), damit das Ziel nie
+außerhalb des Sichtfelds liegt. Der Abwurf legt hinein, **ohne** das Fenster zu öffnen.
+`draggable` sitzt am Knopf, nicht an der Karte — sonst löste jeder Versuch, Text in der Karte zu
+markieren, ein Ziehen aus. **Long-Press wurde verworfen** (vom Nutzer vorgeschlagen, nach
+Erläuterung bestätigt): unsichtbar, ohne Zustandsanzeige, kollidiert mit dem Markieren.
+Auf Touch bleibt der Klickweg der vollwertige Weg, weil es dort kein HTML5-Ziehen gibt.
+
+**Geändert:** `ui.js` (Modal nimmt jetzt eine `klasse` für das breite Fenster), `render.js`,
+`main.js`, `style.css`. Keine Katalogdatei angefasst.
+
+**Geprüft** am echten Build mit allen 404 Plugins, inklusive simuliertem Drag&Drop
+(`DragEvent` + `DataTransfer`); keine Konsolenfehler über beide Ausbaurunden. **H5 (Doppelklick
+über `file://`) bleibt weiterhin offen** — das Browser-Werkzeug verweigert `file://`.
+
+**Commit:** folgt
+
+---
+
 ## [App-Ausbau 1] Prüfbericht, Facetten-Filter, Detail-Fenster – 14.08.2026
 
 Erste Ausbaurunde am App-Code seit Phase 1 — sieben Wünsche aus der Praxis plus sechs
