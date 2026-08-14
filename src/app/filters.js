@@ -26,9 +26,14 @@ export function leererFilter() {
     kategorie: '',
     status: 'alle',
     qualitaet: 'alle',
-    badges: [],       // mehrfach wählbar, UND-Logik (D4)
+    badges: [],        // mehrfach wählbar, Facetten-Logik (D4)
     nurEssenziell: false,
-    nurDiff: false     // D6 — Diff-Ansicht
+    nurDiff: false,    // D6 — Diff-Ansicht
+    nurWarnungen: false,
+    // Keine Filtereinstellung, sondern das Nachschlagewerk dazu: main.js legt vor jedem Zeichnen
+    // die IDs aus dem aktuellen Prüfbericht hier ab. So bleibt dieses Modul frei von Zustand und
+    // "↺ Zurücksetzen" räumt es zusammen mit dem Filter selbst weg.
+    warnIds: null
   };
 }
 
@@ -63,12 +68,54 @@ export function passtStatus(index, plugin, status) {
   }
 }
 
-/* ============================== D4 — Badge-Chips, UND-Logik ============================== */
+/* ============================== D4 — Badge-Chips, Facetten-Logik ============================== */
+
+/**
+ * Die Chips zerfallen in drei Facetten. Ein Plugin hat aus jeder Facette genau einen Wert
+ * (badgesVon() leitet sie aus framework/lizenz/preis ab) — deshalb kann eine reine UND-Logik über
+ * alle Chips hinweg gar nicht funktionieren: „Qbox nativ" UND „QBCore-Bridge" ist zwangsläufig leer.
+ *
+ * Richtig ist die übliche Facetten-Logik:
+ *   INNERHALB einer Facette ODER  — „zeig mir Qbox-native ODER Bridge-Plugins"
+ *   ZWISCHEN den Facetten UND     — „…aber davon nur die kostenlosen"
+ *
+ * Eine Facette, aus der nichts gewählt ist, schränkt nicht ein.
+ */
+export const BADGE_FACETTEN = {
+  framework: ['qbox', 'bridge', 'stand', 'qbonly'],
+  lizenz: ['open', 'escrow'],
+  preis: ['premium', 'free']
+};
+
+const FACETTEN_LISTE = Object.values(BADGE_FACETTEN);
+const BEKANNTE_BADGES = new Set(FACETTEN_LISTE.flat());
 
 export function passtBadges(plugin, badgeIds) {
   if (!badgeIds || !badgeIds.length) return true;
   const eigene = new Set(badgesVon(plugin).map((b) => b.id));
-  return badgeIds.every((id) => eigene.has(id));
+
+  for (const facette of FACETTEN_LISTE) {
+    const gewaehlt = facette.filter((id) => badgeIds.includes(id));
+    if (!gewaehlt.length) continue;                          // Facette ungenutzt -> keine Einschränkung
+    if (!gewaehlt.some((id) => eigene.has(id))) return false; // innerhalb: ODER
+  }
+
+  // Ein Chip, der zu keiner Facette gehört, kann nur aus einer künftigen Erweiterung stammen.
+  // Für den bleibt es beim strengen UND — das ist die sichere Annahme, solange niemand
+  // ausdrücklich entschieden hat, wohin er gehört.
+  return badgeIds.filter((id) => !BEKANNTE_BADGES.has(id)).every((id) => eigene.has(id));
+}
+
+/* ===================== Filter „nur mit Warnung" (Prüfbericht) ===================== */
+
+/**
+ * `warnIds` kommt aus warnings.js und wird von main.js vor jedem Zeichnen gesetzt. Fehlt es,
+ * greift der Filter bewusst hart (leere Liste) statt still alles durchzulassen — sonst sähe ein
+ * Fehler in der Verdrahtung wie „keine Probleme vorhanden" aus.
+ */
+export function passtWarnung(plugin, nurWarnungen, warnIdListe) {
+  if (!nurWarnungen) return true;
+  return !!warnIdListe && warnIdListe.has(plugin.id);
 }
 
 /* ============================== D5 — Qualitätsstufe ============================== */
@@ -94,6 +141,7 @@ export function wendeFilterAn(index, plugins, filter) {
     passtStatus(index, p, f.status) &&
     passtQualitaet(p, f.qualitaet) &&
     passtBadges(p, f.badges) &&
+    passtWarnung(p, f.nurWarnungen, f.warnIds) &&
     (!f.nurEssenziell || p.essenziell) &&
     (!f.nurDiff || istDiff(p))
   );

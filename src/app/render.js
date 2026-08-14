@@ -182,7 +182,15 @@ export function ersetztHTML(index, plugin) {
   const andere = alternativen(index, plugin);
   if (!andere.length) return '';
   const eintraege = andere.map((p) => `<li>${sprungLink(index, p.id, statusPraefix(p.id))}</li>`).join('');
-  return `<div class="karte-beziehung karte-ersetzt"><strong>⚠️ Ersetzt / wird ersetzt durch:</strong><ul>${eintraege}</ul></div>`;
+
+  // Genau hier steht die Frage im Raum, die der Zweiervergleich nur umständlich beantwortet:
+  // „welches von diesen nehme ich?" — deshalb der Direkteinstieg mit allen Beteiligten auf einmal.
+  const alleIds = [plugin.id, ...andere.map((p) => p.id)].join(',');
+  const knopf = `<button type="button" class="btn btn-klein karte-vergleich"
+    data-vergleich-ids="${escapeHtml(alleIds)}">⚖️ Alle ${andere.length + 1} vergleichen</button>`;
+
+  return `<div class="karte-beziehung karte-ersetzt">
+    <strong>⚠️ Ersetzt / wird ersetzt durch:</strong><ul>${eintraege}</ul>${knopf}</div>`;
 }
 
 /* ================================ B2 — Synergie ================================ */
@@ -274,13 +282,21 @@ export function prioritaetHTML(plugin) {
 
 /* ============================== Alles zusammen ============================== */
 
-/** Die vollständige Karte: Info-Seite (1b) + Beziehungen, Banner und Steuerelemente (1c). */
-export function kartenHTML(index, plugin) {
+/**
+ * Die vollständige Karte: Info-Seite (1b) + Beziehungen, Banner und Steuerelemente (1c).
+ *
+ * `opt.detail` zeichnet dieselbe Karte für das Detail-Fenster. Nötig ist dafür nur ein anderes
+ * DOM-`id`-Präfix: Ein Sprung auf ein ausgefiltertes Plugin öffnet dessen Karte im Fenster,
+ * während die Liste dahinter gefiltert bleibt — stünde dort dieselbe `id`, zeigten alle
+ * `#karte-…`-Anker plötzlich ins Fenster statt in die Liste.
+ */
+export function kartenHTML(index, plugin, opt = {}) {
   const kopf = `<h3 class="karte-titel">${escapeHtml(plugin.name)}${essenziellHTML(plugin)}</h3>`;
   const badges = `<div class="karte-badges">${badgesHTML(plugin)}${kompatHTML(plugin)}${archivHTML(plugin)}${altStackHTML(plugin)}${preisHTML(plugin)}${qualitaetHTML(plugin)}${linkStatusHTML(plugin)}</div>`;
   const beziehungen = ersetztHTML(index, plugin) + synergieHTML(index, plugin) + ergaenztHTML(index, plugin) + abhaengigkeitenHTML(index, plugin);
+  const kennung = (opt.detail ? 'detail-karte-' : 'karte-') + escapeHtml(plugin.id);
 
-  return `<article id="karte-${escapeHtml(plugin.id)}" class="karte" data-kategorie="${escapeHtml(plugin.kategorie)}">
+  return `<article id="${kennung}" class="karte${opt.detail ? ' karte-imfenster' : ''}" data-kategorie="${escapeHtml(plugin.kategorie)}">
 ${bannerHTML(index, plugin)}
 ${kopf}
 ${badges}

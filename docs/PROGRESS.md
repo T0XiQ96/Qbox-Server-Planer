@@ -4,9 +4,51 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 14.08.2026
-**Letzter Commit:** `d637ed1` (Runde 38). Runde 39 ist fertig und wird mit diesem Schritt
-committet — noch nicht gepusht (Nutzer hat Push für Runden 26–38 bewusst zurückgestellt, Repo auf
+**Letzter Commit:** `fb25689` (Runde 39). Der App-Ausbau 1 ist fertig und wird mit diesem Schritt
+committet — noch nicht gepusht (Nutzer hat Push für Runden 26–39 bewusst zurückgestellt, Repo auf
 GitHub liegt entsprechend mehrere Commits zurück).
+
+---
+
+## App-Ausbau — erste Runde fertig, zweite Runde ist beauftragt
+
+**Erste Ausbaurunde am App-Code seit Phase 1 ist fertig** (Einzelheiten im CHANGELOG-Eintrag
+„[App-Ausbau 1]"): Facetten-Filter statt reinem UND, laufender Prüfbericht oben mit
+Ein-Klick-Behebung, Detail-Fenster für ausgefilterte Sprungziele plus Zurück-Stapel, Zähler für
+ungenutzte Synergien je Umgebung, Vergleich über beliebig viele Einträge, Filter „nur mit
+Warnung", und Rückwärts-Indizes gegen die quadratisch wachsende Zeichenlast. Neue Datei:
+`src/app/warnings.js`. Neue Entscheidungen: DECISIONS **D20, D21, D22**. Neue Features in
+FEATURES.md: **B8, B9, C5, D9, F8, F9, F10**; **D4 wurde umgeschrieben** (UND → Facetten).
+
+**Wichtig fürs Nachtesten:** Diese Runde wurde am echten Build mit allen 404 Plugins über einen
+lokalen HTTP-Server geprüft, mit im Seitenkontext ausgeführten Klick-/Eingabefolgen — fachlich
+derselbe Durchlauf, **aber H5 (Doppelklick über `file://`) ist NICHT erneut belegt**, weil das
+Browser-Werkzeug `file://` verweigert. Das ist der einzige offene Prüfpunkt dieser Runde.
+
+**App-Ausbau 2 — vom Nutzer beauftragt, noch nicht begonnen.** Alle vier Wünsche gehören zu
+EINEM gemeinsamen Vergleichs-Set („Vergleichskorb"), das oben andockt und Filter-/Suchwechsel
+übersteht:
+
+1. Kleiner ⚖️-Knopf **oben rechts auf jeder Plugin-Karte**. **Einfacher Klick öffnet den
+   Vergleich** — links das angeklickte Plugin, rechts die Auswahlliste.
+2. In der Auswahlliste lassen sich **beliebig viele** hinzufügen. Reihenfolge: zuerst die
+   Einträge aus „wird ersetzt durch", danach alle übrigen.
+3. Über der Auswahlliste ein **eigenes Suchfeld** mit derselben Logik wie die Hauptsuche
+   (`passtSuche`: Name, Beschreibung, Kategorie, Features) — Eingabe „house" listet alle
+   Housing-Plugins.
+4. Im Vergleich wird jedes Plugin **vollständig dargestellt wie in der normalen Liste** (Name,
+   Badges, Beschreibung, Meta, Pro/Contra) — die Vergleichstabelle kommt **darunter**, nicht
+   statt der Karten.
+5. **Zusätzlich** (kein Pflichtweg): den ⚖️-Knopf per **Drag&Drop** in die Leiste ziehen. Die
+   Leiste erscheint beim Ziehbeginn sofort oben klebend als sichtbare Ablagefläche, damit das
+   Ziel nie außerhalb des Sichtfelds liegt; Touch-Fallback bleibt der Klickweg. **Kein
+   Long-Press** — vom Nutzer nach Erläuterung bestätigt („perfekt mach es so"): unsichtbar, ohne
+   Zustandsanzeige und kollidiert mit Textmarkieren.
+
+Vorarbeit dafür steht schon: `vergleicheMehrere(index, ids)` und `mehrfachVergleichHTML()` in
+`src/app/compare.js` nehmen bewusst eine **freie ID-Liste** statt einer `gruppe`, und
+`kartenHTML(index, plugin, {detail:true})` rendert eine vollständige Karte außerhalb der Liste.
+**Das ist eine `/src/`-Aufgabe → Opus.**
 **Validate-Status:** grün (42 Katalogdateien inkl. `runde-39.json` · 404 Plugins gesamt · 20
 harmlose „nur ein Mitglied"-Warnungen, `minigames` jetzt mit 3 Mitgliedern kein Einzelfall mehr).
 **Katalogstand:** 404 gesamt (262 Altbestand + vierzehn Runden à 10–11 aus Runde 26–39), **0

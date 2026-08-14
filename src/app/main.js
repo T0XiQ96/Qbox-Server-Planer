@@ -17,16 +17,17 @@
 
 import { alleMitStandard } from './defaults.js';
 import { ladeZustand, istGehakt, setzeHaken, setzeNotiz, setzePrioritaet, setzeZurueck, legeBackupAn, holeBackups, ladeBackup, loescheBackup } from './state.js';
-import { baueIndex, aktiveKonflikte, fehlendeAbhaengigkeiten, bundleHinweis } from './relations.js';
+import { baueIndex, aktiveKonflikte, fehlendeAbhaengigkeiten, bundleHinweis, alleGruppen, gruppenMitglieder } from './relations.js';
 import { kartenHTML, escapeHtml } from './render.js';
 import { leererFilter, gefilterteUndSortierteListe, holeAktiveSortierung, setzeAktiveSortierung, SORTIER_OPTIONEN } from './filters.js';
-import { vergleiche, vergleichHTML } from './compare.js';
+import { vergleiche, vergleichHTML, vergleicheMehrere, mehrfachVergleichHTML } from './compare.js';
+import { berichtBeiderUmgebungen, berichtZusammenfassung, warnIds, synergienBeiderUmgebungen, ungenutzteSynergien, UMGEBUNG_LABEL } from './warnings.js';
 import { ladeDifferenz, mitDifferenz, verwirfDifferenz, differenzInfo } from './katalogspeicher.js';
 import { mitEigenen, legeEigenesAn } from './custom.js';
 import { baueZustandsExport, leseZustandsDatei, uebernimmZustand, baueKatalogVorschau, wendeVorschauAn, vorschauZusammenfassung } from './import.js';
 import { baueEnsureListe } from './exportcfg.js';
 import { kostenBeiderUmgebungen, kostenText } from './costs.js';
-import { toast, modal, frage, hinweis, ladeHerunter, waehleDatei } from './ui.js';
+import { toast, modal, frage, hinweis, ladeHerunter, waehleDatei, schliesseModal } from './ui.js';
 
 const daten = JSON.parse(document.getElementById('qbox-daten').textContent);
 const KATEGORIEN = daten.kategorien || [];
@@ -78,6 +79,8 @@ function baueGeruest() {
       </ul>
     </div>
 
+    <div id="pruefbericht"></div>
+
     <div class="kosten" id="kosten"></div>
 
     <div class="werkzeugleiste">
@@ -104,12 +107,14 @@ function baueGeruest() {
       </select>
       <label class="schalter-klein"><input type="checkbox" id="f-essenziell"> ⭐ nur unabdingbare</label>
       <label class="schalter-klein"><input type="checkbox" id="f-diff"> 🔀 nur DEV ≠ MAIN</label>
+      <label class="schalter-klein"><input type="checkbox" id="f-warnungen"> ⚠️ nur mit Warnung</label>
       <button class="btn btn-leise" id="btn-zuruecksetzen">↺ Zurücksetzen</button>
     </div>
 
     <div class="chips" id="chips"></div>
     <div class="treffer" id="treffer"></div>
-    <div id="liste"></div>`;
+    <div id="liste"></div>
+    <button class="btn zurueck-knopf" id="btn-zurueck" hidden></button>`;
 
   const kat = document.getElementById('f-kategorie');
   kat.innerHTML = '<option value="">Kategorie: alle</option>' +
@@ -133,6 +138,12 @@ function aktualisiereKopf() {
 /* ================================ Liste zeichnen ================================ */
 
 function zeichneListe() {
+  // Der Prüfbericht entsteht VOR dem Filtern: seine IDs sind die Grundlage für „nur mit Warnung".
+  // Beide Umgebungen zusammen kosten nur einen Durchlauf über die gehakten Einträge — der teure
+  // Teil (wer ergänzt wen, wer kollidiert mit wem) ist in relations.js vorberechnet.
+  const bericht = berichtBeiderUmgebungen(index);
+  filter.warnIds = warnIds(bericht);
+
   const sichtbar = gefilterteUndSortierteListe(index, plugins, filter);
   const nachKategorie = new Map();
   for (const p of sichtbar) {
@@ -166,18 +177,94 @@ function zeichneListe() {
   document.getElementById('treffer').textContent =
     `${sichtbar.length} von ${plugins.length} Plugins`;
 
+  zeichnePruefbericht(bericht);
   zeichneKosten();
   aktualisiereChips();
   aktualisiereKopf();
+  aktualisiereZurueck();
 }
+
+/* ============================== Prüfbericht (oben) ============================== */
+
+const STUFEN_ZEICHEN = { fehler: '⛔', warnung: '⚠️', hinweis: 'ℹ️' };
+
+/** Ein Verweis in den Bericht hinein — dieselbe Sprung-Mechanik wie auf den Karten (B5). */
+function berichtLink(p) {
+  return `<a href="#karte-${escapeHtml(p.id)}" class="karte-sprung" data-jump-id="${escapeHtml(p.id)}">${escapeHtml(p.name)}</a>`;
+}
+
+function fundHTML(f) {
+  // Eine Warnung ohne Weg zur Behebung ist eine halbe Warnung: fehlt eine Abhängigkeit, steht der
+  // Haken direkt daneben statt irgendwo weiter unten in der Liste.
+  const behebung = f.behebung
+    ? `<button type="button" class="btn btn-klein bericht-behebe"
+         data-behebe="${escapeHtml(f.behebung.id)}:${escapeHtml(f.behebung.umgebung)}">＋ setzen</button>`
+    : '';
+  return `<li class="bericht-fund bericht-${f.stufe}">
+    <span class="bericht-zeichen">${STUFEN_ZEICHEN[f.stufe]}</span>
+    <span class="bericht-text">${berichtLink(f.plugin)} — ${escapeHtml(f.text)}</span>
+    ${behebung}</li>`;
+}
+
+/**
+ * Warnt sofort, nicht erst beim Export (F3-F6 waren bis hierher entweder ein flüchtiges Popup
+ * oder ein Kommentar in der ensure-Liste). Bleibt leer, solange gar nichts gehakt ist — ein
+ * leerer Plan hat keine Probleme, und eine grüne Meldung dazu wäre nur Lärm.
+ */
+function zeichnePruefbericht(bericht) {
+  const el = document.getElementById('pruefbericht');
+  const vorher = el.querySelector('.bericht');
+  const warOffen = vorher ? vorher.open : true;
+
+  const etwasGehakt = plugins.some((p) => istGehakt(p.id, 'dev') || istGehakt(p.id, 'main'));
+  if (!etwasGehakt) { el.innerHTML = ''; return; }
+
+  const alle = [...bericht.dev, ...bericht.main];
+  if (!alle.length) {
+    el.innerHTML = '<div class="bericht bericht-sauber">✅ Prüfbericht: keine offenen Punkte auf DEV und MAIN.</div>';
+    return;
+  }
+
+  const z = berichtZusammenfassung(alle);
+  const teile = [];
+  if (z.fehler) teile.push(`${z.fehler} Fehler`);
+  if (z.warnung) teile.push(`${z.warnung} Warnung${z.warnung === 1 ? '' : 'en'}`);
+  if (z.hinweis) teile.push(`${z.hinweis} Hinweis${z.hinweis === 1 ? '' : 'e'}`);
+
+  const block = (umgebung) => {
+    const funde = bericht[umgebung];
+    if (!funde.length) return '';
+    return `<div class="bericht-block">
+      <h3>${umgebung === 'dev' ? '🧪' : '✅'} ${UMGEBUNG_LABEL[umgebung]}</h3>
+      <ul>${funde.map(fundHTML).join('')}</ul></div>`;
+  };
+
+  el.innerHTML = `<details class="bericht${z.fehler ? ' bericht-hat-fehler' : ''}">
+    <summary><strong>Prüfbericht</strong> — ${escapeHtml(teile.join(' · '))}</summary>
+    ${block('dev')}${block('main')}</details>`;
+  el.querySelector('.bericht').open = warOffen;
+}
+
+/* ============================ Kosten + Synergie-Zähler ============================ */
 
 function zeichneKosten() {
   const k = kostenBeiderUmgebungen(index);
-  document.getElementById('kosten').innerHTML = `
-    <div class="kosten-spalte"><strong>🧪 DEV</strong>
-      <span>einmalig ${kostenText(k.dev.einmalig)}</span><span>monatlich ${kostenText(k.dev.abo)}</span></div>
-    <div class="kosten-spalte"><strong>✅ MAIN</strong>
-      <span>einmalig ${kostenText(k.main.einmalig)}</span><span>monatlich ${kostenText(k.main.abo)}</span></div>`;
+  const s = synergienBeiderUmgebungen(index);
+
+  const spalte = (umgebung, zeichen) => {
+    const offen = s[umgebung].length;
+    // Der Zähler steht bewusst je Umgebung, direkt neben den Kosten derselben Umgebung: DEV und
+    // MAIN sind unterschiedlich bestückt, ein gemeinsamer Wert wäre für beide falsch.
+    const synergie = offen
+      ? `<button type="button" class="kosten-synergie" data-synergie="${umgebung}">
+           🔗 ${offen} ungenutzte Synergie${offen === 1 ? '' : 'n'}</button>`
+      : '';
+    return `<div class="kosten-spalte"><strong>${zeichen} ${UMGEBUNG_LABEL[umgebung]}</strong>
+      <span>einmalig ${kostenText(k[umgebung].einmalig)}</span>
+      <span>monatlich ${kostenText(k[umgebung].abo)}</span>${synergie}</div>`;
+  };
+
+  document.getElementById('kosten').innerHTML = spalte('dev', '🧪') + spalte('main', '✅');
 }
 
 function aktualisiereChips() {
@@ -210,6 +297,7 @@ function verdrahteWerkzeugleiste() {
 
   document.getElementById('f-essenziell').addEventListener('change', (e) => { filter.nurEssenziell = e.target.checked; zeichneListe(); });
   document.getElementById('f-diff').addEventListener('change', (e) => { filter.nurDiff = e.target.checked; zeichneListe(); });
+  document.getElementById('f-warnungen').addEventListener('change', (e) => { filter.nurWarnungen = e.target.checked; zeichneListe(); });
 
   document.getElementById('chips').addEventListener('click', (e) => {
     const knopf = e.target.closest('.chip');
@@ -228,21 +316,27 @@ function verdrahteWerkzeugleiste() {
     }
     document.getElementById('f-essenziell').checked = false;
     document.getElementById('f-diff').checked = false;
+    document.getElementById('f-warnungen').checked = false;
     zeichneListe();
     toast('Suche und Filter zurückgesetzt — deine Haken sind unberührt.');
   });
+
+  document.getElementById('btn-zurueck').addEventListener('click', geheZurueck);
 
   document.getElementById('btn-zahnrad').addEventListener('click', oeffneZahnrad);
   document.getElementById('btn-eigenes').addEventListener('click', oeffneEigenesFormular);
   document.getElementById('btn-vergleich').addEventListener('click', oeffneVergleich);
 }
 
-/* ========================= Ein Listener für alle Karten ========================= */
+/* ================= Ein Listener für Liste, Prüfbericht und Fenster ================= */
 
-function verdrahteListe() {
-  const liste = document.getElementById('liste');
-
-  liste.addEventListener('change', async (e) => {
+/**
+ * Delegation an document statt an #liste: Karten und Verweise stehen inzwischen an drei Stellen
+ * — in der Liste, im Prüfbericht und im Detail-Fenster. Ein eigener Listener je Ort hieße,
+ * dieselbe Logik dreimal zu pflegen und bei jedem Neuzeichnen neu zu setzen.
+ */
+function verdrahteGlobal() {
+  document.addEventListener('change', async (e) => {
     const ziel = e.target;
 
     if (ziel.classList.contains('haken-schalter')) {
@@ -262,16 +356,193 @@ function verdrahteListe() {
     }
   });
 
-  // B5 — Sprung zum Ziel mit kurzem Aufblinken. Der <a href="#karte-id"> springt von allein,
-  // hier kommt nur die Hervorhebung dazu.
-  liste.addEventListener('click', (e) => {
+  document.addEventListener('click', (e) => {
+    const behebe = e.target.closest('[data-behebe]');
+    if (behebe) { e.preventDefault(); behebeFehlend(behebe.dataset.behebe); return; }
+
+    const vergleich = e.target.closest('[data-vergleich-ids]');
+    if (vergleich) { e.preventDefault(); zeigeMehrfachVergleich(vergleich.dataset.vergleichIds.split(',')); return; }
+
+    const synergie = e.target.closest('[data-synergie]');
+    if (synergie) { e.preventDefault(); zeigeSynergien(synergie.dataset.synergie); return; }
+
     const sprung = e.target.closest('[data-jump-id]');
-    if (!sprung) return;
-    const ziel = document.getElementById('karte-' + sprung.dataset.jumpId);
-    if (!ziel) { toast('Dieser Eintrag ist (noch) nicht im Katalog.', 'warnung'); e.preventDefault(); return; }
-    ziel.classList.remove('blinkt');
-    void ziel.offsetWidth;          // Neustart der Animation erzwingen
-    ziel.classList.add('blinkt');
+    if (sprung) behandleSprung(e, sprung);
+  });
+}
+
+/* ========================= Sprung-Navigation und Zurück ========================= */
+
+/**
+ * Der Zurück-Weg. Jeder Sprung legt ab, wohin er zurückführt:
+ *   {typ:'liste',  id, scrollY}  — aus der Liste heraus gesprungen
+ *   {typ:'fenster', id}          — aus einem Detail-Fenster in das nächste
+ * Ein Stapel, kein einzelner Schritt: A→B→C soll rückwärts auch wieder C→B→A laufen.
+ */
+let zurueckStapel = [];
+let aktuellesDetail = null;
+
+function merkeHerkunft(vonId) {
+  if (aktuellesDetail) zurueckStapel.push({ typ: 'fenster', id: aktuellesDetail });
+  else zurueckStapel.push({ typ: 'liste', id: vonId, scrollY: window.scrollY });
+}
+
+function blinke(el) {
+  el.classList.remove('blinkt');
+  void el.offsetWidth;          // Neustart der Animation erzwingen
+  el.classList.add('blinkt');
+}
+
+function kehreZurListeZurueck(eintrag) {
+  window.scrollTo({ top: eintrag.scrollY, behavior: 'smooth' });
+  const karte = eintrag.id ? document.getElementById('karte-' + eintrag.id) : null;
+  if (karte) blinke(karte);
+}
+
+function geheZurueck() {
+  const eintrag = zurueckStapel.pop();
+  if (!eintrag) { aktualisiereZurueck(); return; }
+
+  if (eintrag.typ === 'fenster') { zeigeDetail(eintrag.id, false); return; }
+
+  schliesseModal();
+  aktuellesDetail = null;
+  kehreZurListeZurueck(eintrag);
+  aktualisiereZurueck();
+}
+
+function aktualisiereZurueck() {
+  const knopf = document.getElementById('btn-zurueck');
+  if (!knopf) return;
+  const oben = zurueckStapel[zurueckStapel.length - 1];
+  // Solange ein Fenster offen ist, sitzt das Zurück in dessen Fuß — der schwebende Knopf gilt
+  // nur der Liste, sonst gäbe es zwei Zurücks nebeneinander.
+  if (!oben || aktuellesDetail) { knopf.hidden = true; return; }
+  const ziel = oben.id ? index.get(oben.id) : null;
+  knopf.textContent = ziel ? `← Zurück zu ${ziel.name}` : '← Zurück zur vorherigen Stelle';
+  knopf.hidden = false;
+}
+
+/**
+ * B5 — Sprung zu einem anderen Katalogeintrag.
+ *
+ * Bis hierher scheiterte der Sprung still, sobald das Ziel gerade ausgefiltert war: der Anker
+ * fand nichts im DOM und die Meldung behauptete, der Eintrag sei „nicht im Katalog" — was
+ * schlicht falsch war. Jetzt entscheidet der Ort des Ziels:
+ *   sichtbar          → in der Liste dorthin springen (wie bisher)
+ *   ausgefiltert      → im Detail-Fenster öffnen, Filter bleiben unangetastet
+ *   gar nicht im Katalog → ehrliche Meldung
+ */
+function behandleSprung(e, el) {
+  const zielId = el.dataset.jumpId;
+  const imFenster = !!el.closest('.modal-huelle');
+  const vonKarte = el.closest('.karte');
+  const vonId = vonKarte ? vonKarte.id.replace(/^(?:detail-)?karte-/, '') : null;
+
+  if (!index.has(zielId)) {
+    e.preventDefault();
+    toast('Dieser Eintrag ist (noch) nicht im Katalog.', 'warnung');
+    return;
+  }
+
+  // Innerhalb eines Fensters bleibt die Kette im Fenster — ein Sprung in die Liste dahinter
+  // würde den gerade gelesenen Zusammenhang wegreißen.
+  if (imFenster) { e.preventDefault(); zeigeDetail(zielId); return; }
+
+  const zielEl = document.getElementById('karte-' + zielId);
+  if (zielEl) {
+    merkeHerkunft(vonId);
+    blinke(zielEl);               // der <a href="#karte-…"> springt von allein
+    aktualisiereZurueck();
+    return;
+  }
+
+  e.preventDefault();
+  merkeHerkunft(vonId);
+  zeigeDetail(zielId, false);
+}
+
+/** Öffnet ein Plugin als vollständige Karte im Fenster, ohne die Liste dahinter anzufassen. */
+function zeigeDetail(id, mitHerkunft = true) {
+  const p = index.get(id);
+  if (!p) { toast('Dieser Eintrag ist (noch) nicht im Katalog.', 'warnung'); return; }
+  if (mitHerkunft) merkeHerkunft(null);
+
+  aktuellesDetail = id;
+  const knoepfe = [];
+  if (zurueckStapel.length) knoepfe.push({ text: '← Zurück', wert: 'zurueck' });
+  knoepfe.push({ text: 'Schließen', wert: null });
+
+  modal({ titel: escapeHtml(p.name), inhalt: kartenHTML(index, p, { detail: true }), knoepfe })
+    .then((wahl) => {
+      if (wahl === 'zurueck') { geheZurueck(); return; }
+      if (aktuellesDetail !== id) return;      // ein anderes Fenster hat inzwischen übernommen
+
+      // ✕/Esc heißt „raus hier", nicht „einen Schritt zurück": zurück an die Stelle in der Liste,
+      // von der die ganze Kette ausging.
+      aktuellesDetail = null;
+      const anfang = zurueckStapel.find((s) => s.typ === 'liste');
+      zurueckStapel = [];
+      aktualisiereZurueck();
+      if (anfang) kehreZurListeZurueck(anfang);
+    });
+
+  aktualisiereZurueck();
+}
+
+/* ===================== Behebung, Mehrfachvergleich, Synergien ===================== */
+
+/** „＋ setzen" aus dem Prüfbericht bzw. der Synergie-Liste. */
+async function behebeFehlend(wert) {
+  const [id, umgebung] = String(wert).split(':');
+  const p = index.get(id);
+  if (!p) return;
+  schliesseModal();
+  await hakenGesetzt(id, umgebung, true);
+  toast(`${p.name} auf ${UMGEBUNG_LABEL[umgebung] || umgebung} gesetzt ✅`);
+}
+
+function zeigeMehrfachVergleich(ids) {
+  aktuellesDetail = null;   // der Vergleich ist kein Glied der Detail-Kette
+  modal({
+    titel: '⚖️ Vergleich',
+    inhalt: mehrfachVergleichHTML(vergleicheMehrere(index, ids)),
+    knoepfe: [{ text: 'Schließen', wert: null }]
+  });
+}
+
+/** Was ließe sich zum aktuellen Stand noch sinnvoll dazunehmen? */
+function zeigeSynergien(umgebung) {
+  aktuellesDetail = null;
+  const vorschlaege = ungenutzteSynergien(index, umgebung);
+  const label = UMGEBUNG_LABEL[umgebung] || umgebung;
+
+  if (!vorschlaege.length) {
+    return hinweis({ titel: `🔗 Synergien (${label})`, inhalt: '<p>Zum aktuellen Stand gibt es nichts Offenes.</p>' });
+  }
+
+  const punkte = (klasse, eintraege) => eintraege.length
+    ? `<ul class="${klasse}">${eintraege.map((x) => `<li>${escapeHtml(x)}</li>`).join('')}</ul>` : '';
+
+  const zeile = (v) => {
+    const gruende = v.gruende.map((g) => `<li>${g.art === 'synergie' ? '🔗 Synergie mit' : '➕ Ergänzt sich mit'}
+      <strong>${escapeHtml(g.von.name)}</strong>${punkte('karte-plus', g.plus)}${punkte('karte-minus', g.minus)}</li>`).join('');
+    return `<div class="synergie-vorschlag">
+      <div class="synergie-kopf">
+        ${berichtLink(v.ziel)}
+        <button type="button" class="btn btn-klein" data-behebe="${escapeHtml(v.ziel.id)}:${escapeHtml(umgebung)}">＋ auf ${label} setzen</button>
+      </div>
+      ${v.ziel.beschreibung ? `<p>${escapeHtml(v.ziel.beschreibung)}</p>` : ''}
+      <ul class="synergie-gruende">${gruende}</ul>
+    </div>`;
+  };
+
+  modal({
+    titel: `🔗 Ungenutzte Synergien (${label})`,
+    inhalt: `<p class="hinweis-leise">Passt zu dem, was auf ${label} schon gesetzt ist. Bereits abgedeckte
+             und archivierte Einträge stehen bewusst nicht in der Liste.</p>
+             ${vorschlaege.map(zeile).join('')}`,
+    knoepfe: [{ text: 'Schließen', wert: null }]
   });
 }
 
@@ -305,6 +576,18 @@ async function hakenGesetzt(id, umgebung, wert) {
   }
 
   zeichneListe();
+  frischeDetailAuf();
+}
+
+/**
+ * Ein Haken im Detail-Fenster ändert auch Banner und abgeschwächte Schalter derselben Karte.
+ * Ohne das Nachzeichnen bliebe im Fenster der Stand von vor dem Klick stehen.
+ */
+function frischeDetailAuf() {
+  if (!aktuellesDetail) return;
+  const inhalt = document.querySelector('.modal-huelle .modal-inhalt');
+  const p = index.get(aktuellesDetail);
+  if (inhalt && p) inhalt.innerHTML = kartenHTML(index, p, { detail: true });
 }
 
 /* ================================== Vergleich ================================== */
@@ -326,10 +609,22 @@ async function oeffneVergleich() {
 
   const [vorA, vorB] = vorauswahl(auswaehlbar);
 
+  // Ganze Gruppe statt Paar: sobald eine Funktionsgruppe drei oder mehr Anbieter hat — im Katalog
+  // der Normalfall — ist "A oder B?" die falsche Frage.
+  const gruppen = alleGruppen(index);
+  const gruppenWahl = gruppen.length ? `
+    <label class="vergleich-gruppenwahl">Ganze Funktionsgruppe:
+      <select id="v-gruppe" class="feld">
+        <option value="">— Zweiervergleich —</option>
+        ${gruppen.map((g) => `<option value="${escapeHtml(g.gruppe)}">${escapeHtml(g.gruppe)} (${g.mitglieder.length})</option>`).join('')}
+      </select>
+    </label>` : '';
+
   const inhalt = `
     <p class="hinweis-leise">Liegen beide in derselben Funktionsgruppe, entsteht ein Funktionsvergleich —
        sonst werden Zweck und Funktionen nebeneinandergestellt, ohne Wertung.</p>
-    <div class="vergleich-auswahl">
+    ${gruppenWahl}
+    <div class="vergleich-auswahl" id="v-paar">
       <select id="v-a" class="feld">${optionen(vorA)}</select>
       <select id="v-b" class="feld">${optionen(vorB)}</select>
     </div>
@@ -337,11 +632,23 @@ async function oeffneVergleich() {
 
   const fenster = modal({ titel: '⚖️ Vergleich', inhalt, knoepfe: [{ text: 'Schließen', wert: null }] });
 
+  const gruppenFeld = document.getElementById('v-gruppe');
   const zeichneVergleich = () => {
-    const a = document.getElementById('v-a').value;
-    const b = document.getElementById('v-b').value;
-    document.getElementById('v-ergebnis').innerHTML = vergleichHTML(vergleiche(index, a, b));
+    const gruppe = gruppenFeld ? gruppenFeld.value : '';
+    const paar = document.getElementById('v-paar');
+    const ergebnis = document.getElementById('v-ergebnis');
+
+    if (gruppe) {
+      paar.hidden = true;
+      const ids = gruppenMitglieder(index, gruppe).map((p) => p.id);
+      ergebnis.innerHTML = mehrfachVergleichHTML(vergleicheMehrere(index, ids));
+      return;
+    }
+    paar.hidden = false;
+    ergebnis.innerHTML = vergleichHTML(vergleiche(index, document.getElementById('v-a').value, document.getElementById('v-b').value));
   };
+
+  if (gruppenFeld) gruppenFeld.addEventListener('change', zeichneVergleich);
   document.getElementById('v-a').addEventListener('change', zeichneVergleich);
   document.getElementById('v-b').addEventListener('change', zeichneVergleich);
   zeichneVergleich();
@@ -621,5 +928,5 @@ ladeZustand();
 ladeDifferenz();
 katalogAufbauen();
 baueGeruest();
-verdrahteListe();
+verdrahteGlobal();
 zeichneListe();

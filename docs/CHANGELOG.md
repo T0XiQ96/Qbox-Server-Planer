@@ -17,6 +17,61 @@ Format je Eintrag:
 
 ---
 
+## [App-Ausbau 1] Prüfbericht, Facetten-Filter, Detail-Fenster – 14.08.2026
+
+Erste Ausbaurunde am App-Code seit Phase 1 — sieben Wünsche aus der Praxis plus sechs
+Ergänzungen, die sich beim Durchsehen des Codes aufdrängten.
+
+**Filter (D4 umgestellt, siehe DECISIONS D20):** Die Badge-Chips arbeiteten mit reinem UND über
+alle Chips. Da `framework` ein Enum ist, lieferte „Qbox nativ" + „Bridge" zwangsläufig eine leere
+Liste. Jetzt Facetten-Logik: innerhalb Framework/Lizenz/Preis ODER, zwischen den Facetten UND.
+Nachgemessen: 233 Treffer für Qbox∪Bridge, davon 29 mit Escrow, alle vier Framework-Chips = 404.
+
+**Querverweise führen jetzt immer ans Ziel (B8/B9, DECISIONS D22):** Ein Sprung auf ein gerade
+ausgefiltertes Plugin endete bisher in der irreführenden Meldung „nicht im Katalog". Jetzt öffnet
+sich dessen vollständige Karte in einem Detail-Fenster, während Suche und Filter dahinter
+unangetastet bleiben. Dazu ein Zurück-**Stapel**: schwebender Knopf in der Liste, „← Zurück" im
+Fenster, mehrstufig über Ketten wie ox_lib → ox_inventory → zurück.
+
+**Laufender Prüfbericht ganz oben (F8/F9):** Warnungen kamen bisher nur als flüchtiges Popup beim
+Hakensetzen oder als Kommentar in der ensure-Liste — also erst am Ende. Jetzt steht der Stand
+jederzeit oben, je Umgebung getrennt: Konflikt, doppelt belegte Funktion und fehlende
+Abhängigkeit als Fehler; archiviert, toter Link (404) und **bestätigte** `kompat_warnung` als
+Warnung; Bundle-Hinweise als Hinweis. Jede fehlende Abhängigkeit hat ein „＋ setzen" direkt
+daneben. Eine `kompat_warnung` mit `sicherheit: "vermutung"` bleibt bewusst draußen — das Badge
+auf der Karte sagt es bereits, und eine Vermutung als Fehler zu führen wäre unehrlich.
+
+**Zähler „ungenutzte Synergien" je Umgebung (F10):** neben den Kostenspalten, zählt `synergie`
+und `ergaenzt` in beide Richtungen (der Katalog pflegt eine beidseitige Beziehung immer nur auf
+einer Seite). Nicht vorgeschlagen werden bereits Gehakte, Archivierte und solche, deren Funktion
+über eine gesetzte Alternative schon anliegt — sonst wäre der Zähler nur Rauschen.
+
+**Vergleich über beliebig viele (C5):** Der Zweiervergleich beantwortet „A oder B?"; bei Gruppen
+mit fünf Anbietern (`hud`, `housing`) ist das die falsche Frage. Neu `vergleicheMehrere()` als
+Tabelle über alle Beteiligten, erreichbar über „⚖️ Alle N vergleichen" im Ersetzt-Block und über
+den ⚖️-Knopf je Funktionsgruppe. Bewusst auf eine freie ID-Liste gebaut statt auf `gruppe`, damit
+die geplante freie Auswahl (Ausbau 2) darauf aufsetzen kann.
+
+**Filter „⚠️ nur mit Warnung" (D9):** zeigt genau die Plugins aus dem Prüfbericht — einschließlich
+der fehlenden Abhängigkeiten selbst, damit man sie direkt setzen kann.
+
+**Performance (DECISIONS D21):** Die rückwärts gerichteten Beziehungsabfragen liefen je sichtbarer
+Karte einmal über den ganzen Katalog — bei 404 Plugins rund eine Million Durchläufe pro
+Neuzeichnen, bei den angepeilten 1000 das Sechsfache. Jetzt einmal je Katalogstand vorberechnet
+und in einer `WeakMap` an der Index-Map zwischengespeichert; alle Funktionssignaturen unverändert.
+
+**Neue Datei:** `src/app/warnings.js`. **Geändert:** `relations.js`, `filters.js`, `compare.js`,
+`render.js`, `main.js`, `style.css`. Keine Katalogdatei angefasst — ein neues Plugin erfordert
+weiterhin keine Änderung in `src/` (CLAUDE.md §2.1).
+
+**Geprüft** am echten Build mit allen 404 Plugins über einen lokalen HTTP-Server, mit im
+Seitenkontext ausgeführten Klick-/Eingabefolgen. **H5 (Doppelklick über `file://`) ist damit
+nicht erneut belegt** — das Browser-Werkzeug verweigert `file://`, der Handgriff bleibt offen.
+
+**Commit:** folgt
+
+---
+
 ## [Runde 39] Vierzehnte Neusuche-Runde – 14.08.2026
 
 **Neuer Ansatz statt des erschöpften Standard-Pools:** Der `discover`-Pool aus den 6 festen

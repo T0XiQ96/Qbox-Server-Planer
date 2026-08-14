@@ -244,7 +244,80 @@ ul { margin: 4px 0; padding-left: 20px; }
 .toast-warnung { border-color: var(--orange); }
 .toast-fehler { border-color: var(--rot); }
 
+/* ============================== Prüfbericht ============================== */
+
+.bericht {
+  background: var(--bg2); border: 1px solid var(--orange); border-radius: 8px;
+  padding: 10px 14px; margin-bottom: 16px; font-size: 13px;
+}
+.bericht-hat-fehler { border-color: var(--rot); }
+.bericht > summary { cursor: pointer; color: var(--orange); }
+.bericht-hat-fehler > summary { color: var(--rot); }
+.bericht-sauber {
+  background: var(--bg2); border: 1px solid var(--gruen); border-radius: 8px;
+  padding: 10px 14px; margin-bottom: 16px; font-size: 13px; color: var(--gruen);
+}
+.bericht-block { margin-top: 10px; }
+.bericht-block h3 { font-size: 12px; color: var(--leise); margin-bottom: 4px; }
+.bericht-block ul { list-style: none; padding-left: 0; margin: 0; }
+.bericht-fund {
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  padding: 4px 0; border-top: 1px solid var(--rand);
+}
+.bericht-zeichen { flex: none; }
+.bericht-text { flex: 1; min-width: 220px; }
+.bericht-fehler .bericht-text { color: var(--text); }
+.bericht-warnung .bericht-text { color: var(--leise); }
+.bericht-hinweis .bericht-text { color: var(--leise); }
+.bericht-behebe { flex: none; }
+
+/* ========================== Synergie-Zähler + Liste ========================== */
+
+.kosten-synergie {
+  background: none; border: 1px solid var(--lila); color: var(--lila);
+  border-radius: 999px; padding: 2px 10px; font: inherit; font-size: 12px; cursor: pointer;
+}
+.kosten-synergie:hover { background: var(--bg3); }
+
+.synergie-vorschlag { border-top: 1px solid var(--rand); padding: 10px 0; }
+.synergie-kopf { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.synergie-gruende { list-style: none; padding-left: 0; font-size: 12px; color: var(--leise); }
+.synergie-gruende > li { margin-top: 4px; }
+
+/* ============================ Zurück-Navigation ============================ */
+
+.zurueck-knopf {
+  position: fixed; right: 18px; bottom: 18px; z-index: 20;
+  background: var(--bg3); border-color: var(--blau); box-shadow: 0 2px 10px rgba(1, 4, 9, .6);
+}
+
+/* ============================ Karte im Fenster ============================ */
+
+.karte-imfenster { border: none; padding: 0; background: none; }
+.karte-vergleich { margin-top: 6px; }
+
+/* =========================== Mehrfach-Vergleich =========================== */
+
+.vergleich-gruppenwahl { display: block; margin-bottom: 12px; color: var(--leise); font-size: 12px; }
+.vergleich-gruppenwahl .feld { margin-left: 8px; }
+.vergleich-gemeinsam { margin-bottom: 12px; font-size: 12px; }
+.vergleich-gemeinsam strong { color: var(--gruen); }
+
+/* Breite Tabellen scrollen in sich, damit die Seite selbst nie waagerecht scrollt. */
+.vergleich-tabelle-huelle { overflow-x: auto; }
+.vergleich-tabelle { border-collapse: collapse; font-size: 12px; min-width: 100%; }
+.vergleich-tabelle th, .vergleich-tabelle td {
+  border: 1px solid var(--rand); padding: 6px 8px; vertical-align: top; text-align: left;
+}
+.vergleich-tabelle thead th { background: var(--bg3); position: sticky; top: 0; }
+.vergleich-tabelle tbody th { color: var(--leise); white-space: nowrap; background: var(--bg2); }
+.vergleich-tabelle td { min-width: 150px; }
+.vergleich-tabelle ul { padding-left: 16px; margin: 0; }
+.vergleich-nur li { color: var(--lila); }
+.vergleich-leer { color: var(--leise); }
+
 @media (max-width: 600px) {
   .karten { grid-template-columns: 1fr; }
   .formular, .vergleich-funktionen, .vergleich-zweck, .vergleich-abwaegung { grid-template-columns: 1fr; }
+  .zurueck-knopf { right: 10px; bottom: 10px; }
 }

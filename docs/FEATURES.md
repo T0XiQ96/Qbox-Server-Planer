@@ -8,6 +8,20 @@ manuell durchgespielt wurde. Nichts aus dieser Liste darf bei einem Umbau verlor
 **Stand 12.08.2026 (Ende Phase 1):** alle 59 Features `getestet` — durchgespielt in
 `dist/qbox-planer.html` über `file://` mit den Demodaten aus `data/catalog/demo.json`.
 
+**Stand 14.08.2026 (Ausbau-Runde 1):** 8 neue Features (B8, B9, C5, D9, F8, F9, F10) und eine
+geänderte Filterregel (D4: UND → Facetten-Logik, siehe `docs/DECISIONS.md` D20). Geprüft am
+echten Build mit dem vollen Katalog (404 Plugins), nicht mit Demodaten.
+
+**Wie diese Runde geprüft wurde — wichtig fürs Nachtesten:** Das Browser-Werkzeug verweigert
+`file://`, deshalb lief der Test über einen lokalen HTTP-Server auf dieselbe gebaute Datei, mit
+im Seitenkontext ausgeführten Klick-/Eingabe-Folgen statt von Hand. Fachlich ist das derselbe
+Durchlauf, **aber H5 (Doppelklick über `file://`) ist damit ausdrücklich NICHT erneut belegt** —
+das bleibt ein Handgriff für den nächsten echten Öffnen-Test. Zwei Stolpersteine, die dabei
+auffielen und beim nächsten Skript-Test Zeit sparen: nach jedem Haken zeichnet `zeichneListe()`
+die Liste neu, eine gemerkte DOM-Referenz auf einen Schalter ist danach abgehängt und ein darauf
+abgefeuertes `change` erreicht den Listener nicht mehr (immer frisch abfragen); und die Suche
+läuft 150 ms entprellt, ein `input`-Ereignis wirkt also nicht sofort.
+
 Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 
 - Für Persistenz-Prüfungen muss die Seite **echt neu geladen** werden (Adresszeile/F5).
@@ -39,6 +53,8 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 | B5 | Alle Querverweise anklickbar → springt zum Eintrag mit Highlight | Klick auf Alternative → Sprung + kurzes Aufblinken | getestet |
 | B6 | Banner neben dem Namen: „⚠️ ersetzt durch XXX [MAIN]", XXX anklickbar | Getrennte Banner für DEV und MAIN, wenn unterschiedliche Plugins gewählt sind | getestet |
 | B7 | Karte wird **nicht** ausgeblendet — nur der betroffene DEV- bzw. MAIN-Schalter abgeschwächt | ox_inventory auf MAIN → bei qs-inventory ist nur der MAIN-Schalter gestrichelt, DEV normal | getestet |
+| B8 | Sprung auf ein **ausgefiltertes** Plugin öffnet dessen vollständige Karte im Detail-Fenster; Suche und Filter dahinter bleiben unangetastet | Nach „blackmarket" suchen, dort auf `ox_lib` klicken → Fenster mit ox_lib, Liste dahinter weiter bei 1 Treffer | getestet |
+| B9 | Zurück-Navigation als **Stapel**: schwebender Knopf in der Liste, „← Zurück" im Fenster; ✕/Esc führt an den Ausgangspunkt zurück | ox_lib → ox_inventory → Zurück → ox_lib; Sprung in der Liste → „← Zurück zu XXX" | getestet |
 
 ## C — Vergleichsmodus
 
@@ -48,6 +64,7 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 | C2 | Bei gleicher Gruppe: gemeinsame Funktionen / Bonusfunktionen je Seite werden ausgewiesen | „beide können X", „nur A kann Y" | getestet |
 | C3 | Pro & Contra **für beide** Seiten, nie nur für eines | Grün = Vorteil, Rot = Nachteil, Orange = neutral/zu beachten | getestet |
 | C4 | Bei grundverschiedenen Plugins: kein besser/schlechter, sondern Zweck + Features je Seite, mit Hinweis | Radio vs. Garage vergleichen → Hinweis „andere Use-Cases" | getestet |
+| C5 | Vergleich über **beliebig viele** Einträge als Tabelle (Status, Framework, Lizenz, Preis, Prüfstand, Update, Zustand, „nur hier", pro/contra/neutral) | „⚖️ Alle N vergleichen" im Ersetzt-Block; über ⚖️ auch je Funktionsgruppe wählbar | getestet |
 
 ## D — Filter, Suche, Sortierung
 
@@ -56,11 +73,12 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 | D1 | Live-Volltextsuche (Name, Funktion, Kategorie) | „police" tippen → filtert, leere Kategorien werden ausgeblendet | getestet |
 | D2 | Kategorie-Dropdown | — | getestet |
 | D3 | Status-Filter: auf MAIN / auf DEV / nirgends / abgedeckt | — | getestet |
-| D4 | Badge-Filter-Chips, mehrfach wählbar, UND-Logik | „✅ Qbox nativ" + „🆓 Kostenlos" → nur Schnittmenge | getestet |
+| D4 | Badge-Filter-Chips, mehrfach wählbar, **Facetten-Logik**: innerhalb einer Facette (Framework / Lizenz / Preis) ODER, zwischen den Facetten UND | „Qbox nativ" + „Bridge" → beide Sorten (233); dazu „Escrow" → nur davon die Escrow-Einträge (29); alle vier Framework-Chips → alle 404 | getestet |
 | D5 | Qualitäts-Filter: verifiziert / teilgeprüft / ungeprüft | — | getestet |
 | D6 | Diff-Ansicht: nur Plugins, wo DEV ≠ MAIN (= Deployment-Liste) | — | getestet |
 | D7 | Sortierung: Standard / Name / letztes Update / Priorität | — | getestet |
 | D8 | „↺ Zurücksetzen" setzt **nur** Suche und Filter zurück, niemals Daten | Haken setzen, Filter zurücksetzen → Haken unangetastet | getestet |
+| D9 | Filter „⚠️ nur mit Warnung": zeigt genau die Plugins aus dem Prüfbericht — auch die fehlenden Abhängigkeiten selbst, damit man sie direkt setzen kann | Plugin mit fehlender Abhängigkeit haken → Filter zeigt beide (das Plugin und das Fehlende) | getestet |
 
 ## E — Zahnrad-Menü / Datenverwaltung
 
@@ -88,6 +106,9 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 | F5 | Abhängigkeits-Warner beim Haken setzen | — | getestet |
 | F6 | Bundle-Erkennung („JG Mechanic enthält Garagen-Features → Konflikt mit cd_garage möglich") | — | getestet |
 | F7 | Kosten-Tracker, getrennt nach einmalig und €/Monat, für MAIN und DEV | Premium-Plugin haken → Summe steigt in der richtigen Spalte | getestet |
+| F8 | **Laufender Prüfbericht ganz oben**, je Umgebung: Konflikt, doppelt belegte Funktion, fehlende Abhängigkeit (Fehler); archiviert, toter Link, bestätigte Inkompatibilität (Warnung); Bundle (Hinweis). Nicht erst im Export. | Plugin mit fehlender Abhängigkeit haken → Bericht erscheint sofort mit „2 Fehler" | getestet |
+| F9 | **Ein-Klick-Behebung** im Prüfbericht: „＋ setzen" hakt die fehlende Abhängigkeit direkt | Auf „＋ setzen" klicken → Abhängigkeit gehakt, Fund verschwindet, Bericht wird grün | getestet |
+| F10 | Zähler **„ungenutzte Synergien"** je Umgebung neben den Kosten; Klick listet auf, was zum aktuellen Stand noch dazupasst (`synergie` + `ergaenzt`, beide Richtungen), je mit „＋ setzen" | ox_lib auf MAIN → „🔗 2 ungenutzte Synergien" → ox_inventory, ox_target | getestet |
 
 ## G — Informationen pro Plugin
 
