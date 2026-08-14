@@ -8,6 +8,15 @@ Abhängigkeiten, Konflikten, Alternativen und Warnungen vor kaputter QBCore-Komp
 Alles läuft als **eine einzige HTML-Datei**, ganz ohne Server, Internetverbindung oder
 Installation. Doppelklick, fertig.
 
+<p align="center">
+  <img src="docs/screenshots/plugin-liste.png" width="49%" alt="Plugin-Liste mit Filtern, Funktionsgruppen und DEV/MAIN-Haken">
+  <img src="docs/screenshots/vergleich.png" width="49%" alt="Vergleich zweier konkurrierender Plugins mit Pro/Contra">
+</p>
+<p align="center">
+  <img src="docs/screenshots/wissen.png" width="49%" alt="Wissens-Datenbank mit Kategorien wie txAdmin, Server aufsetzen, AntiCheat">
+  <img src="docs/screenshots/eigenes-plugin.png" width="49%" alt="Dialog zum Hinzufügen eines eigenen, privaten Plugin-Eintrags">
+</p>
+
 ---
 
 ## Was das Tool kann
@@ -79,41 +88,53 @@ enthalten — alles hier ist recherchiertes Wissen über öffentlich verfügbare
 
 ## Selbst weiter recherchieren oder das Tool erweitern
 
-Das gesamte Projekt ist so aufgebaut, dass eine KI-Coding-Oberfläche (z. B.
-**[Claude Code](https://claude.com/product/claude-code)**, aber auch andere Werkzeuge mit
-Datei- und Terminalzugriff) den Katalog eigenständig weiter ausbauen oder das Tool
-weiterentwickeln kann — das ist genau so entstanden.
+Das gesamte Projekt ist so gebaut, dass man es **nicht per Hand bedient**, sondern mit einer
+KI-Coding-Oberfläche — z. B. **[Claude Code](https://claude.com/product/claude-code)**, aber
+auch andere Werkzeuge mit Datei- und Terminalzugriff funktionieren. So ist der komplette
+Katalog entstanden: durch Zuruf auf Deutsch, nicht durch manuell eingetippte Befehle.
 
-### Voraussetzungen
+Du musst dafür **keine `npm`-Befehle kennen oder selbst eintippen.** Öffne den Repo-Ordner in
+Claude Code (oder einem vergleichbaren Werkzeug) und schreib einfach in normaler Sprache, was
+du willst — der Agent liest beim Start automatisch [`CLAUDE.md`](CLAUDE.md) (dort stehen alle
+Architektur- und Recherche-Regeln des Projekts) und weiß selbst, welche Skripte er wann
+aufruft, welche Dateien er dafür braucht und wie ein sauberer Katalogeintrag aussieht.
 
-- [Node.js](https://nodejs.org/) (für die Build-/Recherche-Skripte)
-- Optional ein `GITHUB_TOKEN` in der Umgebung (hebt das GitHub-API-Limit für Recherchen von
-  60 auf 5000 Anfragen/Stunde — ohne Token funktioniert alles trotzdem, nur langsamer)
+### Was du dem Agenten sagen kannst — Beispiele
 
-```bash
-npm install        # nur falls scripts/ externe Pakete braucht
-npm run validate    # Katalog gegen Schema prüfen (Pflicht vor jedem Commit)
-npm run build        # dist/qbox-planer.html neu bauen
-npm run stats         # Katalog-Statistik (Anzahl je Kategorie/Qualität/Status)
-npm run find <suchbegriff>   # ein Plugin suchen, ohne den ganzen Katalog zu laden
-```
+**Neue Plugins recherchieren**
+> „Mach eine neue Recherche-Runde zum Thema Angeln und Jagen, so wie die letzten Runden auch."
+> „Durchsuche GitHub nach neuen Qbox-Plugins rund um Bootsvermietung und häng sie an den
+> Katalog an."
 
-### Katalog erweitern (mit einer KI-Coding-Oberfläche)
+**Bestehende Einträge nachpflegen**
+> „Prüf alle Plugins in der Kategorie Crime nach, deren letzte Prüfung älter als 3 Monate ist."
+> „Der Link zu `xyz-script` ist tot, such nach dem neuen Repo und korrigier den Eintrag."
+> „`ox_fuel` ist mittlerweile archiviert — trag das ein und schau, ob es einen Nachfolger gibt."
 
-1. Repo klonen, Ordner in **Claude Code** (oder einem vergleichbaren Werkzeug) öffnen
-2. Die KI liest beim Start automatisch [`CLAUDE.md`](CLAUDE.md) — dort stehen alle
-   Architektur- und Recherche-Regeln des Projekts (auf Deutsch)
-3. Neue Plugins finden: `npm run discover -- --suche "qbox <thema>" --max 30 --runde N`
-   sucht auf GitHub nach neuen Kandidaten und sortiert bereits Bekanntes automatisch aus
-4. Mechanische Vorrecherche: `npm run prefetch -- --kandidaten --max 11 --runde N` holt
-   Repo-Status, Lizenz, `fxmanifest`-Auszug und eine Code-Stichprobe für jeden Kandidaten
-5. Die KI liest dieses Briefing und trifft die fachlichen Urteile (Kategorie, Framework,
-   Qualität, Kompatibilität) — Details zur Methodik stehen in
-   [`docs/RECHERCHE.md`](docs/RECHERCHE.md)
-6. `npm run validate` muss grün sein, bevor etwas committet wird
+**Wissens-Datenbank ausbauen**
+> „Füge einen neuen Wissens-Artikel zum Thema Server-Backups hinzu, ungeprüft ist okay."
+> „Verifiziere alle Wissens-Artikel in der Kategorie txAdmin gegen echte Quellen und markiere
+> sie entsprechend."
 
-Die wichtigste Regel dabei: **nichts erfinden.** Was sich nicht aus README, Quellcode oder
-Repo-Metadaten belegen lässt, bekommt `qualitaet: "ungeprueft"` statt eines geratenen Werts.
+**Das Tool selbst verändern — Basis, Schema, Oberfläche, wirklich alles**
+> „Füge dem Katalog-Schema ein neues Feld für einen Discord-Server-Link pro Plugin hinzu und
+> zeig es in der Karte an."
+> „Ich will die Plugins zusätzlich nach Autor filtern können — bau das ein."
+> „Die Vergleichsleiste soll oben rechts statt oben links sein, und das Farbschema soll heller
+> werden."
+> „Bau eine neue Kategorie 'Eigene Server-Skripte' ein, in die ich private Einträge legen kann,
+> die nicht im öffentlichen Katalog landen."
+> „Exportiere meinen Fortschritt zusätzlich als CSV-Datei, nicht nur als Backup-JSON."
+
+Kurz gesagt: **Es gibt keinen Teil des Projekts, den du nicht per Zuruf ändern kannst** —
+Kategorien, Schema, Recherche-Methodik, Oberfläche, Datenstruktur, alles. Der Agent liest
+dafür bei Bedarf `docs/DECISIONS.md` (was schon entschieden wurde und warum), `docs/FEATURES.md`
+(was das Tool aktuell kann) und `docs/RECHERCHE.md` (wie ein Katalogeintrag entsteht) und
+erklärt dir vorher, wenn eine Änderung mit einer bestehenden Entscheidung kollidiert.
+
+Die einzige feste Regel, die der Agent selbst durchsetzt: **nichts erfinden.** Was sich nicht
+aus README, Quellcode oder Repo-Metadaten belegen lässt, bekommt `qualitaet: "ungeprueft"`
+statt eines geratenen Werts — das gilt für jede Recherche, egal welches Thema du vorgibst.
 
 ### Projektstruktur
 
@@ -122,12 +143,14 @@ data/catalog/    Plugin-Katalog, aufgeteilt in Recherche-Runden (reine Daten, ke
 data/wissen/     Wissens-Datenbank-Artikel
 schema/          JSON-Schema, gegen das der Katalog validiert wird
 src/             App-Code (wird zu dist/qbox-planer.html gebaut)
-scripts/         Node-Skripte: validate, build, discover, prefetch, stats, find, linkcheck
+scripts/         Node-Skripte, die der Agent selbst aufruft (validate, build, discover,
+                 prefetch, stats, find, linkcheck) — für dich als Nutzer nicht relevant
 docs/            Projektdokumentation (Fortschritt, Entscheidungen, Recherche-Methodik)
 ```
 
-**Wichtigste Regel im Code:** Daten (`data/`) und App (`src/`) sind strikt getrennt — ein
-neues Plugin im Katalog erfordert nie eine Code-Änderung. Details in `CLAUDE.md`.
+**Wichtigste Regel im Hintergrund:** Daten (`data/`) und App (`src/`) sind strikt getrennt —
+ein neues Plugin im Katalog erfordert nie eine Code-Änderung. Der Agent hält sich automatisch
+daran, du musst dir darüber keine Gedanken machen.
 
 ---
 
