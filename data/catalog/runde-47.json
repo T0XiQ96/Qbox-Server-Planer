@@ -1,0 +1,271 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.4-r47",
+  "runde": 47,
+  "thema": "Neusuche: ems/ambulance/fire, carwash/carjack/scoreboard/loadingscreen, dispatch/key/atm/parking",
+  "erstellt": "2026-08-14",
+  "plugins": [
+    {
+      "id": "lns_fuel",
+      "name": "LNS_Fuel",
+      "kategorie": "fahrzeuge",
+      "gruppe": "fuel",
+      "beschreibung": "Tankstellen-Wirtschaftssystem auf Basis von ox_fuel: Spieler können Tankstellen kaufen, Kraftstoffbestand verwalten, Pumpenpreise festlegen und daraus eine Logistik-Geschäft betreiben. Unterstützt zusätzlich Elektro-Ladesäulen neben klassischen Zapfsäulen.",
+      "link": "https://github.com/LumaNodeStudios/LNS_Fuel",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.5",
+      "letztes_update": "Aktiv · letzter Push 2026-08-07",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib", "ox_inventory"],
+      "pro": [
+        "Geschäftsmodell mit Tankstellenbesitz und Preissteuerung statt reinem Tank-Vorgang",
+        "Unterstützt Elektro-Ladesäulen zusätzlich zu Benzinpumpen",
+        "README nennt Qbox (qbx_core/qbx_vehiclekeys) explizit als unterstütztes Framework, Code ruft exports.qbx_core direkt auf"
+      ],
+      "contra": [
+        "Erfordert zusätzlich ox_inventory (im Gegensatz zum schlichteren ps_fuel/ox_fuel)",
+        "Mehr Konfigurationsaufwand durch das Besitz-/Logistik-Modell"
+      ],
+      "quelle": "https://github.com/LumaNodeStudios/LNS_Fuel, https://raw.githubusercontent.com/LumaNodeStudios/LNS_Fuel/main/fxmanifest.lua"
+    },
+    {
+      "id": "v-vehiclesabotage",
+      "name": "v-VehicleSabotage",
+      "kategorie": "crime",
+      "beschreibung": "Sabotage-Script für Fahrzeuge unter QBCore/QBox/OX: ermöglicht Autobrände, Bremsleitungen durchtrennen, Autobomben-Anbringen und Radentfernung, umgesetzt ausschließlich über ox_target, ox_inventory und ox_lib.",
+      "link": "https://github.com/Virgildev/v-VehicleSabotage",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Inaktiv · letzter Push 2025-07-04 · vom Autor als 'no longer maintained' markiert",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib", "ox_target", "ox_inventory"],
+      "pro": [
+        "Vielseitige Sabotage-Mechaniken (Feuer, Bremsleitung, Autobombe, Radentfernung)",
+        "Nutzt ausschließlich ox_target/ox_inventory/ox_lib, kein Framework-Kern nötig"
+      ],
+      "contra": [
+        "Vom Autor selbst im README als 'NO LONGER MAINTAINED, USE AT YOUR OWN RISK' markiert",
+        "Kein qbx_core-natives Muster im Code gefunden"
+      ],
+      "quelle": "https://github.com/Virgildev/v-VehicleSabotage, https://raw.githubusercontent.com/Virgildev/v-VehicleSabotage/main/fxmanifest.lua"
+    },
+    {
+      "id": "nc-loadingscreenv4",
+      "name": "nc-loadingscreenv4",
+      "kategorie": "ui",
+      "gruppe": "loading",
+      "beschreibung": "Loadingscreen mit Hintergrundmusik, Avatar-Anzeige und individuell gestaltbarem Design, laut Repo-Beschreibung kompatibel mit QBCore, ESX, QBox und vRP.",
+      "link": "https://github.com/NaorNC/nc-loadingscreenv4",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-03-25",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "pro": [
+        "Individualisierbar mit Musik und Avataren",
+        "Framework-unabhängig laut Repo-Beschreibung (QBCore/ESX/QBox/vRP)"
+      ],
+      "contra": [
+        "Keine LICENSE-Datei im Repo, Lizenzstatus rechtlich ungeklärt",
+        "Seit 03/2025 kein sichtbarer neuer Push"
+      ],
+      "quelle": "https://github.com/NaorNC/nc-loadingscreenv4, https://raw.githubusercontent.com/NaorNC/nc-loadingscreenv4/main/fxmanifest.lua"
+    },
+    {
+      "id": "v-parking",
+      "name": "v-parking",
+      "kategorie": "staat",
+      "beschreibung": "Skript für einen Parküberwachungs-Job: Falschparker erhalten Wegfahrsperren (Klemmen) oder Strafzettel, umgesetzt über ox_target, ox_inventory und ox_lib.",
+      "link": "https://github.com/Virgildev/v-parking",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Inaktiv · letzter Push 2025-07-04 · vom Autor als 'no longer maintained' markiert",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib", "ox_target", "ox_inventory"],
+      "pro": [
+        "Mehrere Durchsetzungsmechaniken (Klemme, Strafzettel)",
+        "Nur ox_target/ox_inventory/ox_lib nötig, kein Framework-Kern"
+      ],
+      "contra": [
+        "Vom Autor selbst im README als 'NO LONGER MAINTAINED, USE AT YOUR OWN RISK' markiert"
+      ],
+      "quelle": "https://github.com/Virgildev/v-parking, https://raw.githubusercontent.com/Virgildev/v-parking/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbox_weapon_jam",
+      "name": "qbox_weapon_jam",
+      "kategorie": "waffen",
+      "beschreibung": "Waffen-Störungssystem: Während eines Schusswechsels kann eine Waffe blockieren, wobei die Wahrscheinlichkeit vom über ox_inventory getrackten Zustand der Waffe abhängt.",
+      "link": "https://github.com/elnitrocl/qbox_weapon_jam",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-01-07",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib", "ox_inventory"],
+      "pro": [
+        "Zustandsabhängige Ausfallwahrscheinlichkeit statt reinem Zufall",
+        "Kein Framework-Kern nötig, nur ox_lib/ox_inventory"
+      ],
+      "contra": [
+        "Trotz Namenspräfix 'qbox_' kein qbx_core-Export im Code gefunden — README/Code deuten auf Framework-Unabhängigkeit"
+      ],
+      "quelle": "https://github.com/elnitrocl/qbox_weapon_jam, https://raw.githubusercontent.com/elnitrocl/qbox_weapon_jam/main/fxmanifest.lua"
+    },
+    {
+      "id": "noted_crimeapp",
+      "name": "noted_crimeapp",
+      "kategorie": "kommunikation",
+      "beschreibung": "Community-Sicherheits-App für LB Phone im Citizen-Stil: Live-Karte mit Kriminalitäts-Meldungen, Foto-/Video-Reports, Reputationssystem, verifizierte Badges und SOS-Alarm direkt an den Dispatch.",
+      "link": "https://github.com/NotedDevelopment/noted_crimeapp",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "0.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-26",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib", "qbx_core", "oxmysql", "lb_phone"],
+      "pro": [
+        "Auto-Erkennung des Frameworks (qbox/qbcore/esx), README beschreibt Umschaltung per Config.Framework",
+        "SOS-zu-Dispatch-Anbindung und persistente Kriminalitäts-Heatmap"
+      ],
+      "contra": [
+        "Sehr frühe Version (0.1.0)",
+        "Erfordert zwingend lb-phone als Basis-App-Plattform"
+      ],
+      "quelle": "https://github.com/NotedDevelopment/noted_crimeapp, https://raw.githubusercontent.com/NotedDevelopment/noted_crimeapp/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx-towing",
+      "name": "qbx-towing",
+      "kategorie": "zivil",
+      "beschreibung": "Einfacher Abschlepp-Job für Qbox: Fahrzeuge werden per ox_target sofort auf den Flatbed verladen (ohne Fortschrittsbalken oder Animation), Zonen sind über PolyZone definiert.",
+      "link": "https://github.com/boj1ck/qbx-towing",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "unbekannt",
+      "letztes_update": "Aktiv · letzter Push 2026-01-14",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib", "ox_target", "qbx_core", "polyzone"],
+      "pro": [
+        "Sofortiges Verladen per ox_target ohne Fortschrittsbalken — schlank gehalten",
+        "Nativ auf qbx_core ausgelegt, Code ruft exports.qbx_core direkt auf"
+      ],
+      "contra": [
+        "Keine LICENSE-Datei im Repo, keine Versionsangabe im fxmanifest",
+        "Zusätzliche Abhängigkeit auf PolyZone (ältere Zonen-Library)"
+      ],
+      "quelle": "https://github.com/boj1ck/qbx-towing, https://raw.githubusercontent.com/boj1ck/qbx-towing/main/fxmanifest.lua"
+    },
+    {
+      "id": "bs_coppertheft",
+      "name": "bs_coppertheft",
+      "kategorie": "crime",
+      "beschreibung": "Kupferdiebstahl-Script für Qbox: verschiedene Fundorte verlangen unterschiedliche Werkzeuge (Kabelschneider, Rohrschneider, Brechstange), mit optionalen ox_lib-Skillchecks und voller ox_target-Integration.",
+      "link": "https://github.com/BeetleStudios/bs_coppertheft",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-01-31",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib", "ox_target", "ox_inventory", "qbx_core"],
+      "pro": [
+        "Werkzeugpflicht je Fundort sorgt für mehr Spieltiefe als reines Sammeln",
+        "Nativ auf qbx_core ausgelegt, Code ruft exports.qbx_core direkt auf"
+      ],
+      "contra": [
+        "Keine LICENSE-Datei im Repo"
+      ],
+      "quelle": "https://github.com/BeetleStudios/bs_coppertheft, https://raw.githubusercontent.com/BeetleStudios/bs_coppertheft/main/fxmanifest.lua"
+    },
+    {
+      "id": "mvehicle-qbx",
+      "name": "mVehicle-Qbx",
+      "kategorie": "fahrzeuge",
+      "beschreibung": "Fahrzeug-API-System mit dediziertem Qbox-Zweig: Fahrzeugschlüssel als Item über ox_inventory, Kennzeichen-Fälschung und Anhänger-Verwaltung über ox_target.",
+      "link": "https://github.com/bbeckann/mVehicle-Qbx",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.1.0",
+      "letztes_update": "Inaktiv · letzter Push 2024-08-07",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib", "ox_inventory", "ox_target"],
+      "pro": [
+        "Eigener Qbox-Kompatibilitätszweig laut README, Code ruft exports.qbx_core direkt auf",
+        "Anhänger-Verwaltung und Fake-Kennzeichen als Zusatzfunktionen"
+      ],
+      "contra": [
+        "Letzter Push von 08/2024 — seither keine sichtbare Weiterentwicklung",
+        "README teilweise nur auf Portugiesisch verfügbar"
+      ],
+      "quelle": "https://github.com/bbeckann/mVehicle-Qbx, https://raw.githubusercontent.com/bbeckann/mVehicle-Qbx/main/fxmanifest.lua"
+    },
+    {
+      "id": "snowy_garages",
+      "name": "snowy_garages",
+      "kategorie": "fahrzeuge",
+      "gruppe": "garage",
+      "beschreibung": "Garagen-System mit automatischer Framework-Erkennung (Qbox/QBCore/ESX ohne Config): Garagen, Parkplätze, Bezahlstationen, Impound und IPL-Interieurs, vollständig im Spiel konfigurierbar.",
+      "link": "https://github.com/SSnowly/snowy_garages",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-31",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib", "ox_target"],
+      "pro": [
+        "Automatische Framework-Erkennung (Qbox/QBCore/ESX) über eigene Bridge",
+        "Bezahlstationen mit Kulanzzeit beim Abstellen, IPL-Interieurs für Impound",
+        "Im Gegensatz zu qbx_garages Multi-Framework-fähig statt Qbox-exklusiv"
+      ],
+      "contra": [
+        "Keine LICENSE-Datei im Repo",
+        "Läuft über eine Bridge-Schicht statt nativ auf qbx_core wie qbx_garages"
+      ],
+      "quelle": "https://github.com/SSnowly/snowy_garages, https://raw.githubusercontent.com/SSnowly/snowy_garages/master/fxmanifest.lua"
+    }
+  ],
+  "updates": []
+}

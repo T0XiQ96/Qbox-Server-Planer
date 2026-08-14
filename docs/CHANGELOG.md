@@ -3,6 +3,29 @@
 Fortlaufendes Protokoll aller Änderungen — Tool-Versionen, Katalog-Runden und Korrekturen.
 Wird nach jedem Arbeitsschritt ergänzt, neueste Einträge oben.
 
+## [Runden 47-50] – 14.08.2026
+
+**Neu:** 43 neue Plugins über vier weitere Neusuche-Runden (481 → 524), gleiches Muster wie
+Runden 40-46 (`discover` mit gezielten Themen-Zusatzsuchen, Kandidaten kuratiert, `prefetch`,
+je ein Subagent pro Runde). Themen: Runde 47 ems/fire/carwash/scoreboard/loadingscreen/dispatch/
+key/atm/parking; Runde 48 boat/aircraft/illegal/chopshop/gym; Runde 49 scrapyard/delivery/pizza/
+taxi/notifications/progressbar; Runde 50 delivery/towing/postal/cityhall/cad/druglab/
+vehicle-market. Neue Gruppen: `chopshop` (cad-chopshop, stevo_chopshop, gs-chopshop),
+`postal_display` (dex_postal, nearest-postal), `towing` (y_tow, tow, + Bestandseintrag
+qbx_towjob nachträglich zugeordnet), `druglab` (qbx-druglab, + Bestandseintrag xrb-druglab
+nachträglich zugeordnet). Bestehende Gruppen erweitert: `fuel` (+lns_fuel), `loading`
+(+nc-loadingscreenv4), `garage` (+snowy_garages), `taxi` (+anox-autotaxi, +c-taxi-bot),
+`phone` (+w2f-smartphone), `mdt` (+fivemcad), `cityhall` (+kxs-cityhall).
+**Verworfen:** `bs-loadingscreen` (Runde 47) — fxmanifest zeigt `game 'rdr3'`, also eine
+RedM- statt FiveM-Ressource, erfüllt das Grundkriterium nicht.
+**Korrigiert:** `qbx_helicam` (offizielles Qbox-project-Repo) als archiviert eingeordnet
+(Runde 48). `solar-hud` trotz GPL-3.0-Tag im Repo als `escrow` eingestuft, da README
+Tebex-Kauf mit Weiterverbreitungsverbot nennt (Runde 48).
+**Katalog:** 43 neu, 2 Bestandseinträge per `updates[]` nachträglich gruppiert, 0 Duplikate,
+0 ungeprüft (alle mindestens `teilgeprueft`).
+**Build:** `npm run build` lief grün — **v3.4-r50**, 940 KB, 524 Plugins, 18 Module.
+**Commit:** folgt
+
 Format je Eintrag:
 
 ```

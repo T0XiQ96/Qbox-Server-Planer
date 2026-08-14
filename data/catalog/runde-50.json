@@ -1,0 +1,379 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.4-r50",
+  "runde": 50,
+  "thema": "Neusuche: delivery/towing, postal/postbox, cityhall/cad, druglab/vehicle-market",
+  "erstellt": "2026-08-14",
+  "plugins": [
+    {
+      "id": "kt-deliveries",
+      "name": "kt-deliveries",
+      "kategorie": "zivil",
+      "beschreibung": "Lieferjob mit zufälligen Abhol-/Zielorten und NPC-Interaktionen. Framework wird per Config.Framework gewählt (qbcore/esx/ox/qbox/nd), README nennt Qbox explizit als unterstützt seit v1.1.0.",
+      "link": "https://github.com/Katania91/kt-deliveries",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2025-07-25",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib", "ox_target"],
+      "kompat_warnung": {
+        "text": "README nennt Qbox ausdrücklich als unterstütztes Framework (Config.Framework = 'qbox'). Code-Stichprobe zeigt aber einen ox_core-Export (server.lua:12) statt qbx_core — kein direkter Beleg für den Qbox-Zweig im Code, nur README-Aussage.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Nutzt ox_lib und ox_target",
+        "Config-basierte Multi-Framework-Unterstützung inkl. Qbox laut README",
+        "Aktiv gepflegt (Push 07/2025), MIT-Lizenz"
+      ],
+      "contra": [
+        "Code-Stichprobe belegt nur ox_core-Export, kein direkter qbx_core-Nachweis für den Qbox-Zweig"
+      ],
+      "quelle": "https://github.com/Katania91/kt-deliveries, https://raw.githubusercontent.com/Katania91/kt-deliveries/main/fxmanifest.lua"
+    },
+    {
+      "id": "y_tow",
+      "name": "y_tow",
+      "kategorie": "zivil",
+      "gruppe": "towing",
+      "beschreibung": "Konfigurierbares Abschleppsystem, laut Repo-Beschreibung gezielt für das Qbox-Framework gebaut. Nutzt qbx_core-Exports und ox_target direkt im Code.",
+      "link": "https://github.com/TonybynMp4/y_tow",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.1",
+      "letztes_update": "Inaktiv · letzter Push 2024-05-23",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_target"],
+      "kompat_warnung": {
+        "text": "Direkte qbx_core-Exports (fxmanifest.lua:12, client/main.lua:17) und README-Verweis auf qbx_core als Pflichtabhängigkeit belegen native Qbox-Bindung.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Native qbx_core-Integration im Code belegt",
+        "Nutzt ox_lib und ox_target"
+      ],
+      "contra": [
+        "Kein Push seit Mai 2024",
+        "Keine Lizenzdatei/SPDX im Repo gefunden — Nutzungsrecht ungeklärt, Quellcode aber öffentlich einsehbar",
+        "Gegenüber qbx_towjob (offizielles Qbox-Projekt) ein Community-Fork ohne erkennbar größere Nutzerbasis"
+      ],
+      "ergaenzt": [
+        { "id": "qbx_towjob", "plus": ["Offizielles Qbox-project-Repo, aktiver gepflegt"], "minus": ["Weniger konfigurierbar laut README-Vergleich"] },
+        { "id": "tow", "plus": ["lib.zones statt PolyZone, aktueller gepflegt"], "minus": ["Als 'work in progress' gekennzeichnet"] }
+      ],
+      "quelle": "https://github.com/TonybynMp4/y_tow, https://raw.githubusercontent.com/TonybynMp4/y_tow/main/fxmanifest.lua"
+    },
+    {
+      "id": "dex_postal",
+      "name": "dex_postal",
+      "kategorie": "ui",
+      "gruppe": "postal_display",
+      "beschreibung": "Leichtgewichtige Postal-Code-Anzeige für QBCore/Qbox: zeigt den aktuellen Postal-Code an, erlaubt GPS-Marker, verschiebbares/verstecktes HUD-Element mit gespeicherter Position.",
+      "link": "https://github.com/DexterKray/dex_postal",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.3.0",
+      "letztes_update": "Aktiv · letzter Push 2025-11-18",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "README nennt QBCore/QBox ausdrücklich als Zielframeworks (L3). Code-Stichprobe zeigt aber nur ox_lib-Nutzung, keinen direkten qbx_core-Export als Beleg.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Leichtgewichtig, nur ox_lib als Abhängigkeit",
+        "Verschiebbares HUD mit persistenter Position (TX-License-gebunden)",
+        "Aktiv gepflegt (Push 11/2025)"
+      ],
+      "contra": [
+        "Keine Lizenzdatei/SPDX im Repo gefunden",
+        "Qbox-Support im Code nicht direkt belegt, nur README-Aussage"
+      ],
+      "ergaenzt": [
+        { "id": "nearest-postal", "plus": ["Vom Autor ausdrücklich auf Qbox getestet"], "minus": ["Zusätzliche Fremd-Resource '0xludb-fivem' nötig"] }
+      ],
+      "quelle": "https://github.com/DexterKray/dex_postal, https://raw.githubusercontent.com/DexterKray/dex_postal/main/fxmanifest.lua"
+    },
+    {
+      "id": "nearest-postal",
+      "name": "nearest-postal",
+      "kategorie": "ui",
+      "gruppe": "postal_display",
+      "beschreibung": "Remake des originalen nearest-postal-Scripts von DevBlocky mit anpassbarer NUI-Anzeige des nächsten Postal-Codes. Autor nennt eigene Showcase-Videos im Qbox-Discord und Tests auf Qbox.",
+      "link": "https://github.com/ItWasD/nearest-postal",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Inaktiv · letzter Push 2025-02-08",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "kompat_warnung": {
+        "text": "README belegt Tests auf Qbox ausdrücklich (L23, L29: 'only tested on QBox'). Code-Stichprobe zeigt aber nur ox_lib-Nutzung, keinen direkten qbx_core-Export.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Vom Autor ausdrücklich auf Qbox getestet (README)",
+        "MIT-lizenziert",
+        "NUI-Anzeige, anpassbar"
+      ],
+      "contra": [
+        "Erfordert laut README zusätzlich das Fremd-Resource '0xludb-fivem' vor dem Start — zusätzliche Abhängigkeit außerhalb des ox-Stacks",
+        "Kein Push seit Februar 2025"
+      ],
+      "ergaenzt": [
+        { "id": "dex_postal", "plus": ["Leichtgewichtiger, nur ox_lib nötig"], "minus": ["Nicht ausdrücklich auf Qbox getestet"] }
+      ],
+      "quelle": "https://github.com/ItWasD/nearest-postal, https://raw.githubusercontent.com/ItWasD/nearest-postal/main/fxmanifest.lua"
+    },
+    {
+      "id": "kxs-cityhall",
+      "name": "kxs-cityhall",
+      "kategorie": "staat",
+      "gruppe": "cityhall",
+      "beschreibung": "Rathaus-System für Qbox mit ox_inventory/ox_target: Jobbewerbungen, Kauf von Ausweisen/Lizenzen/Namensänderung und Anzeige der Charakterdaten über eine moderne UI. Integriert optional externe ID-Card-Scripts wie qbx_idcard.",
+      "link": "https://github.com/kodoxsripts/kxs-cityhall",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-03-10",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_inventory", "ox_target"],
+      "kompat_warnung": {
+        "text": "Direkte qbx_core-Exports (fxmanifest.lua:9, client/client.lua:35) sowie README-Nennung von qbx_core als Pflichtabhängigkeit belegen native Qbox-Bindung.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Native qbx_core-Integration im Code belegt",
+        "Erweiterte ID-Card-Unterstützung inkl. qbx_idcard-Anbindung",
+        "Interaktiver NPC per ox_target/ox_lib-Points",
+        "Aktiv gepflegt (Push 03/2026)"
+      ],
+      "contra": [
+        "Keine Lizenzdatei/SPDX im Repo gefunden",
+        "Zusätzliche Pflichtabhängigkeit ox_inventory/ox_target"
+      ],
+      "quelle": "https://github.com/kodoxsripts/kxs-cityhall, https://raw.githubusercontent.com/kodoxsripts/kxs-cityhall/main/fxmanifest.lua"
+    },
+    {
+      "id": "fivem-postal-box-theft-script",
+      "name": "Fivem-Postal-Box-Theft-Script",
+      "kategorie": "crime",
+      "beschreibung": "Raub-Minigame an Briefkästen: Spieler knacken Postboxen für Beute. README bestätigt Tests unter Qbox, mit Framework-Autoerkennung im Code.",
+      "link": "https://github.com/FiveM-Backup/Fivem-Postal-Box-Theft-Script",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "unbekannt",
+      "letztes_update": "Aktiv · letzter Push 2025-02-16",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib", "ox_inventory", "ox_target"],
+      "kompat_warnung": {
+        "text": "README listet 'Qbox (Tested)' ausdrücklich (L33), Code nutzt Framework-Autoerkennung (bridge/framework.lua:5) mit direktem qbx_core-Export (bridge/framework.lua:21).",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Vom Autor ausdrücklich auf Qbox getestet",
+        "Framework-Autoerkennung im Code belegt",
+        "Nutzt ox_lib/ox_target/ox_inventory"
+      ],
+      "contra": [
+        "Keine Lizenzdatei/SPDX im Repo gefunden",
+        "Keine Versionsnummer im fxmanifest gepflegt"
+      ],
+      "quelle": "https://github.com/FiveM-Backup/Fivem-Postal-Box-Theft-Script, https://raw.githubusercontent.com/FiveM-Backup/Fivem-Postal-Box-Theft-Script/main/fxmanifest.lua"
+    },
+    {
+      "id": "fivemcad",
+      "name": "FiveM CAD Bridge",
+      "kategorie": "staat",
+      "gruppe": "mdt",
+      "beschreibung": "Offizielle Bridge-Ressource zum externen Dienst 'FiveM CAD': verbindet den Server per Zugangsdaten mit dem CAD (Einsätze, Bürger-/Fahrzeugabfrage, Berichte, Zitationen). Framework-Auflösung optional für ND_Core, Qbox/qbx_core oder ESX zur automatischen Charakter-Zuordnung.",
+      "link": "https://github.com/AtlanticDevelopment5M/FiveMCAD",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-04-17",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "kompat_warnung": {
+        "text": "README nennt 'QBX' als einen der wählbaren Framework-Werte (Config.FRAMEWORK) mit automatischer Auflösung über QBCore:Server:PlayerLoaded — kein Beleg im Code-Sample für einen direkten qbx_core-Export. Zusätzlich optionaler Notify-Provider 'mythic' (mythic_notify, veraltete Basis) — nur relevant, wenn dieser Provider aktiv gewählt wird, Standard ist 'native' ohne Abhängigkeit.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Framework-Feld erkennt Qbox/qbx_core als Option, mit optionaler Automatik",
+        "Kein Zwang zu ox_lib/mythic — Standard-Notify ganz ohne Fremd-Abhängigkeit",
+        "Aktiv gepflegt (Push 04/2026), sehr umfangreiches README"
+      ],
+      "contra": [
+        "Erfordert externen CAD-Dienst mit eigenen Zugangsdaten (server.cfg) — kein reines Offline-Tool",
+        "Keine Lizenzdatei/SPDX im Repo gefunden",
+        "Qbox-Anbindung im Code-Sample nicht direkt mit qbx_core-Export belegt, nur Config-Option"
+      ],
+      "quelle": "https://github.com/AtlanticDevelopment5M/FiveMCAD, https://raw.githubusercontent.com/AtlanticDevelopment5M/FiveMCAD/main/fxmanifest.lua"
+    },
+    {
+      "id": "tow",
+      "name": "tow",
+      "kategorie": "zivil",
+      "gruppe": "towing",
+      "beschreibung": "Abschleppsystem für Qbox mit ox_lib: Sofort-Abschleppen per ox_target auf markierten Fahrzeugen, No-Parking-Zonen und GPS-Benachrichtigungen. Nutzt lib.zones statt PolyZone.",
+      "link": "https://github.com/jayz666/tow",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "unbekannt",
+      "letztes_update": "Aktiv · letzter Push 2026-05-06",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_target"],
+      "kompat_warnung": {
+        "text": "Direkte qbx_core-Exports (server.lua:5, client.lua:1) und README-Nennung von qbx_core als Pflichtabhängigkeit (L24) belegen native Qbox-Bindung.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Native qbx_core-Integration im Code belegt",
+        "No-Parking-Zonen via lib.zones ohne PolyZone-Abhängigkeit",
+        "Sehr aktiv gepflegt (Push 05/2026)"
+      ],
+      "contra": [
+        "Keine Lizenzdatei/SPDX im Repo gefunden",
+        "Laut Repo-Beschreibung noch 'work in progress'",
+        "Gegenüber qbx_towjob (offizielles Qbox-Projekt) ein junger Community-Fork ohne erkennbar größere Nutzerbasis"
+      ],
+      "ergaenzt": [
+        { "id": "qbx_towjob", "plus": ["Offizielles Qbox-project-Repo"], "minus": ["Weniger aktiv als dieser Fork"] },
+        { "id": "y_tow", "plus": ["Länger im Umlauf"], "minus": ["Kein Push seit Mai 2024"] }
+      ],
+      "quelle": "https://github.com/jayz666/tow, https://raw.githubusercontent.com/jayz666/tow/main/fxmanifest.lua"
+    },
+    {
+      "id": "ug_vehicle_simple_market",
+      "name": "Simple vehicle market system",
+      "kategorie": "fahrzeuge",
+      "beschreibung": "Einfaches Fahrzeugverkaufs-Script: Fahrzeuge werden in der Welt ausgestellt und per ox_target gekauft. Gedacht u.a. für Job-Fahrzeuge (Polizei, Abschleppdienst), aber generisch einsetzbar. Cfx-Forum-Post nennt ESX/QB/Qbox als unterstützt.",
+      "link": "https://github.com/annovn-dot/ug_vehicle_simple_market",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "4.2.0",
+      "letztes_update": "Aktiv · letzter Push 2026-03-20",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "abhaengigkeiten": ["oxmysql", "ox_lib", "ox_target"],
+      "kompat_warnung": {
+        "text": "Code nutzt Framework-Autoerkennung (bridge/sh_framework.lua:6), Cfx-Forum-Titel nennt explizit 'esx-qb-qbox-simple-vehicle-market'. Kein direkter qbx_core-Export im Code-Sample als zusätzlicher Beleg gefunden.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Framework-Autoerkennung im Code belegt",
+        "Cfx-Forum-Post nennt Qbox ausdrücklich im Titel",
+        "Aktiv gepflegt (Push 03/2026)"
+      ],
+      "contra": [
+        "Keine Lizenzdatei/SPDX im Repo gefunden",
+        "README sehr knapp (13 Zeilen), keine Detailbelege zu Qbox im Lauftext",
+        "Zusätzlicher eigener Tebex-Shop des Autors — Hauptrepo ist aber frei zugänglich auf GitHub"
+      ],
+      "quelle": "https://github.com/annovn-dot/ug_vehicle_simple_market, https://raw.githubusercontent.com/annovn-dot/ug_vehicle_simple_market/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx-druglab",
+      "name": "qbx-druglab",
+      "kategorie": "crime",
+      "gruppe": "druglab",
+      "beschreibung": "Einfaches, serverseitig validiertes Drogenlabor-Script für Qbox: Spieler sammeln chemische Zutaten, lösen ein Mathe-Minigame und kochen/verkaufen das Produkt an NPCs.",
+      "link": "https://github.com/nadundev/qbx-druglab",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-02-20",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_target", "ox_inventory"],
+      "kompat_warnung": {
+        "text": "Direkte qbx_core-Exports (server/main.lua:122) und README-Nennung von qbx_core als Pflichtabhängigkeit (Tabelle L27) belegen native Qbox-Bindung.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Native qbx_core-Integration im Code belegt",
+        "Serverseitig validiertes Minigame gegen Cheating",
+        "Fokussiert und übersichtlich (4 Lua-Dateien)"
+      ],
+      "contra": [
+        "Keine Lizenzdatei/SPDX im Repo gefunden",
+        "Gegenüber xrb-druglab (Admin-Menü, Positions-Editor, mehrere Drogen) funktional schlanker — nur ein Labor-Typ ohne Admin-Werkzeuge"
+      ],
+      "ergaenzt": [
+        { "id": "xrb-druglab", "plus": ["Admin-Menü, Positions-Editor, mehrere Drogen"], "minus": ["Hängt noch an veraltetem mysql-async statt oxmysql"] }
+      ],
+      "quelle": "https://github.com/nadundev/qbx-druglab, https://raw.githubusercontent.com/nadundev/qbx-druglab/main/fxmanifest.lua"
+    },
+    {
+      "id": "cc_jobs",
+      "name": "cc_jobs",
+      "kategorie": "zivil",
+      "beschreibung": "Paket ziviler Jobs ('MRI Jobs Pack') für Qbox-/MRI-Server, gebaut auf qbx_core, ox_lib, ox_target, ox_inventory und oxmysql. Jobzugriff über Config.RequireJob steuerbar (frei zugänglich oder an den passenden Qbox-Job gebunden).",
+      "link": "https://github.com/Connect-Code-Agency/cc_jobs",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-24",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_target", "ox_inventory", "oxmysql"],
+      "kompat_warnung": {
+        "text": "Direkte qbx_core-Exports (server/main.lua:1) und README-Nennung von qbx_core als Pflichtabhängigkeit (L3, L49) belegen native Qbox-Bindung. README ist auf Portugiesisch verfasst.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Native qbx_core-Integration im Code belegt",
+        "Mehrere Jobs in einem Paket, konfigurierbare Zugriffsregeln",
+        "Sehr aktiv gepflegt (Push 06/2026)"
+      ],
+      "contra": [
+        "Keine Lizenzdatei/SPDX im Repo gefunden",
+        "README nur auf Portugiesisch verfügbar, erschwert Einrichtung ohne Übersetzung"
+      ],
+      "quelle": "https://github.com/Connect-Code-Agency/cc_jobs, https://raw.githubusercontent.com/Connect-Code-Agency/cc_jobs/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    { "id": "qbx_towjob", "gruppe": "towing", "geprueft_am": "2026-08-14", "update_grund": "Neue Gruppe 'towing' aus Runde 50 (y_tow, tow) nachträglich zugeordnet, damit der Gruppenvergleich in beide Richtungen funktioniert." },
+    { "id": "xrb-druglab", "gruppe": "druglab", "geprueft_am": "2026-08-14", "update_grund": "Neue Gruppe 'druglab' aus Runde 50 (qbx-druglab) nachträglich zugeordnet, damit der Gruppenvergleich in beide Richtungen funktioniert." }
+  ]
+}

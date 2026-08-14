@@ -1,0 +1,310 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.4-r49",
+  "runde": 49,
+  "thema": "Neusuche: scrapyard/delivery/pizza/taxi, notifications/context/skillbar/progressbar",
+  "erstellt": "2026-08-14",
+  "plugins": [
+    {
+      "id": "viper_carbomb",
+      "name": "viper_carbomb",
+      "kategorie": "crime",
+      "essenziell": false,
+      "beschreibung": "Autobomben-Script für QBCore/QBox: Spieler können ein Fahrzeug per Item verkabeln, das beim Starten oder per Fernzündung explodiert. Nutzt ox_lib, ox_target und ox_inventory direkt sowie qbx_core-Exports.",
+      "link": "https://github.com/Viper-Scripts/viper_carbomb",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.1.0",
+      "letztes_update": "Aktiv · letzter Push 2025-12-05",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["ox_inventory", "ox_target", "ox_lib"],
+      "pro": [
+        "Nutzt qbx_core-Exports direkt statt über Umweg-Bridge",
+        "README nennt QBCore und QBox ausdrücklich als unterstützt"
+      ],
+      "contra": [
+        "ESX laut README noch nicht implementiert (angekündigt)",
+        "Keine SPDX-Lizenzdatei im Repo"
+      ],
+      "quelle": "https://github.com/Viper-Scripts/viper_carbomb, https://raw.githubusercontent.com/Viper-Scripts/viper_carbomb/main/fxmanifest.lua"
+    },
+    {
+      "id": "anox-autotaxi",
+      "name": "anox-autotaxi",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Auto-Taxi-Job mit Framework-Bridge für ESX, QBCore und QBox: Spieler nehmen NPC-Fahrgäste auf und werden automatisch nach Framework erkannt und angebunden.",
+      "link": "https://github.com/ANoXShadow/anox-autotaxi",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.1",
+      "letztes_update": "Aktiv · letzter Push 2025-07-21",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "gruppe": "taxi",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "pro": [
+        "Eigene Framework-Autoerkennung im Code (bridge/loader.lua)",
+        "Nutzt qbx_core-Exports direkt für Qbox"
+      ],
+      "contra": [
+        "Konkurriert mit c-taxi-bot ohne bekannten klaren Alleinstellungsvorteil"
+      ],
+      "ergaenzt": [
+        { "id": "c-taxi-bot", "plus": ["Beide Framework-Autoerkennung, aber c-taxi-bot älterer, russischsprachiger Ableger"], "minus": ["Beide ohne klaren Alleinstellungsvorteil zueinander"] }
+      ],
+      "quelle": "https://github.com/ANoXShadow/anox-autotaxi, https://raw.githubusercontent.com/ANoXShadow/anox-autotaxi/main/fxmanifest.lua"
+    },
+    {
+      "id": "zyke_lib",
+      "name": "zyke_lib",
+      "kategorie": "basis",
+      "essenziell": false,
+      "beschreibung": "Dependency-Bridge-Bibliothek von Zyke Resources für deren eigene Script-Reihe: bündelt Framework-, Progressbar-, Dispatch- und Inventar-Anbindung (u.a. ox_inventory) hinter einer gemeinsamen API. Voraussetzung, um Zyke-Resources-Scripts zu betreiben.",
+      "link": "https://github.com/Zyke-Resources/zyke_lib",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.9.0",
+      "letztes_update": "Aktiv · letzter Push 2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "pro": [
+        "Sehr aktiv gepflegt (Push am Vortag der Prüfung)",
+        "README nennt ESX/QBCore/Qbox als unterstützte Frameworks"
+      ],
+      "contra": [
+        "Nur als Fundament für Zyke-Resources-eigene Scripts gedacht, kein universelles ox_lib-Ersatzstück",
+        "Kein qbx_core-Export in der Code-Stichprobe gefunden, nur ox_inventory"
+      ],
+      "quelle": "https://github.com/Zyke-Resources/zyke_lib, https://raw.githubusercontent.com/Zyke-Resources/zyke_lib/master/fxmanifest.lua"
+    },
+    {
+      "id": "fenix-showers",
+      "name": "fenix-showers",
+      "kategorie": "realismus",
+      "essenziell": false,
+      "beschreibung": "Dusch-Script für QBCore/QBox/ESX: Spieler können in Duschen interagieren, mit Bridge-Ordnern für die jeweiligen Frameworks und optionaler ox_lib- oder QBCore-Progressbar.",
+      "link": "https://github.com/IamFenixDesign/fenix-showers",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.2.0",
+      "letztes_update": "Aktiv · letzter Push 2026-01-14",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "pro": [
+        "Eigene Bridge-Ordner für ESX und Qbox im Code nachweisbar",
+        "ox_target- und ox_lib-Unterstützung im Code belegt"
+      ],
+      "contra": [
+        "Code enthält auch einen harten exports['qb-target']-Aufruf (client/cl_main.lua:136) — je nach Konfiguration nicht automatisch Qbox-sicher",
+        "Keine SPDX-Lizenzdatei im Repo"
+      ],
+      "quelle": "https://github.com/IamFenixDesign/fenix-showers, https://raw.githubusercontent.com/IamFenixDesign/fenix-showers/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_trainjob2_0",
+      "name": "qbx_trainjob2.0",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Zugführer-Job für das QBox-Framework: Metro- und Frachtzüge fahren, mit ox_target-Interaktionen und eigener Konfigurationsdatei für Zugdaten. Gibt sich im fxmanifest als 'qbx_trainjob' aus (provide).",
+      "link": "https://github.com/ParisRP/qbx_trainjob2.0",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-12-08",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["qbx_core", "ox_lib"],
+      "pro": [
+        "Nutzt qbx_core- und ox_target-Exports direkt im Code",
+        "README dokumentiert Item-, Job- und Cityhall-Integration im Detail"
+      ],
+      "contra": [
+        "README ist auf Französisch, keine englische Version",
+        "Keine SPDX-Lizenzdatei im Repo",
+        "provide 'qbx_trainjob' im fxmanifest kann bei einem gleichnamigen offiziellen Trainjob zu Konflikten führen, falls ein solcher später installiert wird"
+      ],
+      "quelle": "https://github.com/ParisRP/qbx_trainjob2.0, https://raw.githubusercontent.com/ParisRP/qbx_trainjob2.0/main/fxmanifest.lua"
+    },
+    {
+      "id": "jomidar-roofrunning-qbox",
+      "name": "jomidar-roofrunning-qbox",
+      "kategorie": "crime",
+      "essenziell": false,
+      "beschreibung": "Qbox-Konvertierung eines QBCore-Roofrunning-Scripts: Spieler klettern auf Dächer und stehlen dort Klimaanlagen-Einheiten als Aktivität, mit Polizei-Mindestanzahl-Voraussetzung und ox_inventory-Anbindung.",
+      "link": "https://github.com/Malitha-DEV/jomidar-roofrunning-qbox",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "3.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-08-23",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_inventory", "ox_target"],
+      "pro": [
+        "README trägt MIT-Lizenz-Badge, Lizenz eindeutig belegt",
+        "Nutzt qbx_core-, ox_target- und ox_inventory-Exports direkt"
+      ],
+      "contra": [
+        "Erfordert manuelles Einpflegen von Items in ox_inventory/data/items.lua"
+      ],
+      "quelle": "https://github.com/Malitha-DEV/jomidar-roofrunning-qbox, https://raw.githubusercontent.com/Malitha-DEV/jomidar-roofrunning-qbox/main/fxmanifest.lua"
+    },
+    {
+      "id": "e_core",
+      "name": "e_core",
+      "kategorie": "basis",
+      "essenziell": false,
+      "beschreibung": "Adapter-Bibliothek (eco_core) für Kompatibilität zwischen ESX, QBCore und QBox: übersetzt Framework-Aufrufe (Nachrichten, Items, Skills) über Bridge-Ordner und lässt sich über einen 'standalone'-Override-Ordner anpassen.",
+      "link": "https://github.com/Ekhion76/e_core",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "0.0.9",
+      "letztes_update": "Aktiv · letzter Push 2026-04-30",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["oxmysql"],
+      "pro": [
+        "MIT-lizenziert",
+        "Framework-Autoerkennung im Code nachweisbar (bridge/esx, bridge/qb)",
+        "Override-Mechanismus im 'standalone'-Ordner für individuelle Anpassungen dokumentiert"
+      ],
+      "contra": [
+        "Sehr frühe Versionsnummer (0.0.9) deutet auf begrenzte Reife hin",
+        "Kein qbx_core-Export in der Code-Stichprobe gefunden, nur ox_target"
+      ],
+      "quelle": "https://github.com/Ekhion76/e_core, https://raw.githubusercontent.com/Ekhion76/e_core/main/fxmanifest.lua"
+    },
+    {
+      "id": "di_backpack",
+      "name": "di_backpack",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Rucksack-Script für QBCore/QBox: erweitert das Inventar über ein tragbares Item. Fxmanifest nutzt escrow_ignore, das Repo enthält also nur einen Teil des Codes offen — der Rest ist als Escrow-Ressource geschützt.",
+      "link": "https://github.com/DOTINIT-SCRIPTS/di_backpack",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-03-29",
+      "lizenz": "escrow",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "pro": [
+        "Sowohl ox_target/ox_inventory- als auch qb-target/qb-inventory-Pfade im Code vorhanden"
+      ],
+      "contra": [
+        "Escrow-geschützt (escrow_ignore im fxmanifest) — bei Bridge-Problemen nicht selbst reparierbar",
+        "Kein README im Repo, Framework-Aussage nur aus fxmanifest/Code abgeleitet",
+        "Harte qb-target/qb-inventory-Exports im sichtbaren Code — unklar, ob der verschlüsselte Teil sauber auf Qbox umschaltet"
+      ],
+      "quelle": "https://github.com/DOTINIT-SCRIPTS/di_backpack, https://raw.githubusercontent.com/DOTINIT-SCRIPTS/di_backpack/main/fxmanifest.lua"
+    },
+    {
+      "id": "w2f-smartphone",
+      "name": "w2f-smartphone",
+      "kategorie": "kommunikation",
+      "essenziell": false,
+      "beschreibung": "Samsung-One-UI-inspiriertes Smartphone-Script (Beta) mit Banking-, Garagen- und weiteren Apps; Framework-Bridge für Standalone, ESX, QBCore und QBox ist im Code per Config wählbar.",
+      "link": "https://github.com/Wayy2Flyyy/w2f-smartphone",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-06-11",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "gruppe": "phone",
+      "abhaengigkeiten": ["oxmysql", "ox_lib"],
+      "pro": [
+        "Nutzt qbx_core-Exports direkt für Framework-Anbindung",
+        "README dokumentiert Config-Optionen (Framework, Inventar, Banking) im Detail"
+      ],
+      "contra": [
+        "Ausdrücklich als BETA gekennzeichnet (Repo-Beschreibung)",
+        "Stammt vom selben Autor (Wayy2Flyyy) wie das bereits katalogisierte w2f-phone — vermutlich Nachfolge- oder Parallelprodukt, Verhältnis zueinander nicht offiziell dokumentiert (Vermutung)"
+      ],
+      "quelle": "https://github.com/Wayy2Flyyy/w2f-smartphone, https://raw.githubusercontent.com/Wayy2Flyyy/w2f-smartphone/main/fxmanifest.lua"
+    },
+    {
+      "id": "c-taxi-bot",
+      "name": "c-taxi-bot",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "beschreibung": "Taxi-Job-Script für QBox, das auf den Ideen von 'Citra-taxi' aufbaut. Nutzt ox_lib und qbx_core-Exports; README ist auf Russisch.",
+      "link": "https://github.com/QBoxRPServer/c-taxi-bot",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "0.1.0",
+      "letztes_update": "Aktiv · letzter Push 2025-08-30",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "gruppe": "taxi",
+      "pro": [
+        "Nutzt qbx_core-Exports direkt für Qbox",
+        "Framework-Autoerkennung im Code (config.lua)"
+      ],
+      "contra": [
+        "Sehr frühe Versionsnummer (0.1.0)",
+        "README nur auf Russisch verfügbar",
+        "Konkurriert mit anox-autotaxi ohne bekannten Alleinstellungsvorteil"
+      ],
+      "quelle": "https://github.com/QBoxRPServer/c-taxi-bot, https://raw.githubusercontent.com/QBoxRPServer/c-taxi-bot/master/fxmanifest.lua"
+    },
+    {
+      "id": "rm-lib",
+      "name": "rm-lib",
+      "kategorie": "ui",
+      "essenziell": false,
+      "beschreibung": "Client-NUI-Bibliothek für QBCore/Qbox-artige Server mit Dialogue-, Missionsstatus-, Timer-, Progress- und TextUI-Komponenten im ox_lib-Stil; kann per Bridge-Datei ox_libs progressBar/progressCircle optisch ersetzen.",
+      "link": "https://github.com/RMSCRIPTS-DEV/rm-lib",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-04-02",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "Ausführliche README-Dokumentation (399 Zeilen) mit API-Referenz",
+        "Fällt bei fehlendem rm-lib laut README sauber auf ox_lib zurück"
+      ],
+      "contra": [
+        "Reine UI-Erweiterung ohne eigene Framework-Erkennung — kein qbx_core-Export im Code gefunden",
+        "Keine SPDX-Lizenzdatei im Repo"
+      ],
+      "quelle": "https://github.com/RMSCRIPTS-DEV/rm-lib, https://raw.githubusercontent.com/RMSCRIPTS-DEV/rm-lib/main/fxmanifest.lua"
+    }
+  ],
+  "updates": []
+}

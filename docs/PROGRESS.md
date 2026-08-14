@@ -4,7 +4,22 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 14.08.2026
-**Letzter Commit:** folgt (App-Ausbau 7: Ziehen in den leeren Vergleich + Funktionsgruppen-Filter).
+**Letzter Commit:** folgt (Runden 47-50: 43 weitere neue Plugins, 481 → 524).
+
+**Runden 47-50 (14.08.2026) — vier weitere Neusuche-Runden, gleiches Muster wie 40-46:** 43 neue
+Einträge über acht `discover`-Zusatzsuchen (ems/fire, carwash/scoreboard/loadingscreen,
+dispatch/key/atm/parking, boat/aircraft, illegal/chopshop, photo/gym, scrapyard/delivery/taxi,
+notifications/progressbar, delivery/towing, postal, cityhall/cad, druglab/vehicle-market). Neue
+Gruppen `chopshop`, `postal_display`, `towing`, `druglab`; sechs Bestandsgruppen erweitert
+(`fuel`, `loading`, `garage`, `taxi`, `phone`, `mdt`, `cityhall`). `bs-loadingscreen` verworfen
+(RedM statt FiveM). Details siehe CHANGELOG „[Runden 47-50]". Validate grün, 524 Plugins
+gesamt, 0 ungeprüft. Build: **v3.4-r50**, 940 KB, 18 Module.
+
+**Repo-Sicherheitsscan (14.08.2026, vor geplanter Veröffentlichung):** Auf Nutzerwunsch nach
+IPs, Tokens, API-Keys, E-Mails, Passwörtern und privaten IDs in allen getrackten Dateien
+gesucht — Repo ist sauber, nichts gefunden. `GITHUB_TOKEN`/`GH_TOKEN` werden nur als
+Umgebungsvariablen-Namen referenziert, nie im Klartext gespeichert. Als nächstes: README.md
+mit Funktionsbeschreibung + Open-Source-/Recherche-Hinweis schreiben, dann Repo public schalten.
 
 **App-Ausbau 7 (14.08.2026) — zwei Nutzermeldungen, beide erledigt (CHANGELOG „[App-Ausbau 7]",
 DECISIONS D31/D32, Features D10/D11):**
@@ -481,3 +496,7 @@ Verdopplung kostet also jedes Mal. Übertragbar ist nur, was sich als *Muster* w
 | 44 | Neunzehnte Neusuche-Runde: 11 Kandidaten (Rest derselben Zusatzsuchen), `pawnshop`-Gruppe um 2 erweitert, `mdt`/`adminmenu` um je 1 | 11 | 4 (`jim_pawnshop`, `qbx_pawnshop`, `ox_mdt`, `ps_adminmenu`) | 0 | 0 (9 verifiziert, 2 teilgeprüft) | `data/catalog/runde-44.json` | folgt |
 | 45 | Zwanzigste Neusuche-Runde: 11 Kandidaten (clothing/tattoo/barber, farming/fishing/hunting, racing/casino/gang), neue Gruppen `stashes`/`diving`, `crafting`-Gruppe erweitert | 11 | 1 (`qbx_diving`) | 0 | 0 (9 verifiziert, 2 teilgeprüft) | `data/catalog/runde-45.json` | folgt |
 | 46 | Einundzwanzigste Neusuche-Runde: 11 Kandidaten (Rest derselben Zusatzsuchen), neue Gruppe `lizenzverwaltung`, `cityhall`/`framework`-Gruppe erweitert | 11 | 1 (`ox_core`) | 0 | 0 (9 verifiziert, 2 teilgeprüft) | `data/catalog/runde-46.json` | folgt |
+| 47 | Zweiundzwanzigste Neusuche-Runde: 10 Kandidaten (ems/fire, carwash/scoreboard/loadingscreen, dispatch/key/atm/parking), 1 verworfen (RedM), `fuel`/`loading`/`garage`-Gruppe erweitert | 10 | 0 | 1 (bs-loadingscreen, RedM statt FiveM) | 0 (6 verifiziert, 4 teilgeprüft) | `data/catalog/runde-47.json` | folgt |
+| 48 | Dreiundzwanzigste Neusuche-Runde: 11 Kandidaten (boat/aircraft, illegal/chopshop, photo/gym), neue Gruppe `chopshop`, offizielles `qbx_helicam` als archiviert erfasst | 11 | 0 | 0 (7 verifiziert, 4 teilgeprüft) | `data/catalog/runde-48.json` | folgt |
+| 49 | Vierundzwanzigste Neusuche-Runde: 11 Kandidaten (scrapyard/delivery/taxi, notifications/progressbar), `taxi`/`phone`-Gruppe erweitert | 11 | 0 | 0 (alle 11 verifiziert) | `data/catalog/runde-49.json` | folgt |
+| 50 | Fünfundzwanzigste Neusuche-Runde: 11 Kandidaten (delivery/towing/postal/cityhall/cad/druglab/vehicle-market), neue Gruppen `postal_display`/`towing`/`druglab`, `mdt`/`cityhall`-Gruppe erweitert | 11 | 2 (`qbx_towjob`, `xrb-druglab` per updates[] gruppiert) | 0 | 0 (7 verifiziert, 4 teilgeprüft) | `data/catalog/runde-50.json` | folgt |
