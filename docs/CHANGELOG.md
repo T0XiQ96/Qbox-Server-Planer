@@ -17,6 +17,20 @@ Format je Eintrag:
 
 ---
 
+## [Release] v3.2-r39 — versionierte Release-Datei – 14.08.2026
+
+Push und Release für App-Ausbau 3-5. `package.json` von 3.1.0 auf **3.2.0** angehoben, damit
+`catalogVersion` (`3.2-r39`) den drei App-Ausbaurunden seit `v3.1-r39` sichtbar Rechnung trägt.
+
+**Release-Datei trägt jetzt die Version im Namen:** Bisher hieß der Anhang bei jedem Release
+gleich `qbox-planer.html`. `scripts/build.mjs` schreibt jetzt zusätzlich eine versionierte Kopie
+`dist/qbox-planer-v<catalogVersion>.html`, identisch im Inhalt; diese geht ins Release.
+`dist/qbox-planer.html` bleibt der stabile, unversionierte Pfad für CLAUDE.md/docs/Scripts.
+
+**Commit:** `<folgt>` · **Release:** `v3.2-r39`
+
+---
+
 ## [App-Ausbau 5] Wissens-Datenbank – 14.08.2026
 
 Neuer Reiter „📖 Wissen" mit 13 Kategorien und 17 Artikeln — eine kleine Hilfe-Datenbank neben

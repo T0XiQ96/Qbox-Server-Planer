@@ -196,8 +196,16 @@ if (/<script[^>]+src=|<link[^>]+href=/i.test(html)) {
 mkdirSync(dirname(ZIEL), { recursive: true });
 writeFileSync(ZIEL, html, 'utf8');
 
+// Zusätzlich eine Kopie mit der Version im Dateinamen — dist/qbox-planer.html bleibt der stabile
+// Pfad, auf den CLAUDE.md/docs/scripts verweisen; die versionierte Datei ist die, die tatsächlich
+// im GitHub-Release landet und beim Nutzer im Downloads-Ordner liegt, wo "qbox-planer.html" bei
+// mehreren Versionen nebeneinander nicht mehr zu unterscheiden wäre.
+const ZIEL_VERSIONIERT = pfad('dist', `qbox-planer-v${katalogVersion}.html`);
+writeFileSync(ZIEL_VERSIONIERT, html, 'utf8');
+
 const kb = (Buffer.byteLength(html, 'utf8') / 1024).toFixed(0);
 console.log(gruen(`\n✔ ${relPfad(ZIEL)} gebaut.`) + grau(`  ${kb} KB · ${plugins.length} Plugins · ${reihenfolge.length} Module · Katalog v${katalogVersion}`));
+console.log(grau(`  ${relPfad(ZIEL_VERSIONIERT)} — versionierte Kopie fürs Release.`));
 console.log(grau('  Per Doppelklick öffnen — kein Server nötig.\n'));
 
 if (plugins.length === 0) console.log(gelb('  Hinweis: der Katalog ist leer. Demo-Daten liegen in data/catalog/demo.json.\n'));

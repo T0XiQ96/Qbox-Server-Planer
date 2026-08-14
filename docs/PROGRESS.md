@@ -4,24 +4,30 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 14.08.2026
-**Letzter Commit:** `2f38fce` (App-Ausbau 1).
+**Letzter Commit:** `c84ab74` (App-Ausbau 5) + Versionssprung auf 3.2.0 (siehe unten).
 
-**Push-Stand (14.08.2026):** `origin/main` steht auf `6bb3d57` — gepusht bis inklusive
-App-Ausbau 2. Letztes GitHub-Release: **v3.1-r39** (`dist/qbox-planer.html`, 404 Plugins).
-**Versionskorrektur (14.08.2026):** Der erste Release-Versuch hieß fälschlich noch `v3.0-r39` —
-`catalogVersion` folgte einem hartcodierten `"3.0-r${n}"` in `scripts/newround.mjs`, unabhängig
-von der App-Version. Da diese Runde zwei App-Ausbaurunden mit echten `src/`-Änderungen enthält
-(neue Features, keine reine Datenrunde), gehört das sichtbar gemacht: `package.json` auf
-**3.1.0**, `newround.mjs` liest den Präfix jetzt aus `package.json` (`major.minor`) statt ihn
-festzuschreiben, `runde-39.json` von Hand auf `3.1-r39` nachgezogen. Der falsche Release
-`v3.0-r39` wurde gelöscht und durch `v3.1-r39` ersetzt. **Für künftige Runden:** eine reine
-Datenrunde bleibt beim aktuellen `major.minor`-Präfix (z.B. weiterhin `3.1-r40`), ein
+**Push-Stand (14.08.2026):** `origin/main` bis inklusive App-Ausbau 5 und Versionssprung 3.2.0
+gepusht. Letztes GitHub-Release: **v3.2-r39**, Anhang `qbox-planer-v3.2-r39.html` (404 Plugins,
+17 Wissens-Artikel). Nichts mehr offen auf dieser Seite.
+
+**Versionierte Release-Datei (14.08.2026):** Bisher hieß der Release-Anhang bei jeder Version
+gleich `qbox-planer.html` — im Downloads-Ordner bei mehreren Versionen nicht mehr unterscheidbar.
+`scripts/build.mjs` schreibt jetzt zusätzlich `dist/qbox-planer-v<catalogVersion>.html`; diese
+geht ins Release. `dist/qbox-planer.html` bleibt unversioniert der stabile Pfad, auf den
+CLAUDE.md/docs/andere Scripts verweisen — beide Dateien haben identischen Inhalt.
+
+**Versionskorrektur (14.08.2026, für die Historie):** Der allererste Release-Versuch dieser
+Runde hieß fälschlich `v3.0-r39` — `catalogVersion` folgte einem hartcodierten `"3.0-r${n}"` in
+`scripts/newround.mjs`, unabhängig von der App-Version. Seit drei App-Ausbaurunden mit echten
+`src/`-Änderungen dazukamen, liest `newround.mjs` den Präfix jetzt aus `package.json`
+(`major.minor`). Verlauf: `v3.0-r39` (falsch, gelöscht) → `v3.1-r39` (nach App-Ausbau 1+2) →
+**`v3.2-r39`** (aktuell, nach App-Ausbau 3-5: Wissens-Datenbank + weitere UI-Ausbauten).
+**Für künftige Runden:** eine reine Datenrunde bleibt beim aktuellen `major.minor`-Präfix, ein
 App-Ausbau erhöht `package.json` VOR dem nächsten `npm run newround`-Aufruf.
-Nichts mehr offen auf dieser Seite.
 
 **H5 (Doppelklick über `file://`) ist weiterhin nicht durch dieses Tool geprüft** — das
 Browser-Werkzeug verweigert `file://`, jeder Testlauf lief über einen lokalen HTTP-Server. Der
-Nutzer hat den Release-Build trotzdem freigegeben; ein manueller Doppelklick-Check steht bei
+Nutzer hat jeden Release-Build trotzdem freigegeben; ein manueller Doppelklick-Check steht bei
 Gelegenheit noch aus, ist aber kein Blocker mehr.
 
 ---
