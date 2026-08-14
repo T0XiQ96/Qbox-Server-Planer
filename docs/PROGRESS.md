@@ -4,13 +4,20 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 14.08.2026
-**Letzter Commit:** folgt (Runden 40-44: 55 neue Plugins, reine Datenrunde).
+**Letzter Commit:** folgt (Runden 40-46: 77 neue Plugins, reine Datenrunde).
 
 **Push-Stand (14.08.2026, vor diesem Schritt):** `origin/main` bis inklusive Versionssprung 3.2.0
 gepusht. Letztes GitHub-Release: **v3.2-r39**. Dieser Schritt bringt App-Ausbau 6 (Vergleich:
-zwei getrennte Zustände), 25 neue Wissens-Artikel (17 → 42) und jetzt zusätzlich Runden 40-44
-(55 neue Plugins, 404 → 459) noch dazu — Push/Release dafür folgen im nächsten Schritt. **Kein
-Rebuild nötig** für Runden 40-44 (reine Datenrunde, CLAUDE.md §2.7).
+zwei getrennte Zustände), 25 neue Wissens-Artikel (17 → 42) und jetzt zusätzlich Runden 40-46
+(77 neue Plugins, 404 → 481) noch dazu — Push/Release dafür folgen im nächsten Schritt. **Kein
+Rebuild nötig** für Runden 40-46 (reine Datenrunde, CLAUDE.md §2.7).
+
+**Runden 45-46 (14.08.2026) — zwei weitere Neusuche-Runden, gleiche Konvention wie 40-44:** 22
+neue Einträge über drei weitere `discover`-Zusatzsuchen (`qbox clothing/tattoo/barber`,
+`qbox farming/fishing/hunting`, `qbox racing/casino/gang`). Neue Gruppen `stashes`,
+`diving` und `lizenzverwaltung` angelegt; `crafting`-, `cityhall`- und `framework`-Gruppe um je
+einen Kandidaten erweitert. Details siehe CHANGELOG „[Runden 45-46]". Validate grün, 481 Plugins
+gesamt, 0 ungeprüft.
 
 **Runden 43-44 (14.08.2026) — zwei weitere Neusuche-Runden, gleiche Konvention wie 40-42:** 22
 neue Einträge über drei weitere `discover`-Zusatzsuchen (`qbox heist/weapon/mining`,
@@ -444,3 +451,5 @@ Verdopplung kostet also jedes Mal. Übertragbar ist nur, was sich als *Muster* w
 | 42 | Siebzehnte Neusuche-Runde: 11 Kandidaten, Rest der Zusatzsuchen (Tablet/Banking/DOJ/Notify/Towjob/Police/Payment), 3 mit Gruppenvergleich, 1 Synergie-Verknüpfung (`sd-tablet`↔`sd-phone`) | 11 | 1 (Synergie bei `sd-phone`) | 0 | 0 (9 verifiziert, 2 teilgeprüft) | `data/catalog/runde-42.json` | folgt |
 | 43 | Achtzehnte Neusuche-Runde: 11 Kandidaten (heist/weapon/mining, hud/radio/target, anticheat/admin/mdt), 2 neue Gruppen (`shops`, `ladenraub`), 4 Bestandseinträge nachträglich zugeordnet | 11 | 4 (`jim_shops`, `wasabi_oxshops`, `murderface-shops`, `qbx_storerobbery`) | 0 | 0 (9 verifiziert, 2 teilgeprüft) | `data/catalog/runde-43.json` | folgt |
 | 44 | Neunzehnte Neusuche-Runde: 11 Kandidaten (Rest derselben Zusatzsuchen), `pawnshop`-Gruppe um 2 erweitert, `mdt`/`adminmenu` um je 1 | 11 | 4 (`jim_pawnshop`, `qbx_pawnshop`, `ox_mdt`, `ps_adminmenu`) | 0 | 0 (9 verifiziert, 2 teilgeprüft) | `data/catalog/runde-44.json` | folgt |
+| 45 | Zwanzigste Neusuche-Runde: 11 Kandidaten (clothing/tattoo/barber, farming/fishing/hunting, racing/casino/gang), neue Gruppen `stashes`/`diving`, `crafting`-Gruppe erweitert | 11 | 1 (`qbx_diving`) | 0 | 0 (9 verifiziert, 2 teilgeprüft) | `data/catalog/runde-45.json` | folgt |
+| 46 | Einundzwanzigste Neusuche-Runde: 11 Kandidaten (Rest derselben Zusatzsuchen), neue Gruppe `lizenzverwaltung`, `cityhall`/`framework`-Gruppe erweitert | 11 | 1 (`ox_core`) | 0 | 0 (9 verifiziert, 2 teilgeprüft) | `data/catalog/runde-46.json` | folgt |

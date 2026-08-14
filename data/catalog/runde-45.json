@@ -1,0 +1,302 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.3-r45",
+  "runde": 45,
+  "thema": "Zwanzigste Neusuche-Runde: gezielte Zusatzsuchen (clothing/tattoo/barber, farming/fishing/hunting, racing/casino/gang), 11 neue Plugins, neue Gruppen diving/stashes, crafting-Gruppe erweitert",
+  "erstellt": "2026-08-14",
+  "plugins": [
+    {
+      "id": "cw-crafting",
+      "name": "cw-crafting",
+      "kategorie": "wirtschaft",
+      "beschreibung": "Crafting-System mit eigener Bridge-Schicht für ESX, QBCore und Qbox; nutzt ox_lib und ox_target/ox_inventory über qbx_core-Exports.",
+      "link": "https://github.com/Coffeelot/cw-crafting",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "3.8.2",
+      "letztes_update": "Aktiv · letzter Push 2025-09-22",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "gruppe": "crafting",
+      "abhaengigkeiten": ["oxmysql"],
+      "kompat_warnung": {
+        "text": "Bridge-Dateien für qb/ox liegen im Repo vor, enthalten aber exports['qb-inventory']/exports['qb-target'] neben ox-Pfaden; kein README zur Bestätigung vorhanden, welcher Zweig unter Qbox tatsächlich aktiv ist.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Eigene Bridge für ESX, QBCore und Qbox statt Festlegung auf ein Framework",
+        "Nutzt ox_lib und ox_target/ox_inventory in der Qbox-Bridge"
+      ],
+      "contra": [
+        "Kein README im Repo — Zweck und Installationshinweise nur aus fxmanifest ableitbar",
+        "Alte qb-Bridge-Datei im Repo enthält veraltete qb-inventory/qb-target-Aufrufe"
+      ],
+      "quelle": "https://github.com/Coffeelot/cw-crafting, https://raw.githubusercontent.com/Coffeelot/cw-crafting/main/fxmanifest.lua"
+    },
+    {
+      "id": "op-drugselling",
+      "name": "op-drugselling",
+      "kategorie": "crime",
+      "beschreibung": "Drogenverkauf-Script, laut README mit ESX-, QBCore- und Qbox-Kompatibilitätsstruktur; kompatibel mit OP-GANGS 2.0.",
+      "link": "https://github.com/Bagietame/op-drugselling",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.9",
+      "letztes_update": "Aktiv · letzter Push 2026-03-06",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "kompat_warnung": {
+        "text": "Eine Datei nutzt noch exports['qb-target'] (integrations/client/utils/targets.lua:20) statt durchgängig ox_target.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "README nennt Qbox ausdrücklich als unterstütztes Framework",
+        "Nutzt ox_lib und qbx_core-Exports in der Framework-Schicht"
+      ],
+      "contra": [
+        "Ein Zielsystem-Aufruf verwendet noch qb-target statt ox_target"
+      ],
+      "quelle": "https://github.com/Bagietame/op-drugselling, https://raw.githubusercontent.com/Bagietame/op-drugselling/main/fxmanifest.lua"
+    },
+    {
+      "id": "anox-autoems",
+      "name": "anox-autoems",
+      "kategorie": "staat",
+      "beschreibung": "Automatisches EMS-Script mit Unterstützung für mehrere Death-Systeme, kompatibel mit ESX, QBCore und Qbox.",
+      "link": "https://github.com/ANoXShadow/anox-autoems",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.1",
+      "letztes_update": "Aktiv · letzter Push 2026-02-01",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib"],
+      "pro": [
+        "README nennt Qbox ausdrücklich als eines von drei unterstützten Frameworks",
+        "Framework-Autoerkennung im Code, dedizierte qbx-Bridge-Datei mit qbx_core-Exports"
+      ],
+      "quelle": "https://github.com/ANoXShadow/anox-autoems, https://raw.githubusercontent.com/ANoXShadow/anox-autoems/main/fxmanifest.lua"
+    },
+    {
+      "id": "v-containers",
+      "name": "v-containers",
+      "kategorie": "crime",
+      "beschreibung": "Container-Script mit knackbaren/hackbaren Behältern, unterstützt QB-Core, Qbox und ESX sowie ox_inventory oder codem-inventory.",
+      "link": "https://github.com/Virgildev/v-containers",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "0.1.0",
+      "letztes_update": "Aktiv · letzter Push 2025-07-21",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "kompat_warnung": {
+        "text": "Enthält direkte exports['qb-inventory']- und exports['qb-target']-Aufrufe neben den ox-Pfaden (server/server.lua:198, client/client.lua:382) — nur relevant, wenn Config.Framework/Config.Inventory auf 'qb' statt 'auto'/'ox' steht.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Framework- und Inventar-Autoerkennung (Config auf 'auto' stellbar)",
+        "Nutzt ox_lib, ox_target und ox_inventory-Exports direkt sowie qbx_core"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben",
+        "Sehr frühe Versionsnummer (0.1.0), Zweck vom Autor selbst nur vage beschrieben"
+      ],
+      "quelle": "https://github.com/Virgildev/v-containers, https://raw.githubusercontent.com/Virgildev/v-containers/main/fxmanifest.lua"
+    },
+    {
+      "id": "xrb-hunting",
+      "name": "xrb-hunting",
+      "kategorie": "zivil",
+      "beschreibung": "Jagd-/Tierhäutungs-Script mit Talentbaum, nutzt ox_target zum Häuten und ox_inventory für die Beute; für QB/Qbox und ESX per Config umschaltbar.",
+      "link": "https://github.com/xrb-script/xrb-hunting",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-04-05",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib", "ox_target", "ox_inventory"],
+      "pro": [
+        "Nutzt ausschließlich ox_lib/ox_target/ox_inventory ohne erkennbare qb-Legacy-Aufrufe",
+        "Dual-Framework laut README per Config umschaltbar (QB/QBOX und ESX)"
+      ],
+      "contra": [
+        "Benötigt zusätzlich die externe, nicht katalogisierte Bibliothek xrb-lib desselben Autors",
+        "Enthält Tebex-Zusatzitems zur Monetarisierung neben dem offenen Kern"
+      ],
+      "quelle": "https://github.com/xrb-script/xrb-hunting, https://raw.githubusercontent.com/xrb-script/xrb-hunting/main/fxmanifest.lua"
+    },
+    {
+      "id": "dds-identification",
+      "name": "dds-identification",
+      "kategorie": "staat",
+      "beschreibung": "ID-Karten-Ressource für Qbox/ox_inventory mit Führerschein (inkl. Zusatzberechtigungen), Waffenschein und weiteren Ausweisen; bearbeitete Version von qIdentification.",
+      "link": "https://github.com/envSCRIPTS/dds-identification",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "unbekannt",
+      "letztes_update": "Archiviert · letzter Push 2023-05-22",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "archiviert": {
+        "text": "Repo auf GitHub archiviert, letzter Push 2023-05-22.",
+        "nachfolger": ""
+      },
+      "pro": [
+        "README nennt Qbox und ox_inventory ausdrücklich als Zielumgebung",
+        "Nutzt ox_lib und ox_inventory-Exports direkt"
+      ],
+      "contra": [
+        "Repo archiviert, kein aktiver Support mehr",
+        "Code verweist auf QBCore.Functions.GetPlayer statt qbx_core-Bridge-Exports — potenziell veraltet gegen aktuelle Qbox-Versionen"
+      ],
+      "quelle": "https://github.com/envSCRIPTS/dds-identification, https://raw.githubusercontent.com/envSCRIPTS/dds-identification/main/fxmanifest.lua"
+    },
+    {
+      "id": "babo_chickencap",
+      "name": "babo_chickencap",
+      "kategorie": "zivil",
+      "beschreibung": "Fügt wilde Hühner auf der Karte hinzu, die mit Futter angelockt und über ox_target eingefangen werden können; Beute als ox_inventory-Item mit Metadaten.",
+      "link": "https://github.com/Babocha/babo_chickencap",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "unbekannt",
+      "letztes_update": "Aktiv · letzter Push 2025-09-13",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_inventory", "ox_target"],
+      "pro": [
+        "Repo-Titel und README nennen Qbox ausdrücklich",
+        "Ausschließlich ox_lib/ox_target/ox_inventory im Code, keine qb-Legacy-Aufrufe"
+      ],
+      "contra": [
+        "fxmanifest nennt keine Versionsnummer"
+      ],
+      "quelle": "https://github.com/Babocha/babo_chickencap, https://raw.githubusercontent.com/Babocha/babo_chickencap/main/fxmanifest.lua"
+    },
+    {
+      "id": "orb-clothing",
+      "name": "orb-clothing",
+      "kategorie": "ui",
+      "beschreibung": "Charaktererstellung und Kleidungssystem mit Barber-, Tattoo- und Accessoires-Shops, gespeicherten/teilbaren Outfits und Multi-Framework-Support; Drop-in-Ersatz für qb-clothing.",
+      "link": "https://github.com/TheOrb-FiveM/orb-clothing",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.8.2",
+      "letztes_update": "Aktiv · letzter Push 2026-08-12",
+      "lizenz": "escrow",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "pro": [
+        "README bewirbt Qbox mit Status Drop-in, dediziertes bridge/framework.lua mit qbx_core-Exports",
+        "Bilder aus CDN statt lokalem Hosting"
+      ],
+      "contra": [
+        "README-Lizenzbadge zeigt 'Proprietary' trotz öffentlichem Repo — kein SPDX-Tag vorhanden",
+        "Framework-Support für ESX laut README teilweise noch 'planned'"
+      ],
+      "quelle": "https://github.com/TheOrb-FiveM/orb-clothing, https://raw.githubusercontent.com/TheOrb-FiveM/orb-clothing/main/fxmanifest.lua"
+    },
+    {
+      "id": "bc-stashes",
+      "name": "bc-stashes",
+      "kategorie": "ui",
+      "beschreibung": "Custom-Stash-System mit Job-/Gang-/Spieler-Zugriffsrechten für Qbox und ox_inventory, Interaktion über ox_lib-Zonen und ox_target.",
+      "link": "https://github.com/BadCodePT/bc-stashes",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-03-17",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": "stashes",
+      "abhaengigkeiten": ["ox_inventory", "ox_lib", "qbx_core"],
+      "pro": [
+        "Nutzt qbx_core-, ox_inventory- und ox_target-Exports direkt, keine qb-Legacy-Pfade im Code",
+        "Zugriffssteuerung nach Job/Gang/Spieler laut README"
+      ],
+      "quelle": "https://github.com/BadCodePT/bc-stashes, https://raw.githubusercontent.com/BadCodePT/bc-stashes/main/fxmanifest.lua"
+    },
+    {
+      "id": "qbx_stashes",
+      "name": "qbx_stashes",
+      "kategorie": "ui",
+      "beschreibung": "Custom-Stash-System für das Qbox-Framework und ox_inventory mit serverseitigem Setup der Stashes.",
+      "link": "https://github.com/iTzCrutchie/qbx_stashes",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "0.0.1",
+      "letztes_update": "Seit 2024-04-11 kein Push mehr",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": "stashes",
+      "abhaengigkeiten": ["ox_lib", "ox_target", "ox_inventory", "qbx_core"],
+      "pro": [
+        "Nutzt qbx_core-Playerdata-Modul direkt aus dem Framework",
+        "Klar auf Qbox zugeschnitten, keine Multi-Framework-Kompromisse im Code"
+      ],
+      "contra": [
+        "Sehr frühe Versionsnummer (0.0.1), seit über einem Jahr keine Aktivität",
+        "Gegenüber bc-stashes (Job-/Gang-/Spieler-Zugriffsrechte) funktional schlanker"
+      ],
+      "quelle": "https://github.com/iTzCrutchie/qbx_stashes, https://raw.githubusercontent.com/iTzCrutchie/qbx_stashes/main/fxmanifest.lua"
+    },
+    {
+      "id": "codex_diving",
+      "name": "CodeX_diving",
+      "kategorie": "zivil",
+      "beschreibung": "Tauchsystem für Qbox mit Unterwassererkundung, Schatzsuche und eigener UI, nutzt ox_lib, ox_inventory und ox_target.",
+      "link": "https://github.com/CodexRolplay/CodeX_diving",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "3.0.1",
+      "letztes_update": "Aktiv · letzter Push 2026-04-16",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "diving",
+      "abhaengigkeiten": ["ox_lib", "ox_target", "ox_inventory", "qbx_core"],
+      "pro": [
+        "Kostenlos, gegenüber qbx_diving zusätzlich Schatzsuche und eigenes Custom-UI",
+        "Nutzt ox_inventory/ox_target-Exports direkt"
+      ],
+      "contra": [
+        "Keine SPDX-Lizenz im Repo angegeben",
+        "Kein direkter qbx_core-Export im Code gefunden (Abhängigkeit nur im fxmanifest), Qualität der Qbox-Anbindung nicht im Code selbst bestätigt"
+      ],
+      "quelle": "https://github.com/CodexRolplay/CodeX_diving, https://raw.githubusercontent.com/CodexRolplay/CodeX_diving/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "qbx_diving",
+      "geprueft_am": "2026-08-14",
+      "gruppe": "diving",
+      "contra": [
+        "Gegenüber codex_diving (zusätzlich Schatzsuche, eigenes Custom-UI) funktional schlanker, dafür offizielle Qbox-project-Ressource"
+      ],
+      "update_grund": "Neuer Gruppen-Konkurrent codex_diving (Runde 45) gefunden — kostenloses Tauchsystem mit Schatzsuche und eigenem UI. Gruppe 'diving' neu vergeben (Kollisionscheck: Name war frei)."
+    }
+  ]
+}

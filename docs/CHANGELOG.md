@@ -17,6 +17,35 @@ Format je Eintrag:
 
 ---
 
+## [Runden 45–46] Zwanzigste und einundzwanzigste Neusuche-Runde – 14.08.2026
+
+**22 weitere neue Plugins**, gefunden über drei weitere `discover`-Zusatzsuchen
+(`qbox clothing/tattoo/barber`, `qbox farming/fishing/hunting`, `qbox racing/casino/gang`).
+Weiterhin Premium-Plugins ausdrücklich mit aufgenommen; ein Kandidat (`dps-hookers`) ist ein
+18+-Erwachsenen-RP-Job, sachlich wie jeder andere Crime-Job recherchiert und eingetragen.
+
+**Runde 45 (11 neu):** `cw-crafting` (Gruppe `crafting`, dritter Kandidat neben `keep_crafting`/
+`okokcrafting`/`it-crafting`), `op-drugselling`, `anox-autoems`, `v-containers`, `xrb-hunting`,
+`dds-identification` (archiviert, letzter Push 2023 — Bearbeitung von qIdentification),
+`babo_chickencap`, `orb-clothing` (Lizenz `escrow` — README-Badge zeigt explizit „Proprietary"
+trotz öffentlichem Repo, einziger begründeter Escrow-Fall dieser beiden Runden neben
+`orb-clothing`), `bc-stashes` und `qbx_stashes` (neue Gruppe `stashes`), `codex_diving` (neue
+Gruppe `diving` zusammen mit dem bestehenden `qbx_diving`, das per Update nachgezogen wurde).
+
+**Runde 46 (11 neu):** `bx-license-system` und `uj-licensemanager` (neue Gruppe
+`lizenzverwaltung` — bx mit vollständigem Kaufsystem inkl. DMV-NPC, uj als schlankeres
+Polizei-Verwaltungswerkzeug ohne Code-Beleg für Qbox-Support), `w2f-hunting`,
+`rcore_gangs_qbx_sync`, `peak-barbers`, `v42-hathair`, `distortionz_cityhall` (Gruppe `cityhall`,
+jetzt 4 Mitglieder), `li_jobpoints`, `y_core` (Gruppe `framework` zusammen mit `ox_core` — gibt
+sich per `provide 'qbx_core'` als eigenständiger Framework-Ersatz aus, kein Plugin auf Qbox),
+`omi-vehdel`, `dps-hookers`.
+
+**Katalog:** 22 neu, 5 aktualisiert (Gruppenvergleiche `qbx_diving` in Runde 45, `ox_core` in
+Runde 46), 0 Duplikate übersprungen, 0 ungeprüft. Katalogstand 459 → **481 Plugins**.
+**Commit:** folgt
+
+---
+
 ## [Runden 43–44] Achtzehnte und neunzehnte Neusuche-Runde – 14.08.2026
 
 **22 weitere neue Plugins** (auf Nutzerwunsch „weitere Runden, 2 Stück"), gefunden über drei

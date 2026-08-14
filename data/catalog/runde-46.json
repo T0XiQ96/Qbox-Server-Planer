@@ -1,0 +1,315 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.3-r46",
+  "runde": 46,
+  "thema": "Einundzwanzigste Neusuche-Runde: Rest der Zusatzsuchen (clothing/tattoo/barber, farming/fishing/hunting, racing/casino/gang), 11 neue Plugins, neue Gruppe lizenzverwaltung, cityhall/framework-Gruppe erweitert",
+  "erstellt": "2026-08-14",
+  "plugins": [
+    {
+      "id": "bx-license-system",
+      "name": "bx-license-system",
+      "kategorie": "staat",
+      "beschreibung": "Universelles Lizenzsystem mit fünf Standard-Lizenztypen (Führerschein, Waffenschein u.a.), DMV-Anlaufstelle per NPC/Blip, Lizenzverwaltung für die Polizei sowie einer Export-API. Erkennt QBox, QBCore, ESX und Standalone automatisch.",
+      "link": "https://github.com/luqftw-cloud/bx-license-system",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-05-12",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "gruppe": "lizenzverwaltung",
+      "abhaengigkeiten": ["oxmysql"],
+      "kompat_warnung": {
+        "text": "Framework-Autoerkennung und qbx_core-Exports sind im Code nachgewiesen, kein Hinweis auf Zugriffe an der Bridge vorbei.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Framework-Autoerkennung (QBox/QBCore/ESX/Standalone) im Code belegt",
+        "Nutzt exports.qbx_core und exports.ox_target direkt",
+        "Minimale Pflichtabhängigkeit (nur oxmysql), ox_lib/ox_target optional",
+        "Vollständiges Kaufsystem inkl. DMV-NPC, nicht nur Verwaltung"
+      ],
+      "contra": [
+        "Junges Repo, noch keine große Nutzerbasis erkennbar"
+      ],
+      "quelle": "https://github.com/luqftw-cloud/bx-license-system, https://raw.githubusercontent.com/luqftw-cloud/bx-license-system/main/fxmanifest.lua"
+    },
+    {
+      "id": "w2f-hunting",
+      "name": "w2f-hunting (DD Hunting)",
+      "kategorie": "zivil",
+      "beschreibung": "Modulares Jagd-Framework mit Wildtier-Simulation und Kadaver-Verarbeitung für Qbox (primär), QBCore oder ESX auf dem ox-Stack. Wird laut Repo-Beschreibung gerade überarbeitet (REWORKING).",
+      "link": "https://github.com/Wayy2Flyyy/w2f-hunting",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "0.3.0-progression-depth",
+      "letztes_update": "Aktiv · letzter Push 2026-05-21",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib", "oxmysql", "ox_inventory"],
+      "pro": [
+        "Eigene Bridge-Dateien je Framework statt Zugriff an der Bridge vorbei",
+        "exports.qbx_core und exports.ox_inventory im Code belegt"
+      ],
+      "contra": [
+        "Repo-Beschreibung nennt sich selbst 'REWORKING' — Stabilität unklar",
+        "Keine NUI-Oberfläche, nur ox_lib-Kontextmenüs",
+        "Fork/Rename-Verhältnis von 'dd-hunting' zu 'w2f-hunting' nicht restlos geklärt (fxmanifest nennt intern weiterhin 'dd-hunting')"
+      ],
+      "quelle": "https://github.com/Wayy2Flyyy/w2f-hunting, https://raw.githubusercontent.com/Wayy2Flyyy/w2f-hunting/main/fxmanifest.lua"
+    },
+    {
+      "id": "rcore_gangs_qbx_sync",
+      "name": "rcore_gangs_qbx_sync",
+      "kategorie": "crime",
+      "beschreibung": "Synchronisiert Gang-Daten zwischen rcore_gangs und Qbox Core (Tabellen für Gangs, player_groups, Metadaten und Ganginfo) bei Erstellung, Beitritt, Austritt und Kick, um Datenbank-Inkonsistenzen und SQL-Fehler zu vermeiden.",
+      "link": "https://github.com/DEV-JARMZ/rcore_gangs_qbx_sync",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-11-13",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["qbx_core"],
+      "pro": [
+        "exports.qbx_core direkt im Code belegt",
+        "Verhindert laut README explizit Fremdschlüssel-Fehler durch falsche citizenid-Einträge"
+      ],
+      "contra": [
+        "Benötigt zwingend das externe, nicht katalogisierte rcore_gangs",
+        "Reine Bridge/Sync-Ressource, kein eigenständiges Gang-System"
+      ],
+      "quelle": "https://github.com/DEV-JARMZ/rcore_gangs_qbx_sync, https://raw.githubusercontent.com/DEV-JARMZ/rcore_gangs_qbx_sync/main/fxmanifest.lua"
+    },
+    {
+      "id": "peak-barbers",
+      "name": "peak-barbers",
+      "kategorie": "ui",
+      "beschreibung": "Barbershop-Ressource mit Sitzszenario am GTA-Stuhl, Friseur-NPC-Animationen und Live-Vorschau der Frisur. Bindet sich über peak_bridge an ESX, QBCore oder Qbox an und unterstützt ox_target, qb-target oder qtarget als Interaktionsmodus.",
+      "link": "https://github.com/Peak-Studios/peak-barbers",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.2",
+      "letztes_update": "Aktiv · letzter Push 2026-07-19",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["peak_bridge", "ox_lib"],
+      "pro": [
+        "ox_lib eingebunden, exports.ox_target im Code belegt",
+        "Framework-Wahl explizit über peak_bridge, kein direkter QBCore-Kernzugriff im Code gefunden"
+      ],
+      "contra": [
+        "Zwingend auf peak_bridge angewiesen (eigene Abstraktionsschicht des gleichen Anbieters)"
+      ],
+      "quelle": "https://github.com/Peak-Studios/peak-barbers, https://raw.githubusercontent.com/Peak-Studios/peak-barbers/main/fxmanifest.lua"
+    },
+    {
+      "id": "v42-hathair",
+      "name": "v42-hathair",
+      "kategorie": "ui",
+      "beschreibung": "Leichtgewichtiges, framework-unabhängiges Script, das die Frisur automatisch passend zum getragenen Hut anpasst. Unterstützt QBCore, Qbox, ESX und Standalone über Framework-Autoerkennung.",
+      "link": "https://github.com/v42-Josh/v42-hathair",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-04-09",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "pro": [
+        "Framework-Autoerkennung im Code belegt",
+        "Keine harten Framework-Abhängigkeiten"
+      ],
+      "contra": [
+        "Sehr kleines Utility-Script, geringer Funktionsumfang"
+      ],
+      "quelle": "https://github.com/v42-Josh/v42-hathair, https://raw.githubusercontent.com/v42-Josh/v42-hathair/main/fxmanifest.lua"
+    },
+    {
+      "id": "distortionz_cityhall",
+      "name": "Distortionz_Cityhall",
+      "kategorie": "staat",
+      "beschreibung": "Rathaus-Script mit Ausweis- und Lizenzverkauf (State ID, Führerschein, Waffenschein), Bürgerakten und ox_target-Interaktion am NPC. Baut direkt auf qbx_core, ox_lib, ox_target und ox_inventory auf.",
+      "link": "https://github.com/Distortionzz/Distortionz_Cityhall",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.2",
+      "letztes_update": "Aktiv · letzter Push 2026-05-10",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "gruppe": "cityhall",
+      "abhaengigkeiten": ["ox_lib", "ox_target", "ox_inventory"],
+      "pro": [
+        "Direkte qbx_core-, ox_target- und ox_inventory-Exports im Code belegt",
+        "MIT-lizenziert, Code frei einsehbar trotz 'Premium' in der Eigenbeschreibung"
+      ],
+      "contra": [
+        "Nennt sich selbst 'Premium', ist aber ein normales öffentliches GitHub-Repo ohne erkennbaren Kaufprozess"
+      ],
+      "quelle": "https://github.com/Distortionzz/Distortionz_Cityhall, https://raw.githubusercontent.com/Distortionzz/Distortionz_Cityhall/main/fxmanifest.lua"
+    },
+    {
+      "id": "uj-licensemanager",
+      "name": "uj-licensemanager",
+      "kategorie": "staat",
+      "beschreibung": "NUI-Werkzeug für Polizei (Dienstgrad 4+) und Admins, um Spielerlizenzen (Führerschein, Waffenschein, Jagdschein) per Befehl oder Radialmenü zu erteilen oder zu entziehen. Änderungen werden direkt in die Spieler-Metadaten geschrieben.",
+      "link": "https://github.com/unscalable/uj-licensemanager",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.1",
+      "letztes_update": "Seit 2025-04-18 kein Push mehr",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "gruppe": "lizenzverwaltung",
+      "kompat_warnung": {
+        "text": "README nennt Qbox nur am Rande, Code-Stichprobe liefert nur ox_lib-Nutzung, keinen direkten qbx_core-Export als Beleg — Qbox-Support ist plausibel, aber nicht im Code nachgewiesen.",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Nutzt ox_lib für Benachrichtigungen",
+        "Einfache, fokussierte Funktion für Polizei-Alltag"
+      ],
+      "contra": [
+        "Qbox-Support im Code nicht belegt (siehe kompat_warnung)",
+        "Kein Update seit April 2025",
+        "Gegenüber bx-license-system (vollständiges Kaufsystem inkl. DMV-NPC) funktional deutlich schlanker — reines Verwaltungswerkzeug für Polizei"
+      ],
+      "quelle": "https://github.com/unscalable/uj-licensemanager, https://raw.githubusercontent.com/unscalable/uj-licensemanager/main/fxmanifest.lua"
+    },
+    {
+      "id": "li_jobpoints",
+      "name": "li_jobpoints",
+      "kategorie": "zivil",
+      "beschreibung": "Punkte- und Belohnungssystem für Jobs unter Qbox: Spieler sammeln bei aktivem Dienst Punkte nach Zeitplan, konfigurierbar über gearbeitete Mindestminuten und Dienstpflicht. Bietet optionale Integration in qbx_management.",
+      "link": "https://github.com/its4lion/li_jobpoints",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-02-18",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_target"],
+      "pro": [
+        "Direkte qbx_core- und ox_target-Exports im Code belegt",
+        "Bindet @qbx_core/modules/playerdata.lua direkt ein"
+      ],
+      "contra": [
+        "Fest auf qbx_core zugeschnitten, keine Framework-Alternative erkennbar",
+        "Keine SPDX-Lizenz im Repo angegeben"
+      ],
+      "quelle": "https://github.com/its4lion/li_jobpoints, https://raw.githubusercontent.com/its4lion/li_jobpoints/main/fxmanifest.lua"
+    },
+    {
+      "id": "y_core",
+      "name": "y_core",
+      "kategorie": "basis",
+      "beschreibung": "Core-Ressource von Ynot's Workshop, gedacht als Nachfolger von qbx_core mit minimalen Abhängigkeiten (nur oxmysql und ox_lib) und Migrationspfad von qb/qbox-Datenbanken. Setzt 'provide qbx_core' im fxmanifest.",
+      "link": "https://github.com/Ynot-Workshop/y_core",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.0.0",
+      "letztes_update": "Zuletzt aktiv 2025-02-07, seither kein Push mehr",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "gruppe": "framework",
+      "abhaengigkeiten": ["ox_lib", "oxmysql"],
+      "konflikte": ["ox_core"],
+      "kompat_warnung": {
+        "text": "Eigenständiger Core, der sich als qbx_core ausgibt (provide 'qbx_core' im fxmanifest) — kann nicht zusätzlich zu Qbox installiert werden, ist ein Ersatz dafür, kein Plugin darauf.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "GPL-3.0, minimale Pflichtabhängigkeiten laut README-Ziel",
+        "Bietet laut README einen DB-Migrationspfad von qb/qbox"
+      ],
+      "contra": [
+        "Eigenes Framework — ersetzt qbx_core komplett, läuft nicht parallel dazu",
+        "Letzter Push Februar 2025 — Aktivität seither unklar"
+      ],
+      "quelle": "https://github.com/Ynot-Workshop/y_core, https://raw.githubusercontent.com/Ynot-Workshop/y_core/main/fxmanifest.lua"
+    },
+    {
+      "id": "omi-vehdel",
+      "name": "omi-vehdel",
+      "kategorie": "fahrzeuge",
+      "beschreibung": "Entfernt automatisch Fahrzeuge aus definierten Zonen (PolyZone), um verlassene Autos vom Server zu räumen. Laut Repo-Beschreibung für QBCore, ESX, QBOX und QBX gedacht.",
+      "link": "https://github.com/OmiJod/omi-vehdel",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "1.1.3",
+      "letztes_update": "Seit 2024-02-13 kein Push mehr",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "abhaengigkeiten": ["ox_lib"],
+      "kompat_warnung": {
+        "text": "Repo-Beschreibung nennt QBOX/QBX, Code-Stichprobe liefert dafür keinen Beleg (nur ox_lib/PolyZone/oxmysql gefunden, kein qbx_core-Export).",
+        "sicherheit": "vermutung"
+      },
+      "pro": [
+        "Nutzt ox_lib und oxmysql"
+      ],
+      "contra": [
+        "README besteht nur aus einer Zeile Fließtext, keine belastbaren Framework-Details",
+        "Qbox-Support im Code nicht belegt (siehe kompat_warnung)",
+        "Kein Push seit Februar 2024"
+      ],
+      "quelle": "https://github.com/OmiJod/omi-vehdel, https://raw.githubusercontent.com/OmiJod/omi-vehdel/main/fxmanifest.lua"
+    },
+    {
+      "id": "dps-hookers",
+      "name": "dps-hookers",
+      "kategorie": "crime",
+      "beschreibung": "Erwachsenen-Rollenspiel-Job (18+) mit Zeugen-basierter Erkennung und intelligentem Polizei-Dispatch. Erfordert ein Mindestalter der Spielfigur laut Geburtsdatum in den Charakterdaten. Erkennt Qbox (qbx_core), QBCore oder ESX automatisch über eine Bridge.",
+      "link": "https://github.com/DaemonAlex/dps-hookers",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-14",
+      "geprueft_am": "2026-08-14",
+      "version": "2.3.1",
+      "letztes_update": "Aktiv · letzter Push 2026-08-13",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "abhaengigkeiten": ["ox_lib", "ox_target"],
+      "pro": [
+        "Framework-Autoerkennung mit dediziertem qbx_core-Bridge-Modul im Code belegt",
+        "exports.ox_target für NPC-Interaktion belegt",
+        "oxmysql-Abhängigkeit laut Changelog in v2.3.1 entfernt (keine eigenen SQL-Queries mehr)"
+      ],
+      "contra": [
+        "18+/Erwachseneninhalt — vor Serverfreigabe eigene Altersfreigabe-/Regelprüfung nötig",
+        "Keine SPDX-Lizenz im Repo angegeben"
+      ],
+      "quelle": "https://github.com/DaemonAlex/dps-hookers, https://raw.githubusercontent.com/DaemonAlex/dps-hookers/main/fxmanifest.lua"
+    }
+  ],
+  "updates": [
+    {
+      "id": "ox_core",
+      "geprueft_am": "2026-08-14",
+      "gruppe": "framework",
+      "contra": [
+        "Gegenüber y_core (eigenständiger qbx_core-Ersatz mit DB-Migrationspfad) ein anderes Ökosystem — ox_core ist die Basis, auf der Qbox selbst aufbaut, kein direkter Ersatz für qbx_core"
+      ],
+      "update_grund": "Neuer Gruppen-Kandidat y_core (Runde 46) gefunden — gibt sich per fxmanifest als qbx_core-Ersatz aus (provide 'qbx_core'), daher zur Einordnung in dieselbe Framework-Vergleichsgruppe wie ox_core gestellt."
+    }
+  ]
+}
