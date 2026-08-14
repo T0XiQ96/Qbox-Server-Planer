@@ -4,13 +4,14 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 14.08.2026
-**Letzter Commit:** folgt (Runden 40-46: 77 neue Plugins, reine Datenrunde).
+**Letzter Commit:** folgt (Build v3.3-r46 + Push + Release).
 
-**Push-Stand (14.08.2026, vor diesem Schritt):** `origin/main` bis inklusive Versionssprung 3.2.0
-gepusht. Letztes GitHub-Release: **v3.2-r39**. Dieser Schritt bringt App-Ausbau 6 (Vergleich:
-zwei getrennte Zustände), 25 neue Wissens-Artikel (17 → 42) und jetzt zusätzlich Runden 40-46
-(77 neue Plugins, 404 → 481) noch dazu — Push/Release dafür folgen im nächsten Schritt. **Kein
-Rebuild nötig** für Runden 40-46 (reine Datenrunde, CLAUDE.md §2.7).
+**Build/Release (14.08.2026):** Nach Runden 40-46 (77 neue Plugins, 404 → 481, reine Datenrunden
+laut CLAUDE.md §2.7 eigentlich ohne Rebuild-Pflicht) hat der Nutzer ausdrücklich einen Build +
+Release angefordert, um den aktuellen Katalogstand als Download bereitzustellen. `npm run build`
+lief grün: **v3.3-r46**, 878 KB, 481 Plugins, 18 Module. Vorheriges Release war **v3.3-r39**
+(nicht v3.2-r39, wie hier vorher fälschlich vermerkt — korrigiert). Push und `gh release create`
+folgen direkt im Anschluss an diesen Commit.
 
 **Runden 45-46 (14.08.2026) — zwei weitere Neusuche-Runden, gleiche Konvention wie 40-44:** 22
 neue Einträge über drei weitere `discover`-Zusatzsuchen (`qbox clothing/tattoo/barber`,

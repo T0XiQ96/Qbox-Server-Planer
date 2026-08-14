@@ -17,6 +17,15 @@ Format je Eintrag:
 
 ---
 
+## [Build] v3.3-r46 – 14.08.2026
+
+Nutzerwunsch: Katalogstand nach Runden 40-46 (77 neue Plugins seit v3.3-r39, 404 → 481) als
+Download bereitstellen, obwohl reine Datenrunden laut CLAUDE.md §2.7 keinen Rebuild erzwingen.
+`npm run build`: 878 KB, 481 Plugins, 18 Module.
+**Commit:** folgt
+
+---
+
 ## [Runden 45–46] Zwanzigste und einundzwanzigste Neusuche-Runde – 14.08.2026
 
 **22 weitere neue Plugins**, gefunden über drei weitere `discover`-Zusatzsuchen
