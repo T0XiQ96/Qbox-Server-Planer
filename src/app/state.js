@@ -27,7 +27,8 @@ const LEERER_ZUSTAND = {
   prioritaet: {},   // id -> 'hoch' | 'mittel' | 'niedrig'
   backups: [],      // [{ name, erstellt, daten }]
   eigene: [],       // selbst angelegte Plugins (gehören mir, nicht dem Katalog)
-  sortierung: 'standard'
+  sortierung: 'standard',
+  ansicht: {}       // reine Oberflächen-Erinnerungen, z.B. ob die Warnbox eingeklappt ist
 };
 
 let zustand = kopie(LEERER_ZUSTAND);
@@ -163,6 +164,21 @@ export function setzeSortierung(wert) {
   speichern();
 }
 
+/* ============================== Ansicht-Erinnerungen ============================== */
+
+/**
+ * Kleinkram, den die Oberfläche über Neuladen hinweg behalten soll (eingeklappte Warnbox o.ä.).
+ * Bewusst NICHT in meineDaten(): Backup und Zustand-Export sichern meinen Plan, nicht die Frage,
+ * welcher Kasten gerade zugeklappt war. Ein Backup zurückzuspielen soll die Ansicht nicht umbauen.
+ */
+export const holeAnsicht = (schluessel) => (zustand.ansicht || {})[schluessel];
+
+export function setzeAnsicht(schluessel, wert) {
+  if (!zustand.ansicht) zustand.ansicht = {};
+  zustand.ansicht[schluessel] = wert;
+  speichern();
+}
+
 /* ========================= Notizen (A3) & Priorität (A4) ========================= */
 
 export const holeNotiz = (id) => zustand.notizen[id] || '';
@@ -232,6 +248,16 @@ export function legeBackupAn(name) {
 }
 
 export const holeBackups = () => zustand.backups;
+
+/** Ein Backup ist erst dann wiederfindbar, wenn es heißt, wonach man später sucht. */
+export function benenneBackupUm(index, name) {
+  const b = zustand.backups[index];
+  const sauber = String(name || '').trim();
+  if (!b || !sauber) return false;
+  b.name = sauber;
+  speichern();
+  return true;
+}
 
 export function ladeBackup(index) {
   const b = zustand.backups[index];

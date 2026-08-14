@@ -17,6 +17,50 @@ Format je Eintrag:
 
 ---
 
+## [App-Ausbau 4] Ein Vergleich für alles, Backup-Dialoge, klappbare Warnbox – 14.08.2026
+
+Neun Punkte aus der Praxis, in drei Blöcken.
+
+**Block A — Vergleich vereinheitlicht (C12-C15, DECISIONS D26):** Es gab zwei Wege zur selben
+Frage. Der Kopf-⚖️ öffnete einen eigenen **Zweiervergleich** mit zwei Auswahlfeldern, der weniger
+konnte als das Korb-Fenster: keine vollständigen Karten, kein drittes Plugin. Der ist ersatzlos
+raus, der Kopf-Knopf öffnet jetzt dasselbe Fenster wie ⚖️ auf einer Karte; die
+Funktionsgruppen-Auswahl ist mit umgezogen und steht über der Suche. `vergleiche()` und
+`vergleichHTML()` samt Helfern wurden aus `compare.js` entfernt — C1-C4 deckt
+`vergleicheMehrere()` mit zwei Einträgen vollständig ab.
+
+Dazu: Das Fenster nutzt jetzt die **volle Breite** (`min(1800px, 96vw)` statt fester 1180px), damit
+bei mehreren Einträgen die Karten nebeneinander stehen — gemessen 6 Karten in 3 Spalten auf
+Vollbild, auf schmalem Fenster stapelt das Raster von allein wieder. Das ＋ in der Trefferliste
+sitzt jetzt **rechts** und immer an derselben Stelle, damit sich mehrere Treffer hintereinander
+hinzufügen lassen, ohne die Maus waagerecht zu suchen.
+
+**Block B — Datenverwaltung (E11-E13):** „Backup anlegen" legte bisher wortlos ein Backup mit
+generiertem Namen an. Jetzt ein Dialog mit vorgeschlagenem Datum + Uhrzeit, änderbar, Enter
+bestätigt. In der Verwaltung lassen sich Backups **umbenennen**, und die Liste bleibt danach
+offen statt sich zu schließen. Der Zustand-Export trägt Datum und Uhrzeit im **Dateinamen**
+(`qbox-planer-stand_2026-08-14_1054.json`) — im JSON stand der Zeitstempel schon, im
+Download-Ordner lagen aber fünf gleichnamige Dateien.
+
+**Block C — Warnbox (H7, DECISIONS D27):** Die Qbox↔QBCore-Box ist jetzt ein- und ausklappbar und
+merkt sich den Zustand. **Mit einer bewussten Ausnahme:** Sie trägt eine Inhaltsmarke, und ändert
+sich ihr Text mit einem Update, klappt sie einmalig wieder auf. Ohne das hätte jemand, der sie vor
+Monaten zugeklappt hat, eine neu hinzugekommene Warnung nie gesehen — und genau dafür ist der
+Kasten da. Die Erinnerung liegt unter `ansicht` im Zustand und geht bewusst **nicht** in
+Backup/Export ein: ein Backup stellt den Plan wieder her, nicht die Frage, welcher Kasten
+zugeklappt war.
+
+**Nebenbei beantwortet:** Ja, die ensure-Liste sortiert topologisch nach Abhängigkeiten
+(`exportcfg.js`), ist zyklussicher und meldet einen erkannten Ring als Kommentar im Kopf.
+
+**Geändert:** `main.js`, `compare.js`, `state.js`, `style.css`. Keine Katalogdatei angefasst.
+
+**Geprüft** am echten Build: alle neun Punkte einzeln durchgespielt, inklusive des
+Warnbox-Sonderfalls (ältere Inhaltsmarke → klappt trotz „zugeklappt" wieder auf und speichert die
+neue Marke). Keine Konsolenfehler. **Commit:** folgt
+
+---
+
 ## [App-Ausbau 3] Anklickbare Querverweise im Prüfbericht – 14.08.2026
 
 **Der Anlass:** Im Prüfbericht stand „Black Market Script — Braucht pl_lib, das auf MAIN nicht

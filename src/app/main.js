@@ -16,11 +16,11 @@
  */
 
 import { alleMitStandard } from './defaults.js';
-import { ladeZustand, istGehakt, setzeHaken, setzeNotiz, setzePrioritaet, setzeZurueck, legeBackupAn, holeBackups, ladeBackup, loescheBackup } from './state.js';
+import { ladeZustand, istGehakt, setzeHaken, setzeNotiz, setzePrioritaet, setzeZurueck, legeBackupAn, holeBackups, ladeBackup, loescheBackup, benenneBackupUm, holeAnsicht, setzeAnsicht } from './state.js';
 import { baueIndex, aktiveKonflikte, fehlendeAbhaengigkeiten, bundleHinweis, alleGruppen, gruppenMitglieder, alternativen } from './relations.js';
 import { kartenHTML, escapeHtml } from './render.js';
 import { leererFilter, gefilterteUndSortierteListe, holeAktiveSortierung, setzeAktiveSortierung, SORTIER_OPTIONEN, passtSuche } from './filters.js';
-import { vergleiche, vergleichHTML, vergleicheMehrere, mehrfachVergleichHTML } from './compare.js';
+import { vergleicheMehrere, mehrfachVergleichHTML } from './compare.js';
 import { berichtBeiderUmgebungen, berichtZusammenfassung, warnIds, synergienBeiderUmgebungen, ungenutzteSynergien, UMGEBUNG_LABEL } from './warnings.js';
 import { ladeDifferenz, mitDifferenz, verwirfDifferenz, differenzInfo } from './katalogspeicher.js';
 import { mitEigenen, legeEigenesAn } from './custom.js';
@@ -69,8 +69,8 @@ function baueGeruest() {
       <div class="korbleiste" id="korbleiste" hidden></div>
     </header>
 
-    <div class="warnbox">
-      <strong>⚠️ Qbox ↔ QBCore — worauf es ankommt</strong>
+    <details class="warnbox" id="warnbox">
+      <summary><strong>⚠️ Qbox ↔ QBCore — worauf es ankommt</strong></summary>
       <ul>
         <li>Qbox bringt eine QBCore-Bridge mit. Standard-Exports werden übersetzt, <em>aber</em> nicht jeder Zugriff.</li>
         <li>Bricht trotz Bridge: harte Abhängigkeit auf <code>qb-inventory</code> oder <code>qb-target</code> (Qbox nutzt <code>ox_inventory</code>/<code>ox_target</code>).</li>
@@ -78,7 +78,7 @@ function baueGeruest() {
         <li><code>ox_core</code> und <code>ox_mdt</code> sind <strong>nicht</strong> Qbox-kompatibel — <code>ox_lib</code>, <code>ox_inventory</code>, <code>ox_target</code>, <code>ox_doorlock</code> schon.</li>
         <li>Ein ⚠️-Badge nennt im Tooltip immer den Beleggrad: <em>bestätigt</em> oder <em>Vermutung</em>.</li>
       </ul>
-    </div>
+    </details>
 
     <div id="pruefbericht"></div>
 
@@ -125,8 +125,34 @@ function baueGeruest() {
     .map(([id, text]) => `<button class="chip" data-badge="${id}">${text}</button>`).join('');
 
   document.getElementById('f-sortierung').value = holeAktiveSortierung();
+  verdrahteWarnbox();
   aktualisiereKopf();
   verdrahteWerkzeugleiste();
+}
+
+/**
+ * H1 — die Warnbox merkt sich, ob sie zugeklappt war.
+ *
+ * Mit einer Ausnahme: Kommt mit einem Update neuer Inhalt dazu, klappt sie einmalig wieder auf.
+ * Sonst hätte jemand, der sie vor einem halben Jahr zugeklappt hat, die neue Warnung nie gesehen —
+ * und genau dafür ist der Kasten da. Die Marke unten wird bei JEDER inhaltlichen Änderung erhöht.
+ */
+const WARNBOX_INHALT_VERSION = 1;
+
+function verdrahteWarnbox() {
+  const box = document.getElementById('warnbox');
+  if (!box) return;
+
+  const gemerkt = holeAnsicht('warnbox') || {};
+  const inhaltIstNeu = gemerkt.version !== WARNBOX_INHALT_VERSION;
+
+  box.open = inhaltIstNeu ? true : !gemerkt.zu;
+  // Die neue Marke sofort festhalten, sonst klappt der Kasten bei jedem Neuladen wieder auf.
+  if (inhaltIstNeu) setzeAnsicht('warnbox', { zu: false, version: WARNBOX_INHALT_VERSION });
+
+  box.addEventListener('toggle', () => {
+    setzeAnsicht('warnbox', { zu: !box.open, version: WARNBOX_INHALT_VERSION });
+  });
 }
 
 function aktualisiereKopf() {
@@ -357,7 +383,10 @@ function verdrahteWerkzeugleiste() {
 
   document.getElementById('btn-zahnrad').addEventListener('click', oeffneZahnrad);
   document.getElementById('btn-eigenes').addEventListener('click', oeffneEigenesFormular);
-  document.getElementById('btn-vergleich').addEventListener('click', oeffneVergleich);
+  // Ein einziger Vergleich für alles: der Kopf-Knopf öffnet dasselbe Fenster wie ⚖️ auf einer
+  // Karte. Vorher lag hier ein eigener Zweiervergleich mit zwei Auswahlfeldern — zwei Wege zur
+  // selben Frage, von denen einer weniger konnte.
+  document.getElementById('btn-vergleich').addEventListener('click', () => oeffneKorbVergleich());
 }
 
 /* ================= Ein Listener für Liste, Prüfbericht und Fenster ================= */
@@ -667,12 +696,27 @@ function oeffneKorbVergleich() {
     titel: '⚖️ Vergleich',
     klasse: 'modal-breit',
     inhalt: `<div class="korb-auswahl">
+        ${korbGruppenWahlHTML()}
         <input type="search" id="korb-suche" class="feld" placeholder="🔍 Plugin suchen (Name, Funktion, Kategorie) …">
         <div class="korb-treffer" id="korb-treffer">${korbTrefferHTML()}</div>
       </div>
       <div id="korb-inhalt">${korbInhaltHTML()}</div>`,
     knoepfe: [{ text: 'Schließen', wert: null }]
   });
+
+  const gruppenFeld = document.getElementById('korb-gruppe');
+  if (gruppenFeld) {
+    gruppenFeld.addEventListener('change', (e) => {
+      const gruppe = e.target.value;
+      if (!gruppe) return;
+      // Eine ganze Funktionsgruppe ersetzt die Auswahl — das ist die Frage „welches von diesen?",
+      // und die beantwortet man nicht mit Fremdeinträgen daneben.
+      vergleichsKorb = gruppenMitglieder(index, gruppe).map((p) => p.id);
+      zeichneListe();
+      frischeKorbFensterAuf();
+      e.target.value = '';
+    });
+  }
 
   const feld = document.getElementById('korb-suche');
   if (!feld) return;
@@ -682,6 +726,18 @@ function oeffneKorbVergleich() {
     const wert = e.target.value;
     tippTimer = setTimeout(() => { korbSuche = wert; frischeKorbTrefferAuf(); }, 150);
   });
+}
+
+/** Ganze Funktionsgruppe auf einmal — steht über der Suche, weil es die gröbere Auswahl ist. */
+function korbGruppenWahlHTML() {
+  const gruppen = alleGruppen(index);
+  if (!gruppen.length) return '';
+  return `<label class="korb-gruppenwahl">Ganze Funktionsgruppe:
+    <select id="korb-gruppe" class="feld">
+      <option value="">— auswählen —</option>
+      ${gruppen.map((g) => `<option value="${escapeHtml(g.gruppe)}">${escapeHtml(g.gruppe)} (${g.mitglieder.length})</option>`).join('')}
+    </select>
+  </label>`;
 }
 
 /**
@@ -701,14 +757,17 @@ function korbTrefferHTML() {
 
   if (!gesamt.length) return '<p class="hinweis-leise">Kein Plugin passt zu dieser Suche.</p>';
 
+  // Das ＋ sitzt rechts: beim Durchgehen einer Trefferliste wandert der Blick von links (Name)
+  // nach rechts zur Handlung, und mehrere hintereinander hinzuzufügen heißt dann, immer
+  // dieselbe Stelle zu treffen.
   const zeile = (p) => {
     const drin = imKorb(p.id);
     return `<button type="button" class="korb-treffer-zeile${drin ? ' korb-drin' : ''}"
       data-korb-${drin ? 'ab' : 'add'}="${escapeHtml(p.id)}">
-      <span class="korb-zeichen">${drin ? '−' : '＋'}</span>
       <span class="korb-name">${escapeHtml(p.name)}</span>
       ${alternativIds.has(p.id) ? '<span class="korb-marke">Alternative</span>' : ''}
       <small>${escapeHtml(KATEGORIE_NAMEN.get(p.kategorie) || p.kategorie)}</small>
+      <span class="korb-zeichen" title="${drin ? 'Aus dem Vergleich nehmen' : 'Zum Vergleich hinzufügen'}">${drin ? '−' : '＋'}</span>
     </button>`;
   };
 
@@ -843,84 +902,45 @@ function frischeDetailAuf() {
   if (inhalt && p) inhalt.innerHTML = kartenHTML(index, p, { detail: true, imKorb: imKorb(p.id) });
 }
 
-/* ================================== Vergleich ================================== */
+/* ============================ Kleiner Texteingabe-Dialog ============================ */
 
 /**
- * C1-C4 — Vergleich zweier Plugins.
- * Vorbelegt wird, was gerade sinnvoll ist: zwei Mitglieder derselben Funktionsgruppe, denn nur
- * dort entsteht ein echter Funktionsvergleich (Entscheidung D10). Gibt es keine solche Gruppe,
- * bleibt es bei den ersten beiden Einträgen und der Zweck-Ansicht.
+ * Ein Feld, ein OK, ein Abbrechen. Der Wert wird laufend eingesammelt, weil das Modal beim
+ * Schließen aus dem DOM verschwindet — danach wäre das Eingabefeld nicht mehr auslesbar
+ * (derselbe Grund wie beim „Eigenes Plugin"-Formular).
+ *
+ * @returns {Promise<string|null>} getrimmter Text, oder null bei Abbruch/leerer Eingabe
  */
-async function oeffneVergleich() {
-  const auswaehlbar = plugins.slice().sort((a, b) => a.name.localeCompare(b.name, 'de'));
-  if (auswaehlbar.length < 2) {
-    return hinweis({ titel: '⚖️ Vergleich', inhalt: '<p>Dafür braucht es mindestens zwei Plugins im Katalog.</p>' });
+async function frageNachText({ titel, beschriftung, vorschlag = '', okText = 'OK' }) {
+  const fenster = modal({
+    titel,
+    inhalt: `<label class="formular-breit">${escapeHtml(beschriftung)}
+      <input id="text-eingabe" class="feld" value="${escapeHtml(vorschlag)}"></label>`,
+    knoepfe: [{ text: 'Abbrechen', wert: false }, { text: okText, art: 'gut', wert: true }]
+  });
+
+  const feld = document.getElementById('text-eingabe');
+  let wert = vorschlag;
+  if (feld) {
+    feld.addEventListener('input', () => { wert = feld.value; });
+    // Enter soll bestätigen — sonst muss man für ein einziges Feld zur Maus greifen.
+    feld.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); document.querySelector('.modal-fuss .btn-gut').click(); }
+    });
+    feld.focus();
+    feld.select();
   }
 
-  const optionen = (ausgewaehlt) => auswaehlbar
-    .map((p) => `<option value="${escapeHtml(p.id)}"${p.id === ausgewaehlt ? ' selected' : ''}>${escapeHtml(p.name)}</option>`).join('');
-
-  const [vorA, vorB] = vorauswahl(auswaehlbar);
-
-  // Ganze Gruppe statt Paar: sobald eine Funktionsgruppe drei oder mehr Anbieter hat — im Katalog
-  // der Normalfall — ist "A oder B?" die falsche Frage.
-  const gruppen = alleGruppen(index);
-  const gruppenWahl = gruppen.length ? `
-    <label class="vergleich-gruppenwahl">Ganze Funktionsgruppe:
-      <select id="v-gruppe" class="feld">
-        <option value="">— Zweiervergleich —</option>
-        ${gruppen.map((g) => `<option value="${escapeHtml(g.gruppe)}">${escapeHtml(g.gruppe)} (${g.mitglieder.length})</option>`).join('')}
-      </select>
-    </label>` : '';
-
-  const inhalt = `
-    <p class="hinweis-leise">Liegen beide in derselben Funktionsgruppe, entsteht ein Funktionsvergleich —
-       sonst werden Zweck und Funktionen nebeneinandergestellt, ohne Wertung.</p>
-    ${gruppenWahl}
-    <div class="vergleich-auswahl" id="v-paar">
-      <select id="v-a" class="feld">${optionen(vorA)}</select>
-      <select id="v-b" class="feld">${optionen(vorB)}</select>
-    </div>
-    <div id="v-ergebnis"></div>`;
-
-  const fenster = modal({ titel: '⚖️ Vergleich', inhalt, knoepfe: [{ text: 'Schließen', wert: null }] });
-
-  const gruppenFeld = document.getElementById('v-gruppe');
-  const zeichneVergleich = () => {
-    const gruppe = gruppenFeld ? gruppenFeld.value : '';
-    const paar = document.getElementById('v-paar');
-    const ergebnis = document.getElementById('v-ergebnis');
-
-    if (gruppe) {
-      paar.hidden = true;
-      const ids = gruppenMitglieder(index, gruppe).map((p) => p.id);
-      ergebnis.innerHTML = mehrfachVergleichHTML(vergleicheMehrere(index, ids));
-      return;
-    }
-    paar.hidden = false;
-    ergebnis.innerHTML = vergleichHTML(vergleiche(index, document.getElementById('v-a').value, document.getElementById('v-b').value));
-  };
-
-  if (gruppenFeld) gruppenFeld.addEventListener('change', zeichneVergleich);
-  document.getElementById('v-a').addEventListener('change', zeichneVergleich);
-  document.getElementById('v-b').addEventListener('change', zeichneVergleich);
-  zeichneVergleich();
-
-  await fenster;
+  const ok = await fenster;
+  const sauber = String(wert || '').trim();
+  return ok && sauber ? sauber : null;
 }
 
-/** Sucht zwei Plugins derselben Gruppe, damit der Vergleich gleich etwas Sinnvolles zeigt. */
-function vorauswahl(liste) {
-  const nachGruppe = new Map();
-  for (const p of liste) {
-    if (!p.gruppe) continue;
-    if (!nachGruppe.has(p.gruppe)) nachGruppe.set(p.gruppe, []);
-    nachGruppe.get(p.gruppe).push(p.id);
-  }
-  for (const mitglieder of nachGruppe.values()) {
-    if (mitglieder.length >= 2) return [mitglieder[0], mitglieder[1]];
-  }
-  return [liste[0].id, liste[1].id];
+/** Datum und Uhrzeit als sortierbarer Baustein für Dateinamen: 2026-08-14_0231 */
+function zeitstempel() {
+  const d = new Date();
+  const zwei = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${zwei(d.getMonth() + 1)}-${zwei(d.getDate())}_${zwei(d.getHours())}${zwei(d.getMinutes())}`;
 }
 
 /* ============================== Eigenes Plugin (H2) ============================== */
@@ -1013,13 +1033,22 @@ async function fuehreAus(tat) {
     case 'ensure-dev': return zeigeEnsure('dev');
     case 'ensure-main': return zeigeEnsure('main');
     case 'zustand-export': {
-      ladeHerunter(JSON.stringify(baueZustandsExport(), null, 2), 'qbox-planer-stand.json');
+      // Datum und Uhrzeit gehören in den Dateinamen, nicht nur ins JSON: im Download-Ordner
+      // liegen sonst fünf gleichnamige Dateien und keine sagt, welche die neuere ist.
+      ladeHerunter(JSON.stringify(baueZustandsExport(), null, 2), `qbox-planer-stand_${zeitstempel()}.json`);
       return toast('Stand exportiert 💾');
     }
     case 'zustand-import': return zustandImportieren();
     case 'katalog-import': return katalogImportieren();
     case 'backup-neu': {
-      const b = legeBackupAn();
+      const name = await frageNachText({
+        titel: '🗄️ Backup anlegen',
+        beschriftung: 'Name des Backups',
+        vorschlag: 'Backup ' + new Date().toLocaleString('de-DE'),
+        okText: 'Anlegen'
+      });
+      if (!name) return toast('Abgebrochen — kein Backup angelegt.');
+      const b = legeBackupAn(name);
       return toast(`Backup „${b.name}" angelegt 🗄️`);
     }
     case 'backup-liste': return zeigeBackups();
@@ -1085,6 +1114,7 @@ async function zeigeBackups() {
     <div class="backup-zeile">
       <span>${escapeHtml(b.name)}<small>${new Date(b.erstellt).toLocaleString('de-DE')}</small></span>
       <span><button class="btn btn-klein" data-tat="laden:${i}">Laden</button>
+            <button class="btn btn-klein" data-tat="umbenennen:${i}">Umbenennen</button>
             <button class="btn btn-klein btn-gefahr" data-tat="loeschen:${i}">Löschen</button></span>
     </div>`).join('')}</div>`;
 
@@ -1093,12 +1123,28 @@ async function zeigeBackups() {
 
   const [was, iText] = String(tat).split(':');
   const i = Number(iText);
+
   if (was === 'laden') {
     const ja = await frage({ titel: 'Backup laden', inhalt: `<p>Aktueller Stand wird ersetzt. Vorher wird automatisch gesichert.</p>`, jaText: 'Laden' });
     if (ja && ladeBackup(i)) { katalogAufbauen(); zeichneListe(); toast('Backup geladen ↩️'); }
-  } else if (was === 'loeschen') {
+    return;
+  }
+
+  if (was === 'umbenennen') {
+    const alt = holeBackups()[i];
+    if (!alt) return;
+    const name = await frageNachText({
+      titel: '✏️ Backup umbenennen', beschriftung: 'Neuer Name', vorschlag: alt.name, okText: 'Umbenennen'
+    });
+    if (name && benenneBackupUm(i, name)) toast(`Umbenannt in „${name}"`);
+    // Zurück in die Liste, sonst müsste man das Menü für jede weitere Änderung neu öffnen.
+    return zeigeBackups();
+  }
+
+  if (was === 'loeschen') {
     loescheBackup(i);
     toast('Backup gelöscht');
+    return zeigeBackups();
   }
 }
 

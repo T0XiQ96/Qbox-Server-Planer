@@ -64,6 +64,8 @@ ul { margin: 4px 0; padding-left: 20px; }
 }
 .warnbox strong { color: var(--orange); }
 .warnbox ul { margin-top: 6px; }
+.warnbox > summary { cursor: pointer; list-style-position: outside; }
+.warnbox > summary::marker { color: var(--orange); }
 
 /* ================================= Kosten ================================= */
 
@@ -368,7 +370,10 @@ ul { margin: 4px 0; padding-left: 20px; }
 .karte-korb-aktiv { border-color: var(--lila); background: var(--bg3); }
 
 /* Fenster: Auswahlliste oben, Karten und Tabelle darunter */
-.modal-breit { max-width: 1180px; }
+/* Der Vergleich soll die vorhandene Breite ausnutzen: bei drei, vier Einträgen stehen die Karten
+   dann nebeneinander statt untereinander. Nicht die Karten schrumpfen, sondern das Fenster wächst
+   — auf schmalen Fenstern greift das Raster in .korb-karten von allein wieder auf eine Spalte. */
+.modal-breit { max-width: none; width: min(1800px, 96vw); }
 .korb-auswahl { margin-bottom: 14px; }
 .korb-auswahl .feld { width: 100%; }
 /* Kein Trefferdeckel mehr — die Liste hält den ganzen Katalog und scrollt in sich. */
@@ -384,8 +389,17 @@ ul { margin: 4px 0; padding-left: 20px; }
 .korb-treffer-zeile:last-child { border-bottom: none; }
 .korb-treffer-zeile:hover { background: var(--bg3); }
 .korb-treffer-zeile small { color: var(--leise); margin-left: auto; }
-.korb-zeichen { color: var(--lila); font-weight: 600; flex: none; width: 14px; }
+/* Das ＋ steht ganz rechts und immer an derselben Stelle — so lassen sich mehrere Treffer
+   hintereinander hinzufügen, ohne die Maus waagerecht zu suchen. */
+.korb-zeichen {
+  color: var(--lila); font-weight: 600; flex: none; width: 22px; text-align: center;
+  border: 1px solid var(--rand); border-radius: 4px; margin-left: 8px;
+}
+.korb-treffer-zeile:hover .korb-zeichen { border-color: var(--lila); background: var(--bg); }
 .korb-drin .korb-zeichen { color: var(--rot); }
+.korb-treffer-zeile:hover.korb-drin .korb-zeichen { border-color: var(--rot); }
+.korb-gruppenwahl { display: block; margin-bottom: 8px; color: var(--leise); font-size: 12px; }
+.korb-gruppenwahl .feld { margin-left: 8px; }
 .korb-name { font-weight: 600; }
 .korb-marke {
   font-size: 10px; color: var(--orange); border: 1px solid var(--orange);

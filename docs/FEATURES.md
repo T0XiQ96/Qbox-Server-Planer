@@ -65,7 +65,11 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 
 | # | Feature | Testfall | Status |
 |---|---|---|---|
-| C1 | Vergleich nur sinnvoll innerhalb derselben Funktionsgruppe | Zwei Inventare vergleichen → automatischer Funktionsvergleich | getestet |
+| C12 | **Ein einziger Vergleich für alles**: der ⚖️-Knopf im Kopf öffnet dasselbe Fenster wie ⚖️ auf einer Karte. Der frühere separate Zweiervergleich mit zwei Auswahlfeldern ist entfallen — er konnte weniger (keine Karten, kein Mehrfach-Hinzufügen) | Kopf-⚖️ → Vergleichsfenster mit Suche und Auswahlliste, kein Auswahlfeld-Paar mehr | getestet |
+| C13 | **Funktionsgruppe als Ganzes** direkt im Vergleichsfenster wählbar (über der Suche) | Gruppe „hud" wählen → 6 Karten im Vergleich | getestet |
+| C14 | Das Vergleichsfenster nutzt die **volle Fensterbreite**, Karten stehen nebeneinander; bei schmalem Fenster stapeln sie wieder | Vollbild → 96 % Breite, 6 Karten in 3 Spalten | getestet |
+| C15 | Das ＋ steht **rechts** an jedem Treffer, immer an derselben Stelle — mehrere hintereinander hinzufügen, ohne die Maus zu suchen | Treffer-Zeile: Name, Kategorie, ＋ als letztes Element | getestet |
+| C1 | Vergleich nur sinnvoll innerhalb derselben Funktionsgruppe (seit C12 über den Mehrfachvergleich mit zwei Einträgen) | Zwei Inventare vergleichen → automatischer Funktionsvergleich | getestet |
 | C2 | Bei gleicher Gruppe: gemeinsame Funktionen / Bonusfunktionen je Seite werden ausgewiesen | „beide können X", „nur A kann Y" | getestet |
 | C3 | Pro & Contra **für beide** Seiten, nie nur für eines | Grün = Vorteil, Rot = Nachteil, Orange = neutral/zu beachten | getestet |
 | C4 | Bei grundverschiedenen Plugins: kein besser/schlechter, sondern Zweck + Features je Seite, mit Hinweis | Radio vs. Garage vergleichen → Hinweis „andere Use-Cases" | getestet |
@@ -96,6 +100,9 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 | # | Feature | Testfall | Status |
 |---|---|---|---|
 | E1 | Backup-Manager: Snapshot anlegen / laden / kopieren / löschen | Backup, Haken ändern, Backup laden → alter Stand zurück | getestet |
+| E11 | Beim Anlegen eines Backups wird **Datum + Uhrzeit vorgeschlagen**, der Name ist änderbar, mit Anlegen/Abbrechen; Enter bestätigt | „Backup anlegen" → Feld mit „Backup 14.8.2026, 10:54:14", überschreiben → Backup trägt den eigenen Namen | getestet |
+| E12 | Backups lassen sich in der Verwaltung **umbenennen**; die Liste bleibt danach offen | „Umbenennen" → Feld mit altem Namen vorbelegt → Name geändert, Liste wieder da | getestet |
+| E13 | Der Zustand-Export trägt **Datum und Uhrzeit im Dateinamen** (nicht nur im JSON) | Exportieren → `qbox-planer-stand_2026-08-14_1054.json` | getestet |
 | E2 | Zustand-Export und -Import als JSON | Export, in anderem Browser importieren → identischer Stand | getestet |
 | E3 | Katalog-Update-Import (JSON), merged, Haken/Notizen bleiben unberührt | Runde importieren → „X neu, Y aktualisiert", Haken unverändert | getestet |
 | E4 | Import-Fehler nennt Feld und Zeile — nie nur „ungültige Datei" | Kaputte Datei importieren → präzise Fehlermeldung | getestet |
@@ -144,6 +151,7 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 | # | Feature | Testfall | Status |
 |---|---|---|---|
 | H1 | Warnbox oben: Qbox↔QBCore-Kompatibilitätsregeln (Bridge, harte qb-inventory/qb-target-Abhängigkeit, Core-Patching) | — | getestet |
+| H7 | Die Warnbox ist **ein- und ausklappbar und merkt sich den Zustand** über Neuladen hinweg — **außer** ein Update bringt neuen Inhalt, dann klappt sie einmalig wieder auf | Zuklappen, neu laden → bleibt zu. Inhaltsmarke zurücksetzen, neu laden → wieder offen, neue Marke gespeichert | getestet |
 | H2 | „➕ Eigenes Plugin hinzufügen"-Formular, landet im Zustand und im Export | Eigenes Plugin anlegen, exportieren, importieren → noch da | getestet |
 | H3 | Dark Theme, GitHub-Stil | — | getestet |
 | H4 | Katalogversion + Plugin-Anzahl in der Toolbar sichtbar | — | getestet |
