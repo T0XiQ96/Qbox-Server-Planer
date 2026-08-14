@@ -24,6 +24,7 @@ export function leererFilter() {
   return {
     suche: '',
     kategorie: '',
+    gruppe: '',
     status: 'alle',
     qualitaet: 'alle',
     badges: [],        // mehrfach wählbar, Facetten-Logik (D4)
@@ -54,6 +55,42 @@ export function passtSuche(plugin, suche) {
 
 export function passtKategorie(plugin, kategorie) {
   return !kategorie || plugin.kategorie === kategorie;
+}
+
+/* ============================ D2b — Funktionsgruppe ============================ */
+
+/**
+ * Die Kategorie sagt, WORUM es geht („Fahrzeuge"), die Gruppe sagt, WOFÜR es einen Ersatz gibt
+ * („garage" — davon gehört genau eines auf den Server, D10). Das war bisher nur im Vergleich
+ * erreichbar, obwohl „zeig mir alle Garagen-Systeme" genauso eine Frage an die Liste ist.
+ *
+ * OHNE_GRUPPE ist kein Gruppenname, sondern die Gegenfrage: „was steht für sich allein, ohne
+ * Alternative im Katalog?". Als Sonderwert im selben Auswahlfeld statt als zweiter Schalter.
+ * Das Ausrufezeichen kann nie mit einer echten Gruppe kollidieren: das Schema lässt für `gruppe`
+ * nur `^[a-z0-9][a-z0-9_-]*$` zu.
+ */
+export const OHNE_GRUPPE = '!ohne';
+
+export function passtGruppe(plugin, gruppe) {
+  if (!gruppe) return true;
+  if (gruppe === OHNE_GRUPPE) return !plugin.gruppe;
+  return plugin.gruppe === gruppe;
+}
+
+/**
+ * Alle im Katalog tatsächlich vorkommenden Gruppen mit ihrer Mitgliederzahl — Grundlage des
+ * Auswahlfelds. Bewusst aus den Daten abgeleitet und nicht als Liste gepflegt: eine neue Gruppe
+ * entsteht in jeder Recherche-Runde und darf niemals eine Änderung in `src/` erfordern
+ * (CLAUDE.md §2.1).
+ */
+export function gruppenMitAnzahl(plugins) {
+  const zaehler = new Map();
+  for (const p of plugins) {
+    if (p.gruppe) zaehler.set(p.gruppe, (zaehler.get(p.gruppe) || 0) + 1);
+  }
+  return [...zaehler.entries()]
+    .map(([id, anzahl]) => ({ id, anzahl }))
+    .sort((a, b) => a.id.localeCompare(b.id, 'de'));
 }
 
 /* =========================== D3 — Status auf MAIN/DEV/nirgends/abgedeckt =========================== */
@@ -138,6 +175,7 @@ export function wendeFilterAn(index, plugins, filter) {
   return plugins.filter((p) =>
     passtSuche(p, f.suche) &&
     passtKategorie(p, f.kategorie) &&
+    passtGruppe(p, f.gruppe) &&
     passtStatus(index, p, f.status) &&
     passtQualitaet(p, f.qualitaet) &&
     passtBadges(p, f.badges) &&

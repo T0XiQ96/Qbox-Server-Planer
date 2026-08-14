@@ -4,7 +4,34 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 14.08.2026
-**Letzter Commit:** folgt (Build v3.3-r46 + Push + Release).
+**Letzter Commit:** folgt (App-Ausbau 7: Ziehen in den leeren Vergleich + Funktionsgruppen-Filter).
+
+**App-Ausbau 7 (14.08.2026) — zwei Nutzermeldungen, beide erledigt (CHANGELOG „[App-Ausbau 7]",
+DECISIONS D31/D32, Features D10/D11):**
+
+1. **In eine leere Vergleichsleiste ließ sich nichts ziehen.** Zwei Ursachen, im Browser
+   nachgemessen: `el.hidden` wirkte nie (unser `.korbleiste { display: flex }` überstimmt die
+   Browser-Regel `[hidden] { display: none }` — Autoren-Origin schlägt UA-Origin), und beim
+   `dragstart` wuchs die Leiste von 18px auf 42px, wodurch die ganze Liste darunter 24px
+   nachrutschte und den laufenden Zug abbrach. Jetzt ist die Leiste **immer sichtbar** und wird
+   während eines Zuges nicht mehr neu gezeichnet.
+2. **Funktionsgruppen-Filter** in der Werkzeugleiste, aus den Daten erzeugt (nie gepflegte Liste,
+   sonst würde jede Recherche-Runde `src/` anfassen müssen), mit Mitgliederzahl und Sonderwert
+   „— ohne Gruppe".
+
+Zusätzlich beim Testen gefunden und behoben: „↺ Zurücksetzen" brach eine laufende
+Such-Entprellung nicht ab (Suchfeld leer, Liste trotzdem gefiltert).
+
+**Wichtig für künftige `src/`-Arbeit — zwei übertragbare Lehren:**
+- **`hidden` allein reicht nie, wenn dieselbe Klasse `display` setzt.** Autoren-Regeln schlagen
+  das Browser-Stylesheet. Entweder `display: none` selbst setzen oder gar nicht erst verstecken.
+- **Kein Neuzeichnen im `dragstart`.** Verändert es die Höhe eines Elements über der Liste,
+  verschiebt sich die Seite unter dem Cursor und der Zug bricht ab. Ein Ablageziel muss stehen,
+  BEVOR gezogen wird.
+
+**Vorgemerkt (vorbestehend, nicht in dieser Runde entstanden):** Die Seite scrollt waagerecht
+(`scrollWidth` 1492 bei 1265 Viewport). Gegen den Build davor gegengeprüft — dort identisch,
+kein sichtbares Element steht über. Ursache noch nicht gesucht.
 
 **Build/Release (14.08.2026):** Nach Runden 40-46 (77 neue Plugins, 404 → 481, reine Datenrunden
 laut CLAUDE.md §2.7 eigentlich ohne Rebuild-Pflicht) hat der Nutzer ausdrücklich einen Build +

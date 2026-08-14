@@ -97,6 +97,8 @@ Zwei Einschränkungen, die beim Nachtesten wichtig sind:
 | D7 | Sortierung: Standard / Name / letztes Update / Priorität | — | getestet |
 | D8 | „↺ Zurücksetzen" setzt **nur** Suche und Filter zurück, niemals Daten | Haken setzen, Filter zurücksetzen → Haken unangetastet | getestet |
 | D9 | Filter „⚠️ nur mit Warnung": zeigt genau die Plugins aus dem Prüfbericht — auch die fehlenden Abhängigkeiten selbst, damit man sie direkt setzen kann | Plugin mit fehlender Abhängigkeit haken → Filter zeigt beide (das Plugin und das Fehlende) | getestet |
+| D10 | **Funktionsgruppen-Filter** in der Werkzeugleiste, aus den Daten erzeugt (nie gepflegte Liste), mit Mitgliederzahl je Gruppe und Sonderwert „— ohne Gruppe" | „diving" wählen → genau `qbx_diving` + `CodeX_diving` (2 von 481); „dealership" → 6; „ohne Gruppe" → 252; kombiniert mit Kategorie UND-verknüpft (Gruppe `phone` + Kategorie `fahrzeuge` → 0) | getestet |
+| D11 | „↺ Zurücksetzen" bricht eine **laufende Such-Entprellung** ab | „garage" tippen und innerhalb 150 ms zurücksetzen → bleibt bei 481, der Begriff kommt nicht nachträglich zurück | getestet |
 
 ## E — Zahnrad-Menü / Datenverwaltung
 

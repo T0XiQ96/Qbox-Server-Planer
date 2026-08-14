@@ -19,7 +19,7 @@ import { alleMitStandard } from './defaults.js';
 import { ladeZustand, istGehakt, setzeHaken, setzeNotiz, setzePrioritaet, setzeZurueck, legeBackupAn, holeBackups, ladeBackup, loescheBackup, benenneBackupUm, holeAnsicht, setzeAnsicht } from './state.js';
 import { baueIndex, aktiveKonflikte, fehlendeAbhaengigkeiten, bundleHinweis, alleGruppen, gruppenMitglieder, alternativen } from './relations.js';
 import { kartenHTML, escapeHtml } from './render.js';
-import { leererFilter, gefilterteUndSortierteListe, holeAktiveSortierung, setzeAktiveSortierung, SORTIER_OPTIONEN, passtSuche } from './filters.js';
+import { leererFilter, gefilterteUndSortierteListe, holeAktiveSortierung, setzeAktiveSortierung, SORTIER_OPTIONEN, passtSuche, gruppenMitAnzahl, OHNE_GRUPPE } from './filters.js';
 import { vergleicheMehrere, mehrfachVergleichHTML } from './compare.js';
 import { berichtBeiderUmgebungen, berichtZusammenfassung, warnIds, synergienBeiderUmgebungen, ungenutzteSynergien, UMGEBUNG_LABEL } from './warnings.js';
 import { wissenSeiteHTML, wissenNavHTML } from './wissen.js';
@@ -68,7 +68,7 @@ function baueGeruest() {
         <button class="btn" id="btn-vergleich">⚖️ Vergleich</button>
         <button class="btn" id="btn-zahnrad">⚙️ Daten</button>
       </div>
-      <div class="korbleiste" id="korbleiste" hidden></div>
+      <div class="korbleiste" id="korbleiste"></div>
     </header>
 
     <details class="warnbox" id="warnbox">
@@ -89,6 +89,7 @@ function baueGeruest() {
     <div class="werkzeugleiste">
       <input type="search" id="f-suche" class="feld feld-suche" placeholder="🔍 Suchen (Name, Funktion, Kategorie) …">
       <select id="f-kategorie" class="feld"></select>
+      <select id="f-gruppe" class="feld"></select>
       <select id="f-status" class="feld">
         <option value="alle">Status: alle</option>
         <option value="main">✅ auf MAIN</option>
@@ -132,6 +133,8 @@ function baueGeruest() {
   const kat = document.getElementById('f-kategorie');
   kat.innerHTML = '<option value="">Kategorie: alle</option>' +
     KATEGORIEN.map((k) => `<option value="${escapeHtml(k.id)}">${escapeHtml(k.name)}</option>`).join('');
+
+  fuelleGruppenFilter();
 
   document.getElementById('chips').innerHTML = BADGE_CHIPS
     .map(([id, text]) => `<button class="chip" data-badge="${id}">${text}</button>`).join('');
@@ -343,6 +346,33 @@ function aktualisiereChips() {
   }
 }
 
+/**
+ * Das Auswahlfeld der Funktionsgruppen. Es entsteht aus den Daten, nie aus einer gepflegten Liste —
+ * jede Recherche-Runde bringt neue Gruppen, und ein neues Plugin darf `src/` nicht anfassen müssen.
+ * Deshalb auch nach einem Import erneut aufgerufen: der mitgebrachte Katalog kann Gruppen enthalten,
+ * die der eingebaute nicht kennt.
+ *
+ * Die Mitgliederzahl steht mit dabei, weil sie die eigentliche Frage beantwortet: „lohnt sich hier
+ * ein Vergleich?" — bei (1) gibt es nichts abzuwägen.
+ */
+function fuelleGruppenFilter() {
+  const feld = document.getElementById('f-gruppe');
+  if (!feld) return;                       // beim Start noch kein Gerüst — baueGeruest() holt es nach
+
+  const vorher = feld.value;               // eine laufende Auswahl darf ein Import nicht wegräumen
+  const gruppen = gruppenMitAnzahl(plugins);
+  const ohne = plugins.filter((p) => !p.gruppe).length;
+
+  feld.innerHTML = '<option value="">Funktionsgruppe: alle</option>'
+    + gruppen.map((g) => `<option value="${escapeHtml(g.id)}">${escapeHtml(g.id)} (${g.anzahl})</option>`).join('')
+    + (ohne ? `<option value="${OHNE_GRUPPE}">— ohne Gruppe (${ohne})</option>` : '');
+
+  // Nur zurücksetzen, wenn die vorher gewählte Gruppe im neuen Katalog wirklich weg ist.
+  const gibtsNoch = [...feld.options].some((o) => o.value === vorher);
+  feld.value = gibtsNoch ? vorher : '';
+  if (!gibtsNoch && filter.gruppe) filter.gruppe = '';
+}
+
 /* ============================== Werkzeugleiste ============================== */
 
 let sucheTimer = null;
@@ -357,6 +387,7 @@ function verdrahteWerkzeugleiste() {
   const binde = (id, feld) => document.getElementById(id)
     .addEventListener('change', (e) => { filter[feld] = e.target.value; zeichneListe(); });
   binde('f-kategorie', 'kategorie');
+  binde('f-gruppe', 'gruppe');
   binde('f-status', 'status');
   binde('f-qualitaet', 'qualitaet');
 
@@ -379,10 +410,13 @@ function verdrahteWerkzeugleiste() {
 
   // D8 — setzt AUSSCHLIESSLICH Suche und Filter zurück, niemals Daten.
   document.getElementById('btn-zuruecksetzen').addEventListener('click', () => {
+    // Ohne das schlägt eine noch laufende Entprellung NACH dem Zurücksetzen zu und holt den
+    // gerade geleerten Suchbegriff zurück: Feld leer, Liste trotzdem gefiltert.
+    clearTimeout(sucheTimer);
     filter = leererFilter();
     document.getElementById('f-suche').value = '';
-    for (const id of ['f-kategorie', 'f-status', 'f-qualitaet']) {
-      document.getElementById(id).value = id === 'f-kategorie' ? '' : 'alle';
+    for (const id of ['f-kategorie', 'f-gruppe', 'f-status', 'f-qualitaet']) {
+      document.getElementById(id).value = (id === 'f-kategorie' || id === 'f-gruppe') ? '' : 'alle';
     }
     document.getElementById('f-essenziell').checked = false;
     document.getElementById('f-diff').checked = false;
@@ -584,8 +618,13 @@ function verdrahteGlobal() {
 
 /**
  * Drag&Drop als ZUSATZweg neben dem Klick — nie als einziger: auf Touch-Geräten gibt es kein
- * echtes HTML5-Ziehen, dort bleibt der Klickweg. Die Leiste blendet sich beim Ziehbeginn ein,
- * damit das Ablageziel nie außerhalb des Sichtfelds liegt (sie klebt oben am Kopf).
+ * echtes HTML5-Ziehen, dort bleibt der Klickweg. Die Leiste klebt oben am Kopf und ist immer da,
+ * das Ablageziel liegt also nie außerhalb des Sichtfelds.
+ *
+ * Wichtig: Während eines laufenden Zuges wird hier NICHTS neu gezeichnet. `korb-bereit` und
+ * `korb-drueber` sind reine Rahmenfarben (style.css) — sie ändern nur die Darstellung, nicht das
+ * Layout. Ein Neuzeichnen der Leiste im `dragstart` hat den Zug vorher abgebrochen, weil es die
+ * Seite unter dem Cursor verschob (siehe zeichneKorbleiste).
  */
 function verdrahteZiehen() {
   const leiste = document.getElementById('korbleiste');
@@ -595,15 +634,11 @@ function verdrahteZiehen() {
     if (!knopf) return;
     e.dataTransfer.setData('text/plain', knopf.dataset.korb);
     e.dataTransfer.effectAllowed = 'copy';
-    ziehtGerade = true;
-    zeichneKorbleiste();
     leiste.classList.add('korb-bereit');
   });
 
   document.addEventListener('dragend', () => {
-    ziehtGerade = false;
     leiste.classList.remove('korb-bereit', 'korb-drueber');
-    zeichneKorbleiste();
   });
 
   leiste.addEventListener('dragover', (e) => {
@@ -814,19 +849,34 @@ const kopfZustand = erzeugeVergleichsZustand();
 let aktivesVergleichsZiel = korbZustand;
 
 let korbSuche = '';
-let ziehtGerade = false;
 
 /** Nur für die Karten-Anzeige (aktiver Rahmen ums ⚖️): zeigt IMMER den Korb, nie die Kopf-Auswahl. */
 function imKorb(id) { return korbZustand.hat(id); }
 
-/** Die angedockte Leiste. Beim Ziehen erscheint sie auch leer — sonst gäbe es kein sichtbares Ziel. */
+/**
+ * Die angedockte Leiste — IMMER sichtbar, auch leer.
+ *
+ * Vorher blendete sie sich erst beim Ziehbeginn ein. Das hatte zwei Fehler, die zusammen dazu
+ * führten, dass sich in eine leere Liste nichts ziehen ließ (nur in eine bereits gefüllte):
+ *
+ *  1. `el.hidden` wirkte nie. `[hidden] { display: none }` steht im Browser-Stylesheet, unser
+ *     `.korbleiste { display: flex }` in style.css — und eine Autoren-Regel schlägt die
+ *     Browser-Regel unabhängig von der Spezifität. Die leere Leiste stand also immer da, nur mit
+ *     leerem Inhalt: ein 18px hoher, unsichtbarer Streifen.
+ *  2. Beim `dragstart` wuchs sie von 18px auf 42px. Sie sitzt im Kopf, also rutschte die ganze
+ *     Liste darunter im selben Moment 24px nach unten — mitsamt der Karte, an der der Cursor
+ *     gerade zog. Ein Ablageziel, das erst beim Zielen entsteht und dabei alles verschiebt, ist
+ *     keines. War schon etwas drin, war die Leiste vorher so hoch wie nachher, es sprang nichts,
+ *     und es funktionierte — genau das beobachtete Verhalten.
+ *
+ * Eine Leiste mit fester Höhe kostet eine Zeile im Kopf und ist dafür ein verlässliches Ziel, das
+ * man sieht, BEVOR man zieht. Der Hinweistext macht den Zugweg nebenbei überhaupt erst auffindbar.
+ */
 function zeichneKorbleiste() {
   const el = document.getElementById('korbleiste');
   if (!el) return;
 
   const drin = korbZustand.ids();
-  if (!drin.length && !ziehtGerade) { el.hidden = true; el.innerHTML = ''; return; }
-  el.hidden = false;
 
   const chips = drin.map((id) => {
     const p = index.get(id);
@@ -837,7 +887,7 @@ function zeichneKorbleiste() {
   el.innerHTML = `<span class="korb-titel">⚖️ Vergleich</span>
     <div class="korb-chips">${chips || '<span class="korb-leer">⚖️ einer Karte hierher ziehen</span>'}</div>
     <button type="button" class="btn btn-klein" data-korb-oeffnen="1" ${drin.length ? '' : 'disabled'}>Öffnen (${drin.length})</button>
-    <button type="button" class="btn btn-klein btn-leise" data-korb-leeren="1">leeren</button>`;
+    <button type="button" class="btn btn-klein btn-leise" data-korb-leeren="1" ${drin.length ? '' : 'disabled'}>leeren</button>`;
 }
 
 /* ------------------------------ Das Fenster ------------------------------ */
@@ -1351,6 +1401,7 @@ async function katalogImportieren() {
   plugins = ergebnis.plugins;
   index = baueIndex(plugins);
   katalogAufbauen();
+  fuelleGruppenFilter();   // der importierte Katalog kann Gruppen mitbringen, die es vorher nicht gab
   zeichneListe();
 
   if (!ergebnis.gesichert.ok) hinweis({ titel: '⚠️ Nicht dauerhaft gespeichert', inhalt: `<p>${escapeHtml(ergebnis.gesichert.meldung)}</p>` });

@@ -17,6 +17,56 @@ Format je Eintrag:
 
 ---
 
+## [App-Ausbau 7] Ziehen in den leeren Vergleich + Funktionsgruppen-Filter – 14.08.2026
+
+**Der Fehler (Nutzermeldung): in eine leere Vergleichsleiste ließ sich nichts ziehen, in eine
+bereits gefüllte schon.** Zwei Ursachen, beide im Browser nachgemessen, nicht vermutet:
+
+1. **`el.hidden` wirkte nie.** `[hidden] { display: none }` steht im Browser-Stylesheet,
+   `.korbleiste { display: flex }` in unserer `style.css` — eine Autoren-Regel schlägt die
+   Browser-Regel unabhängig von der Spezifität. Gemessen: `hidden=true`, aber
+   `display: "flex"`, Höhe 18px. Die „versteckte" Leiste stand also immer da, nur mit leerem
+   Inhalt: ein unsichtbarer 18px-Streifen.
+2. **Beim `dragstart` wuchs sie von 18px auf 42px.** Sie sitzt im Kopf, also rutschte im selben
+   Moment die gesamte Liste darunter 24px nach unten — mitsamt der Karte, an der der Cursor
+   gerade zog. War schon etwas drin, war die Leiste vorher so hoch wie nachher, es sprang nichts,
+   und das Ziehen funktionierte. Genau das gemeldete Verhalten.
+
+**Die Korrektur (DECISIONS D31):** Die Leiste ist jetzt **immer sichtbar**, auch leer, mit dem
+Hinweis „⚖️ einer Karte hierher ziehen". Während eines laufenden Zuges wird nichts mehr neu
+gezeichnet — `korb-bereit`/`korb-drueber` sind reine Rahmenfarben ohne Layout-Wirkung. `ziehtGerade`
+ist damit überflüssig und entfallen, das tote `hidden` im Gerüst ebenso. Nachgemessen: Höhe 42px
+vor **und** während des Ziehens, Layout-Sprung 0; drei Einträge nacheinander aus dem leeren
+Zustand hineingezogen, alle drei angekommen. Nebenbei macht der Hinweistext den Zugweg überhaupt
+erst auffindbar. „leeren" ist im leeren Zustand jetzt deaktiviert wie „Öffnen".
+
+**Neu: Funktionsgruppen-Filter in der Werkzeugleiste (Feature D10, DECISIONS D32).** Die Kategorie
+sagt, worum es geht („Fahrzeuge"), die Gruppe sagt, wofür es einen Ersatz gibt („garage" — davon
+gehört genau eines auf den Server). Das war bisher nur im Vergleich erreichbar. Die Auswahlliste
+entsteht **aus den Katalogdaten**, nie aus einer gepflegten Liste — jede Recherche-Runde bringt
+neue Gruppen, und ein neues Plugin darf `src/` nicht anfassen müssen (CLAUDE.md §2.1). Mit
+Mitgliederzahl je Gruppe (beantwortet „lohnt sich hier ein Vergleich?") und Sonderwert
+„— ohne Gruppe" (252 Einträge). Nach einem Import wird sie neu aufgebaut, eine laufende Auswahl
+bleibt erhalten, sofern es die Gruppe noch gibt. Geprüft: 70 Gruppen im Feld, `diving` → genau
+die 2 Einträge aus Runde 45, `dealership` → 6, UND-Verknüpfung mit der Kategorie stimmt.
+
+**Nebenbefund beim Testen behoben (Feature D11):** „↺ Zurücksetzen" brach eine laufende
+Such-Entprellung nicht ab. Tippte man in die Suche und klickte innerhalb von 150 ms auf
+Zurücksetzen, feuerte der Timer danach trotzdem und holte den gerade geleerten Suchbegriff zurück
+— Suchfeld leer, Liste aber gefiltert (gemessen: 17 statt 481 Treffer). Ein `clearTimeout` in der
+Zurücksetzen-Behandlung. Der Fehler bestand unabhängig von dieser Runde.
+
+**Nicht angefasst:** Die Seite scrollt waagerecht (`scrollWidth` 1492 bei 1265 Viewport). Gegen
+den Build **vor** dieser Runde gegengeprüft: dort identisch, kein sichtbares Element steht über.
+Vorbestehend und unabhängig von dieser Änderung — für eine eigene Runde vorgemerkt.
+
+**Version:** package.json 3.3.0 → **3.4.0**, `catalogVersion` der neuesten Katalogdatei
+entsprechend `3.3-r46` → `3.4-r46` (dasselbe Vorgehen wie bei App-Ausbau 6, siehe PROGRESS.md).
+Validate grün, `npm run selftest` 45/45, keine Konsolenfehler.
+**Commit:** folgt
+
+---
+
 ## [Build] v3.3-r46 – 14.08.2026
 
 Nutzerwunsch: Katalogstand nach Runden 40-46 (77 neue Plugins seit v3.3-r39, 404 → 481) als
