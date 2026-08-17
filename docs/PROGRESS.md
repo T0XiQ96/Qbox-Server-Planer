@@ -3,8 +3,38 @@
 > Diese Datei ist das Gedächtnis des Projekts. Sie wird nach **jedem** Arbeitsschritt aktualisiert.
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
-**Letzte Aktualisierung:** 14.08.2026
-**Letzter Commit:** folgt (Runden 47-50: 43 weitere neue Plugins, 481 → 524).
+**Letzte Aktualisierung:** 17.08.2026
+**Letzter Commit:** folgt (Runden 51-54: gezielte Alternativen-Suche zur DEV-ensure-Liste, 524 → 531).
+
+**Runden 51-56 (17.08.2026) — gezielte Alternativen-Suche statt freier Neusuche, auf
+Nutzerwunsch:** Der Nutzer gab seine echte DEV-`ensure`-Liste (63 Plugins) vor und wollte dazu
+2-3 aktuell genutzte Alternativen je Plugin/Funktionsgruppe, plus neue bisher unabgedeckte
+Funktionsgruppen. 6 Subagenten liefen parallel (je ein Themen-Cluster). Ergebnis: 7 neue
+Plugins, 4 Bestandseinträge neu gruppiert, siehe CHANGELOG „[Runden 51-54]" für Details.
+**Zwei archivierte Plugins in der Nutzer-Liste entdeckt und gemeldet:** `qbx_lockpick` und
+`qbx_prison`, beide ohne bekannten Nachfolger. **Ein Backdoor-Repo gefunden und NICHT
+aufgenommen:** `n70118087-hash/fivem-store-robbery-fixed` (obfuskierter Code, sendet
+Server-Metadaten extern, führt Remote-Code per `load()`/`loadstring()` aus).
+
+**Neues Muster, das sich bewährt hat — gezielte Alternativen-Suche statt freier Neusuche:**
+Statt `discover` mit offenen Themen-Stichworten laufen zu lassen, bekam jeder Subagent eine
+explizite Liste von Bestands-IDs samt ihrer aktuellen `gruppe`-Zugehörigkeit (oder `null`) und
+sollte gezielt Konkurrenzprodukte dazu suchen. Das deckt echte Lücken im bestehenden Katalog
+ab (nicht nur neue Themen) und bringt ehrliche Nulltreffer für Fundament-Plugins ohne echte
+Alternative (`ox_lib`, `qbx_core`) statt erzwungener schwacher Einträge. **Für künftige
+Alternativen-Runden wiederverwendbar**, wenn der Nutzer eine reale ensure-Liste vorlegt.
+
+**Node.js-Ausfall (17.08.2026):** Zu Sessionbeginn fehlte `node.exe` komplett unter
+`C:\Program Files\nodejs\` (nur noch `npm`/`npx` vorhanden, Ursache unklar). Auf Nutzerwunsch
+über `winget install OpenJS.NodeJS.LTS --silent` neu installiert (jetzt v24.19.0). Falls das
+wieder auftritt: `winget install OpenJS.NodeJS.LTS --accept-package-agreements
+--accept-source-agreements --silent`, danach neue Shell/neuer Bash-Aufruf (PATH muss neu
+geladen werden).
+
+**Offen aus dieser Runde, auf Nutzerwunsch zurückgestellt:** Prüfbericht-Feature „Warnungen
+einzeln wegklickbar machen, Zustand persistent merken, bei Entfernen+Wiederhinzufügen taucht
+die Warnung erneut auf" — betrifft `src/`, wurde dem Nutzer als Opus-Aufgabe gemeldet
+(CLAUDE.md §1), noch nicht umgesetzt. Warten auf Modellwechsel.
 
 **Runden 47-50 (14.08.2026) — vier weitere Neusuche-Runden, gleiches Muster wie 40-46:** 43 neue
 Einträge über acht `discover`-Zusatzsuchen (ems/fire, carwash/scoreboard/loadingscreen,

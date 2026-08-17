@@ -26,6 +26,47 @@ Tebex-Kauf mit Weiterverbreitungsverbot nennt (Runde 48).
 **Build:** `npm run build` lief grün — **v3.4-r50**, 940 KB, 524 Plugins, 18 Module.
 **Commit:** folgt
 
+## [Runden 51-54] – 17.08.2026
+
+**Neu:** Auf Nutzerwunsch gezielte Alternativen-Suche zu den 63 Plugins der aktuell genutzten
+DEV-ensure-Liste (Runden 51-56 parallel über 6 Subagenten). 7 neue Plugins gefunden und
+aufgenommen, 4 Bestandseinträge per `updates[]` neu gruppiert (`qbx_vineyard`→`vineyard`,
+`qbx_taxijob`→`taxi`, `qbx_customs-redesign-`→`mechanic`, `mugshot_base64`→`mugshot`).
+Neue Gruppen: `mugshot` (loaf_headshot_base64), `vineyard` (ti_vineyard). Erweiterte Gruppen:
+`target` (+ak47_target, +meta_target), `recycling` (+vhs_recycle), `busjob` (+m4_busjob),
+`scrapping` (+mcr-scrapyard).
+
+**Wichtiger Sicherheitsfund (nicht übernommen):** Bei der Suche nach einer dritten
+`ladenraub`-Alternative stieß der Recherche-Agent auf `n70118087-hash/fivem-store-robbery-fixed`
+— ein Repo mit obfuskiertem Code in `sv_bridge.lua`, der Server-Metadaten an einen externen
+Host sendet und bei Antwort beliebigen Code per `load()`/`loadstring()` ausführt (Backdoor).
+Bewusst **nicht** in den Katalog aufgenommen.
+
+**Ehrlich ohne Ergebnis:** Für den Großteil der 63 geprüften Plugins (u.a. `ox_lib`, `qbx_core`,
+`bob74_ipl`, DB-/Doorlock-Gruppe, `qbx_medical`, `qbx_management`, `qbx_newsjob`,
+`qbx_fireworks`, `qbx_jewelery`, `qbx_truckrobbery`, `qbx_weed`, `qbx_carwash`, `qbx_lapraces`,
+`qbx_streetraces`, `qbx_vehiclesales`, `dps-vehiclepersistence`, `um-idcard`, `qbx_seatbelt`,
+`qbx_binoculars`, `bs_billing`, `serverdepth-businesses`, `dps-transit` sowie eine dritte
+Alternative zu trucking/garbagejob/diving) fand sich **keine aktiv gepflegte, belegbare
+Alternative** — die Subagenten haben das nach `docs/RECHERCHE.md` §1c korrekt als „nicht
+auffindbar" gemeldet statt schwache oder tote Kandidaten reinzudrücken.
+
+**Bekannte archivierte Plugins in der Nutzer-ensure-Liste:** `qbx_lockpick` und `qbx_prison`
+sind laut Katalog beide archiviert, **kein Nachfolger bekannt** — dem Nutzer mitgeteilt.
+
+**Neue Funktionsgruppen (Runde 56):** Lückenanalyse über den ganzen Katalog. Casino, Jagd,
+Anwalt/Gericht, Auktionshaus waren bereits abgedeckt (`razed-cryptocrash`, `w2f-hunting`,
+`serverdepth-doj`, `bcs_auction`). Für Versicherung, Umzugsfirma, Schießstand, Nachtclub, Zoll
+und Kreuzfahrt/Tourismus lieferte die GitHub-Code-Suche keine belegbaren aktiven Repos — bewusst
+kein Eintrag erzwungen, Empfehlung für eine künftige Runde: Websuche/Cfx-Forum statt reiner
+GitHub-Suche.
+
+**Katalog:** 7 neu, 4 Bestandseinträge per `updates[]` gruppiert, 0 Duplikate, 0 ungeprüft.
+**Build:** `npm run build` lief grün — **v3.5-r54**, 950 KB, 531 Plugins, 18 Module.
+**Umgebung:** Node.js war zu Sessionbeginn defekt (fehlende `node.exe`), auf Nutzerwunsch über
+`winget install OpenJS.NodeJS.LTS` neu installiert (v24.19.0).
+**Commit:** folgt
+
 Format je Eintrag:
 
 ```

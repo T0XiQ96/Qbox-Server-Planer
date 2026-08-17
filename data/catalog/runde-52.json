@@ -1,0 +1,60 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.5-r52",
+  "runde": 52,
+  "thema": "Alternativen zu Staat-Jobs der DEV-ensure-Liste: busjob- und recycling-Gruppe erweitert",
+  "erstellt": "2026-08-17",
+  "plugins": [
+    {
+      "id": "vhs_recycle",
+      "name": "vhs-recycle",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "gruppe": "recycling",
+      "beschreibung": "Recycling-Job: Müll/Schrott einsammeln und gegen Bezahlung abgeben, Items/Locations/Progressbars frei konfigurierbar. Läuft per Framework-Bridge auf ESX, QBCore und Qbox.",
+      "link": "https://github.com/VoidHubScripts/vhs-recycle",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-17",
+      "geprueft_am": "2026-08-17",
+      "version": "1.2",
+      "letztes_update": "Aktiv · letzter Push 2025-11-02",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib"],
+      "contra": [
+        "Keine LICENSE-Datei im Repo gefunden"
+      ],
+      "quelle": "https://github.com/VoidHubScripts/vhs-recycle (fxmanifest.lua, README, zuletzt gepusht 2025-11-02)"
+    },
+    {
+      "id": "m4_busjob",
+      "name": "M4_BusJob",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "gruppe": "busjob",
+      "beschreibung": "Busfahrer-Job mit dynamischen Linien, GPS-Routing, In-Bus-Dashboard, virtuellen Fahrgästen und Depot-Interaktion.",
+      "link": "https://github.com/mrghozzi/M4_BusJob",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-17",
+      "geprueft_am": "2026-08-17",
+      "version": "1.5",
+      "letztes_update": "Aktiv · letzter Push 2026-03-02",
+      "lizenz": "open_source",
+      "framework": "qbcore_only",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "kompat_warnung": {
+        "text": "Abhängigkeit ist explizit 'qb-core' (Legacy-QBCore), keine native qbx_core-Prüfung im fxmanifest/README gefunden. Auf Qbox nur über Kompat-Layer einsetzbar, nicht als nativ bestätigt.",
+        "sicherheit": "vermutung"
+      },
+      "contra": [
+        "Keine LICENSE-Datei im Repo gefunden",
+        "Harte qb-core-Abhängigkeit statt Bridge-Autoerkennung"
+      ],
+      "quelle": "https://github.com/mrghozzi/M4_BusJob (fxmanifest.lua, zuletzt gepusht 2026-03-02)"
+    }
+  ],
+  "updates": []
+}

@@ -1,0 +1,46 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.5-r54",
+  "runde": 54,
+  "thema": "Alternativen zu Fahrzeuge/Zivil-Plugins der DEV-ensure-Liste: neue vineyard-Gruppe, taxi/mechanic-Gruppenkorrekturen",
+  "erstellt": "2026-08-17",
+  "plugins": [
+    {
+      "id": "ti_vineyard",
+      "name": "ti_vineyard",
+      "kategorie": "zivil",
+      "essenziell": false,
+      "gruppe": "vineyard",
+      "beschreibung": "Weinberg-Job: Trauben an mehreren Standorten ernten, zu Traubenmaische verarbeiten und zu Wein verarbeiten (Skill-Check-Minigames), dann per interaktivem Liefer-Ped an dynamisch spawnende Kunden verkaufen.",
+      "link": "https://github.com/Tilci2k/ti_vineyard",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-17",
+      "geprueft_am": "2026-08-17",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2025-11-01",
+      "lizenz": "open_source",
+      "framework": "qbox_nativ",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "abhaengigkeiten": ["qbx_core", "ox_lib", "ox_target", "ox_inventory"],
+      "pro": [
+        "ox_lib/ox_target/ox_inventory durchgängig genutzt (fxmanifest bestätigt)",
+        "MIT-Lizenz, Code frei einsehbar und reparierbar",
+        "Aktiv gepflegt (Stand 11/2025)"
+      ],
+      "contra": [
+        "Kleines Ein-Personen-Projekt, nur 2 GitHub-Stars, wenig Praxiserfahrung Dritter dokumentiert",
+        "Kein separates Item-/Config-Beispiel im Repo, Item-Namen müssen selbst angepasst werden"
+      ],
+      "neutral": [
+        "Funktionsumfang deckungsgleich mit qbx_vineyard: ernten → verarbeiten → verkaufen"
+      ],
+      "quelle": "https://github.com/Tilci2k/ti_vineyard (fxmanifest.lua, README.md, LICENSE per GitHub-API gelesen 2026-08-17)"
+    }
+  ],
+  "updates": [
+    { "id": "qbx_vineyard", "gruppe": "vineyard", "geprueft_am": "2026-08-17", "update_grund": "Konkurrenzprodukt ti_vineyard gefunden, gemeinsame Funktionsgruppe angelegt." },
+    { "id": "qbx_taxijob", "gruppe": "taxi", "geprueft_am": "2026-08-17", "update_grund": "Gehört fachlich zur bestehenden Gruppe taxi (anox-autotaxi, c-taxi-bot) — NPC-/Spieler-Taxifahrten mit Taxameter." },
+    { "id": "qbx_customs-redesign-", "gruppe": "mechanic", "geprueft_am": "2026-08-17", "update_grund": "Fork der qb_customs-Linie (selbst Fork von popcornrp-customs), gehört fachlich in dieselbe Funktionsgruppe wie qb_customs." }
+  ]
+}

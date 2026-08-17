@@ -1,0 +1,118 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.5-r51",
+  "runde": 51,
+  "thema": "Alternativen zu Basis-Plugins der DEV-ensure-Liste: target-Gruppe erweitert, neue mugshot-Gruppe",
+  "erstellt": "2026-08-17",
+  "plugins": [
+    {
+      "id": "ak47_target",
+      "name": "ak47_target",
+      "kategorie": "ui",
+      "essenziell": false,
+      "gruppe": "target",
+      "beschreibung": "Third-Eye-Interaktionssystem, gedacht als performantes Drop-in für ox_target/qb-target/qtarget mit nativer QBX-Unterstützung.",
+      "link": "https://github.com/MenanAk47/ak47_target",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-17",
+      "geprueft_am": "2026-08-17",
+      "version": "1.6.6",
+      "letztes_update": "Aktiv · letzter Push 2026-06-23",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "konflikte": ["ox_target", "qb_target"],
+      "kompat_warnung": {
+        "text": "Keine Framework-Bindung im fxmanifest (kein qb-inventory/qb-target-Export, kein ox_lib-Dependency). client/frameworks.lua und client/compat.lua enthalten die Auto-Erkennung für QBCore/ESX/QBX; README nennt QBX explizit als nativ unterstützt.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Native, im README ausdrücklich genannte QBX-Unterstützung",
+        "Zero-Config-Migration: übersetzt Legacy-Exports von qb-target, qtarget, ox_target automatisch",
+        "Sehr aktiv gepflegt (Push Juni 2026), eigene GitBook-Doku"
+      ],
+      "contra": [
+        "Kleines Projekt (wenige Sterne), Community-Erfahrungswerte auf Qbox-Servern noch begrenzt",
+        "Keine ox_lib-Anbindung – nutzt eigene NUI/Zonen-Implementierung statt des Ökosystem-Standards"
+      ],
+      "neutral": [
+        "Soll ox_target, qb-target und qtarget vollständig ersetzen (provides-Liste im fxmanifest)"
+      ],
+      "quelle": "https://github.com/MenanAk47/ak47_target, fxmanifest.lua, server/main.lua"
+    },
+    {
+      "id": "meta_target",
+      "name": "meta_target",
+      "kategorie": "ui",
+      "essenziell": false,
+      "gruppe": "target",
+      "beschreibung": "Third-Eye-Interaktionssystem für FiveM und RedM, das die APIs von bt-target, fivem-target und qtarget unter einer Ressource vereinheitlichen will.",
+      "link": "https://github.com/meta-hub/meta_target",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-17",
+      "geprueft_am": "2026-08-17",
+      "version": "1.1.0",
+      "letztes_update": "Kein neuer Push seit 2024-12-21, nicht archiviert",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib"],
+      "konflikte": ["ox_target", "qb_target"],
+      "kompat_warnung": {
+        "text": "fxmanifest lädt @ox_lib/init.lua in den shared_scripts und listet ox_lib + PolyZone als dependencies. provide-Liste deckt bt-target, fivem-target, qtarget, qb-target und ox_target ab.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Nutzt ox_lib direkt (Ökosystem-Standard), grünes Flag nach RECHERCHE.md §3",
+        "Breite provide-Kompatibilitätsliste zu allen gängigen Target-APIs"
+      ],
+      "contra": [
+        "Seit Dezember 2024 keine neuen Commits mehr – Pflegezustand unklar",
+        "Kein LICENSE-File im Repo hinterlegt (SPDX-Feld leer), nur öffentlicher Code als Beleg für open_source"
+      ],
+      "neutral": [
+        "Unterstützt zusätzlich RedM (game gta5/rdr3 im fxmanifest)"
+      ],
+      "quelle": "https://github.com/meta-hub/meta_target, fxmanifest.lua, README.md"
+    },
+    {
+      "id": "loaf_headshot_base64",
+      "name": "loaf_headshot_base64",
+      "kategorie": "staat",
+      "essenziell": false,
+      "gruppe": "mugshot",
+      "beschreibung": "Wandelt einen FiveM-Ped-Headshot direkt in einen Base64-String um – wie mugshot_base64 eine reine Capture-Utility, keine eigene UI oder Speicherung.",
+      "link": "https://github.com/loaf-scripts/loaf_headshot_base64",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-17",
+      "geprueft_am": "2026-08-17",
+      "version": "unbekannt",
+      "letztes_update": "Seit 2021-11-21 kein neuer Commit – vermutlich unterhaltsfrei, aber ohne Framework-Anbindung auch ohne Bruchrisiko",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "kompat_warnung": {
+        "text": "client.lua enthält ausschließlich native FiveM-Funktionen (RegisterPedheadshot, NUI-Callback zur Base64-Konvertierung) und keinerlei Framework-Zugriffe – dadurch strukturell konfliktfrei mit Qbox.",
+        "sicherheit": "bestaetigt"
+      },
+      "pro": [
+        "Komplett framework-frei, keine Abhängigkeiten – kann Qbox nicht durch Bridge-Vorbeigriffe brechen",
+        "Sehr kleiner, klar lesbarer Code (ein einziges client.lua + NUI-Callback)"
+      ],
+      "contra": [
+        "Seit 2021 nicht mehr aktualisiert, kein aktives Maintenance",
+        "Kein LICENSE-File im Repo – open_source nur aus öffentlicher Sichtbarkeit des Codes abgeleitet, nicht aus einer expliziten Lizenzangabe"
+      ],
+      "neutral": [
+        "Nur ein einzelner Export (getBase64) – kein MDT- oder UI-Funktionsumfang wie um-idcard"
+      ],
+      "quelle": "https://github.com/loaf-scripts/loaf_headshot_base64, fxmanifest.lua, client.lua"
+    }
+  ],
+  "updates": [
+    { "id": "mugshot_base64", "gruppe": "mugshot", "geprueft_am": "2026-08-17", "update_grund": "Konkurrenzprodukt loaf_headshot_base64 gefunden (funktional identisch), gemeinsame Funktionsgruppe angelegt." }
+  ]
+}

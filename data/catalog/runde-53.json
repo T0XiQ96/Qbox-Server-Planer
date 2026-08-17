@@ -1,0 +1,48 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.5-r53",
+  "runde": 53,
+  "thema": "Alternativen zu Crime-Plugins der DEV-ensure-Liste: scrapping-Gruppe erweitert",
+  "erstellt": "2026-08-17",
+  "plugins": [
+    {
+      "id": "mcr-scrapyard",
+      "name": "mcr-scrapyard",
+      "kategorie": "fahrzeuge",
+      "essenziell": false,
+      "gruppe": "scrapping",
+      "beschreibung": "Konfigurierbares Verschrottungssystem: Spieler bringen Fahrzeuge zum Schrottplatz, zerlegen sie per Fortschrittsbalken in Einzelteile (Türen, Motorhaube, Kofferraum, Räder) und erhalten Belohnungen. Optionale Polizei-Dispatch-Alarme bei Verschrottung, konfigurierbare Cop-Mindestzahl.",
+      "link": "https://github.com/MCore-Development/mcr-scrapyard",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-17",
+      "geprueft_am": "2026-08-17",
+      "version": "1.0.0",
+      "letztes_update": "Aktiv · letzter Push 2026-07-18",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "abhaengigkeiten": ["ox_lib", "ox_target", "cd_dispatch"],
+      "pro": [
+        "MIT-lizenziert, echtes Open Source",
+        "ox_lib + ox_target als Ziel-Backend nutzbar (config-schaltbar zwischen ox_target/qb-target)",
+        "Vollständig lokalisierbar (Config.Locales), Beispiel-Locales EN/CS mitgeliefert",
+        "Police-Dispatch-Integration (cd_dispatch) mit konfigurierbarer Alarm-Chance"
+      ],
+      "contra": [
+        "Framework-Zugriff läuft über exports['qb-core']:GetCoreObject() statt qbx_core-native Exports — funktioniert nur über Qbox' QBCore-Kompatibilitätsschicht, nicht offiziell gegen Qbox getestet",
+        "Kein eigenständiger Code-Beleg für Qbox in README oder fxmanifest, nur QBCore/ESX genannt",
+        "0 Sterne, sehr kleine Nutzerbasis, kein Track Record"
+      ],
+      "neutral": [
+        "Funktional nah an qbx_scrapyard und lxs-scrapping (andere Anbieter) — siehe Gruppenvergleich"
+      ],
+      "kompat_warnung": {
+        "text": "Nutzt exports['qb-core']:GetCoreObject() statt qbx_core-nativer Exports. Läuft über Qbox' QBCore-Bridge, keine direkten Patches an Player.Functions oder qb-inventory-Hard-Dependency gefunden (Ziel-System ist per Config auf ox_target umschaltbar).",
+        "sicherheit": "vermutung"
+      },
+      "quelle": "https://github.com/MCore-Development/mcr-scrapyard, fxmanifest.lua, README.md, client/client.lua"
+    }
+  ],
+  "updates": []
+}
