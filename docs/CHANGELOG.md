@@ -67,6 +67,18 @@ GitHub-Suche.
 `winget install OpenJS.NodeJS.LTS` neu installiert (v24.19.0).
 **Commit:** folgt
 
+## [Runde 57] – 17.08.2026
+
+**Neu:** Auf Nutzerwunsch gezielt Prison-, Loadingscreen- und Radialmenü-Alternativen gesucht.
+Neue Gruppe `prison` mit `comaven_prison` (vollwertiges Haftsystem als Ersatz für das
+archivierte `qbx_prison`, mit bestätigter Kompat-Warnung: harte `qb-inventory`-Abhängigkeit im
+Code, kein ox_inventory-Zweig). `loading`-Gruppe um `pure_loadingscreen` und `qb_loading`
+erweitert. Radialmenü-Recherche ergab: `interaction_menu_mod`/`qb_radialmenu` haben bereits
+dieselbe Gruppe `radialmenu` — kein Handlungsbedarf, dritte Alternative nicht gefunden.
+**Katalog:** 3 neu, 1 Bestandseintrag gruppiert, 0 Duplikate, 0 ungeprüft.
+**Build:** v3.5-r57, 955 KB, 534 Plugins, 18 Module.
+**Commit:** folgt
+
 Format je Eintrag:
 
 ```

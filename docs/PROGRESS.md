@@ -4,7 +4,14 @@
 > Sie muss so geschrieben sein, dass ein völlig neuer Chat allein damit weiterarbeiten kann.
 
 **Letzte Aktualisierung:** 17.08.2026
-**Letzter Commit:** folgt (Runden 51-54: gezielte Alternativen-Suche zur DEV-ensure-Liste, 524 → 531).
+**Letzter Commit:** folgt (Runde 57: Prison/Loadingscreen-Alternativen, 531 → 534).
+
+**Runde 57 (17.08.2026):** Nutzer wollte gezielt mehr Auswahl bei Prison, Loadingscreen und
+Radialmenü, plus direkte Empfehlungen zu HUD/Ambulance/Dealership/Cityhall/Phone/Appearance/
+Adminmenu aus dem Bestand (siehe Chat, nicht in Doku wiederholt). Neue Gruppe `prison`
+(`comaven_prison` — einzige aktiv gepflegte Alternative zum archivierten `qbx_prison`, aber mit
+harter `qb-inventory`-Abhängigkeit im Code, als Kompat-Warnung vermerkt). `loading`-Gruppe um 2
+erweitert. Radialmenü war entgegen der Vermutung schon korrekt gruppiert. 534 Plugins gesamt.
 
 **Runden 51-56 (17.08.2026) — gezielte Alternativen-Suche statt freier Neusuche, auf
 Nutzerwunsch:** Der Nutzer gab seine echte DEV-`ensure`-Liste (63 Plugins) vor und wollte dazu

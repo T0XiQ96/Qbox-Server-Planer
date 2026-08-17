@@ -1,0 +1,114 @@
+{
+  "_hinweis": "Recherche strikt nach docs/RECHERCHE.md. Jede Plugin-Seite tatsächlich lesen — kein Eintrag aus Vorwissen. Nicht Belegbares bekommt qualitaet \"ungeprueft\".",
+  "catalogVersion": "3.5-r57",
+  "runde": 57,
+  "thema": "Alternativen zu Prison, Loadingscreen; Radialmenü-Gruppierung geprüft (bereits korrekt)",
+  "erstellt": "2026-08-17",
+  "plugins": [
+    {
+      "id": "comaven_prison",
+      "name": "qb-prison (comaven)",
+      "kategorie": "staat",
+      "essenziell": false,
+      "gruppe": "prison",
+      "beschreibung": "Vollwertiges Gefängnis-System: Haftzeit, Job in Haft, Item-Verwahrung, Ausbruch-Mechanik mit Alarm und Polizei-Benachrichtigung. Framework-Autoerkennung QBCore/ESX, laut Beschreibung auch für Qbox.",
+      "link": "https://github.com/comaven/qb-prison",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-17",
+      "geprueft_am": "2026-08-17",
+      "version": "2.1.0",
+      "letztes_update": "Aktiv · letzter Push 2026-04-06",
+      "lizenz": "open_source",
+      "framework": "qbcore_bridge",
+      "qualitaet": "teilgeprueft",
+      "preis": null,
+      "pro": [
+        "Vollständiges Haftsystem inkl. Ausbruch-Mechanik, Alarm und Polizei-Alert",
+        "Framework-Autoerkennung QBCore/ESX im Code bestätigt",
+        "Aktiv gepflegt (Push 04/2026), qbx_prison dagegen seit 09.07.2026 archiviert ohne Nachfolger"
+      ],
+      "contra": [
+        "Harte Abhängigkeit auf exports['qb-inventory']:AddItem im Code bestätigt — Qbox nutzt standardmäßig ox_inventory, hier ohne ox_inventory-Zweig",
+        "Kein eigener Qbox/qbx-Zweig im Code, nur QBCore/ESX — 'Qbox'-Angabe im Repo-Titel setzt auf die QBCore-Bridge, nicht auf native Qbox-Exports",
+        "Kein README über eine Zeile hinaus (\"Works with Qbox, QBCore, ESX\"), keine Lizenzdatei im Repo",
+        "Keine GitHub-Stars, geringe Verbreitung/Praxiserfahrung Dritter"
+      ],
+      "neutral": [
+        "PolyZone als Zonen-Basis statt ox_lib zones"
+      ],
+      "kompat_warnung": {
+        "text": "Server-Code ruft exports['qb-inventory']:AddItem direkt auf (Fundstelle server/main.lua, Funktion prison:server:GiveJailItems und CheckChance) — ohne qb-inventory-kompatible Bridge oder eigenen ox_inventory-Zweig bricht die Item-Rückgabe nach Haftende auf einem reinen Qbox/ox_inventory-Setup.",
+        "sicherheit": "bestaetigt"
+      },
+      "quelle": "https://github.com/comaven/qb-prison (fxmanifest.lua, README.md, server/main.lua, client/main.lua per GitHub-API gelesen 2026-08-17)"
+    },
+    {
+      "id": "pure_loadingscreen",
+      "name": "pure_loadingscreen",
+      "kategorie": "ui",
+      "essenziell": false,
+      "gruppe": "loading",
+      "beschreibung": "Standalone-Loadingscreen mit Server-Info-Anzeige (Spielerzahl, Tipps, Discord-Button), zeigt Ladefortschritt und wartet auf expliziten Shutdown-Aufruf aus einem anderen Script (z.B. multicharacter).",
+      "link": "https://github.com/purescripts-fivem/pure_loadingscreen",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-17",
+      "geprueft_am": "2026-08-17",
+      "version": "unbekannt",
+      "letztes_update": "Aktiv · letzter Push 2026-03-03",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "pro": [
+        "Komplett framework-unabhängig, keine QBCore/qb-*-Aufrufe im Code",
+        "Modernes fxmanifest.lua (fx_version 'adamant'), GPL-3.0-lizenziert",
+        "Aktiv gepflegt, 13 GitHub-Stars"
+      ],
+      "contra": [
+        "Muss manuell mit ShutdownLoadingScreen()/ShutdownLoadingScreenNui() aus einem Spawn-/Multicharacter-Script verbunden werden"
+      ],
+      "neutral": [
+        "Sehr schlankes README, Funktionsumfang ergibt sich erst aus index.html/script.js"
+      ],
+      "quelle": "https://github.com/purescripts-fivem/pure_loadingscreen (fxmanifest.lua, README.md, server.lua per GitHub-API gelesen 2026-08-17)"
+    },
+    {
+      "id": "qb_loading",
+      "name": "qb-loading",
+      "kategorie": "ui",
+      "essenziell": false,
+      "gruppe": "loading",
+      "beschreibung": "Offizieller Loadingscreen der qbcore-framework-Org: Bild-Karussell oder Video-Parallax, eigene Sprachdatei, Keybind-Karussell.",
+      "link": "https://github.com/qbcore-framework/qb-loading",
+      "link_status": "ok",
+      "link_geprueft_am": "2026-08-17",
+      "geprueft_am": "2026-08-17",
+      "version": "1.2.0",
+      "letztes_update": "⚠️ Letzter Push 2025-05-10 (~15 Monate), nicht archiviert",
+      "lizenz": "open_source",
+      "framework": "standalone",
+      "qualitaet": "verifiziert",
+      "preis": null,
+      "pro": [
+        "Offizielle qbcore-framework-Org, 37 GitHub-Stars",
+        "Komplett standalone (nur HTML/JS als loadscreen, keine Framework-Aufrufe)",
+        "GPL-3.0, konfigurierbar über Kommentare im Code laut README"
+      ],
+      "contra": [
+        "Letzter Push vor rund 15 Monaten — Pflege wirkt eingeschlafen, auch wenn Repo nicht archiviert ist"
+      ],
+      "neutral": [
+        "Bild-Karussell oder Video-Parallax wählbar"
+      ],
+      "quelle": "https://github.com/qbcore-framework/qb-loading (fxmanifest.lua, README.md per GitHub-API gelesen 2026-08-17)"
+    }
+  ],
+  "updates": [
+    {
+      "id": "qbx_prison",
+      "gruppe": "prison",
+      "geprueft_am": "2026-08-17",
+      "update_grund": "Konkurrenzprodukt comaven/qb-prison gefunden, gemeinsame Funktionsgruppe angelegt (qbx_prison bleibt trotz Archivierung als Referenzeintrag stehen)."
+    }
+  ]
+}
